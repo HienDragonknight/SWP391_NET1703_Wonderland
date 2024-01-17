@@ -14,11 +14,11 @@ import java.sql.SQLException;
  */
 public class DBUtils {
     
-    private static final String DB_NAME = "";
+    private static final String DB_NAME = "PartyForKids";
     private static final String DB_USERNAME = "sa";
     private static final String DB_PASS = "12345";
     
-    public static Connection vreateConnection() throws ClassNotFoundException, SQLException {
+    public static Connection createConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String url = "jdbc:sqlserver://localhost:1433;databaseName=" + DB_NAME;
         Connection con = DriverManager.getConnection(url, DB_USERNAME, DB_PASS);
