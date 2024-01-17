@@ -8,6 +8,6 @@ package models;
  *
  * @author Hp
  */
-public class User {
+public class UserDTO {
     
 }
