@@ -21,3 +21,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     align-items: center;
 }
 
+.header a {
+    color: #1c1e53;
+    transition: color 0.3s ease;
+}
+
+.header a:hover {
+    color: #5e3bee !important;
+}
+
