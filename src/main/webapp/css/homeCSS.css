@@ -6,4 +6,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : Jan 18, 2024, 9:33:04 AM
     Author     : Le Huu Huy
 */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.header {
+    display: flex;
+}
+
+.header img {
+    width: 50px;
+}
+
+.header button {
+    cursor: pointer;
+}
