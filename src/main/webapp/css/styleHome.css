@@ -105,6 +105,35 @@ i {
     align-items: center;
     justify-content: center;
     gap: 6px;
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.search:hover input,
+.search:hover i{
+    color: #5773ff;
+}
+
+.search input {
+    width: 80%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: 18px;
+}
+
+.right-section .profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 30px;
+}
+
+.profile .login a:hover,
+.profile .login:hover i{
+    color: #5773ff;
 }
 
 @media screen and (max-width: 992px) {
