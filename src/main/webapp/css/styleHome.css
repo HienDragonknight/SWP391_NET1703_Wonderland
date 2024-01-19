@@ -32,6 +32,12 @@ html, body {
     height: 100vh;
 }
 
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr;
+}
+
 .sidebar {
     height: 100vh;
     background-color: #fff;
@@ -42,22 +48,76 @@ html, body {
     transition: all 0.6s ease;
 }
 
-.sidebar .logo {
+.logo {
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
-.sidebar .logo > i {
+.logo img {
+    position: relative;
+    bottom: 20px;
+    width: 100%;
+}
+
+main header .nav-link button,
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+i {
     font-size: 24px;
     transition: all 0.3s ease;
 }
 
-.sidebar .logo .menu ul li:hover a,
-.sidebar .logo .menu ul li:hover i {
+.menu-ic li:hover a,
+.menu-ic li:hover i {
     color: #5773ff;
 }
 
-.sidebar .logo .menu ul {
+.menu-ic {
     list-style: none;
+}
+
+.menu-ic li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.menu-ic li a {
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.nav-link {
+    display: none;
+    align-items: center;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        grid-template-columns: 3fr 2fr;
+    }
+    
+    .container .sidebar {
+        position: absolute;
+        left: -100%;
+    }
+    
+    .nav-link {
+        display: flex;
+    }
 }
