@@ -114,6 +114,10 @@ i {
     border-color: #5773ff;
 }
 
+header {
+    padding-bottom: 50px;
+}
+
 .search:hover input,
 .search:hover i{
     color: #5773ff;
@@ -128,6 +132,8 @@ i {
 }
 
 .right-section .profile {
+    position: relative;
+    top: 8px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -135,6 +141,11 @@ i {
     padding: 30px;
     position: relative;
     bottom: 1px;
+    font-size: 15px;
+}
+
+.right-section .profile i {
+    font-size: 18px;
 }
 
 .profile .login:hover a,

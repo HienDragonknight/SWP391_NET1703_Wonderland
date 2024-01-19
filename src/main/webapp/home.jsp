@@ -50,7 +50,7 @@
                     </ul>
                 </div>
             </aside>
-            
+
             <main>
                 <header>
                     <div class="nav-link">
@@ -59,14 +59,23 @@
                         </button>
                         <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
                     </div>
-                    
+
                     <div class="search">
                         <i class='bx bx-search' ></i>
                         <input type="text" name="txtSearchValue" placeholder="Type here to search"/>
                     </div>
                 </header>
+
+                <div class="slider">
+                    <div class="slides">
+                        <img class="slide" src="image/cover1.jpg"/>
+                        <img class="slide" src="image/cover2.jpg"/>
+                        <img class="slide" src="image/cover3.jpg"/>
+                        <img class="slide" src="image/cover4.png"/>
+                    </div>
+                </div>
             </main>
-            
+
             <div class="right-section">
                 <div class="profile">
                     <div class="login">
@@ -78,9 +87,11 @@
                         <i class='bx bx-lock-alt' ></i>
                         <a href="#"> Sign Up</a>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
+
+        <script src="js/slider.js"/>
     </body>
 </html>
