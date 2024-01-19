@@ -132,7 +132,7 @@ i {
     bottom: 1px;
 }
 
-.profile .login a:hover,
+.profile .login:hover a,
 .profile .login:hover i{
     color: #5773ff;
 }
