@@ -1,16 +1,18 @@
+<%-- 
+    Document   : packages
+    Created on : Jan 19, 2024, 3:26:31 PM
+    Author     : Le Huu Huy
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Wonderlands</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="css/styleHome.css"/>
         <link rel="icon" href="image/img1.jpg"/>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link rel="stylesheet" href="css/stylePackages.css"/>
     </head>
     <body>
         <div class="container">
@@ -23,15 +25,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2' ></i>
-                            <a href="#">Home</a>
+                            <a href="home.jsp">Home</a>
                         </li>
                         <li>
                             <i class='bx bx-location-plus' ></i>
-                            <a href="#">Location</a>
+                            <a href="location.jsp">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package' ></i>
-                            <a href="#">Packages</a>
+                            <a href="packages.jsp">Packages</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
@@ -79,8 +81,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     
                 </div>
             </div>
-            
         </div>
-
     </body>
 </html>
