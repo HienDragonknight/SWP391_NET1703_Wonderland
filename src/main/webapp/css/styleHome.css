@@ -89,9 +89,15 @@ i {
     cursor: pointer;
 }
 
+.menu-ic li:hover {
+    border: 1px solid #919191;
+    border-radius: 8px;
+    padding: 1px;
+    width: 100%;
+}
+
 .menu-ic li a {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 16px;
     transition: all 0.3s ease;
 }
 
@@ -129,6 +135,8 @@ i {
     justify-content: flex-end;
     gap: 8px;
     padding: 30px;
+    position: relative;
+    bottom: 1px;
 }
 
 .profile .login a:hover,
