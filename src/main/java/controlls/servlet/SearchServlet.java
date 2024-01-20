@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "SearchServlet", urlPatterns = {"/SearchServlet"})
+@WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
 public class SearchServlet extends HttpServlet {
     private final String SEARCH_PAGE = "search.jsp";
     /**
