@@ -62,7 +62,7 @@
                 border: 1px solid #919191;
                 border-color: #5773ff;
             }
-            
+
             header .side-bar .search-bar form {
                 display: flex;
                 gap: 12px;
@@ -245,7 +245,8 @@
             <header>
                 <aside class="side-bar">
                     <div class="logo">
-                        <img src="image/LogoCN.png" alt="logo">
+                       
+                        <a href="/home"> <img src="image/LogoCN.png" alt="logo" ></a>
                     </div>
 
                     <div class="search-bar">
@@ -262,7 +263,9 @@
                             <i class='bx bx-user'></i>
                             <a href="#">Login</a>
                         </div>
+
                         <span> / </span>
+
                         <div class="sign-pro">
                             <i class='bx bx-lock-alt'></i>
                             <a href="#">Sign Up</a>
@@ -276,15 +279,15 @@
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-                            <a href="#">Home</a>
+                            <a href="/home">Home</a>
                         </li>
                         <li>
                             <i class='bx bx-location-plus'></i>
-                            <a href="#">Location</a>
+                            <a href="/location">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package'></i>
-                            <a href="#">Packages</a>
+                            <a href="/packages">Packages</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>

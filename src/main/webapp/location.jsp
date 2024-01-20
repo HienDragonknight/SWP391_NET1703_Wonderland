@@ -237,6 +237,7 @@
                         <i class='bx bx-user'></i>
                         <a href="#">Login</a>
                     </div>
+
                     <span>/</span>
                     <div class="login">
                         <i class='bx bx-lock-alt' ></i>
