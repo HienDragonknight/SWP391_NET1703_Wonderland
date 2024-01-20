@@ -54,15 +54,18 @@
             }
 
             header .side-bar .search-bar {
+                position: relative;
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 30px;
                 width: 30%;
                 padding: 8px;
                 border-radius: 250px;
                 border: 1px solid #919191;
                 border-color: #5773ff;
+            }
+            
+            header .side-bar .search-bar form {
+                display: flex;
+                gap: 12px;
             }
 
             header .side-bar .search-bar button {
@@ -224,6 +227,17 @@
                     left: 0%;
                 }
             }
+
+            @media screen and (max-width: 992px) {
+                .container main {
+                    grid-template-columns: 3fr 2fr;
+                }
+
+                .menu {
+                    position: absolute;
+                    left: -100%;
+                }
+            }
         </style>
     </head>
     <body>
@@ -235,10 +249,12 @@
                     </div>
 
                     <div class="search-bar">
-                        <button>
-                            <i class='bx bx-search'></i>
-                        </button>
-                        <input type="text" placeholder="Type here to search">
+                        <form action="SearchServlet">
+                            <button>
+                                <i class='bx bx-search'></i>
+                            </button>
+                            <input type="text" placeholder="Type here to search">
+                        </form>
                     </div>
 
                     <div class="profile">
