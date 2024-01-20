@@ -155,7 +155,7 @@ header {
 
 .slide-container {
     position: relative;
-    width: 1365.69px;
+    width: 100%;
     max-width: 100vw;
     height: 680px;
 }
