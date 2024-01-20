@@ -10,7 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Wonderlands</title>
-        <link rel="icon" href="image/img1.jpg"/>
+        <link rel="icon" href="image/LogoTron.png"/>
         <link rel="stylesheet" href="css/style.css"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
@@ -61,8 +61,10 @@
                     </div>
 
                     <div class="search">
-                        <i class='bx bx-search' ></i>
-                        <input type="text" name="txtSearchValue" placeholder="Type here to search"/>
+                        <form action="SearchServlet">
+                            <i class='bx bx-search' ></i>
+                            <input type="text" name="txtSearchValue" value="${param.txtSearchValue}" placeholder="Type here to search"/>
+                        </form>
                     </div>
                 </header>
 
@@ -78,7 +80,7 @@
                         <span class="next">&#10095;</span>
                         <span class="prev">&#10094;</span>
                     </div>
-                    
+
                     <div class="dotsContainer">
                         <div class="dot active" attr='0' onclick="switchImage(this)"></div>
                         <div class="dot" attr='1' onclick="switchImage(this)"></div>
