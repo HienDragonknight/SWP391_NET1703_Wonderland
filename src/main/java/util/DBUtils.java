@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class DBUtils {
     
-    private static final String DB_NAME = "PartyForKids";
+    private static final String DB_NAME = "Wonderland";
     private static final String DB_USERNAME = "sa";
     private static final String DB_PASS = "12345";
     
