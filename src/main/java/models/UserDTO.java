@@ -4,18 +4,20 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Hp
  */
-public class UserDTO {
-    
-       private String fullName;
-       private String email;
-       private String password;
-       private String phoneNumber;
-       private String avatar;
-       private int roleID;
+public class UserDTO implements Serializable{
+
+    private String fullName;
+    private String email;
+    private String password;
+    private String phoneNumber;
+    private String avatar;
+    private int roleID;
 
     public UserDTO() {
     }
@@ -76,7 +78,5 @@ public class UserDTO {
     public void setRoleID(int roleID) {
         this.roleID = roleID;
     }
-       
-       
-    
+
 }
