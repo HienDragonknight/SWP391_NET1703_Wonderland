@@ -99,7 +99,7 @@ i {
     align-items: center;
 }
 
-.search {
+.search form {
     position: relative;
     top: 25px;
     left: 350px;
@@ -123,7 +123,7 @@ header {
     color: #5773ff;
 }
 
-.search input {
+.search form input {
     width: 80%;
     border: none;
     outline: none;
