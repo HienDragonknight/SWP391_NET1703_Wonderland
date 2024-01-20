@@ -3,7 +3,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Jan 19, 2024, 8:15:44 AM
+    Created on : Jan 20, 2024, 11:04:39 AM
     Author     : Le Huu Huy
 */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
@@ -102,7 +102,7 @@ i {
 .search {
     position: relative;
     top: 25px;
-    left: 150px;
+    left: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -141,7 +141,7 @@ header {
     padding: 30px;
     position: relative;
     bottom: 1px;
-    font-size: 15px;
+    font-size: 17px;
 }
 
 .right-section .profile i {
@@ -153,34 +153,112 @@ header {
     color: #5773ff;
 }
 
-.slider {
-    width: 1365.7px;
-    max-width: 100vw;
-    height: 658px;
-    margin: auto;
+.slide-container {
     position: relative;
-}
-
-.list {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    display: flex;
-    width: max-content;
-}
-
-.list .item img {
-    width: 1365.7px;
+    width: 1365.69px;
     max-width: 100vw;
+    height: 680px;
+}
+
+.slide-container .slides {
+    width: 100%;
     height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide-container .slides img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
     object-fit: cover;
 }
 
-.buttons {
+.slide-container .slides img:not(.active) {
+    top: 0;
+    left: -100%;
+}
+
+span.next, span.prev {
     position: absolute;
-    top: 45%;
-    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 14px;
+    color: #eee;
+    font-size: 24px;
+    font-weight: bold;
+    transition: 0.5s;
+    border-radius: 3px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+span.next {
+    right: 20px;
+}
+
+span.prev {
+    left: 20px;
+}
+
+.dotsContainer {
+    position: absolute;
+    bottom: 5px;
+    z-index: 3;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+}
+
+.dotsContainer .active {
+    background-color: #5773ff;
+}
+
+.dotsContainer .dot {
+    width: 15px;
+    height: 15px;
+    margin: 0px 2px;
+    border: 3px solid #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+    cursor: pointer;
+}
+
+@keyframes next1 {
+    from {
+        left: 0%;
+    }
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes next2 {
+    from {
+        left: 100%;
+    }
+    to {
+        left: 0%;
+    }
+}
+
+@keyframes prev1 {
+    from {
+        left: 0%;
+    }
+    to {
+        left: 100%;
+    }
+}
+
+@keyframes prev2 {
+    from {
+        left: -100%;
+    }
+    to {
+        left: 0%;
+    }
 }
 
 @media screen and (max-width: 992px) {

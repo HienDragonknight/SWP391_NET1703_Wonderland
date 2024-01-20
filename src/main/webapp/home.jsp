@@ -1,6 +1,6 @@
 <%-- 
     Document   : home
-    Created on : Jan 19, 2024, 3:43:35 PM
+    Created on : Jan 20, 2024, 11:02:52 AM
     Author     : Le Huu Huy
 --%>
 
@@ -10,9 +10,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Wonderlands</title>
-        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-        <link rel="stylesheet" href="css/styleHome.css"/>
         <link rel="icon" href="image/img1.jpg"/>
+        <link rel="stylesheet" href="css/style.css"/>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     </head>
     <body>
         <div class="container">
@@ -66,40 +66,28 @@
                     </div>
                 </header>
 
-                <div class="slider">
-                    <div class="list">
-                        <div class="item">
-                            <img src="image/cover1.jpg"/>
-                        </div>
-                        
-                        <div class="item">
-                            <img src="image/cover2.jpg"/>
-                        </div>
-                        
-                        <div class="item">
-                            <img src="image/cover3.jpg"/>
-                        </div>
-                        
-                        <div class="item">
-                            <img src="image/cover4.png"/>
-                        </div>
+                <div class="slide-container">
+                    <div class="slides">
+                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                        <img src="image/cover2.jpg" alt="image #2"/>
+                        <img src="image/cover3.jpg" alt="image #3"/>
+                        <img src="image/cover4.png" alt="image #4"/>
                     </div>
-                    
-                    <!-- button prev and next -->
+
                     <div class="buttons">
-                        <button id="prev">&#10094</button>
-                        <button id="next">&#10095</button>
+                        <span class="next">&#10095;</span>
+                        <span class="prev">&#10094;</span>
                     </div>
                     
-                    <!-- dots -->
-                    <ul class="dots">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <div class="dotsContainer">
+                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                    </div>
 
                 </div>
+
             </main>
 
             <div class="right-section">
@@ -113,7 +101,6 @@
                         <i class='bx bx-lock-alt' ></i>
                         <a href="#"> Sign Up</a>
                     </div>
-
                 </div>
             </div>
         </div>
