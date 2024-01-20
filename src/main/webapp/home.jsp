@@ -67,12 +67,38 @@
                 </header>
 
                 <div class="slider">
-                    <div class="slides">
-                        <img class="slide" src="image/cover1.jpg"/>
-                        <img class="slide" src="image/cover2.jpg"/>
-                        <img class="slide" src="image/cover3.jpg"/>
-                        <img class="slide" src="image/cover4.png"/>
+                    <div class="list">
+                        <div class="item">
+                            <img src="image/cover1.jpg"/>
+                        </div>
+                        
+                        <div class="item">
+                            <img src="image/cover2.jpg"/>
+                        </div>
+                        
+                        <div class="item">
+                            <img src="image/cover3.jpg"/>
+                        </div>
+                        
+                        <div class="item">
+                            <img src="image/cover4.png"/>
+                        </div>
                     </div>
+                    
+                    <!-- button prev and next -->
+                    <div class="buttons">
+                        <button id="prev">&#10094</button>
+                        <button id="next">&#10095</button>
+                    </div>
+                    
+                    <!-- dots -->
+                    <ul class="dots">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+
                 </div>
             </main>
 
@@ -92,6 +118,6 @@
             </div>
         </div>
 
-        <script src="js/slider.js"/>
+        <script src="js/slider.js"></script>
     </body>
 </html>
