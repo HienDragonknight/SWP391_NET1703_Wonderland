@@ -4,10 +4,13 @@
     Author     : Le Huu Huy
 --%>
 
+
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 
 <!DOCTYPE html>
 <html>
@@ -272,45 +275,42 @@
 
                     <div class="location-product" id="<%= index++%>" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
                         <h2 class="location-name"><%= location.getLocationDetails()%></h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                     </div>
-
+                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                 </div>
 
-
-                <%                    }
-                    }
-                %>
+        </div>
 
 
-
-
+        <%                    }
+            }
+        %>
 
 
 
 
 
 
-            </main>
 
-            <div class="right-section">
-                <div class="profile">
-                    <div class="login">
-                        <i class='bx bx-user'></i>
-                        <a href="#">Login</a>
-                    </div>
 
-                    <span>/</span>
-                    <div class="login">
-                        <i class='bx bx-lock-alt' ></i>
-                        <a href="#"> Sign Up</a>
-                    </div>
-                </div>
+
+
+    </main>
+
+    <div class="right-section">
+        <div class="profile">
+            <div class="login">
+                <i class='bx bx-user'></i>
+                <a href="#">Login</a>
+            </div>
+
+            <span>/</span>
+            <div class="login">
+                <i class='bx bx-lock-alt' ></i>
+                <a href="#"> Sign Up</a>
             </div>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>

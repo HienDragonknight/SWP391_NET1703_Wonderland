@@ -32,9 +32,25 @@ public class ViewLocationServlet extends HttpServlet {
         String url = ERROR;
 
         try {
+
+            int page = 1;   // innitilize first page 
+
+            // for the next page
+            if (request.getParameter("page") != null) {
+                page = Integer.parseInt(request.getParameter("page"));
+            }
+
+            int recordsPerPage = 4;
+            int startOffset = recordsPerPage * (page - 1);
+
+            int noOfPages = (int) Math.ceil(recordsPerPage * 1.0 / recordsPerPage);   // for displaying
+
             LocationDAO dao = new LocationDAO();
-            List<LocationDTO> listLocation = dao.getListLocation();
+            List<LocationDTO> listLocation = dao.getListLocation(startOffset, recordsPerPage);
+
             request.setAttribute("LIST_LOCATION", listLocation);
+            request.setAttribute("NO_OF_PAGES", noOfPages);
+            request.setAttribute("CURRENT_PAGE", page);
 
         } catch (Exception e) {
             log("Error at ViewLocationServlet");
