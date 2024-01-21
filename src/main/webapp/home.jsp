@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -245,8 +248,8 @@
             <header>
                 <aside class="side-bar">
                     <div class="logo">
-                       
-                        <a href="/home"> <img src="image/LogoCN.png" alt="logo" ></a>
+
+                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                     </div>
 
                     <div class="search-bar">
@@ -274,20 +277,22 @@
                 </aside>
             </header>
 
+
+
             <main>
                 <div class="menu">
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-                            <a href="/home">Home</a>
+                            <a href="home.jsp">Home</a>
                         </li>
                         <li>
                             <i class='bx bx-location-plus'></i>
-                            <a href="/location">Location</a>
+                            <a href="ViewLocation">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package'></i>
-                            <a href="/packages">Packages</a>
+                            <a href="packages.jsp">Packages</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>

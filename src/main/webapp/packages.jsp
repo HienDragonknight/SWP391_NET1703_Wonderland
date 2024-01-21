@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -192,7 +193,7 @@
                         </li>
                         <li>
                             <i class='bx bx-location-plus' ></i>
-                            <a href="location.jsp">Location</a>
+                            <a href="ViewLocation">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package' ></i>
@@ -215,7 +216,6 @@
             </aside>
 
 
-
             <main>
                 <header>
                     <div class="nav-link">
@@ -228,7 +228,7 @@
                     <div class="search">
                         <form action="SearchServlet">
                             <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="${param.txtSearchValue}" placeholder="Type here to search"/>
+                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
                         </form>
                     </div>
                 </header>
@@ -248,6 +248,8 @@
 
 
                 <div class="container-location-products">
+
+
                     <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
                         <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
                         <div class="price-box">
@@ -255,78 +257,6 @@
                             <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
                         </div>
                         <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="1" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-nguy-n-chi-thanh.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM NGUYỄN CHÍ THANH</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-nguy-n-chi-thanh.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="2" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-royal-city-hn.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM ROYAL CITY HN</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">100.000&nbsp;₫</span> - <span class="price">120.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">95.000&nbsp;₫</span> - <span class="price">114.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-royal-city-hn.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="3" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-time-city.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM TIME CITY</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">100.000&nbsp;₫</span> - <span class="price">120.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">95.000&nbsp;₫</span> - <span class="price">114.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-time-city.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="4" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-b-c-t-li-m.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM BẮC TỪ LIÊM</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">80.000&nbsp;₫</span> - <span class="price">100.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">76.000&nbsp;₫</span> - <span class="price">95.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-b-c-t-li-m.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="5" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-tr-n-duy-hung.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM TRẦN DUY HƯNG</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">100.000&nbsp;₫</span> - <span class="price">120.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">95.000&nbsp;₫</span> - <span class="price">114.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-tr-n-duy-hung.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="6" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-ba-tri-u.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM BÀ TRIỆU</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">120.000&nbsp;₫</span> - <span class="price">150.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">114.000&nbsp;₫</span> - <span class="price">142.500&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-ba-tri-u.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="7" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-vincom-long-bi-n.html'">
-                        <h2 class="location-name">TINIWORLD VINCOM LONG BIÊN</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">80.000&nbsp;₫</span> - <span class="price">100.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">76.000&nbsp;₫</span> - <span class="price">95.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-vincom-long-bi-n.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="8" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-ha-dong.html'">
-                        <h2 class="location-name">TINIWORLD AEON HÀ ĐÔNG</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-ha-dong.html">Đặt vé</a>
-                    </div>
-                    <div class="location-product" id="9" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-lotte-tay-ho.html'">
-                        <h2 class="location-name">TINIWORLD LOTTE TÂY HỒ</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">120.000&nbsp;₫</span> - <span class="price">150.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">114.000&nbsp;₫</span> - <span class="price">142.500&nbsp;₫</span></span>
-                        </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-lotte-tay-ho.html">Đặt vé</a>
                     </div>
                 </div>
             </main>
