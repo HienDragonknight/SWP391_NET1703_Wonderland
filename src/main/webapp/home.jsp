@@ -142,7 +142,9 @@
                 position: relative;
                 width: 100%;
                 max-width: 100vw;
-                height: 700px;
+                height: 600px;
+                max-height: 100vh;
+                margin: auto;
             }
 
             .slide-container .slides {
