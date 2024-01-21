@@ -286,27 +286,18 @@
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-<<<<<<< HEAD
-                            <a href="/home.jsp">Home</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="/location.jsp">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="/packages.jsp">Packages</a>
-=======
+
                             <a href="home.jsp">Home</a>
                         </li>
+
                         <li>
                             <i class='bx bx-location-plus'></i>
                             <a href="ViewLocation">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package'></i>
-                            <a href="packages.jsp">Packages</a>
->>>>>>> Bao
+                            <a href="ViewPackage">Packages</a>
+
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>

@@ -197,7 +197,7 @@
                         </li>
                         <li>
                             <i class='bx bx-package' ></i>
-                            <a href="packages.jsp">Packages</a>
+                            <a href="ViewPackage">Packages</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
