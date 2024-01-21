@@ -279,15 +279,15 @@
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-                            <a href="/home">Home</a>
+                            <a href="/home.jsp">Home</a>
                         </li>
                         <li>
                             <i class='bx bx-location-plus'></i>
-                            <a href="/location">Location</a>
+                            <a href="/location.jsp">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package'></i>
-                            <a href="/packages">Packages</a>
+                            <a href="/packages.jsp">Packages</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
