@@ -69,6 +69,7 @@
             header .side-bar .search-bar form {
                 display: flex;
                 gap: 12px;
+                width: 100%;
             }
 
             header .side-bar .search-bar button {
@@ -77,7 +78,7 @@
             }
 
             header .side-bar .search-bar input {
-                width: 80%;
+                width: 100%;
                 border: none;
                 outline: none;
                 background-color: transparent;
