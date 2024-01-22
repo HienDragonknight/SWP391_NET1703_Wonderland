@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -141,7 +142,7 @@
 
             .container main {
                 display: grid;
-                grid-template-columns: 1fr 5fr 1fr;
+                grid-template-columns: 1fr 6fr;
             }
 
             .menu-ic li:hover a,
@@ -255,7 +256,7 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
+                            <a href="about.jsp">About Us</a>
                         </li>
                     </ul>
                 </div>
