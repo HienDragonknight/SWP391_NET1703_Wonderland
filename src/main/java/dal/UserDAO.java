@@ -16,7 +16,8 @@ import util.DBUtils;
  *
  * @author Le Huu Huy
  */
-public class UserDAO implements Serializable{
+public class UserDAO implements Serializable {
+
     public UserDTO checkLogin(String email, String password) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;

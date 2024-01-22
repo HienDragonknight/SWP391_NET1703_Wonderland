@@ -1,21 +1,12 @@
 <%-- 
-    Document   : location
-    Created on : Jan 19, 2024, 3:37:17 PM
+    Document   : about
+    Created on : Jan 22, 2024, 1:04:05 PM
     Author     : Le Huu Huy
 --%>
 
-
-<<<<<<< HEAD
-
-=======
 <%@page import="models.UserDTO"%>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
-<%@page import="java.util.List"%>
-<%@page import="models.LocationDTO"%>
-
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -127,28 +118,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -179,26 +170,34 @@
                 transition: all 0.3s ease;
             }
 
-            @media screen and (max-width: 992px) {
-                .container {
-                    grid-template-columns: 3fr 2fr;
-                }
+            main .about .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
 
-                .container .sidebar {
-                    position: absolute;
-                    left: -100%;
-                }
+            main .about .add-ab a {
+                font-size: 13px;
+            }
 
-                .nav-link {
-                    display: flex;
-                }
+            main .about .add-ab a:hover {
+                color: #5773ff;
+            }
+
+            main .about h1 {
+                padding-bottom: 30px;
+            }
+            main .about .history h2 {
+                font-weight: 500;
+                padding-bottom: 20px;
+            }
+            
+            main .about .history p {
+                font-size: 14px;
+                font-weight: 300;
             }
         </style>
     </head>
-
-
-
-
     <body>
         <div class="container">
             <header>
@@ -289,92 +288,29 @@
                     </ul>
                 </div>
 
-<<<<<<< HEAD
-            <main>
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
+                <div class="about">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a>&#10095;<span>About Us</span>
                     </div>
 
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
-                        </form>
+                    <h1>About Wonderland</h1>
+
+                    <div class="history">
+                        <h2>History begin</h2>
+                        <p>
+                            EDUCATION + ENTERTAINMENT = “EDUCATION – INTELLIGENCE”
+
+                            wonderland was founded in September 2009, and is a pioneer in developing "Education - Wisdom" centers for children aged 0-12 in Vietnam. With the mission: "Creating a safe, healthy, fun, international and community environment for all children to come play, learn and develop according to the Education - Wisdom method", wonderland has continuously pioneered and developed the "Education-Entertainment" Playground chain system to serve and meet the increasing entertainment needs of children and parents.
+
+                            The system of wonderland centers stretches everywhere in Vietnam, in key cities Ho Chi Minh, Binh Duong, Hanoi and other large cities such as Can Tho, Vung Tau, Buon Me Thuot...
+
+                            With expertise, many years of experience, and a deep understanding of children, tiNiWorld recognizes that the best way for children to learn knowledge and early life experiences is through fun activities. and interact with the world around them.
+
+                            wonderland brings peace of mind to parents and schools by creating a fun, safe and highly communal environment for children.
+                        </p>
                     </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
-                            </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
-                            </li>
-                        </ul>
-                    </div>
-
-
-
-
-
-                    <c:if test="${requestScope.LIST_LOCATION != null}">
-
-                        <c:if test="${not empty requestScope.LIST_LOCATION}" >
-
-                            <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
-
-
-                                <div class="container-location-products">
-                                    <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                        <h2 class="location-name">${location.locationDetails}</h2>
-                                    </div>
-                                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                                </div>
-
-
-
-                            </c:forEach>
-
-                        </c:if>
-
-                    </c:if>
-
-
                 </div>
-
             </main>
-
-
-
-
-
-            <div class="right-section">
-                <div class="profile">
-                    <div class="login">
-                        <i class='bx bx-user'></i>
-                        <a href="#">Login</a>
-                    </div>
-
-                    <span>/</span>
-                    <div class="login">
-                        <i class='bx bx-lock-alt' ></i>
-                        <a href="#"> Sign Up</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
-=======
-            </main>
-        </div>
-    </div>
-</body>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
 </html>
