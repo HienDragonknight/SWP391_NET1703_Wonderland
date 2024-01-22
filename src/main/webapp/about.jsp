@@ -1,13 +1,12 @@
 <%-- 
-    Document   : home
-    Created on : Jan 20, 2024, 11:02:52 AM
+    Document   : about
+    Created on : Jan 22, 2024, 1:04:05 PM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.UserDTO"%>
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -118,28 +117,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -170,107 +169,31 @@
                 transition: all 0.3s ease;
             }
 
-            .slide-container {
+            main .about .add-ab {
                 position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 600px;
-                max-height: 100vh;
-                margin: auto;
+                top: -4px;
+                font-size: 13px;
             }
 
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
+            main .about .add-ab a {
+                font-size: 13px;
             }
 
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
+            main .about .add-ab a:hover {
+                color: #5773ff;
             }
 
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
+            main .about h1 {
+                padding-bottom: 30px;
             }
-
-            span.next, span.prev {
-                display: none;
+            main .about .history h2 {
+                font-weight: 500;
+                padding-bottom: 20px;
             }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
-            @keyframes next1 {
-                from {
-                    left: 0%;
-                }
-                to {
-                    left: -100%;
-                }
-            }
-
-            @keyframes next2 {
-                from {
-                    left: 100%;
-                }
-                to {
-                    left: 0%;
-                }
-            }
-
-            @keyframes prev1 {
-                from {
-                    left: 0%;
-                }
-                to {
-                    left: 100%;
-                }
-            }
-
-            @keyframes prev2 {
-                from {
-                    left: -100%;
-                }
-                to {
-                    left: 0%;
-                }
-            }
-
-            @media screen and (max-width: 992px) {
-                .container main {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .menu {
-                    position: absolute;
-                    left: -100%;
-                }
+            
+            main .about .history p {
+                font-size: 14px;
+                font-weight: 300;
             }
         </style>
     </head>
@@ -316,7 +239,7 @@
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
-                            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -359,38 +282,34 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
+                            <a href="#">About Us</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="slide-container">
-                    <div class="slides">
-                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                        <img src="image/cover2.jpg" alt="image #2"/>
-                        <img src="image/cover3.jpg" alt="image #3"/>
-                        <img src="image/cover4.png" alt="image #4"/>
+                <div class="about">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a>&#10095;<span>About Us</span>
                     </div>
 
-                    <div class="buttons">
-                        <span class="next">&#10095;</span>
-                        <span class="prev">&#10094;</span>
+                    <h1>About Wonderland</h1>
+
+                    <div class="history">
+                        <h2>History begin</h2>
+                        <p>
+                            EDUCATION + ENTERTAINMENT = “EDUCATION – INTELLIGENCE”
+
+                            wonderland was founded in September 2009, and is a pioneer in developing "Education - Wisdom" centers for children aged 0-12 in Vietnam. With the mission: "Creating a safe, healthy, fun, international and community environment for all children to come play, learn and develop according to the Education - Wisdom method", wonderland has continuously pioneered and developed the "Education-Entertainment" Playground chain system to serve and meet the increasing entertainment needs of children and parents.
+
+                            The system of wonderland centers stretches everywhere in Vietnam, in key cities Ho Chi Minh, Binh Duong, Hanoi and other large cities such as Can Tho, Vung Tau, Buon Me Thuot...
+
+                            With expertise, many years of experience, and a deep understanding of children, tiNiWorld recognizes that the best way for children to learn knowledge and early life experiences is through fun activities. and interact with the world around them.
+
+                            wonderland brings peace of mind to parents and schools by creating a fun, safe and highly communal environment for children.
+                        </p>
                     </div>
-
-                    <div class="dotsContainer">
-                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
-                    </div>
-                </div>
-
-                <div>
-
                 </div>
             </main>
         </div>
-
-        <script src="js/slider.js"></script>
     </body>
 </html>

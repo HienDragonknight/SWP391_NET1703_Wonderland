@@ -1,18 +1,16 @@
 <%-- 
-    Document   : home
-    Created on : Jan 20, 2024, 11:02:52 AM
+    Document   : admin
+    Created on : Jan 22, 2024, 8:04:43 AM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Wonderlands</title>
+        <title>Admin Page</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -118,28 +116,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -168,109 +166,6 @@
             .menu-ic li a {
                 font-size: 16px;
                 transition: all 0.3s ease;
-            }
-
-            .slide-container {
-                position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 600px;
-                max-height: 100vh;
-                margin: auto;
-            }
-
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-            }
-
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
-            }
-
-            span.next, span.prev {
-                display: none;
-            }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
-            @keyframes next1 {
-                from {
-                    left: 0%;
-                }
-                to {
-                    left: -100%;
-                }
-            }
-
-            @keyframes next2 {
-                from {
-                    left: 100%;
-                }
-                to {
-                    left: 0%;
-                }
-            }
-
-            @keyframes prev1 {
-                from {
-                    left: 0%;
-                }
-                to {
-                    left: 100%;
-                }
-            }
-
-            @keyframes prev2 {
-                from {
-                    left: -100%;
-                }
-                to {
-                    left: 0%;
-                }
-            }
-
-            @media screen and (max-width: 992px) {
-                .container main {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .menu {
-                    position: absolute;
-                    left: -100%;
-                }
             }
         </style>
     </head>
@@ -316,7 +211,7 @@
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
-                            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -359,38 +254,12 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
+                            <a href="#">About Us</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="slide-container">
-                    <div class="slides">
-                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                        <img src="image/cover2.jpg" alt="image #2"/>
-                        <img src="image/cover3.jpg" alt="image #3"/>
-                        <img src="image/cover4.png" alt="image #4"/>
-                    </div>
-
-                    <div class="buttons">
-                        <span class="next">&#10095;</span>
-                        <span class="prev">&#10094;</span>
-                    </div>
-
-                    <div class="dotsContainer">
-                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
-                    </div>
-                </div>
-
-                <div>
-
-                </div>
             </main>
         </div>
-
-        <script src="js/slider.js"></script>
     </body>
 </html>

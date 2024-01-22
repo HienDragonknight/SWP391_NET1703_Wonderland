@@ -5,6 +5,7 @@
 --%>
 
 
+<%@page import="models.UserDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 
@@ -16,7 +17,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Wonderlands</title>
-        <link rel="icon" href="image/img1.jpg"/>
+        <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
@@ -28,61 +29,124 @@
                 font-family: 'Roboto', sans-serif;
             }
 
+            i {
+                font-size: 24px;
+            }
+
             a {
                 text-decoration: none;
+                font-size: 18px;
                 color: #232325;
             }
 
-            i {
+            header .side-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 120px;
+            }
+
+            header .side-bar .logo {
+                width: 217px;
+                height: 38px;
+                max-width: 100vw;
+            }
+
+            header .side-bar .logo img {
+                position: relative;
+                bottom: 45px;
+                left: 35px;
+                width: 100%;
+                height: 120px;
+            }
+
+            header .side-bar .search-bar {
+                position: relative;
+                display: flex;
+                width: 30%;
+                padding: 8px;
+                border-radius: 250px;
+                border: 1px solid #919191;
+                border-color: #5773ff;
+            }
+
+            header .side-bar .search-bar form {
+                display: flex;
+                gap: 12px;
+            }
+
+            header .side-bar .search-bar button {
+                border: none;
+                background-color: #fff;
+            }
+
+            header .side-bar .search-bar input {
+                width: 80%;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                font-size: 18px;
+            }
+
+            header .side-bar .search-bar:hover i{
+                color: #5773ff;
+            }
+
+            header .side-bar .profile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                padding: 30px;
+            }
+
+            header .side-bar .profile .login-pro i,
+            header .side-bar .profile .sign-pro i {
                 cursor: pointer;
             }
 
-            .sidebar .logo img {
-                height: 90px;
+            header .side-bar .profile .login-pro:hover i,
+            header .side-bar .profile .login-pro:hover a {
+                color: #5773ff;
             }
 
-            html, body {
-                height: 100vh;
+            header .side-bar .profile .sign-pro:hover i,
+            header .side-bar .profile .sign-pro:hover a {
+                color: #5773ff;
             }
 
-            .container {
-                width: 100%;
+            header .side-bar .user-logined {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 35px;
+                padding: 30px;
+            }
+            
+            header .side-bar .user-logined .logined,
+            header .side-bar .user-logined .cart-items{
+                display: flex;
+                justify-items: center;
+                align-items: center;
+            }
+            
+            header .side-bar .user-logined i {
+                cursor: pointer;
+            }
+            
+            header .side-bar .user-logined .logined:hover i,
+            header .side-bar .user-logined .logined:hover a {
+                color: #5773ff;
+            }
+            
+            header .side-bar .user-logined .cart-items:hover i,
+            header .side-bar .user-logined .cart-items:hover a {
+                color: #5773ff;
+            }
+            
+            .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
-            }
-
-            .sidebar {
-                height: 100vh;
-                background-color: #fff;
-                padding: 20px 36px;
-                display: flex;
-                flex-direction: column;
-                z-index: 1000;
-                transition: all 0.6s ease;
-            }
-
-            .logo {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .logo img {
-                position: relative;
-                bottom: 20px;
-                width: 100%;
-            }
-
-            main header .nav-link button,
-            .sidebar .logo {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            i {
-                font-size: 24px;
-                transition: all 0.3s ease;
             }
 
             .menu-ic li:hover a,
@@ -92,6 +156,9 @@
 
             .menu-ic {
                 list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
             }
 
             .menu-ic li {
@@ -105,65 +172,6 @@
             .menu-ic li a {
                 font-size: 16px;
                 transition: all 0.3s ease;
-            }
-
-            .nav-link {
-                display: none;
-                align-items: center;
-            }
-
-            .search form {
-                position: relative;
-                top: 25px;
-                left: 350px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 30px;
-                width: 50%;
-                padding: 8px;
-                border-radius: 250px;
-                border: 2px solid #919191;
-                border-color: #5773ff;
-            }
-
-            header {
-                padding-bottom: 50px;
-            }
-
-            .search:hover input,
-            .search:hover i{
-                color: #5773ff;
-            }
-
-            .search form input {
-                width: 80%;
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-size: 18px;
-            }
-
-            .right-section .profile {
-                position: relative;
-                top: 8px;
-                display: flex;
-                align-items: center;
-                justify-content: flex-end;
-                gap: 8px;
-                padding: 30px;
-                position: relative;
-                bottom: 1px;
-                font-size: 17px;
-            }
-
-            .right-section .profile i {
-                font-size: 18px;
-            }
-
-            .profile .login:hover a,
-            .profile .login:hover i{
-                color: #5773ff;
             }
 
             @media screen and (max-width: 992px) {
@@ -188,121 +196,96 @@
 
     <body>
         <div class="container">
-            <aside class="sidebar">
-                <div class="logo">
-                    <img src="image/LogoCN.png" width="217" height="38" alt="img2"/>
-                </div>
+            <header>
+                <aside class="side-bar">
+                    <div class="logo">
 
+                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                    </div>
+
+                    <div class="search-bar">
+                        <form action="SearchServlet">
+                            <button>
+                                <i class='bx bx-search'></i>
+                            </button>
+                            <input type="text" placeholder="Type here to search">
+                        </form>
+                    </div>
+
+                    <%
+                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                        if (dto == null) {
+                    %>
+                    <div class="profile">
+                        <div class="login-pro">
+                            <i class='bx bx-user'></i>
+                            <a href="login.jsp">Login</a>
+                        </div>
+
+                        <span> / </span>
+
+                        <div class="sign-pro">
+                            <i class='bx bx-lock-alt'></i>
+                            <a href="#">Sign Up</a>
+                        </div>
+                    </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="user-logined">
+                        <div class="logined">
+                            <i class='bx bx-user-circle'></i>
+                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
+                        </div>
+                        <div class="cart-items">
+                            <i class='bx bx-cart' ></i>
+                            <a href="#">Cart</a>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
+                </aside>
+            </header>
+
+
+
+            <main>
                 <div class="menu">
                     <ul class="menu-ic">
                         <li>
-                            <i class='bx bx-home-alt-2' ></i>
+                            <i class='bx bx-home-alt-2'></i>
+
                             <a href="home.jsp">Home</a>
                         </li>
+
                         <li>
-                            <i class='bx bx-location-plus' ></i>
+                            <i class='bx bx-location-plus'></i>
                             <a href="ViewLocation">Location</a>
                         </li>
                         <li>
-                            <i class='bx bx-package' ></i>
+                            <i class='bx bx-package'></i>
                             <a href="ViewPackage">Packages</a>
+
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
                             <a href="#">Sale</a>
                         </li>
                         <li>
-                            <i class='bx bx-party' ></i>
+                            <i class='bx bx-party'></i>
                             <a href="#">Order Party</a>
                         </li>
                         <li>
-                            <i class='bx bx-info-circle' ></i>
+                            <i class='bx bx-info-circle'></i>
                             <a href="#">About Us</a>
                         </li>
                     </ul>
                 </div>
-            </aside>
 
-            <main>
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
-                    </div>
-
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="${param.txtSearchValue}" placeholder="Type here to search"/>
-                        </form>
-                    </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
-                            </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-
-                <%
-
-                    int index = 1;
-                    List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
-                    if (listLocation != null && listLocation.size() > 0) {
-
-
-                %>
-
-                <%                    for (LocationDTO location : listLocation) {
-
-
-                %>
-
-
-                <div class="container-location-products">
-
-                    <div class="location-product" id="<%= index++%>" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                        <h2 class="location-name"><%= location.getLocationDetails()%></h2>
-                    </div>
-                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                </div>
-
-        </div>
-
-
-        <%                    }
-            }
-        %>
-
-
-
-    </main>
-
-    <div class="right-section">
-        <div class="profile">
-            <div class="login">
-                <i class='bx bx-user'></i>
-                <a href="#">Login</a>
-            </div>
-
-            <span>/</span>
-            <div class="login">
-                <i class='bx bx-lock-alt' ></i>
-                <a href="#"> Sign Up</a>
-            </div>
+            </main>
         </div>
     </div>
-</div>
 </body>
 </html>
