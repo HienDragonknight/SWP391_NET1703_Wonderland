@@ -5,6 +5,7 @@
 --%>
 
 
+
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 
@@ -235,7 +236,7 @@
                     <div class="search">
                         <form action="SearchServlet">
                             <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="${param.txtSearchValue}" placeholder="Type here to search"/>
+                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
                         </form>
                     </div>
                 </header>
@@ -252,57 +253,56 @@
                             </li>
                         </ul>
                     </div>
+
+
+
+
+
+                    <c:if test="${requestScope.LIST_LOCATION != null}">
+
+                        <c:if test="${not empty requestScope.LIST_LOCATION}" >
+
+                            <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
+
+
+                                <div class="container-location-products">
+                                    <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
+                                        <h2 class="location-name">${location.locationDetails}</h2>
+                                    </div>
+                                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+                                </div>
+
+
+
+                            </c:forEach>
+
+                        </c:if>
+
+                    </c:if>
+
+
                 </div>
 
-
-                <%
-
-                    int index = 1;
-                    List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
-                    if (listLocation != null && listLocation.size() > 0) {
+            </main>
 
 
-                %>
-
-                <%                    for (LocationDTO location : listLocation) {
 
 
-                %>
 
-
-                <div class="container-location-products">
-
-                    <div class="location-product" id="<%= index++%>" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                        <h2 class="location-name"><%= location.getLocationDetails()%></h2>
+            <div class="right-section">
+                <div class="profile">
+                    <div class="login">
+                        <i class='bx bx-user'></i>
+                        <a href="#">Login</a>
                     </div>
-                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+
+                    <span>/</span>
+                    <div class="login">
+                        <i class='bx bx-lock-alt' ></i>
+                        <a href="#"> Sign Up</a>
+                    </div>
                 </div>
-
-        </div>
-
-
-        <%                    }
-            }
-        %>
-
-
-
-    </main>
-
-    <div class="right-section">
-        <div class="profile">
-            <div class="login">
-                <i class='bx bx-user'></i>
-                <a href="#">Login</a>
-            </div>
-
-            <span>/</span>
-            <div class="login">
-                <i class='bx bx-lock-alt' ></i>
-                <a href="#"> Sign Up</a>
             </div>
         </div>
-    </div>
-</div>
-</body>
+    </body>
 </html>

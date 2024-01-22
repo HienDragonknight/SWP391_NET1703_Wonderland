@@ -91,32 +91,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = LOGIN_PAGE;
-        boolean error = false;
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        try {
-            UserDAO dao = new UserDAO();
-            UserDTO dto = dao.checkLogin(email, password);
-            if (dto == null) {
-                error = true;
-                url = LOGIN_PAGE;
-            } else {
-                url = HOME_PAGE;
-                error = false;
-            }
-        } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Class: " + ex.getMessage());
-        } finally {
-            if (error) {
-                RequestDispatcher rd = request.getRequestDispatcher(url);
-                rd.forward(request, response);
-            } else {
-                response.sendRedirect(url);
-            }
-        }
+       
     }
 
     /**

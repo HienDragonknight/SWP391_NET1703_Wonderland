@@ -19,9 +19,10 @@ import util.DBUtils;
  */
 public class LocationDAO {
 
-    private static final String GET_LIST_LOCATION_PAGINATION = "SELECT * FROM [Location] ORDER BY (SELECT NULL) OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+    private static final String GET_LIST_LOCATION = "SELECT locationID,locationDetails FROM [Location] ";
 
-    public List<LocationDTO> getListLocation(int offset, int recordPerPage) throws SQLException {
+    
+     public List<LocationDTO> getListLocation() throws SQLException {
 
         boolean check = true;
         Connection conn = null;
@@ -32,9 +33,8 @@ public class LocationDAO {
         try {
 
             conn = DBUtils.createConnection();
-            ptm = conn.prepareStatement(GET_LIST_LOCATION_PAGINATION);
-            ptm.setString(1, offset + "");
-            ptm.setString(2, recordPerPage + "");
+            ptm = conn.prepareStatement(GET_LIST_LOCATION);
+         
             rs = ptm.executeQuery();
 
             while (rs.next()) {
@@ -42,7 +42,6 @@ public class LocationDAO {
                 String locationDetails = rs.getString("locationDetails");
 
                 listLocation.add(new LocationDTO(locationID, locationDetails));
-
             }
 
         } catch (Exception e) {

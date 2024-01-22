@@ -6,7 +6,6 @@ package controlls.servlet;
 
 import dal.LocationDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,42 +32,23 @@ public class ViewLocationServlet extends HttpServlet {
 
         try {
 
-            int page = 1;   // innitilize first page 
-
-            // for the next page
-            if (request.getParameter("page") != null) {
-                page = Integer.parseInt(request.getParameter("page"));
-            }
-
-            int recordsPerPage = 4;
-            int startOffset = recordsPerPage * (page - 1);
-
-            int noOfPages = (int) Math.ceil(recordsPerPage * 1.0 / recordsPerPage);   // for displaying
-
             LocationDAO dao = new LocationDAO();
-            List<LocationDTO> listLocation = dao.getListLocation(startOffset, recordsPerPage);
 
-            request.setAttribute("LIST_LOCATION", listLocation);
-            request.setAttribute("NO_OF_PAGES", noOfPages);
-            request.setAttribute("CURRENT_PAGE", page);
+            List<LocationDTO> listLocation = dao.getListLocation();
 
+            if (listLocation != null && listLocation.size() > 0) {
+
+                url = SUCCESS;
+                request.setAttribute("LIST_LOCATION", listLocation);
+
+            }
         } catch (Exception e) {
-            log("Error at ViewLocationServlet");
+            log("Error at ViewLocationServlet " + e);
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
-
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -98,5 +78,4 @@ public class ViewLocationServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

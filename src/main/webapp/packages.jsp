@@ -176,6 +176,7 @@
                 }
 
             }
+            
         </style>
     </head>
     <body>
@@ -233,6 +234,8 @@
                     </div>
                 </header>
 
+
+
                 <div class="column main">
                     <div class="breadcrumbs">
                         <ul class="items">
@@ -245,6 +248,7 @@
                         </ul>
                     </div>
                 </div>
+
 
 
                 <div class="container-location-products">
