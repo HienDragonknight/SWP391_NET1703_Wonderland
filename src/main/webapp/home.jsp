@@ -141,7 +141,7 @@
                 color: #5773ff;
             }
 
-            .container .top-main {
+            .container .column {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
             }
@@ -228,11 +228,36 @@
                 cursor: pointer;
             }
             
-            .body-main {
+            .column-about {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                flex-direction: column;
+                padding: 50px;
+            }
+            
+            .column-about img {
+                width: 40%;
+                border-radius: 50px;
+            }
+            
+            .column-about .column-about-container {
+                padding: 0px 100px;
+            }
+            
+            .column-about .column-about-container button {
+                padding: 10px;
+                border-radius: 50px;
+                background-color: #0b96d3;
+                cursor: pointer;
+                border: none;
+            }
+            
+            .column-about .column-about-container button a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                gap: 8px;
             }
 
             @keyframes next1 {
@@ -343,10 +368,8 @@
                 </aside>
             </header>
 
-
-
             <main>
-                <div class="top-main">
+                <div class="column">
                     <div class="menu">
                         <ul class="menu-ic">
                             <li>
@@ -379,33 +402,56 @@
                         </ul>
                     </div>
 
-                    <div class="slide-container">
-                        <div class="slides">
-                            <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                            <img src="image/cover2.jpg" alt="image #2"/>
-                            <img src="image/cover3.jpg" alt="image #3"/>
-                            <img src="image/cover4.png" alt="image #4"/>
+                    <div class="column-content">
+                        <div class="slide-container">
+                            <div class="slides">
+                                <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                                <img src="image/cover2.jpg" alt="image #2"/>
+                                <img src="image/cover3.jpg" alt="image #3"/>
+                                <img src="image/cover4.png" alt="image #4"/>
+                            </div>
+
+                            <div class="buttons">
+                                <span class="next">&#10095;</span>
+                                <span class="prev">&#10094;</span>
+                            </div>
+
+                            <div class="dotsContainer">
+                                <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                            </div>
                         </div>
 
-                        <div class="buttons">
-                            <span class="next">&#10095;</span>
-                            <span class="prev">&#10094;</span>
-                        </div>
-
-                        <div class="dotsContainer">
-                            <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                        <div class="column-about">
+                            <img src="image/Birthday.png" alt="Birthday"/>
+                            <div class="column-about-container">
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <button>
+                                    <a>
+                                        <i class='bx bx-cake' ></i>
+                                        <span>Contact to book a party</span>
+                                    </a>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="body-main">
-                    <img src="image/LogoTron.png" width="625" height="625" alt="LogoTron"/>
-                    <p>
-                        As the leading chain of Education-Entertainment centers in Vietnam, Wonderlands continuously applies modern technology to playgrounds specifically for children from 0-12 years old.
-                    </p>
                 </div>
 
             </main>
