@@ -38,6 +38,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = LOGIN_PAGE;
+        HttpSession session = request.getSession();
         boolean error = false;
         String email = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
@@ -47,6 +48,7 @@ public class LoginServlet extends HttpServlet {
             if (dto == null) {
                 error = true;
                 url = LOGIN_PAGE;
+                session.setAttribute("ERROR", "INCORRECT");
             } else {
                 url = HOME_PAGE;
                 error = false;

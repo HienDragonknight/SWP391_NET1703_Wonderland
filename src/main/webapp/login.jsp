@@ -13,6 +13,7 @@
     </head>
     <body>
         <form action="LoginServlet" method="POST">
+            <h3>${sessionScope.ERROR}</h3>
             Email <input type="text" name="txtEmail" value="" /><br/>
             Password <input type="password" name="txtPassword" value="" /><br/>
             <input type="submit" value="Login" name="action" /> 
