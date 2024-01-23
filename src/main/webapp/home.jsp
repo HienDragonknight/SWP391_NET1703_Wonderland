@@ -116,32 +116,32 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 35px;
+                gap: 30px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
-            .container main {
+
+            .container .top-main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
             }
@@ -192,6 +192,7 @@
                 height: 100%;
                 position: absolute;
                 object-fit: cover;
+                border-radius: 50px;
             }
 
             .slide-container .slides img:not(.active) {
@@ -225,6 +226,13 @@
                 display: inline-block;
                 transition: background-color 0.6s ease;
                 cursor: pointer;
+            }
+            
+            .body-main {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
             }
 
             @keyframes next1 {
@@ -323,6 +331,11 @@
                             <i class='bx bx-cart' ></i>
                             <a href="#">Cart</a>
                         </div>
+                        <div class="logout">
+                            <a href="#" style="color: red;">
+                                <i class='bx bx-log-out' ></i>
+                            </a>
+                        </div>
                     </div>
                     <%
                         }
@@ -333,62 +346,68 @@
 
 
             <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <div class="top-main">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                            <a href="home.jsp">Home</a>
-                        </li>
+                                <a href="home.jsp">Home</a>
+                            </li>
 
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
 
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="slide-container">
-                    <div class="slides">
-                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                        <img src="image/cover2.jpg" alt="image #2"/>
-                        <img src="image/cover3.jpg" alt="image #3"/>
-                        <img src="image/cover4.png" alt="image #4"/>
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="#">Order Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="buttons">
-                        <span class="next">&#10095;</span>
-                        <span class="prev">&#10094;</span>
-                    </div>
+                    <div class="slide-container">
+                        <div class="slides">
+                            <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                            <img src="image/cover2.jpg" alt="image #2"/>
+                            <img src="image/cover3.jpg" alt="image #3"/>
+                            <img src="image/cover4.png" alt="image #4"/>
+                        </div>
 
-                    <div class="dotsContainer">
-                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                        <div class="buttons">
+                            <span class="next">&#10095;</span>
+                            <span class="prev">&#10094;</span>
+                        </div>
+
+                        <div class="dotsContainer">
+                            <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                            <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                            <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                            <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                        </div>
                     </div>
                 </div>
-
-                <div>
-
+                
+                <div class="body-main">
+                    <img src="image/LogoTron.png" width="625" height="625" alt="LogoTron"/>
+                    <p>
+                        As the leading chain of Education-Entertainment centers in Vietnam, Wonderlands continuously applies modern technology to playgrounds specifically for children from 0-12 years old.
+                    </p>
                 </div>
+
             </main>
         </div>
 
