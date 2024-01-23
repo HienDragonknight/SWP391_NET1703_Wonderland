@@ -5,11 +5,9 @@
 --%>
 
 
-<<<<<<< HEAD
 
-=======
 <%@page import="models.UserDTO"%>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
+
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 
@@ -127,28 +125,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -192,6 +190,26 @@
                 .nav-link {
                     display: flex;
                 }
+            }
+            
+            .container-location-products
+            {
+                display: flex;
+                width: 200px;
+            }
+            
+            h2.location-name
+            {
+                width: 500px;
+            }
+            
+            h2.btn-book-ticket
+            {
+                width: 60px;
+            }
+            div.button
+            {
+                width: 90px;
             }
         </style>
     </head>
@@ -289,92 +307,67 @@
                     </ul>
                 </div>
 
-<<<<<<< HEAD
-            <main>
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
+                <main>
+
+
+
+                    <div class="column main">
+                        <div class="breadcrumbs">
+                            <ul class="items">
+                                <li class="item Home">
+                                    <a href="/" title="Trang chủ">Trang chủ</a>
+                                </li>
+                                <li class="item Locations fares">
+                                    <strong>Địa điểm &amp; giá vé</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+
+
+
+
+                        <%
+                            List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+
+                            if (listLocation != null && listLocation.size() > 0) {
+
+                                for (LocationDTO location : listLocation) {
+                        %>
+
+
+
+                        <div class="container-location-products">
+                            <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
+                                <h2 class="location-name"><%= location.getLocationDetails()  %></h2>
+                            </div>
+                            <div class="button">
+                                <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+                            </div>
+                        </div>
+
+
+
+
+                        <%
+                                }
+
+                            }
+
+
+                        %>
+
+
+
+
                     </div>
 
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
-                        </form>
-                    </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
-                            </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
-                            </li>
-                        </ul>
-                    </div>
+                </main>
 
 
 
 
-
-                    <c:if test="${requestScope.LIST_LOCATION != null}">
-
-                        <c:if test="${not empty requestScope.LIST_LOCATION}" >
-
-                            <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
-
-
-                                <div class="container-location-products">
-                                    <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                        <h2 class="location-name">${location.locationDetails}</h2>
-                                    </div>
-                                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                                </div>
-
-
-
-                            </c:forEach>
-
-                        </c:if>
-
-                    </c:if>
-
-
-                </div>
-
-            </main>
-
-
-
-
-
-            <div class="right-section">
-                <div class="profile">
-                    <div class="login">
-                        <i class='bx bx-user'></i>
-                        <a href="#">Login</a>
-                    </div>
-
-                    <span>/</span>
-                    <div class="login">
-                        <i class='bx bx-lock-alt' ></i>
-                        <a href="#"> Sign Up</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
-=======
-            </main>
-        </div>
-    </div>
-</body>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
+
 </html>

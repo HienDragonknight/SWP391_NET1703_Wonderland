@@ -118,28 +118,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -185,7 +185,7 @@
                 }
 
             }
-            
+
         </style>
     </head>
     <body>
@@ -278,10 +278,8 @@
                     </ul>
                 </div>
 
-                <div>
 
-<<<<<<< HEAD
-            <main>
+
                 <header>
                     <div class="nav-link">
                         <button class="menu-btn" id="menu-open" style="height: 30px">
@@ -326,8 +324,7 @@
                         </div>
                         <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                     </div>
-=======
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
+
                 </div>
             </main>
         </div>

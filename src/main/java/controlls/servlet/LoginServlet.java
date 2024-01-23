@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
                 String password = request.getParameter("txtPassword");
                 UserDAO dao = new UserDAO();
                 UserDTO result = dao.checkLogin(email, password);
-                if (result != null ) {
+                if (result != null) {
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
                 }
@@ -87,11 +87,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-       
-=======
-        processRequest(request, response);
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
+
     }
 
     /**
