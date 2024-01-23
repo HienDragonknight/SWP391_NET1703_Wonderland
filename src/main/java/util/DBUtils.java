@@ -25,10 +25,4 @@ public class DBUtils {
 
         return con;
     }
-
-    // test connection 
-//    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-//        Connection con = DBUtils.createConnection();
-//        System.out.println(con);
-//    }
 }

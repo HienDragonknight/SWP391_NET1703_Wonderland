@@ -4,26 +4,19 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
+import dal.HostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
-import org.bouncycastle.crypto.tls.ExtensionType;
 
 /**
  *
- * @author Le Huu Huy
+ * @author phanv
  */
-public class LoginServlet extends HttpServlet {
-
-    private final String HOME_PAGE = "home.jsp";
-    private final String LOGIN_PAGE = "login.jsp";
+public class AddServiceServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,30 +27,30 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "CreatePartyPage.jsp";
+    private static final String SUCCESS = "CreatePartyPage.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.setAttribute("ERROR_INFO", "Incorrect username or password");
-        String url = LOGIN_PAGE;
-        String button = request.getParameter("action");
-        try {
-            if (button.equals("Login")) {
-                String email = request.getParameter("txtEmail");
-                String password = request.getParameter("txtPassword");
-                UserDAO dao = new UserDAO();
-                UserDTO result = dao.checkLogin(email, password);
-                if (result != null) {
-                    url = HOME_PAGE;
-                    session.setAttribute("USER_INFO", result);
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } finally {
-            response.sendRedirect(url);
+        String url = ERROR;
+        boolean check = true;
+        HostDAO hostDao = new HostDAO();
+        try (PrintWriter out = response.getWriter()) {
+            String themeName = request.getParameter("themeName");
+            String pakageName = request.getParameter("pakageName");
+            String pakagePrice = request.getParameter("pakagePrice");
+            String pakageImage = request.getParameter("pakageImage");
+            String pakageVideo = request.getParameter("pakageVideo");
+            String pakageDesciption = request.getParameter("pakageDesciption");
+            String serviceName = request.getParameter("serviceName");
+            String servicePrice = request.getParameter("servicePrice");
+            String descriptions = request.getParameter("descriptions");
+            String image = request.getParameter("image");
+            String locationDetails = request.getParameter("locationDetails");
+            
+            String confirm = request.getParameter("confirm");
+        } catch (Exception ex){
+            
         }
     }
 
@@ -87,11 +80,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
-
-=======
         processRequest(request, response);
->>>>>>> 8b0dcc5d1099410c21854ad6a2e0784ec455228b
     }
 
     /**

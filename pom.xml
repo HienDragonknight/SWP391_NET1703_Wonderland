@@ -21,6 +21,11 @@
             <version>6.1.0.jre8</version>
         </dependency>
         <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
@@ -33,15 +38,6 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <version>11.0.0-M16</version>
         </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        
-        
     </dependencies>
 
     <build>

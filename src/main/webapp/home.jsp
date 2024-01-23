@@ -116,32 +116,32 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 35px;
+                gap: 30px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
-            .container main {
+
+            .container .column {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
             }
@@ -192,6 +192,7 @@
                 height: 100%;
                 position: absolute;
                 object-fit: cover;
+                border-radius: 50px;
             }
 
             .slide-container .slides img:not(.active) {
@@ -225,6 +226,38 @@
                 display: inline-block;
                 transition: background-color 0.6s ease;
                 cursor: pointer;
+            }
+            
+            .column-about {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+            }
+            
+            .column-about img {
+                width: 40%;
+                border-radius: 50px;
+            }
+            
+            .column-about .column-about-container {
+                padding: 0px 100px;
+            }
+            
+            .column-about .column-about-container button {
+                padding: 10px;
+                border-radius: 50px;
+                background-color: #0b96d3;
+                cursor: pointer;
+                border: none;
+            }
+            
+            .column-about .column-about-container button a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                gap: 8px;
             }
 
             @keyframes next1 {
@@ -323,6 +356,11 @@
                             <i class='bx bx-cart' ></i>
                             <a href="#">Cart</a>
                         </div>
+                        <div class="logout">
+                            <a href="#" style="color: red;">
+                                <i class='bx bx-log-out' ></i>
+                            </a>
+                        </div>
                     </div>
                     <%
                         }
@@ -330,65 +368,92 @@
                 </aside>
             </header>
 
-
-
             <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <div class="column">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                            <a href="home.jsp">Home</a>
-                        </li>
+                                <a href="home.jsp">Home</a>
+                            </li>
 
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
 
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="slide-container">
-                    <div class="slides">
-                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                        <img src="image/cover2.jpg" alt="image #2"/>
-                        <img src="image/cover3.jpg" alt="image #3"/>
-                        <img src="image/cover4.png" alt="image #4"/>
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="#">Order Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="buttons">
-                        <span class="next">&#10095;</span>
-                        <span class="prev">&#10094;</span>
-                    </div>
+                    <div class="column-content">
+                        <div class="slide-container">
+                            <div class="slides">
+                                <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                                <img src="image/cover2.jpg" alt="image #2"/>
+                                <img src="image/cover3.jpg" alt="image #3"/>
+                                <img src="image/cover4.png" alt="image #4"/>
+                            </div>
 
-                    <div class="dotsContainer">
-                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                            <div class="buttons">
+                                <span class="next">&#10095;</span>
+                                <span class="prev">&#10094;</span>
+                            </div>
+
+                            <div class="dotsContainer">
+                                <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="column-about">
+                            <img src="image/Birthday.png" alt="Birthday"/>
+                            <div class="column-about-container">
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <button>
+                                    <a>
+                                        <i class='bx bx-cake' ></i>
+                                        <span>Contact to book a party</span>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div>
-
-                </div>
             </main>
         </div>
 
