@@ -4,11 +4,13 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author bao.kun
  */
-public class LocationDTO {
+public class LocationDTO implements Serializable{
 
     private String locationID;
     private String locationDetails;

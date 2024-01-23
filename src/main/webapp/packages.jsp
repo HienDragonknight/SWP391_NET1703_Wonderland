@@ -185,6 +185,7 @@
                 }
 
             }
+            
         </style>
     </head>
     <body>
@@ -279,6 +280,54 @@
 
                 <div>
 
+<<<<<<< HEAD
+            <main>
+                <header>
+                    <div class="nav-link">
+                        <button class="menu-btn" id="menu-open" style="height: 30px">
+                            <i class='bx bx-menu'></i>
+                        </button>
+                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
+                    </div>
+
+                    <div class="search">
+                        <form action="SearchServlet">
+                            <i class='bx bx-search' ></i>
+                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
+                        </form>
+                    </div>
+                </header>
+
+
+
+                <div class="column main">
+                    <div class="breadcrumbs">
+                        <ul class="items">
+                            <li class="item Home">
+                                <a href="/" title="Trang chủ">Trang chủ</a>
+                            </li>
+                            <li class="item Locations fares">
+                                <strong>Địa điểm &amp; giá vé</strong>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+
+                <div class="container-location-products">
+
+
+                    <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
+                        <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
+                        <div class="price-box">
+                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
+                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
+                        </div>
+                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+                    </div>
+=======
+>>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
                 </div>
             </main>
         </div>
