@@ -4,7 +4,10 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,6 +69,7 @@
             header .side-bar .search-bar form {
                 display: flex;
                 gap: 12px;
+                width: 100%;
             }
 
             header .side-bar .search-bar button {
@@ -74,7 +78,7 @@
             }
 
             header .side-bar .search-bar input {
-                width: 80%;
+                width: 100%;
                 border: none;
                 outline: none;
                 background-color: transparent;
@@ -108,6 +112,35 @@
                 color: #5773ff;
             }
 
+            header .side-bar .user-logined {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 35px;
+                padding: 30px;
+            }
+            
+            header .side-bar .user-logined .logined,
+            header .side-bar .user-logined .cart-items{
+                display: flex;
+                justify-items: center;
+                align-items: center;
+            }
+            
+            header .side-bar .user-logined i {
+                cursor: pointer;
+            }
+            
+            header .side-bar .user-logined .logined:hover i,
+            header .side-bar .user-logined .logined:hover a {
+                color: #5773ff;
+            }
+            
+            header .side-bar .user-logined .cart-items:hover i,
+            header .side-bar .user-logined .cart-items:hover a {
+                color: #5773ff;
+            }
+            
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -247,8 +280,8 @@
             <header>
                 <aside class="side-bar">
                     <div class="logo">
-                       
-                        <a href="/home"> <img src="image/LogoCN.png" alt="logo" ></a>
+
+                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                     </div>
 
                     <div class="search-bar">
@@ -260,6 +293,11 @@
                         </form>
                     </div>
 
+                    <%
+                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                        if (dto == null) {
+                    %>
                     <div class="profile">
                         <div class="login-pro">
                             <i class='bx bx-user'></i>
@@ -273,23 +311,44 @@
                             <a href="#">Sign Up</a>
                         </div>
                     </div>
+                    <%
+                    } else {
+                    %>
+                    <div class="user-logined">
+                        <div class="logined">
+                            <i class='bx bx-user-circle'></i>
+                            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+                        </div>
+                        <div class="cart-items">
+                            <i class='bx bx-cart' ></i>
+                            <a href="#">Cart</a>
+                        </div>
+                    </div>
+                    <%
+                        }
+                    %>
                 </aside>
             </header>
+
+
 
             <main>
                 <div class="menu">
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-                            <a href="/home.jsp">Home</a>
+
+                            <a href="home.jsp">Home</a>
                         </li>
+
                         <li>
                             <i class='bx bx-location-plus'></i>
-                            <a href="/location.jsp">Location</a>
+                            <a href="ViewLocation">Location</a>
                         </li>
                         <li>
                             <i class='bx bx-package'></i>
-                            <a href="/packages.jsp">Packages</a>
+                            <a href="ViewPackage">Packages</a>
+
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
@@ -301,7 +360,7 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
+                            <a href="about.jsp">About Us</a>
                         </li>
                     </ul>
                 </div>

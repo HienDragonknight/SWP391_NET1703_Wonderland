@@ -1,26 +1,17 @@
 <%-- 
-    Document   : location
-    Created on : Jan 19, 2024, 3:37:17 PM
+    Document   : admin
+    Created on : Jan 22, 2024, 8:04:43 AM
     Author     : Le Huu Huy
 --%>
 
-
-<<<<<<< HEAD
-
-=======
-<%@page import="models.UserDTO"%>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
 <%@page import="java.util.List"%>
-<%@page import="models.LocationDTO"%>
-
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Wonderlands</title>
+        <title>Admin Page</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -127,31 +118,31 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
-                grid-template-columns: 1fr 5fr 1fr;
+                grid-template-columns: 1fr 6fr;
             }
 
             .menu-ic li:hover a,
@@ -178,27 +169,8 @@
                 font-size: 16px;
                 transition: all 0.3s ease;
             }
-
-            @media screen and (max-width: 992px) {
-                .container {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .container .sidebar {
-                    position: absolute;
-                    left: -100%;
-                }
-
-                .nav-link {
-                    display: flex;
-                }
-            }
         </style>
     </head>
-
-
-
-
     <body>
         <div class="container">
             <header>
@@ -284,97 +256,12 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
+                            <a href="about.jsp">About Us</a>
                         </li>
                     </ul>
                 </div>
 
-<<<<<<< HEAD
-            <main>
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
-                    </div>
-
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
-                        </form>
-                    </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
-                            </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
-                            </li>
-                        </ul>
-                    </div>
-
-
-
-
-
-                    <c:if test="${requestScope.LIST_LOCATION != null}">
-
-                        <c:if test="${not empty requestScope.LIST_LOCATION}" >
-
-                            <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
-
-
-                                <div class="container-location-products">
-                                    <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                        <h2 class="location-name">${location.locationDetails}</h2>
-                                    </div>
-                                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                                </div>
-
-
-
-                            </c:forEach>
-
-                        </c:if>
-
-                    </c:if>
-
-
-                </div>
-
             </main>
-
-
-
-
-
-            <div class="right-section">
-                <div class="profile">
-                    <div class="login">
-                        <i class='bx bx-user'></i>
-                        <a href="#">Login</a>
-                    </div>
-
-                    <span>/</span>
-                    <div class="login">
-                        <i class='bx bx-lock-alt' ></i>
-                        <a href="#"> Sign Up</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </body>
-=======
-            </main>
-        </div>
-    </div>
-</body>
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
 </html>

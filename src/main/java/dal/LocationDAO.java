@@ -19,28 +19,29 @@ import util.DBUtils;
  */
 public class LocationDAO {
 
-    private static final String GET_LIST_LOCATION = "SELECT * FROM [Location]";
+    private static final String GET_LIST_LOCATION = "SELECT locationID,locationDetails FROM [Location] ";
 
-    public List<LocationDTO> checkGetListLocation() throws SQLException {
+    
+     public List<LocationDTO> getListLocation() throws SQLException {
 
         boolean check = true;
-
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-
         List<LocationDTO> listLocation = new ArrayList<LocationDTO>();
 
         try {
 
             conn = DBUtils.createConnection();
             ptm = conn.prepareStatement(GET_LIST_LOCATION);
+         
             rs = ptm.executeQuery();
-            while (rs != null) {
-                String locationID = rs.getInt("locationID") + "";
-                String lcoationDetails = rs.getString("locationDetails");
 
-                listLocation.add(new LocationDTO(locationID, lcoationDetails));
+            while (rs.next()) {
+                String locationID = rs.getInt("locationID") + "";
+                String locationDetails = rs.getString("locationDetails");
+
+                listLocation.add(new LocationDTO(locationID, locationDetails));
             }
 
         } catch (Exception e) {
