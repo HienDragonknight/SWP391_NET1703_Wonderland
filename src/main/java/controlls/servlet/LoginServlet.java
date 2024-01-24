@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.UserDTO;
-import org.bouncycastle.crypto.tls.ExtensionType;
 
 
 /**
@@ -24,7 +23,10 @@ import org.bouncycastle.crypto.tls.ExtensionType;
  */
 
 
+
 @WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
+
+
 public class LoginServlet extends HttpServlet {
 
     private final String HOME_PAGE = "home.jsp";

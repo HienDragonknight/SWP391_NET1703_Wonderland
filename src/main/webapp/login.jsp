@@ -13,12 +13,14 @@
     </head>
     <body>
         <form action="LoginServlet" method="POST">
-        
+
+
             ${sessionScope.ERROR}
             Email <input type="text" name="txtEmail"  /><br/>
             Password <input type="password" name="txtPassword"  /><br/>
+
             <input type="submit" value="Login" name="action" /> 
-            
+
         </form>
     </body>
 </html>
