@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.UserDTO;
 
 /**
@@ -35,13 +36,14 @@ public class ViewUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         String url = ADMIN_PAGE;
         try {
             UserDAO dao = new UserDAO();
             List<UserDTO> listUser = dao.getUser();
             if (listUser != null) {
                 url = ADMIN_PAGE;
-                request.setAttribute("LIST_USER", listUser);
+                session.setAttribute("LIST_USER", listUser);
             }
         } catch (ClassNotFoundException e) {
             log("Error at ViewUserServlet " + e);

@@ -231,12 +231,12 @@
             <main>
                 <div>
                     <%
-                        List<UserDTO> userList = (List<UserDTO>) request.getAttribute("LIST_USER");
+                        List<UserDTO> userList = (List<UserDTO>) session.getAttribute("LIST_USER");
 
                         if (userList != null && !userList.isEmpty()) {
                             for (UserDTO user : userList) {
                     %>
-                    <p>${requestScope.LIST_USER.fullName}</p>
+                    <p>${sessionScope.LIST_USER.fullName}</p>
                     <%
                         }
                     } else {
