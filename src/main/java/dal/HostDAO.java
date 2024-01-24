@@ -17,6 +17,8 @@ import util.DBUtils;
  *
  * @author phanv
  */
+
+
 public class HostDAO {
 
     public boolean addTheme(ThemeDTO theme) throws SQLException {
@@ -100,6 +102,7 @@ public class HostDAO {
         }
         return check;
     }
+        
         
     public boolean addLocation(LocationDTO location) throws SQLException {
         boolean check = false;
