@@ -1,6 +1,6 @@
 <%-- 
     Document   : admin
-    Created on : Jan 22, 2024, 8:04:43 AM
+    Created on : Jan 24, 2024, 3:01:36 PM
     Author     : Le Huu Huy
 --%>
 
@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Page</title>
+        <title>Admin</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -115,7 +115,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 35px;
+                gap: 30px;
                 padding: 30px;
             }
 
@@ -140,9 +140,9 @@
                 color: #5773ff;
             }
 
-            .container main {
+            .container .column {
                 display: grid;
-                grid-template-columns: 1fr 6fr;
+                grid-template-columns: 1fr 5fr 1fr;
             }
 
             .menu-ic li:hover a,
@@ -169,6 +169,158 @@
                 font-size: 16px;
                 transition: all 0.3s ease;
             }
+
+            .slide-container {
+                position: relative;
+                width: 100%;
+                max-width: 100vw;
+                height: 650px;
+                max-height: 100vh;
+                margin: auto;
+            }
+
+            .slide-container .slides {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .slide-container .slides img{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                object-fit: cover;
+                border-radius: 50px;
+            }
+
+            .slide-container .slides img:not(.active) {
+                top: 0;
+                left: -100%;
+            }
+
+            span.next, span.prev {
+                display: none;
+            }
+
+            .dotsContainer {
+                position: absolute;
+                bottom: 5px;
+                z-index: 3;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px;
+            }
+
+            .dotsContainer .active {
+                background-color: #5773ff;
+            }
+
+            .dotsContainer .dot {
+                width: 15px;
+                height: 15px;
+                margin: 0px 2px;
+                border: 3px solid #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                transition: background-color 0.6s ease;
+                cursor: pointer;
+            }
+
+            .column-about {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+            }
+
+            .column-about img {
+                width: 40%;
+                border-radius: 50px;
+            }
+
+            .column-about .column-about-container {
+                padding: 0px 100px;
+            }
+
+            .column-about .column-about-container button {
+                padding: 10px;
+                border-radius: 50px;
+                background-color: #0b96d3;
+                cursor: pointer;
+                border: none;
+            }
+
+            .column-about .column-about-container button a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                gap: 8px;
+            }
+
+            .logout {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+
+            .logout li a{
+                color: red;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                cursor: pointer;
+            }
+
+            @keyframes next1 {
+                from {
+                    left: 0%;
+                }
+                to {
+                    left: -100%;
+                }
+            }
+
+            @keyframes next2 {
+                from {
+                    left: 100%;
+                }
+                to {
+                    left: 0%;
+                }
+            }
+
+            @keyframes prev1 {
+                from {
+                    left: 0%;
+                }
+                to {
+                    left: 100%;
+                }
+            }
+
+            @keyframes prev2 {
+                from {
+                    left: -100%;
+                }
+                to {
+                    left: 0%;
+                }
+            }
+
+            @media screen and (max-width: 992px) {
+                .container main {
+                    grid-template-columns: 3fr 2fr;
+                }
+
+                .menu {
+                    position: absolute;
+                    left: -100%;
+                }
+            }
         </style>
     </head>
     <body>
@@ -189,63 +341,87 @@
                         </form>
                     </div>
 
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
-                        </div>
-                    </div>
-                    <%
-                    } else {
-                    %>
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
-                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
                             <a href="#">Cart</a>
                         </div>
                     </div>
-                    <%
-                        }
-                    %>
                 </aside>
             </header>
 
-
-
             <main>
-                <div>
-                    <%
-                        List<UserDTO> userList = (List<UserDTO>) session.getAttribute("LIST_USER");
+                <div class="column">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                        if (userList != null && !userList.isEmpty()) {
-                            for (UserDTO user : userList) {
-                    %>
-                    <p>${sessionScope.LIST_USER.fullName}</p>
-                    <%
-                        }
-                    } else {
-                    %>
-                    <p>No users found</p>
-                    <%
-                        }
-                    %>
+                                <a href="home.jsp">Home</a>
+                            </li>
+
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
+
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="#">Order Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
+                        <ul class="logout">
+                            <li>
+                                <a href="#">
+                                    <i class='bx bx-log-out-circle' ></i>
+                                    <span>Logout</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="admin-container">
+                        <div>
+                            <h1>Admin Dashboard</h1>
+                        </div>
+
+                        <%
+                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+
+                            if (result != null) {
+                                int count = 0;
+                                for (UserDTO dto : result) {
+                                    String urlRewriting = "DispatchServlet"
+                                            + "?btAction=admin"
+                                            + "&pk=" + dto.getFullName();
+                        %>
+                        <form action="ViewUserServlet" method="POST">
+                            <h2><%= dto.getFullName() %></h2>
+                            <h2><%= dto.getEmail() %></h2>
+                        </form>  
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
                 </div>
+
             </main>
         </div>
     </body>

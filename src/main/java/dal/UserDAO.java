@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import models.UserDTO;
@@ -38,7 +39,7 @@ public class UserDAO implements Serializable {
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     int roleID = rs.getInt("roleID");
-                    result = new UserDTO(fullName, email, password, phoneNum, avatar, roleID);
+                    result = new UserDTO(fullName, email, "", phoneNum, avatar, roleID);
                 }
             }
         } finally {
@@ -55,42 +56,57 @@ public class UserDAO implements Serializable {
         return result;
     }
 
-    public List<UserDTO> getUser() throws ClassNotFoundException, SQLException {
-        Connection conn = null;
-        PreparedStatement ptm = null;
+    List<UserDTO> listUser;
+
+    public List<UserDTO> getListUser() {
+        return listUser;
+    }
+
+    public void getUser() throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
         ResultSet rs = null;
-        List<UserDTO> listUser = new ArrayList<UserDTO>();
-
+        boolean result = false;
         try {
-
-            conn = DBUtils.createConnection();
-            String sql = "SELECT fullname, password, email, phone, avatar, roleID FROM [User]";
-            ptm = conn.prepareStatement(sql);
-
-            rs = ptm.executeQuery();
-
-            while (rs.next()) {
-                String fullName = rs.getString("fullname");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                String phone = rs.getString("phone");
-                String avatar = rs.getString("avatar");
-                int roleID = rs.getInt("roleID");
-
-                listUser.add(new UserDTO(fullName, email, password, phone, avatar, roleID));
-            }
-
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT fullname, email, password, phone, avatar, roleID FROM [User]";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String phoneNumber = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    int roleID = rs.getInt("roleID");
+                    //5.1.2 set data into properties of DTO
+                    UserDTO dto = new UserDTO(fullName, email, password, phoneNumber, avatar, roleID);
+                    //5.1.3 add DTO into list
+                    if (this.listUser == null) {
+                        this.listUser = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listUser.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
         } finally {
             if (rs != null) {
                 rs.close();
             }
-            if (ptm != null) {
-                ptm.close();
+            if (stm != null) {
+                stm.close();
             }
-            if (conn != null) {
-                conn.close();
+            if (con != null) {
+                con.close();
             }
         }
-        return listUser;
     }
 }

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +24,8 @@ import models.UserDTO;
  */
 @WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
 public class ViewUserServlet extends HttpServlet {
-    private final String ADMIN_PAGE = "admin.jsp";
+    public final String ERROR = "admin.jsp";
+    public final String SUCCESS = "admin.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,21 +38,20 @@ public class ViewUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        String url = ADMIN_PAGE;
+        String url = ERROR;
         try {
             UserDAO dao = new UserDAO();
-            List<UserDTO> listUser = dao.getUser();
-            if (listUser != null) {
-                url = ADMIN_PAGE;
-                session.setAttribute("LIST_USER", listUser);
-            }
-        } catch (ClassNotFoundException e) {
-            log("Error at ViewUserServlet " + e);
+            dao.getUser();
+            List<UserDTO> result = dao.getListUser();
+            url = SUCCESS;
+            request.setAttribute("LIST_USER", result);
         } catch (SQLException e) {
-            log("Error at ViewUserServlet " + e);
+            log("CreateAccountServlet _ SQL: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            log("CreateAccountServlet _ Class: " + e.getMessage());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 
