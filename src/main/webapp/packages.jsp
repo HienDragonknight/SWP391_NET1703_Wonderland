@@ -187,7 +187,10 @@
             }
 
         </style>
-    </head>
+    </head
+
+
+    
     <body>
         <div class="container">
             <header>
@@ -208,7 +211,6 @@
 
                     <%
                         UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
                         if (dto == null) {
                     %>
                     <div class="profile">
@@ -242,7 +244,6 @@
                     %>
                 </aside>
             </header>
-
 
 
             <main>
@@ -279,7 +280,6 @@
                 </div>
 
 
-
                 <header>
                     <div class="nav-link">
                         <button class="menu-btn" id="menu-open" style="height: 30px">
@@ -297,7 +297,6 @@
                 </header>
 
 
-
                 <div class="column main">
                     <div class="breadcrumbs">
                         <ul class="items">
@@ -312,10 +311,7 @@
                 </div>
 
 
-
                 <div class="container-location-products">
-
-
                     <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
                         <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
                         <div class="price-box">
@@ -324,7 +320,6 @@
                         </div>
                         <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                     </div>
-
                 </div>
             </main>
         </div>

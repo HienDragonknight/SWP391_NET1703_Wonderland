@@ -4,14 +4,8 @@
     Author     : Le Huu Huy
 --%>
 
-<<<<<<< HEAD
-
 
 <%@page import="models.UserDTO"%>
-
-=======
-<%@page import="models.UserDTO"%>
->>>>>>> 8b0dcc5d1099410c21854ad6a2e0784ec455228b
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 
@@ -195,18 +189,18 @@
                     display: flex;
                 }
             }
-            
+
             .container-location-products
             {
                 display: flex;
                 width: 200px;
             }
-            
+
             h2.location-name
             {
                 width: 500px;
             }
-            
+
             h2.btn-book-ticket
             {
                 width: 60px;
@@ -311,109 +305,60 @@
                     </ul>
                 </div>
 
-                <main>
 
 
 
-                    <div class="column main">
-                        <div class="breadcrumbs">
-                            <ul class="items">
-                                <li class="item Home">
-                                    <a href="/" title="Trang chủ">Trang chủ</a>
-                                </li>
-                                <li class="item Locations fares">
-                                    <strong>Địa điểm &amp; giá vé</strong>
-                                </li>
-                            </ul>
+
+                <div class="column main">
+                    <div class="breadcrumbs">
+                        <ul class="items">
+                            <li class="item Home">
+                                <a href="/" title="Trang chủ">Trang chủ</a>
+                            </li>
+                            <li class="item Locations fares">
+                                <strong>Địa điểm &amp; giá vé</strong>
+                            </li>
+                        </ul>
+                    </div>
+
+
+
+
+
+                    <%
+                        List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+
+                        if (listLocation != null && listLocation.size() > 0) {
+
+                            for (LocationDTO location : listLocation) {
+                    %>
+
+
+
+                    <div class="container-location-products">
+                        <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
+                            <h2 class="location-name"><%= location.getLocationDetails()%></h2>
                         </div>
-<<<<<<< HEAD
-
-
-
-
-
-                        <%
-                            List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
-
-                            if (listLocation != null && listLocation.size() > 0) {
-
-                                for (LocationDTO location : listLocation) {
-                        %>
-
-
-
-                        <div class="container-location-products">
-                            <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                <h2 class="location-name"><%= location.getLocationDetails()  %></h2>
-                            </div>
-                            <div class="button">
-                                <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                            </div>
+                        <div class="button">
+                            <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                         </div>
+                    </div>
 
 
 
 
-                        <%
-                                }
-
+                    <%
                             }
 
-
-                        %>
-
+                        }
 
 
-
-                    </div>
-
-                </main>
-=======
->>>>>>> 8b0dcc5d1099410c21854ad6a2e0784ec455228b
+                    %>
 
 
 
 
-<<<<<<< HEAD
-        </div>
-    </body>
+                </div>
 
-=======
-
-                        <c:if test="${requestScope.LIST_LOCATION != null}">
-
-                            <c:if test="${not empty requestScope.LIST_LOCATION}" >
-
-                                <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
-
-
-                                    <div class="container-location-products">
-                                        <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                            <h2 class="location-name">${location.locationDetails}</h2>
-                                        </div>
-                                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                                    </div>
-
-
-
-                                </c:forEach>
-
-                            </c:if>
-
-                        </c:if>
-
-
-                    </div>
-
-                </main>
-
-
-
-
-
-
-        </div>
-    </div>
-</body>
->>>>>>> 8b0dcc5d1099410c21854ad6a2e0784ec455228b
+            </main>
 </html>
