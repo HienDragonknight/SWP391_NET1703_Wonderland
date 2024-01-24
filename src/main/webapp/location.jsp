@@ -174,14 +174,14 @@
                 font-size: 16px;
                 transition: all 0.3s ease;
             }
-            
+
             .logout {
                 list-style: none;
                 display: flex;
                 flex-direction: column;
                 padding: 10px 50px;
             }
-            
+
             .logout li a{
                 color: red;
                 margin-bottom: 12px;
@@ -189,6 +189,45 @@
                 align-items: center;
                 gap: 20px;
                 cursor: pointer;
+            }
+
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
+            }
+
+            .container-location-products {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 40px;
+            }
+
+            .container-location-products button {
+                padding: 13px;
+                border-radius: 50px;
+                background-color: #5773ff;
+                border: none;
+            }
+
+            .container-location-products button a {
+                font-weight: bold;
+                color: #fff;
+            }
+
+            .location-product {
+                padding: 10px 0px 20px 0px;
+                width: 100%;
+                border-bottom: 1px solid grey;
             }
 
             @media screen and (max-width: 992px) {
@@ -280,20 +319,13 @@
                         </ul>
                     </div>
 
-                    <div class="column main">
-                        <div class="breadcrumbs">
-                            <ul class="items">
-                                <li class="item Home">
-                                    <a href="/" title="Trang chủ">Trang chủ</a>
-                                </li>
-                                <li class="item Locations fares">
-                                    <strong>Địa điểm &amp; giá vé</strong>
-                                </li>
-                            </ul>
+                    <div class="location">
+                        <div class="add-ab">
+                            <a href="home.jsp">Home</a><span> &#10095; Location</span>
                         </div>
 
 
-
+                        <h1>Location <span>&amp;</span> Price</h1>
 
 
                         <%
@@ -307,12 +339,12 @@
 
 
                         <div class="container-location-products">
-                            <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                <h2 class="location-name"><%= location.getLocationDetails()%></h2>
+                            <div class="location-product">
+                                <h2><%= location.getLocationDetails()%></h2>
                             </div>
-                            <div class="button">
-                                <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                            </div>
+                            <button>
+                                <a href="#">Booking</a>
+                            </button>
                         </div>
 
 
@@ -391,21 +423,13 @@
             </ul>
         </div>
 
-        <div class="column main">
-            <div class="breadcrumbs">
-                <ul class="items">
-                    <li class="item Home">
-                        <a href="/" title="Trang chủ">Trang chủ</a>
-                    </li>
-                    <li class="item Locations fares">
-                        <strong>Địa điểm &amp; giá vé</strong>
-                    </li>
-                </ul>
+        <div class="location">
+            <div class="add-ab">
+                <a href="home.jsp">Home</a><span> &#10095; Location</span>
             </div>
 
 
-
-
+            <h1>Location <span>&amp;</span> Price</h1>
 
             <%
                 List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
@@ -418,12 +442,12 @@
 
 
             <div class="container-location-products">
-                <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                    <h2 class="location-name"><%= location.getLocationDetails()%></h2>
+                <div class="location-product">
+                    <h2><%= location.getLocationDetails()%></h2>
                 </div>
-                <div class="button">
-                    <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                </div>
+                <button>
+                    <a href="#">Booking</a>
+                </button>
             </div>
 
 
