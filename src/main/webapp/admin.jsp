@@ -227,7 +227,6 @@
             </header>
 
 
-
             <main>
                 <div>
                     <%
