@@ -231,12 +231,12 @@
             <main>
                 <div>
                     <%
-                        List<UserDTO> userList = (List<UserDTO>) request.getAttribute("ADMIN");
+                        List<UserDTO> userList = (List<UserDTO>) request.getAttribute("LIST_USER");
 
                         if (userList != null && !userList.isEmpty()) {
                             for (UserDTO user : userList) {
                     %>
-                    <p><%= user.getFullName()%></p>
+                    <p>${requestScope.LIST_USER.fullName}</p>
                     <%
                         }
                     } else {

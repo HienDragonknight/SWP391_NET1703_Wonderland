@@ -41,7 +41,7 @@ public class ViewUserServlet extends HttpServlet {
             List<UserDTO> listUser = dao.getUser();
             if (listUser != null) {
                 url = ADMIN_PAGE;
-                request.setAttribute("ADMIN", listUser);
+                request.setAttribute("LIST_USER", listUser);
             }
         } catch (ClassNotFoundException e) {
             log("Error at ViewUserServlet " + e);
