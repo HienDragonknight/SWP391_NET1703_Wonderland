@@ -507,7 +507,7 @@
                     </a>
                 </li>
             </ul>
-        </div>
+        </div>      
 
         <div class="column-content">
             <div class="slide-container">
