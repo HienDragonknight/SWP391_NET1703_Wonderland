@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import models.UserDTO;
 import util.DBUtils;
 
@@ -51,5 +53,44 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
+    }
+
+    public List<UserDTO> getUser() throws ClassNotFoundException, SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<UserDTO> listUser = new ArrayList<UserDTO>();
+
+        try {
+
+            conn = DBUtils.createConnection();
+            String sql = "SELECT fullname, password, email, phone, avatar, roleID FROM [User]";
+            ptm = conn.prepareStatement(sql);
+
+            rs = ptm.executeQuery();
+
+            while (rs.next()) {
+                String fullName = rs.getString("fullname");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String phone = rs.getString("phone");
+                String avatar = rs.getString("avatar");
+                int roleID = rs.getInt("roleID");
+
+                listUser.add(new UserDTO(fullName, email, password, phone, avatar, roleID));
+            }
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listUser;
     }
 }
