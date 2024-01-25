@@ -35,11 +35,12 @@ public class UserDAO implements Serializable {
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
+                    int userID = rs.getInt("userID");
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     int roleID = rs.getInt("roleID");
-                    result = new UserDTO(fullName, email, "", phoneNum, avatar, roleID);
+                    result = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
                 }
             }
         } finally {
@@ -72,7 +73,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT fullname, email, password, phone, avatar, roleID FROM [User]";
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, roleID FROM [User]";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -81,6 +82,7 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
+                    int userID = rs.getInt("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -88,7 +90,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("avatar");
                     int roleID = rs.getInt("roleID");
                     //5.1.2 set data into properties of DTO
-                    UserDTO dto = new UserDTO(fullName, email, password, phoneNumber, avatar, roleID);
+                    UserDTO dto = new UserDTO(userID, fullName, email, password, phoneNumber, avatar, roleID);
                     //5.1.3 add DTO into list
                     if (this.listUser == null) {
                         this.listUser = new ArrayList<>();

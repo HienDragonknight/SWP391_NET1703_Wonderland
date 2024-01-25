@@ -275,6 +275,137 @@
                 cursor: pointer;
             }
 
+            .insights {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                grid-gap: 24px;
+                margin-top: 36px;
+            }
+
+            .insights li {
+                padding: 24px;
+                background: #f6f6f9;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                grid-gap: 24px;
+                cursor: pointer;
+            }
+
+            .insights li .bx {
+                width: 80px;
+                height: 80px;
+                border-radius: 10px;
+                font-size: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .insights li:nth-child(1) .bx {
+                background: #CFE8FF;
+                color: #1976D2;
+            }
+
+            .insights li:nth-child(2) .bx {
+                background: #FFF2C6;
+                color: #FBC02D;
+            }
+
+            .insights li:nth-child(3) .bx {
+                background: #BBF7D0;
+                color: #388E3C;
+            }
+
+            .insights li:nth-child(4) .bx {
+                background: #FECDD3;
+                color: #D32F2F;
+            }
+
+            .insights li .info h3 {
+                font-size: 24px;
+                font-weight: 600;
+                color: #363949;
+            }
+
+            .insights li .info p {
+                color: #363949;
+            }
+
+            .bottom-data {
+                display: flex;
+                flex-wrap: wrap;
+                grid-gap: 24px;
+                margin-top: 24px;
+                width: 100%;
+                color: #363949;
+            }
+
+            .bottom-data>div {
+                border-radius: 20px;
+                background: #f6f6f9;
+                padding: 24px;
+                overflow-x: auto;
+            }
+
+            .bottom-data .header {
+                display: flex;
+                align-items: center;
+                grid-gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .bottom-data .header h3 {
+                margin-right: auto;
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .bottom-data .header bx {
+                cursor: pointer;
+            }
+
+            .bottom-data .orders{
+                flex-grow: 1;
+                flex-basis: 500px;
+            }
+
+            .bottom-data .orders table{
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .bottom-data .orders table th{
+                padding-bottom: 12px;
+                font-size: 13px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            .bottom-data .orders table td{
+                padding: 16px 0;
+            }
+
+            .bottom-data .orders table tr td:first-child{
+                display: flex;
+                align-items: center;
+                grid-gap: 12px;
+                padding-left: 6px;
+            }
+
+            .bottom-data .orders table tbody tr{
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .bottom-data .orders table tbody tr:hover{
+                background: #eee;
+            }
+
+            .bottom-data .orders table tr td .status.completed{
+                background: #388E3C;
+            }
+
             @keyframes next1 {
                 from {
                     left: 0%;
@@ -400,27 +531,98 @@
                         <div>
                             <h1>Admin Dashboard</h1>
                         </div>
-
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
 
+                            int totalUsers = 0; // Counter for total users
+
                             if (result != null) {
-                                int count = 0;
                                 for (UserDTO dto : result) {
-                                    String urlRewriting = "DispatchServlet"
-                                            + "?btAction=admin"
-                                            + "&pk=" + dto.getFullName();
-                        %>
-                        <form action="ViewUserServlet" method="POST">
-                            <h2><%= dto.getFullName() %></h2>
-                            <h2><%= dto.getEmail() %></h2>
-                        </form>  
-                        <%
+                                    totalUsers++;
                                 }
                             }
                         %>
+                        <div>
+                            <ul class="insights">
+                                <li>
+                                    <i class='bx bx-calendar-check'></i>
+                                    <span class="info">
+                                        <h3>
+                                            1,074
+                                        </h3>
+                                        <p>Paid Order</p>
+                                    </span>
+                                </li>
+                                <li><i class='bx bx-show-alt'></i>
+                                    <span class="info">
+                                        <h3>
+                                            <%= totalUsers%>
+                                        </h3>
+                                        <p>User</p>
+                                    </span>
+                                </li>
+                                <li><i class='bx bx-line-chart'></i>
+                                    <span class="info">
+                                        <h3>
+                                            14,721
+                                        </h3>
+                                        <p>Searches</p>
+                                    </span>
+                                </li>
+                                <li><i class='bx bx-dollar-circle'></i>
+                                    <span class="info">
+                                        <h3>
+                                            $6,742
+                                        </h3>
+                                        <p>Total Sales</p>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- End of Insights -->
+                        <div class="bottom-data">
+                            <div class="orders">
+                                <div class="header">
+                                    <i class='bx bx-receipt'></i>
+                                    <h3>Customer</h3>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
+                                </div>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Phone</th>
+                                        </tr>
+                                    </thead>
+
+                                    <%
+                                        if (result != null) {
+                                            for (UserDTO dto : result) {
+                                    %>
+
+                                    <form action="ViewUserServlet" method="POST">
+
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p><%= dto.getFullName()%></p>
+                                                </td>
+                                                <td><%= dto.getPhoneNumber()%></td>
+                                            </tr>
+
+                                    </form>
+
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
             </main>
         </div>

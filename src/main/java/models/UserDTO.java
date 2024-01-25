@@ -10,8 +10,9 @@ import java.io.Serializable;
  *
  * @author Hp
  */
-public class UserDTO implements Serializable{
+public class UserDTO implements Serializable {
 
+    private int userID;
     private String fullName;
     private String email;
     private String password;
@@ -22,7 +23,8 @@ public class UserDTO implements Serializable{
     public UserDTO() {
     }
 
-    public UserDTO(String fullName, String email, String password, String phoneNumber, String avatar, int roleID) {
+    public UserDTO(int userID, String fullName, String email, String password, String phoneNumber, String avatar, int roleID) {
+        this.userID = userID;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -77,6 +79,14 @@ public class UserDTO implements Serializable{
 
     public void setRoleID(int roleID) {
         this.roleID = roleID;
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
 }

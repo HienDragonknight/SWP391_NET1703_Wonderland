@@ -42,9 +42,9 @@ public class ViewUserServlet extends HttpServlet {
         try {
             UserDAO dao = new UserDAO();
             dao.getUser();
-            List<UserDTO> result = dao.getListUser();
+            List<UserDTO> user = dao.getListUser();
             url = SUCCESS;
-            request.setAttribute("LIST_USER", result);
+            request.setAttribute("LIST_USER", user);
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } catch (ClassNotFoundException e) {
