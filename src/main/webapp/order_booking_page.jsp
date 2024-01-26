@@ -349,7 +349,7 @@
                     <div class="page-main-fullwidth">
                         <section id="intro">
                             <div class="container intro">
-                                <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
+                                <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.pn g" alt="Best Party">
                                 <div class="intro-content">
                                     <div class="intro-text">
                                         <p>
@@ -833,7 +833,7 @@
                                         </h2>
                                     </div>
                                     <div class="gallery-video text-center">
-                                        <iframe class="gallery-video-iframe" width="1240" height="690" src="https://www.youtube.com/embed/npa-6xyvdJ4" title="tiNiWorld - Tròn 10 Năm Tuổi, Trọn Tuổi Thơ Vui" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+                                        <iframe class="gallery-video-iframe" width="1240" height="690" src="https://www.youtube.com/embed/npa-6xyvdJ 4" title="tiNiWorld - Tròn 10 Năm Tuổi, Trọn Tuổi Thơ Vui" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
                                     </div>
                                     <div class="gallery-images">
                                         <div class="row">
