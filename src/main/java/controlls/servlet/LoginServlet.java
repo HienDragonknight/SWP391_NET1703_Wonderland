@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,9 +48,36 @@ public class LoginServlet extends HttpServlet {
             if (button.equals("Login")) {
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
+                            String remember = request.getParameter("RememberMe");
+
+                  Cookie cEmail = new Cookie("cEmail", email);
+            Cookie cPassword = new Cookie("cPassword", password);
+            Cookie cRemember = new Cookie("cRemember", remember);
+            if (email == null || password == null) {
+                response.sendRedirect("login");
+                return;
+            }
+
+
                 UserDAO dao = new UserDAO();
                 UserDTO result = dao.checkLogin(email, password);
                 if (result != null) {
+                                    session.setAttribute("user_loged", result); 
+                int role = result.getRoleID();
+
+                if (remember != null && remember.equals("ON")) {
+                    cEmail.setMaxAge(60 * 60 * 24 * 7);
+                    cPassword.setMaxAge(60 * 60 * 24 * 7);
+                    cRemember.setMaxAge(60 * 60 * 24 * 7);
+                } else {
+                    cEmail.setMaxAge(0);
+                    cPassword.setMaxAge(0);
+                    cRemember.setMaxAge(0);
+                }
+
+                response.addCookie(cEmail);
+                response.addCookie(cPassword);
+                response.addCookie(cRemember);
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
                 }
