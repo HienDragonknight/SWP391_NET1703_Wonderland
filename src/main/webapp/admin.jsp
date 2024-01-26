@@ -227,40 +227,24 @@
             </header>
 
 
-
             <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <div>
+                    <%
+                        List<UserDTO> userList = (List<UserDTO>) session.getAttribute("LIST_USER");
 
-                            <a href="home.jsp">Home</a>
-                        </li>
-
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
-
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
-                        </li>
-                    </ul>
+                        if (userList != null && !userList.isEmpty()) {
+                            for (UserDTO user : userList) {
+                    %>
+                    <p>${sessionScope.LIST_USER.fullName}</p>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <p>No users found</p>
+                    <%
+                        }
+                    %>
                 </div>
-
             </main>
         </div>
     </body>
