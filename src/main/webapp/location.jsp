@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+
 <%@page import="models.UserDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
@@ -119,7 +120,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 35px;
+                gap: 30px;
                 padding: 30px;
             }
 
@@ -144,7 +145,7 @@
                 color: #5773ff;
             }
 
-            .container main {
+            .container .column {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
             }
@@ -174,18 +175,69 @@
                 transition: all 0.3s ease;
             }
 
+            .logout {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+
+            .logout li a{
+                color: red;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                cursor: pointer;
+            }
+
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
+            }
+
+            .container-location-products {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 40px;
+            }
+
+            .container-location-products button {
+                padding: 13px;
+                border-radius: 50px;
+                background-color: #5773ff;
+                border: none;
+            }
+
+            .container-location-products button a {
+                font-weight: bold;
+                color: #fff;
+            }
+
+            .location-product {
+                padding: 10px 0px 20px 0px;
+                width: 100%;
+                border-bottom: 1px solid grey;
+            }
+
             @media screen and (max-width: 992px) {
-                .container {
+                .container main {
                     grid-template-columns: 3fr 2fr;
                 }
 
-                .container .sidebar {
+                .menu {
                     position: absolute;
                     left: -100%;
-                }
-
-                .nav-link {
-                    display: flex;
                 }
             }
         </style>
@@ -230,113 +282,193 @@
                             <a href="#">Sign Up</a>
                         </div>
                     </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="user-logined">
-                        <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-                        <div class="cart-items">
-                            <i class='bx bx-cart' ></i>
-                            <a href="#">Cart</a>
-                        </div>
-                    </div>
-                    <%
-                        }
-                    %>
                 </aside>
             </header>
 
-
-
             <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <div class="column">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                            <a href="home.jsp">Home</a>
-                        </li>
+                                <a href="home.jsp">Home</a>
+                            </li>
 
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
 
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
-                        </li>
-                    </ul>
-                </div>
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="ViewBookingServlet">Booking Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                <main>
+                    <div class="location">
+                        <div class="add-ab">
+                            <a href="home.jsp">Home</a><span> &#10095; Location</span>
+                        </div>
+
+
+                        <h1>Location <span>&amp;</span> Price</h1>
+
+
+                        <%
+                            List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+
+                            if (listLocation != null && listLocation.size() > 0) {
+
+                                for (LocationDTO location : listLocation) {
+                        %>
 
 
 
-                    <div class="column main">
-                        <div class="breadcrumbs">
-                            <ul class="items">
-                                <li class="item Home">
-                                    <a href="/" title="Trang chủ">Trang chủ</a>
-                                </li>
-                                <li class="item Locations fares">
-                                    <strong>Địa điểm &amp; giá vé</strong>
-                                </li>
-                            </ul>
+                        <div class="container-location-products">
+                            <div class="location-product">
+                                <h2><%= location.getLocationDetails()%></h2>
+                            </div>
+                            <button>
+                                <a href="#">Booking</a>
+                            </button>
                         </div>
 
 
 
 
+                        <%
+                                }
 
-                        <c:if test="${requestScope.LIST_LOCATION != null}">
-
-                            <c:if test="${not empty requestScope.LIST_LOCATION}" >
-
-                                <c:forEach var="location" varStatus="loop" items="${requestScope.LIST_LOCATION}" >
+                            }
 
 
-                                    <div class="container-location-products">
-                                        <div class="location-product" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                                            <h2 class="location-name">${location.locationDetails}</h2>
-                                        </div>
-                                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
-                                    </div>
+                        %>
 
 
-
-                                </c:forEach>
-
-                            </c:if>
-
-                        </c:if>
 
 
                     </div>
+                </div>
 
-                </main>
+            </main>
+        </div>
+        <%        } else {
+        %>
+        <div class="user-logined">
+            <div class="logined">
+                <i class='bx bx-user-circle'></i>
+                <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+            </div>
+            <div class="cart-items">
+                <i class='bx bx-cart' ></i>
+                <a href="#">Cart</a>
+            </div>
+        </div>
+    </aside>
+</header>
+
+<main>
+    <div class="column">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
+
+                    <a href="home.jsp">Home</a>
+                </li>
+
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
+
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="#">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="#">Order Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+            <ul class="logout">
+                <li>
+                    <a href="#">
+                        <i class='bx bx-log-out-circle' ></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="location">
+            <div class="add-ab">
+                <a href="home.jsp">Home</a><span> &#10095; Location</span>
+            </div>
 
 
+            <h1>Location <span>&amp;</span> Price</h1>
+
+            <%
+                List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+
+                if (listLocation != null && listLocation.size() > 0) {
+
+                    for (LocationDTO location : listLocation) {
+            %>
+
+
+
+            <div class="container-location-products">
+                <div class="location-product">
+                    <h2><%= location.getLocationDetails()%></h2>
+                </div>
+                <button>
+                    <a href="#">Booking</a>
+                </button>
+            </div>
+
+
+
+
+            <%
+                    }
+
+                }
+
+
+            %>
 
 
 
 
         </div>
     </div>
-</body>
+
+</main>
+</div>
+<%    }
+%>
 </html>

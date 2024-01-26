@@ -118,28 +118,28 @@
                 gap: 35px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
+
             .container main {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
@@ -185,9 +185,12 @@
                 }
 
             }
-            
+
         </style>
-    </head>
+    </head
+
+
+    
     <body>
         <div class="container">
             <header>
@@ -208,7 +211,6 @@
 
                     <%
                         UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
                         if (dto == null) {
                     %>
                     <div class="profile">
@@ -244,7 +246,6 @@
             </header>
 
 
-
             <main>
                 <div class="menu">
                     <ul class="menu-ic">
@@ -269,7 +270,7 @@
                         </li>
                         <li>
                             <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
+                            <a href="ViewBookingServlet">Booking Party</a>
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
@@ -278,10 +279,7 @@
                     </ul>
                 </div>
 
-                <div>
 
-<<<<<<< HEAD
-            <main>
                 <header>
                     <div class="nav-link">
                         <button class="menu-btn" id="menu-open" style="height: 30px">
@@ -299,7 +297,6 @@
                 </header>
 
 
-
                 <div class="column main">
                     <div class="breadcrumbs">
                         <ul class="items">
@@ -314,10 +311,7 @@
                 </div>
 
 
-
                 <div class="container-location-products">
-
-
                     <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
                         <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
                         <div class="price-box">
@@ -326,8 +320,6 @@
                         </div>
                         <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
                     </div>
-=======
->>>>>>> 860aab4f2c78659c1a41da5689980c947014c43f
                 </div>
             </main>
         </div>
