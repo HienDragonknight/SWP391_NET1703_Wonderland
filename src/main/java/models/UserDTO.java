@@ -18,19 +18,19 @@ public class UserDTO implements Serializable {
     private String password;
     private String phoneNumber;
     private String avatar;
-    private int roleID;
+    private String role;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userID, String fullName, String email, String password, String phoneNumber, String avatar, int roleID) {
+    public UserDTO(int userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
         this.userID = userID;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.avatar = avatar;
-        this.roleID = roleID;
+        this.role = role;
     }
 
     public String getFullName() {
@@ -73,12 +73,12 @@ public class UserDTO implements Serializable {
         this.avatar = avatar;
     }
 
-    public int getRoleID() {
-        return roleID;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleID(int roleID) {
-        this.roleID = roleID;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public int getUserID() {

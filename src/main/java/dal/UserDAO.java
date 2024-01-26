@@ -39,7 +39,7 @@ public class UserDAO implements Serializable {
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
-                    int roleID = rs.getInt("roleID");
+                    String roleID = rs.getString("roleID");
                     result = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
                 }
             }
@@ -88,7 +88,7 @@ public class UserDAO implements Serializable {
                     String password = rs.getString("password");
                     String phoneNumber = rs.getString("phone");
                     String avatar = rs.getString("avatar");
-                    int roleID = rs.getInt("roleID");
+                    String roleID = rs.getString("roleID");
                     //5.1.2 set data into properties of DTO
                     UserDTO dto = new UserDTO(userID, fullName, email, password, phoneNumber, avatar, roleID);
                     //5.1.3 add DTO into list
@@ -99,6 +99,44 @@ public class UserDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+    public void checkUser(String user) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "SELECT u.userID, u.fullname, u.email, u.phone, r.roleDetails FROM [User] u JOIN [Role] r ON r.roleID = u.roleID WHERE u.fullname = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + user + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    int userID = rs.getInt("userID");
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String phoneNum = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String roleID = rs.getString("roleID");
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
+                    if (this.listUser == null) {
+                        this.listUser = new ArrayList<>();
+                    }
+                    this.listUser.add(dto);
+                }
+            }
         } finally {
             if (rs != null) {
                 rs.close();
