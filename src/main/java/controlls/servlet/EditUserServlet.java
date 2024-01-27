@@ -15,17 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
-public class ViewUserServlet extends HttpServlet {
-    public final String ERROR = "admin.jsp";
-    public final String SUCCESS = "admin.jsp";
+@WebServlet(name = "EditUserServlet", urlPatterns = {"/EditUserServlet"})
+public class EditUserServlet extends HttpServlet {
+    private final String ERROR = "adminEdit.jsp";
+    private final String SUCCESS = "adminEdit.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,12 +38,13 @@ public class ViewUserServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String userName = request.getParameter("txtUserName");
         try {
             UserDAO dao = new UserDAO();
-            dao.getUser();
-            List<UserDTO> user = dao.getListUser();
+            dao.checkUser(userName);
+            List<UserDTO> result = dao.getListUser();
             url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
+            request.setAttribute("USER_PRO", result);
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } catch (ClassNotFoundException e) {

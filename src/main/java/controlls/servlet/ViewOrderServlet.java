@@ -4,7 +4,7 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,17 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
+import models.OrderDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
-public class ViewUserServlet extends HttpServlet {
-    public final String ERROR = "admin.jsp";
-    public final String SUCCESS = "admin.jsp";
+@WebServlet(name = "ViewOrderServlet", urlPatterns = {"/ViewOrderServlet"})
+public class ViewOrderServlet extends HttpServlet {
+    private final String ERROR = "adminOrder.jsp";
+    private final String SUCCESS = "adminOrder.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,11 +39,11 @@ public class ViewUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            UserDAO dao = new UserDAO();
-            dao.getUser();
-            List<UserDTO> user = dao.getListUser();
+            OrderDAO dao = new OrderDAO();
+            dao.getOrder();
+            List<OrderDTO> order = dao.getListOrder();
             url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
+            request.setAttribute("LIST_ORDER", order);
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } catch (ClassNotFoundException e) {

@@ -349,6 +349,7 @@
                 cursor: pointer;
             }
 
+            
             @keyframes next1 {
                 from {
                     left: 0%;
