@@ -112,35 +112,22 @@ public class UserDAO implements Serializable {
         }
     }
     
-    public void checkUser(String user) throws ClassNotFoundException, SQLException {
+    public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
-        ResultSet rs = null;
+        boolean result = false;
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT u.userID, u.fullname, u.email, u.phone, r.roleDetails FROM [User] u JOIN [Role] r ON r.roleID = u.roleID WHERE u.fullname = ?";
+                String sql = "DELETE FROM [User] WHERE fullname = ?";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, "%" + user + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int userID = rs.getInt("userID");
-                    String fullName = rs.getString("fullname");
-                    String email = rs.getString("email");
-                    String phoneNum = rs.getString("phone");
-                    String avatar = rs.getString("avatar");
-                    String roleID = rs.getString("roleID");
-                    UserDTO dto = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
-                    if (this.listUser == null) {
-                        this.listUser = new ArrayList<>();
-                    }
-                    this.listUser.add(dto);
+                stm.setString(1, email);
+                int effectRows = stm.executeUpdate();
+                if (effectRows > 0) {
+                    result = true;
                 }
             }
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
             if (stm != null) {
                 stm.close();
             }
@@ -148,5 +135,6 @@ public class UserDAO implements Serializable {
                 con.close();
             }
         }
+        return result;
     }
 }

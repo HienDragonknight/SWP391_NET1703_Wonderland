@@ -407,6 +407,34 @@
                 background: #388E3C;
             }
 
+            .delete {
+                border: 1px solid #D32F2F;
+                padding: 4px;
+                border-radius: 50px;
+                background-color: #D32F2F;
+                color: #fff;
+            }
+
+            .admin-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .admin-header a {
+                height: 36px;
+                padding: 0 16px;
+                border-radius: 36px;
+                background: #1976D2;
+                color: #f6f6f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                grid-gap: 10px;
+                font-weight: 500;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -493,8 +521,9 @@
                     </div>
 
                     <div class="admin-container">
-                        <div>
+                        <div class="admin-header">
                             <h1>Admin Dashboard</h1>
+                            <a href="ManageAccountServlet">Manage Account</a>
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
@@ -567,8 +596,11 @@
                                     <%
                                         if (result != null) {
                                             for (UserDTO dto : result) {
+                                                String urlRewriting = "AdminServlet"
+                                                        + "?action=delete"
+                                                        + "&pk=" + dto.getFullName();
                                     %>
-                                    <form action="EditUserServlet" method="POST">
+                                    <form action="AdminServlet" method="POST">
                                         <tbody>
                                             <tr>
                                                 <td>
@@ -576,10 +608,9 @@
                                                 </td>
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
-                                                <td>Customer</td>
+                                                <td><%= dto.getRole()%></td>
                                                 <td>
-                                                    <input type="submit" name="txtUserName" value="<%= dto.getFullName() %>"/>
-                                                    <a href="EditUserServlet?userName=<%= dto.getFullName() %>">Edit</a>
+                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
                                                 </td>
                                             </tr>
                                         </tbody>
