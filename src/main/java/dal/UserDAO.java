@@ -111,7 +111,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public void checkUser(String user) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -149,4 +149,91 @@ public class UserDAO implements Serializable {
             }
         }
     }
+
+    public UserDTO registerUser(String fullname, String email, String password, String phone) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        UserDTO result = null;
+
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                // Define your SQL query for user registration
+                String sql = "INSERT INTO your_user_table (email, password, fullname, phone) VALUES (?, ?, ?, ?)";
+
+                // Use PreparedStatement for safe SQL query execution
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+                stm.setString(2, password);
+                stm.setString(3, fullname);
+                stm.setString(4, phone);
+
+                // Execute the insert query
+                int affectedRows = stm.executeUpdate();
+
+                // Check if any rows were affected
+                if (affectedRows > 0) {
+                    // Retrieve the generated keys (if any)
+                    rs = stm.getGeneratedKeys();
+                    if (rs.next()) {
+                        int userID = rs.getInt(1); // Assuming userID is an auto-generated key
+                        // Retrieve other user details if needed
+
+                        // Create the UserDTO object with the retrieved data
+                        result = new UserDTO(userID, fullname, email, "", phone, "", "");
+                    }
+                }
+            }
+        } finally {
+            // Close resources in a 'finally' block to ensure they are always closed
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return result;
+    }
+    
+    public boolean userExists(String email) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+
+                rs = stm.executeQuery();
+
+                if (rs.next()) {
+                    int count = rs.getInt(1);
+                    return count > 0; // If count is greater than 0, user exists
+                }
+            }
+        } finally {
+            // Close resources in a 'finally' block to ensure they are always closed
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return false; // Default to false if an exception occurs
+    }
+
 }

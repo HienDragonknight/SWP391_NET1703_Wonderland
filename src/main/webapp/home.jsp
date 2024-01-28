@@ -310,16 +310,16 @@
             .footer-header h2 {
                 margin-top: 40px;
             }
-            
+
             .footer-content-usp a {
                 display: flex;
                 align-items: center;
             }
-            
+
             .copy-right {
                 background-color: #fff;
             }
-            
+
             .copy-right-content {
                 padding: 20px;
                 display: flex;
@@ -408,7 +408,7 @@
 
                         <div class="sign-pro">
                             <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
+                            <a href="register.jsp">Sign Up</a>
                         </div>
                     </div>
                 </aside>
@@ -605,12 +605,12 @@
             </ul>
             <ul class="logout">
                 <li>
-                    <a href="#">
-                        <i class='bx bx-log-out-circle' ></i>
-                        <span>Logout</span>
-                    </a>
+                    <form action="LogoutServlet" method="POST">
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
                 </li>
             </ul>
+
         </div>
 
         <div class="column-content">
