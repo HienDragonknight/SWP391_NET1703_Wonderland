@@ -229,6 +229,11 @@
                 width: 100%;
                 border-bottom: 1px solid grey;
             }
+            
+            .location-product h2 {
+                position: relative;
+                top: 9px;
+            }
 
             @media screen and (max-width: 992px) {
                 .container main {

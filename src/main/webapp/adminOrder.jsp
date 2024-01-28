@@ -1,12 +1,12 @@
 <%-- 
-    Document   : admin
-    Created on : Jan 24, 2024, 3:01:36 PM
+    Document   : order
+    Created on : Jan 25, 2024, 5:51:00 PM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="models.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -450,10 +450,6 @@
                 </aside>
             </header>
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
             <main>
                 <div class="column">
                     <div class="menu">
@@ -501,17 +497,15 @@
                             <h1>Admin Dashboard</h1>
                         </div>
                         <%
-                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                            List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("LIST_ORDER");
 
                             int totalUsers = 0; // Counter for total users
 
-                            if (result != null) {
-                                for (UserDTO dto : result) {
+                            if (orderList != null) {
+                                for (OrderDTO dto : orderList) {
                                     totalUsers++;
                                 }
                             }
-
-
                         %>
                         <div>
 
@@ -547,58 +541,51 @@
                             </ul>
                         </div>
                         <!-- End of Insights -->
+                        <form action="ViewUserServlet" method="POST">
+                            <div class="bottom-data">
+                                <div class="orders">
+                                    <div class="header">
+                                        <i class='bx bx-receipt'></i>
+                                        <h3>Amount: <span><%= totalUsers %> Order</span></h3>
+                                        <i class='bx bx-filter'></i>
+                                        <i class='bx bx-search'></i>
+                                    </div>
 
-                        <div class="bottom-data">
-                            <div class="orders">
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Amount: <span><%= totalUsers%> Users</span></h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
-                                </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Date</th>
+                                                <th>TotalPrice</th>
+                                            </tr>
+                                        </thead>
+                                        <%
+                                            if (orderList != null) {
+                                                for (OrderDTO dto : orderList) {
+                                        %>
 
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Edit Profile</th>
-                                        </tr>
-                                    </thead>
 
-                                    <%
-                                        if (result != null) {
-                                            for (UserDTO dto : result) {
-                                    %>
-                                    <form action="EditUserServlet" method="POST">
+
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <p><%= dto.getFullName()%></p>
+                                                    <p><%= dto.getUserName() %></p>
                                                 </td>
-                                                <td><%= dto.getPhoneNumber()%></td>
-                                                <td><%= dto.getEmail()%></td>
-                                                <td>Customer</td>
-                                                <td>
-                                                    <input type="submit" name="txtUserName" value="<%= dto.getFullName() %>"/>
-                                                    <a href="EditUserServlet?userName=<%= dto.getFullName() %>">Edit</a>
-                                                </td>
+                                                <td><%= dto.getCreateDate() %></td>
+                                                <td><%= dto.getTotalPrice() %></td>
                                             </tr>
-                                        </tbody>
-                                    </form>
-                                    <%
-                                            }
-                                        }
-                                    %>
 
-                                    </tbody>
-                                </table>
 
+
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                    </table>
+
+                                </div>
                             </div>
-                        </div>
-
+                        </form>
                     </div>
 
             </main>
