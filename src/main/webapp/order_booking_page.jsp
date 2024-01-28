@@ -925,6 +925,8 @@
                                        </div>
                                    </div>
                                </section>
+                
+                
                                <section id="offer">
                                    <div class="offer">
                                        <div class="container">
@@ -970,6 +972,10 @@
                                        </div>
                                    </div>
                                </section>
+                
+                
+                
+                
                                <section id="services">
                                    <div class="services">
                                        <div class="container">
@@ -1080,6 +1086,9 @@
 </div>
 </div>
 </section>
+                
+                
+                
 <section id="gallery">
 <div class="gallery">
 <div class="container">
@@ -1130,10 +1139,10 @@
 </div>
 </div>
 </section>
+-->
 
 
 
-                -->
                 <section id="booking-form">
                     <div class="booking-form">
                         <div class="container">
@@ -1288,7 +1297,6 @@
                                                             for (PackageDTO packageIndex : packageList) {
                                                     %>
                                                     <option value="<%= packageIndex.getPakageID()%>"> <%= packageIndex.getPakageName()%> </option>
-
                                                     <%
                                                             }
                                                         }
@@ -1329,6 +1337,8 @@
                         </div>
                     </div>
                 </section>
+                                                    
+                                                    
 
 
             </div>
