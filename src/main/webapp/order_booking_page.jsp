@@ -687,7 +687,6 @@
 
                     </div>
 
-
                 </section>
 
                 <!--
@@ -1242,7 +1241,7 @@
                                                         List<LocationDTO> locationList = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
                                                         if (locationList != null && locationList.size() > 0) {
 
-                                    //                                                                    int index = 1;
+                                                            //                                                                    int index = 1;
                                                             for (LocationDTO location : locationList) {
 
                                                     %>
@@ -1288,7 +1287,7 @@
                                                             int index = 1;
                                                             for (PackageDTO packageIndex : packageList) {
                                                     %>
-                                                    <option value="<%= packageIndex.getPackageID()%>"> <%= packageIndex.getPakageName()%> </option>
+                                                    <option value="<%= packageIndex.getPakageID()%>"> <%= packageIndex.getPakageName()%> </option>
 
                                                     <%
                                                             }
