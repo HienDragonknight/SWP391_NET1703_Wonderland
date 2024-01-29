@@ -17,16 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.UserDTO;
 
-
 /**
  *
  * @author Le Huu Huy
  */
-
-
-
 @WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
-
 
 public class LoginServlet extends HttpServlet {
 
@@ -43,41 +38,44 @@ public class LoginServlet extends HttpServlet {
         String url = LOGIN_PAGE;
         String button = request.getParameter("action");
 
-        
         try {
             if (button.equals("Login")) {
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
-                            String remember = request.getParameter("RememberMe");
+                String remember = request.getParameter("RememberMe");
 
-                  Cookie cEmail = new Cookie("cEmail", email);
-            Cookie cPassword = new Cookie("cPassword", password);
-            Cookie cRemember = new Cookie("cRemember", remember);
-            if (email == null || password == null) {
-                response.sendRedirect("login");
-                return;
-            }
-
+                Cookie cEmail = new Cookie("cEmail", email);
+                Cookie cPassword = new Cookie("cPassword", password);
+                Cookie cRemember = new Cookie("cRemember", remember);
+                if (email == null || password == null) {
+                    response.sendRedirect("login");
+                    return;
+                }
 
                 UserDAO dao = new UserDAO();
                 UserDTO result = dao.checkLogin(email, password);
                 if (result != null) {
+<<<<<<< HEAD
                                     session.setAttribute("user_loged", result); 
                 String role = result.getRole();
+=======
+                    session.setAttribute("user_loged", result);
+                    String role = result.getRoleID();
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
 
-                if (remember != null && remember.equals("ON")) {
-                    cEmail.setMaxAge(60 * 60 * 24 * 7);
-                    cPassword.setMaxAge(60 * 60 * 24 * 7);
-                    cRemember.setMaxAge(60 * 60 * 24 * 7);
-                } else {
-                    cEmail.setMaxAge(0);
-                    cPassword.setMaxAge(0);
-                    cRemember.setMaxAge(0);
-                }
+                    if (remember != null && remember.equals("ON")) {
+                        cEmail.setMaxAge(60 * 60 * 24 * 7);
+                        cPassword.setMaxAge(60 * 60 * 24 * 7);
+                        cRemember.setMaxAge(60 * 60 * 24 * 7);
+                    } else {
+                        cEmail.setMaxAge(0);
+                        cPassword.setMaxAge(0);
+                        cRemember.setMaxAge(0);
+                    }
 
-                response.addCookie(cEmail);
-                response.addCookie(cPassword);
-                response.addCookie(cRemember);
+                    response.addCookie(cEmail);
+                    response.addCookie(cPassword);
+                    response.addCookie(cRemember);
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
                 }

@@ -17,7 +17,6 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
-            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
             * {
                 padding: 0;
@@ -283,6 +282,7 @@
                 cursor: pointer;
             }
 
+<<<<<<< HEAD
             .page-footer {
                 background-color: #f6f6f9;
                 border-top-left-radius: 50%;
@@ -333,6 +333,8 @@
                 align-items: center;
             }
 
+=======
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
             @keyframes next1 {
                 from {
                     left: 0%;
@@ -507,59 +509,6 @@
                 </div>
 
             </main>
-
-            <footer class="page-footer">
-                <div class="footer-header">
-                    <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
-                </div>
-
-                <div class="footer-content">
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>History begin</li>
-                            <li>Job opportunities</li>
-                            <li>Wonder regulation</li>
-                            <li>Wonder Partner</li>
-                            <li>Wonder Charity Foundation</li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-world'></i>
-                                    <span>nkidgroup.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-envelope' ></i>
-                                    <span>cskh@wonderland.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-phone' ></i>
-                                    <span>1900 63 63 28</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-current-location' ></i>
-                                    <span>SWP391</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="copy-right">
-                    <div class="copy-right-content">
-                        <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
-                    </div>
-                </div>
-            </footer>
         </div>
         <%
         } else {
@@ -567,7 +516,7 @@
         <div class="user-logined">
             <div class="logined">
                 <i class='bx bx-user-circle'></i>
-                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
             </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
@@ -671,6 +620,7 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 </main>
 
 <footer class="page-footer">
@@ -728,6 +678,11 @@
 <%
     }
 %>
+=======
+        <%
+            }
+        %>
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
 
 
 <script src="js/slider.js"></script>

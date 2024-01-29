@@ -20,14 +20,16 @@ public class ThemeDTO implements Serializable {
         this.themeName = themeName;
     }
 
-    
-
     public String getThemeID() {
         return themeID;
     }
 
     public void setThemeID(String themeID) {
         this.themeID = themeID;
+    }
+
+    public ThemeDTO(String themeName) {
+        this.themeName = themeName;
     }
 
     public String getThemeName() {

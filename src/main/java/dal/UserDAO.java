@@ -35,14 +35,23 @@ public class UserDAO implements Serializable {
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
+<<<<<<< HEAD
                     int userID = rs.getInt("userID");
                     String ID = userID + "";
+=======
+                    String userID = rs.getInt("userID")+"";
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
 
                     String roleID = rs.getString("roleID");
+<<<<<<< HEAD
                     result = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
+=======
+                    result = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
+
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                 }
             }
         } finally {
@@ -85,8 +94,12 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
+<<<<<<< HEAD
                     int userID = rs.getInt("userID");
                     String ID = userID + "";
+=======
+                    String userID = rs.getInt("userID")+"";
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -129,10 +142,27 @@ public class UserDAO implements Serializable {
             if (con != null) {
                 String sql = "DELETE FROM [User] WHERE fullname = ?";
                 stm = con.prepareStatement(sql);
+<<<<<<< HEAD
                 stm.setString(1, email);
                 int effectRows = stm.executeUpdate();
                 if (effectRows > 0) {
                     result = true;
+=======
+                stm.setString(1, "%" + user + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getInt("userID")+"";
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String phoneNum = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String roleID = rs.getString("roleID");
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
+                    if (this.listUser == null) {
+                        this.listUser = new ArrayList<>();
+                    }
+                    this.listUser.add(dto);
+>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                 }
             }
         } finally {
