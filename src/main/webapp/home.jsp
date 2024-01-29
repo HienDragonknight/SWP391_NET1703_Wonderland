@@ -237,11 +237,12 @@
             }
 
             .column-about img {
-                width: 40%;
+                width: 30%;
                 border-radius: 50px;
             }
 
             .column-about .column-about-container {
+                width: 100%;
                 padding: 0px 100px;
             }
 
@@ -259,6 +260,11 @@
                 align-items: center;
                 color: #fff;
                 gap: 8px;
+            }
+            
+            .column-about img,
+            .column-about .column-about-container {
+                width: 50%;
             }
 
             .logout {
@@ -649,7 +655,7 @@
                     <p>
                         <font style="vertical-align: inherit; font-size: 18px">
                         <font style="vertical-align: inherit; font-size: 18px">
-                        With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
+                        With a variety of birthday party packages, Wonderland promises to bring little angels a party full of surprises and memorable moments.
                         </font>
                         </font>
                     </p>

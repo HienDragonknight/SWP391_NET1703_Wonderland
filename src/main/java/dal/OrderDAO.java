@@ -37,7 +37,7 @@ public class OrderDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT o.orderID, u.fullname, o.create_at, o.totalPrice, o.status FROM [Order] o JOIN [User] u ON u.userID = o.userID WHERE o.userID = 1";
+                String sql = "SELECT o.orderID, u.fullname, o.create_at, o.totalPrice, o.status FROM [Order] o JOIN [User] u ON u.userID = o.userID";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
