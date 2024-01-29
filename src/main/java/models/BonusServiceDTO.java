@@ -26,6 +26,13 @@ public class BonusServiceDTO implements Serializable {
         this.image = image;
     }
 
+    public BonusServiceDTO(String serviceName, double servicePrice, String descriptions, String image) {
+        this.serviceName = serviceName;
+        this.servicePrice = servicePrice;
+        this.descriptions = descriptions;
+        this.image = image;
+    }
+    
     public int getServiceID() {
         return serviceID;
     }

@@ -11,6 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.BonusServiceDTO;
+import models.LocationDTO;
+import models.PackageDTO;
+import models.ThemeDTO;
 
 /**
  *
@@ -32,25 +36,42 @@ public class AddServiceServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String action = request.getParameter("create");
         String url = ERROR;
+        String message = "";
         boolean check = true;
         HostDAO hostDao = new HostDAO();
         try (PrintWriter out = response.getWriter()) {
-            String themeName = request.getParameter("themeName");
-            String pakageName = request.getParameter("pakageName");
-            String pakagePrice = request.getParameter("pakagePrice");
-            String pakageImage = request.getParameter("pakageImage");
-            String pakageVideo = request.getParameter("pakageVideo");
-            String pakageDesciption = request.getParameter("pakageDesciption");
-            String serviceName = request.getParameter("serviceName");
-            String servicePrice = request.getParameter("servicePrice");
-            String descriptions = request.getParameter("descriptions");
-            String image = request.getParameter("image");
-            String locationDetails = request.getParameter("locationDetails");
-            
-            String confirm = request.getParameter("confirm");
-        } catch (Exception ex){
-            
+            if (action.equals("create")) {
+                String themeName = request.getParameter("themeName");
+                String packageName = request.getParameter("packageName");
+                String packagePriceParameter = request.getParameter("packagePrice");
+                double packagePrice = Double.parseDouble(packagePriceParameter);
+                String packageImage = request.getParameter("packageImage");
+                String packageVideo = request.getParameter("packageVideo");
+                String packageDesciption = request.getParameter("packageDesciption");
+                String serviceName = request.getParameter("serviceName");
+                String servicePriceParameter = request.getParameter("servicePrice");
+                double servicePrice = Double.parseDouble(servicePriceParameter);
+                String descriptions = request.getParameter("descriptions");
+                String image = request.getParameter("image");
+                String locationDetails = request.getParameter("locationDetails");
+                hostDao.addTheme(new ThemeDTO(themeName));
+                hostDao.addPackage(new PackageDTO(packageName, packagePrice, packageImage, packageVideo, packageDesciption));
+                hostDao.addBonusService(new BonusServiceDTO(serviceName, servicePrice, descriptions, image));
+                hostDao.addLocation(new LocationDTO(locationDetails));
+                message = "Party created successfully!";
+                url = SUCCESS;
+            }
+        } catch (Exception ex) {
+            log("Error at AddServiceServlet:" + ex);
+        } finally {
+            request.setAttribute("message", message);
+            if (url.equals(SUCCESS)) {
+                response.sendRedirect(url);
+            } else {
+                request.getRequestDispatcher(url).forward(request, response);
+            }
         }
     }
 

@@ -4,6 +4,7 @@
     Author     : phanv
 --%>
 
+<%@page import="java.util.Objects"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,12 @@
             </br>Location Details<input type="text" name="locationDetails" required=""/>
             </br><input type="submit" name="create" value="Create"/>
             <input type="reset" value="Reset"/> 
-            
+            <%
+                String message = (String) request.getAttribute("message");
+                if (Objects.nonNull(message)) {
+            %>
+            <p style="color: green;"><%= message%></p>
+            <% }%>
         </form>
     </body>
 </html>

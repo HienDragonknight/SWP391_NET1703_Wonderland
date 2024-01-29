@@ -10,28 +10,28 @@ import java.io.Serializable;
  *
  * @author phanv
  */
-public class PakageDTO implements Serializable {
+public class PackageDTO implements Serializable {
 
-    private String pakageName;
+    private String packageName;
     private double unitPrice;
     private String image;
     private String video;
     private String description;
 
-    public PakageDTO(String pakageName, double unitPrice, String image, String video, String description) {
-        this.pakageName = pakageName;
+    public PackageDTO(String packageName, double unitPrice, String image, String video, String description) {
+        this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
     }
 
-    public String getPakageName() {
-        return pakageName;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setPakageName(String pakageName) {
-        this.pakageName = pakageName;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public double getUnitPrice() {

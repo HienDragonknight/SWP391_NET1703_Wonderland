@@ -9,7 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import models.BonusServiceDTO;
 import models.LocationDTO;
-import models.PakageDTO;
+import models.PackageDTO;
 import models.ThemeDTO;
 import util.DBUtils;
 
@@ -44,7 +44,7 @@ public class HostDAO {
         return check;
     }
 
-    public boolean addPakage(PakageDTO pakage) throws SQLException {
+    public boolean addPackage(PackageDTO pakage) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -53,7 +53,7 @@ public class HostDAO {
             conn = DBUtils.createConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(sql);
-                ptm.setString(1, pakage.getPakageName());
+                ptm.setString(1, pakage.getPackageName());
                 ptm.setDouble(2, pakage.getUnitPrice());
                 ptm.setString(3, pakage.getImage());
                 ptm.setString(4, pakage.getVideo());

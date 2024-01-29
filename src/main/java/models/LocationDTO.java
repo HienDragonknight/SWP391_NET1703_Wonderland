@@ -20,6 +20,10 @@ public class LocationDTO implements Serializable{
         this.locationDetails = locationDetails;
     }
 
+    public LocationDTO(String locationDetails) {
+        this.locationDetails = locationDetails;
+    }
+    
     public LocationDTO() {
     }
 
