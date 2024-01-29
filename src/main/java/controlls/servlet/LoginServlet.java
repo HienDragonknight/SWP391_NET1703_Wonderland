@@ -63,7 +63,7 @@ public class LoginServlet extends HttpServlet {
                 UserDTO result = dao.checkLogin(email, password);
                 if (result != null) {
                                     session.setAttribute("user_loged", result); 
-                int role = result.getRoleID();
+                String role = result.getRole();
 
                 if (remember != null && remember.equals("ON")) {
                     cEmail.setMaxAge(60 * 60 * 24 * 7);

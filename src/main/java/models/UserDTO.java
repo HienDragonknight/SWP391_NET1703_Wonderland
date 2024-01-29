@@ -12,11 +12,9 @@ import java.io.Serializable;
  */
 public class UserDTO implements Serializable {
 
-<<<<<<< HEAD
+
     private String userID;
-=======
-    private int userID;
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
+
     private String fullName;
     private String email;
     private String password;
@@ -27,7 +25,7 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-    public UserDTO(int userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
         this.userID = userID;
         this.fullName = fullName;
         this.email = email;
@@ -93,12 +91,6 @@ public class UserDTO implements Serializable {
         this.role = role;
     }
 
-    public int getUserID() {
-        return userID;
-    }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
 
 }

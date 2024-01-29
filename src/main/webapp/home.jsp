@@ -277,8 +277,6 @@
                 cursor: pointer;
             }
 
-<<<<<<< HEAD
-=======
             .page-footer {
                 background-color: #f6f6f9;
                 border-top-left-radius: 50%;
@@ -329,7 +327,6 @@
                 align-items: center;
             }
 
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
             @keyframes next1 {
                 from {
                     left: 0%;
@@ -442,7 +439,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
+                                <a href="#">Order Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -472,7 +469,6 @@
                                 <div class="dot" attr='3' onclick="switchImage(this)"></div>
                             </div>
                         </div>
-
 
                         <div class="column-about">
                             <img src="image/Birthday.png" alt="Birthday"/>
@@ -572,109 +568,103 @@
                 <a href="#">Cart</a>
             </div>
         </div>
+    </aside>
+</header>
 
+<main>
+    <div class="column">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
 
+                    <a href="home.jsp">Home</a>
+                </li>
 
-        <main>
-            <div class="column">
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
 
-                            <a href="home.jsp">Home</a>
-                        </li>
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="#">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="#">Order Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+            <ul class="logout">
+                <li>
+                    <a href="#">
+                        <i class='bx bx-log-out-circle' ></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
 
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Service</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
-                        </li>
-                    </ul>
-                    <ul class="logout">
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-log-out-circle' ></i>
-                                <span>Logout</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>      
+        <div class="column-content">
+            <div class="slide-container">
+                <div class="slides">
+                    <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                    <img src="image/cover2.jpg" alt="image #2"/>
+                    <img src="image/cover3.jpg" alt="image #3"/>
+                    <img src="image/cover4.png" alt="image #4"/>
+                </div>
 
-                <div class="column-content">
-                    <div class="slide-container">
-                        <div class="slides">
-                            <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                            <img src="image/cover2.jpg" alt="image #2"/>
-                            <img src="image/cover3.jpg" alt="image #3"/>
-                            <img src="image/cover4.png" alt="image #4"/>
-                        </div>
+                <div class="buttons">
+                    <span class="next">&#10095;</span>
+                    <span class="prev">&#10094;</span>
+                </div>
 
-                        <div class="buttons">
-                            <span class="next">&#10095;</span>
-                            <span class="prev">&#10094;</span>
-                        </div>
-
-                        <div class="dotsContainer">
-                            <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                            <div class="dot" attr='3' onclick="switchImage(this)"></div>
-                        </div>
-                    </div>
-
-                    <div class="column-about">
-                        <img src="image/Birthday.png" alt="Birthday"/>
-                        <div class="column-about-container">
-                            <p>
-                                <font style="vertical-align: inherit; font-size: 18px">
-                                <font style="vertical-align: inherit; font-size: 18px">
-                                Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                                </font>
-                                </font>
-                            </p>
-                            <br/>
-                            <p>
-                                <font style="vertical-align: inherit; font-size: 18px">
-                                <font style="vertical-align: inherit; font-size: 18px">
-                                With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
-                                </font>
-                                </font>
-                            </p>
-                            <br/>
-                            <button>
-                                <a href="#">
-                                    <i class='bx bx-cake' ></i>
-                                    <span>Contact to book a party</span>
-                                </a>
-                            </button>
-                        </div>
-                    </div>
+                <div class="dotsContainer">
+                    <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='3' onclick="switchImage(this)"></div>
                 </div>
             </div>
 
-        </main>
+            <div class="column-about">
+                <img src="image/Birthday.png" alt="Birthday"/>
+                <div class="column-about-container">
+                    <p>
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                        </font>
+                        </font>
+                    </p>
+                    <br/>
+                    <p>
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
+                        </font>
+                        </font>
+                    </p>
+                    <br/>
+                    <button>
+                        <a href="#">
+                            <i class='bx bx-cake' ></i>
+                            <span>Contact to book a party</span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<<<<<<< HEAD
-        <%
-            }
-        %>
-=======
 </main>
 
 <footer class="page-footer">
@@ -732,9 +722,8 @@
 <%
     }
 %>
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
 
 
-        <script src="js/slider.js"></script>
-    </body>
+<script src="js/slider.js"></script>
+</body>
 </html>

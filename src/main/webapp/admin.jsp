@@ -450,10 +450,7 @@
                 </aside>
             </header>
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
             <main>
                 <div class="column">
                     <div class="menu">

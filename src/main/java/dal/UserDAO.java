@@ -36,16 +36,13 @@ public class UserDAO implements Serializable {
                 rs = stm.executeQuery();
                 if (rs.next()) {
                     int userID = rs.getInt("userID");
+                    String ID = userID + "";
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
-<<<<<<< HEAD
-                    int roleID = rs.getInt("roleID");
-                    result = new UserDTO(fullName, email, "" , phoneNum, avatar, roleID);
-=======
+
                     String roleID = rs.getString("roleID");
-                    result = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
+                    result = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
                 }
             }
         } finally {
@@ -74,26 +71,7 @@ public class UserDAO implements Serializable {
         ResultSet rs = null;
         boolean result = false;
         try {
-<<<<<<< HEAD
 
-            conn = DBUtils.createConnection();
-            String sql = "SELECT fullname, password, email, phone, avatar, roleID FROM [Users]";
-            ptm = conn.prepareStatement(sql);
-
-            rs = ptm.executeQuery();
-
-            while (rs.next()) {
-                String fullName = rs.getString("fullname");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                String phone = rs.getString("phone");
-                String avatar = rs.getString("avatar");
-                int roleID = rs.getInt("roleID");
-
-                listUser.add(new UserDTO(fullName, email, password, phone, avatar, roleID));
-            }
-
-=======
             //create connection
             con = DBUtils.createConnection();
             if (con != null) {
@@ -108,6 +86,7 @@ public class UserDAO implements Serializable {
                     //5.1 map data
                     //5.1.1 get data from rs
                     int userID = rs.getInt("userID");
+                    String ID = userID + "";
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -115,7 +94,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
                     //5.1.2 set data into properties of DTO
-                    UserDTO dto = new UserDTO(userID, fullName, email, password, phoneNumber, avatar, roleID);
+                    UserDTO dto = new UserDTO(ID, fullName, email, password, phoneNumber, avatar, roleID);
                     //5.1.3 add DTO into list
                     if (this.listUser == null) {
                         this.listUser = new ArrayList<>();
@@ -124,7 +103,7 @@ public class UserDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
->>>>>>> 1d642fb0c4c4e8d76f9f855d3e82fd6704a51b3f
+
         } finally {
             if (rs != null) {
                 rs.close();
@@ -137,7 +116,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public void checkUser(String user) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -151,12 +130,13 @@ public class UserDAO implements Serializable {
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     int userID = rs.getInt("userID");
+                    String ID = userID + "";
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
-                    UserDTO dto = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
+                    UserDTO dto = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
                     if (this.listUser == null) {
                         this.listUser = new ArrayList<>();
                     }
