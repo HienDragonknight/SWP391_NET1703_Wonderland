@@ -609,7 +609,7 @@
                                                 </td>
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
-                                                <td><%= dto.getRole()%></td>
+                                                <td><%= dto.getRoleID()%></td>
                                                 <td>
                                                     <a class="delete" href="<%= urlRewriting%>">Delete</a>
                                                 </td>

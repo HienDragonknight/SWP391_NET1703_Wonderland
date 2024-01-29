@@ -35,23 +35,14 @@ public class UserDAO implements Serializable {
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-<<<<<<< HEAD
                     int userID = rs.getInt("userID");
                     String ID = userID + "";
-=======
-                    String userID = rs.getInt("userID")+"";
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
+
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
-
                     String roleID = rs.getString("roleID");
-<<<<<<< HEAD
                     result = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
-=======
-                    result = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
-
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                 }
             }
         } finally {
@@ -80,12 +71,11 @@ public class UserDAO implements Serializable {
         ResultSet rs = null;
         boolean result = false;
         try {
-
             //create connection
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT userID, fullname, email, password, phone, avatar, roleID FROM [User]";
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, roleID FROM [Users]";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -94,12 +84,8 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-<<<<<<< HEAD
                     int userID = rs.getInt("userID");
                     String ID = userID + "";
-=======
-                    String userID = rs.getInt("userID")+"";
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -116,7 +102,6 @@ public class UserDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
-
         } finally {
             if (rs != null) {
                 rs.close();
@@ -129,40 +114,20 @@ public class UserDAO implements Serializable {
             }
         }
     }
-//<<<<<<< HEAD
-//
-//    public void checkUser(String user) throws ClassNotFoundException, SQLException {
-//=======
-  public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
+
+    public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         boolean result = false;
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "DELETE FROM [User] WHERE fullname = ?";
+                String sql = "DELETE FROM [Users] WHERE fullname = ?";
                 stm = con.prepareStatement(sql);
-<<<<<<< HEAD
                 stm.setString(1, email);
                 int effectRows = stm.executeUpdate();
                 if (effectRows > 0) {
                     result = true;
-=======
-                stm.setString(1, "%" + user + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    String userID = rs.getInt("userID")+"";
-                    String fullName = rs.getString("fullname");
-                    String email = rs.getString("email");
-                    String phoneNum = rs.getString("phone");
-                    String avatar = rs.getString("avatar");
-                    String roleID = rs.getString("roleID");
-                    UserDTO dto = new UserDTO(userID, fullName, email, "", phoneNum, avatar, roleID);
-                    if (this.listUser == null) {
-                        this.listUser = new ArrayList<>();
-                    }
-                    this.listUser.add(dto);
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
                 }
             }
         } finally {

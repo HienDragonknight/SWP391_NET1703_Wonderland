@@ -46,7 +46,11 @@ public class HostDAO {
         return check;
     }
 
+<<<<<<< HEAD
     public boolean addPakage(PackageDTO pakage) throws SQLException {
+=======
+    public boolean addPackage(PackageDTO pakage) throws SQLException {
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -55,7 +59,7 @@ public class HostDAO {
             conn = DBUtils.createConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(sql);
-                ptm.setString(1, pakage.getPakageName());
+                ptm.setString(1, pakage.getPackageName());
                 ptm.setDouble(2, pakage.getUnitPrice());
                 ptm.setString(3, pakage.getImage());
                 ptm.setString(4, pakage.getVideo());

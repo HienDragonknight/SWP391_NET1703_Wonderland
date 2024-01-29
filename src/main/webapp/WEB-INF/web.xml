@@ -8,4 +8,8 @@
         <welcome-file>home.jsp</welcome-file>
     </welcome-file-list>
     
+<<<<<<< HEAD
 </web-app>
+=======
+</web-app>
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128

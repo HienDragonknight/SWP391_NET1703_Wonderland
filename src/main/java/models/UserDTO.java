@@ -14,10 +14,6 @@ public class UserDTO implements Serializable {
 
 
     private String userID;
-<<<<<<< HEAD
-
-=======
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
     private String fullName;
     private String email;
     private String password;
@@ -28,11 +24,11 @@ public class UserDTO implements Serializable {
     public UserDTO() {
     }
 
-<<<<<<< HEAD
-    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
-=======
+//<<<<<<< HEAD
+//    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+//=======
     public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String roleID) {
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
         this.userID = userID;
         this.fullName = fullName;
         this.email = email;
@@ -93,17 +89,17 @@ public class UserDTO implements Serializable {
     public String getRoleID() {
         return roleID;
     }
-
-<<<<<<< HEAD
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-
-=======
+//
+//<<<<<<< HEAD
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+//
+//
+//=======
     public void setRole(String roleID) {
         this.roleID = roleID;
     }
->>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
 
 }

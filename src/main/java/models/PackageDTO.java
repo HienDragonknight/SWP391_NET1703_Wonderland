@@ -12,21 +12,31 @@ import java.io.Serializable;
  */
 public class PackageDTO implements Serializable {
 
+<<<<<<< HEAD
     private String pakageID;
     private String pakageName;
+=======
+    private String packageName;
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
     private double unitPrice;
     private String image;
     private String video;
     private String description;
 
+<<<<<<< HEAD
     public PackageDTO(String pakageName, double unitPrice, String image, String video, String description) {
         this.pakageName = pakageName;
+=======
+    public PackageDTO(String packageName, double unitPrice, String image, String video, String description) {
+        this.packageName = packageName;
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
     }
 
+<<<<<<< HEAD
     public PackageDTO(String pakageID, String pakageName, double unitPrice, String image, String video, String description) {
         this.pakageID = pakageID;
         this.pakageName = pakageName;
@@ -46,10 +56,14 @@ public class PackageDTO implements Serializable {
 
     public String getPakageName() {
         return pakageName;
+=======
+    public String getPackageName() {
+        return packageName;
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
     }
 
-    public void setPakageName(String pakageName) {
-        this.pakageName = pakageName;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public double getUnitPrice() {

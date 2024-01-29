@@ -26,8 +26,13 @@
             </br>Bonus Service Desciption<input type="text" name="descriptions" required=""/>
             </br>Bonus Service Video<input type="text" name="image" required=""/>
             </br>Location Details<input type="text" name="locationDetails" required=""/>
+<<<<<<< HEAD
             </br><input type="submit" name="create" value="create"/>
             <input type="reset" value="Reset"/></br>
+=======
+            </br><input type="submit" name="create" value="Create"/>
+            <input type="reset" value="Reset"/> 
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
             <%
                 String message = (String) request.getAttribute("message");
                 if (Objects.nonNull(message)) {

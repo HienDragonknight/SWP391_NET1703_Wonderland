@@ -19,6 +19,16 @@ public class LocationDTO implements Serializable {
         this.locationDetails = locationDetails;
     }
 
+<<<<<<< HEAD
+=======
+    public LocationDTO(String locationDetails) {
+        this.locationDetails = locationDetails;
+    }
+    
+    public LocationDTO() {
+    }
+
+>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
     public String getLocationID() {
         return locationID;
     }
