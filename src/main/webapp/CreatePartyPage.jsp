@@ -16,11 +16,11 @@
         <h1>Add Party</h1>
         <form action="AddServiceServlet" method="POST">
             Theme Name <input type="text" name="themeName" required=""/>
-            </br>Pakage Name<input type="text" name="pakageName" required=""/>
-            </br>Pakage Price<input type="text" name="pakagePrice" required=""/>
-            </br>Pakage Image<input type="text" name="pakageImage" required=""/>
-            </br>Pakage Video<input type="text" name="pakageVideo" required=""/>
-            </br>Pakage Description<input type="text" name="pakageDesciption" required=""/>
+            </br>Package Name<input type="text" name="packageName" required=""/>
+            </br>Package Price<input type="text" name="packagePrice" required=""/>
+            </br>Package Image<input type="text" name="packageImage" required=""/>
+            </br>Package Video<input type="text" name="packageVideo" required=""/>
+            </br>Package Description<input type="text" name="packageDesciption" required=""/>
             </br>Bonus Service Name<input type="text" name="serviceName" required=""/>
             </br>Bonus Service Price<input type="text" name="servicePrice" required=""/>
             </br>Bonus Service Desciption<input type="text" name="descriptions" required=""/>
