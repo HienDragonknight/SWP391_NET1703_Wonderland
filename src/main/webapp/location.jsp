@@ -388,7 +388,7 @@
 
 <main>
     <div class="column">
-        <div class="menu">
+         <div class="menu">
             <ul class="menu-ic">
                 <li>
                     <i class='bx bx-home-alt-2'></i>
@@ -411,7 +411,7 @@
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
-                    <a href="#">Order Party</a>
+                    <a href="ViewBookingServlet">Booking Party</a>
                 </li>
                 <li>
                     <i class='bx bx-info-circle'></i>

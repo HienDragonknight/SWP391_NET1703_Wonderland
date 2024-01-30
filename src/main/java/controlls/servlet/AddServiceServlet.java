@@ -60,32 +60,19 @@ public class AddServiceServlet extends HttpServlet {
                 String image = request.getParameter("image");
                 String locationDetails = request.getParameter("locationDetails");
                 hostDao.addTheme(new ThemeDTO(themeName));
-<<<<<<< HEAD
-                hostDao.addPakage(new PackageDTO(packageName, packagePrice, packageImage, packageVideo, packageDesciption));
-=======
                 hostDao.addPackage(new PackageDTO(packageName, packagePrice, packageImage, packageVideo, packageDesciption));
->>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
                 hostDao.addBonusService(new BonusServiceDTO(serviceName, servicePrice, descriptions, image));
                 hostDao.addLocation(new LocationDTO(locationDetails));
                 message = "Party created successfully!";
                 url = SUCCESS;
             }
-<<<<<<< HEAD
-//            } else {
-//                url = ERROR;
-//            }
-=======
->>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
         } catch (Exception ex) {
             log("Error at AddServiceServlet:" + ex);
         } finally {
             request.setAttribute("message", message);
             if (url.equals(SUCCESS)) {
-<<<<<<< HEAD
-                response.sendRedirect(url); // Chuyển hướng đến trang admin.jsp
-=======
+
                 response.sendRedirect(url);
->>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
             } else {
                 request.getRequestDispatcher(url).forward(request, response);
             }

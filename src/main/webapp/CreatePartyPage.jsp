@@ -14,7 +14,7 @@
     </head>
     <body>
         <h1>Add Party</h1>
-        <form action="AddServiceServlet" method="POST">
+        <form action="./AddServiceServlet" method="POST">
             Theme Name <input type="text" name="themeName" required=""/>
             </br>Package Name<input type="text" name="packageName" required=""/>
             </br>Package Price<input type="text" name="packagePrice" required=""/>
@@ -26,13 +26,9 @@
             </br>Bonus Service Desciption<input type="text" name="descriptions" required=""/>
             </br>Bonus Service Video<input type="text" name="image" required=""/>
             </br>Location Details<input type="text" name="locationDetails" required=""/>
-<<<<<<< HEAD
-            </br><input type="submit" name="create" value="create"/>
-            <input type="reset" value="Reset"/></br>
-=======
+
             </br><input type="submit" name="create" value="Create"/>
             <input type="reset" value="Reset"/> 
->>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
             <%
                 String message = (String) request.getAttribute("message");
                 if (Objects.nonNull(message)) {
