@@ -463,7 +463,7 @@
 
 
             .booking-form{
-                background:     #fffff;
+                background: #fffff;
             }
 
 
@@ -506,13 +506,9 @@
 
                         <div class="sign-pro">
                             <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
+                            <a href="register.jsp">Sign Up</a>
                         </div>
                     </div>
-
-                    <%
-                        }
-                    %>
                 </aside>
             </header>
 

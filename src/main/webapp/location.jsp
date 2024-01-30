@@ -229,10 +229,19 @@
                 width: 100%;
                 border-bottom: 1px solid grey;
             }
-            
+
             .location-product h2 {
                 position: relative;
                 top: 9px;
+            }
+            
+            .listPage {
+                list-style: none;
+                display: flex;
+                gap: 30px;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
             }
 
             @media screen and (max-width: 992px) {
@@ -332,36 +341,46 @@
 
                         <h1>Location <span>&amp;</span> Price</h1>
 
+                        <div class="pagination-container">
+                            <%
+                                List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
 
-                        <%
-                            List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+                                if (listLocation != null && listLocation.size() > 0) {
 
-                            if (listLocation != null && listLocation.size() > 0) {
+                                    for (LocationDTO location : listLocation) {
+                            %>
 
-                                for (LocationDTO location : listLocation) {
-                        %>
+                            <div class="list">
+                                <div class="container-location-products">
+                                    <div class="location-product">
+                                        <h2><%= location.getLocationDetails()%></h2>
+                                    </div>
+                                    <button>
+                                        <a href="#">Booking</a>
+                                    </button>
+                                </div>
 
-
-
-                        <div class="container-location-products">
-                            <div class="location-product">
-                                <h2><%= location.getLocationDetails()%></h2>
                             </div>
-                            <button>
-                                <a href="#">Booking</a>
-                            </button>
+
+
+
+
+
+
+
+                            <%
+                                    }
+
+                                }
+
+
+                            %>
+
+                            <ul class="listPage">
+                            </ul>
                         </div>
 
 
-
-
-                        <%
-                                }
-
-                            }
-
-
-                        %>
 
 
 
@@ -388,7 +407,7 @@
 
 <main>
     <div class="column">
-         <div class="menu">
+        <div class="menu">
             <ul class="menu-ic">
                 <li>
                     <i class='bx bx-home-alt-2'></i>
@@ -420,10 +439,9 @@
             </ul>
             <ul class="logout">
                 <li>
-                    <a href="#">
-                        <i class='bx bx-log-out-circle' ></i>
-                        <span>Logout</span>
-                    </a>
+                    <form action="LogoutServlet" method="POST">
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
                 </li>
             </ul>
         </div>
@@ -436,35 +454,44 @@
 
             <h1>Location <span>&amp;</span> Price</h1>
 
-            <%
-                List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+            <div class="pagination-container">
+                <%
+                    List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
 
-                if (listLocation != null && listLocation.size() > 0) {
+                    if (listLocation != null && listLocation.size() > 0) {
 
-                    for (LocationDTO location : listLocation) {
-            %>
+                        for (LocationDTO location : listLocation) {
+                %>
 
+                <div class="list">
+                    <div class="container-location-products">
+                        <div class="location-product">
+                            <h2><%= location.getLocationDetails()%></h2>
+                        </div>
+                        <button>
+                            <a href="#">Booking</a>
+                        </button>
+                    </div>
 
-
-            <div class="container-location-products">
-                <div class="location-product">
-                    <h2><%= location.getLocationDetails()%></h2>
                 </div>
-                <button>
-                    <a href="#">Booking</a>
-                </button>
-            </div>
 
 
 
 
-            <%
+
+
+
+                <%
+                        }
+
                     }
 
-                }
 
+                %>
 
-            %>
+                <ul class="listPage">
+                </ul>
+            </div>
 
 
 
@@ -476,4 +503,7 @@
 </div>
 <%    }
 %>
+
+<script src="js/pagination.js"></script>
+</body>
 </html>

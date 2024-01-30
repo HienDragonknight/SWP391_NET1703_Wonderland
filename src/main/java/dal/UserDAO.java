@@ -31,11 +31,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-<<<<<<< HEAD
                 String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
-=======
-                String sql = "SELECT * FROM [Users] WHERE email = ? AND password = ?";
->>>>>>> e5fe62c1cce8dca7e76eab7721e774abe6c19f2c
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -80,11 +76,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-<<<<<<< HEAD
                 String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails FROM users u JOIN [Role] r ON u.roleID = r.roleID";
-=======
-                String sql = "SELECT userID, fullname, email, password, phone, avatar, roleID FROM [Users]";
->>>>>>> e5fe62c1cce8dca7e76eab7721e774abe6c19f2c
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -123,9 +115,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-
-<<<<<<< HEAD
-=======
+    
     public void checkUser(String user) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -250,7 +240,6 @@ public class UserDAO implements Serializable {
 
         return false; // Default to false if an exception occurs
     }
->>>>>>> e5fe62c1cce8dca7e76eab7721e774abe6c19f2c
     public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
