@@ -65,6 +65,7 @@ public class AddServiceServlet extends HttpServlet {
                 hostDao.addLocation(new LocationDTO(locationDetails));
                 message = "Party created successfully!";
                 url = SUCCESS;
+                out.print(themeName);
             }
         } catch (Exception ex) {
             log("Error at AddServiceServlet:" + ex);
