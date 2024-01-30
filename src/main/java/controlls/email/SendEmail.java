@@ -144,7 +144,7 @@ public class SendEmail {
                     + "\n"
                     + "</html>", "text/html");
             // Noi dung
-        
+
             // Send the email
             Transport.send(message);
             test = true;
@@ -154,4 +154,5 @@ public class SendEmail {
         }
         return test;
     }
+
 }

@@ -10,6 +10,19 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+              integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+    <style>
+        body {
+            background-image: url('https://cdn1.parksmedia.wdprapps.disney.com/resize/mwImage/1/1600/900/75/dam/disneyland/attractions/disneyland/sleeping-beauty-castle-walkthrough/sleeping-beauty-castle-exterior-16x9.jpg?1699632197159');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
     </head>
     <body>
 <!--        <form action="LoginServlet" method="POST">
@@ -30,7 +43,7 @@
                 <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3">
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <a href="./LoginServlet" class="" style="text-decoration: none">
-                            <h3 class="text-primary" style="color: aqua !important;"><i class="fa fa-user-edit me-2" style="color: aqua"></i>Undeee</h3>
+                            <h3 class="text-primary" style="color: aqua !important;"><i class="fa fa-user-edit me-2" style="color: aqua"></i>Wonderland</h3>
                         </a>
                         <h3>Sign In</h3>
                     </div>

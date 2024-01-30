@@ -4,28 +4,21 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
-public class ViewUserServlet extends HttpServlet {
-    public final String ERROR = "admin.jsp";
-    public final String SUCCESS = "admin.jsp";
+@WebServlet(name = "ManageAccountServlet", urlPatterns = {"/ManageAccountServlet"})
+public class ManageAccountServlet extends HttpServlet {
+    public final String ERROR = "manageAccount.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,18 +33,9 @@ public class ViewUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            UserDAO dao = new UserDAO();
-            dao.getUser();
-            List<UserDTO> user = dao.getListUser();
-            url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
+            
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

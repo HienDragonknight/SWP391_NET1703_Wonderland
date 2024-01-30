@@ -2,30 +2,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controlls.servlet;
+package controlls.email.forgotpassword;
 
-import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author Phong
  */
-@WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
-public class ViewUserServlet extends HttpServlet {
-    public final String ERROR = "admin.jsp";
-    public final String SUCCESS = "admin.jsp";
+@WebServlet(name = "ReturnLogin", urlPatterns = {"/ReturnLogin"})
+public class ReturnLogin extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,20 +31,17 @@ public class ViewUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            UserDAO dao = new UserDAO();
-            dao.getUser();
-            List<UserDTO> user = dao.getListUser();
-            url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReturnLogin</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReturnLogin at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -67,7 +57,10 @@ public class ViewUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String button = request.getParameter("btnReturn");
+        if(button.equals("Return to sign in")){
+             response.sendRedirect("/views/login.jsp");
+        }
     }
 
     /**

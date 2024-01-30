@@ -46,7 +46,7 @@ public class HostDAO {
         return check;
     }
 
-    public boolean addPakage(PackageDTO pakage) throws SQLException {
+    public boolean addPackage(PackageDTO pakage) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

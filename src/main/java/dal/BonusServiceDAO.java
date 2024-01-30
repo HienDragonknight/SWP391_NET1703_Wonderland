@@ -19,7 +19,7 @@ import util.DBUtils;
  */
 public class BonusServiceDAO {
 
-    private final String GET_BONUS_SERVICE_LIST = "SELECT seviceID, serviceName, servicePrice, descriptions, image FROM [BonusServices]";
+    private final String GET_BONUS_SERVICE_LIST = "SELECT serviceID, serviceName, servicePrice, descriptions, image FROM [BonusServices]";
 
     public List<BonusServiceDTO> getBonusServiceList() throws SQLException {
 
@@ -36,13 +36,13 @@ public class BonusServiceDAO {
             rs = ptm.executeQuery();
 
             while (rs.next()) {
-                String seviceID = rs.getInt("seviceID") + "";
+                String serviceID = rs.getInt("serviceID") + "";
                 String serviceName = rs.getString("serviceName");
                 double servicePrice = rs.getDouble("servicePrice");
                 String descriptions = rs.getString("descriptions");
                 String image = rs.getString("image");
 
-                listTheme.add(new BonusServiceDTO(seviceID, serviceName, servicePrice, descriptions, image));
+                listTheme.add(new BonusServiceDTO(serviceID, serviceName, servicePrice, descriptions, image));
 
             }
         } catch (Exception e) {

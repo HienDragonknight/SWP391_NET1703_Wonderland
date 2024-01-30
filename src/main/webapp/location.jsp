@@ -229,6 +229,11 @@
                 width: 100%;
                 border-bottom: 1px solid grey;
             }
+            
+            .location-product h2 {
+                position: relative;
+                top: 9px;
+            }
 
             @media screen and (max-width: 992px) {
                 .container main {
@@ -383,7 +388,7 @@
 
 <main>
     <div class="column">
-        <div class="menu">
+         <div class="menu">
             <ul class="menu-ic">
                 <li>
                     <i class='bx bx-home-alt-2'></i>
@@ -406,7 +411,7 @@
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
-                    <a href="#">Order Party</a>
+                    <a href="ViewBookingServlet">Booking Party</a>
                 </li>
                 <li>
                     <i class='bx bx-info-circle'></i>

@@ -12,18 +12,24 @@ import java.io.Serializable;
  */
 public class UserDTO implements Serializable {
 
+
     private String userID;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
     private String avatar;
-    private int roleID;
+    private String roleID;
 
     public UserDTO() {
     }
 
-    public UserDTO(String fullName, String email, String password, String phoneNumber, String avatar, int roleID) {
+//<<<<<<< HEAD
+//    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+//=======
+    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String roleID) {
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
+        this.userID = userID;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
@@ -80,12 +86,20 @@ public class UserDTO implements Serializable {
         this.avatar = avatar;
     }
 
-    public int getRoleID() {
+    public String getRoleID() {
         return roleID;
     }
-
-    public void setRoleID(int roleID) {
+//
+//<<<<<<< HEAD
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+//
+//
+//=======
+    public void setRole(String roleID) {
         this.roleID = roleID;
     }
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
 
 }
