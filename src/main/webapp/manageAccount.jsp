@@ -1,6 +1,6 @@
 <%-- 
     Document   : manageAccount
-    Created on : Jan 27, 2024, 12:53:06 PM
+    Created on : Jan 30, 2024, 7:43:06 AM
     Author     : Le Huu Huy
 --%>
 
@@ -9,14 +9,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Manage Account</title>
     </head>
     <body>
-        <h1>Manage Account</h1>
-        <form action="ManageAccountServlet" method="POST">
+        <form action="AdminServlet" method="POST">
+            Full name: <input type="text" name="txtName" value="" /><br/>
             Email: <input type="email" name="txtEmail" value="" /><br/>
-            fullName: <input type="text" name="txtName" value="" /><br/>
-            
+            Password: <input type="password" name="txtPassword" value="" /><br/>
+            Confirm Password: <input type="password" name="txtRePassword" value="" /><br/>
+            Phone: <input type="text" name="txtPhone" value="" /><br/>
+            <input type="submit" value="Create" name="action" />
         </form>
     </body>
 </html>

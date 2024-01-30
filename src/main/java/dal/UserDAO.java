@@ -29,7 +29,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM [User] WHERE email = ? AND password = ?";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -73,7 +73,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT userID, fullname, email, password, phone, avatar, roleID FROM [User]";
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails FROM users u JOIN [Role] r ON u.roleID = r.roleID";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -88,7 +88,7 @@ public class UserDAO implements Serializable {
                     String password = rs.getString("password");
                     String phoneNumber = rs.getString("phone");
                     String avatar = rs.getString("avatar");
-                    String roleID = rs.getString("roleID");
+                    String roleID = rs.getString("roleDetails");
                     //5.1.2 set data into properties of DTO
                     UserDTO dto = new UserDTO(userID, fullName, email, password, phoneNumber, avatar, roleID);
                     //5.1.3 add DTO into list
@@ -111,7 +111,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -119,9 +119,38 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "DELETE FROM [User] WHERE fullname = ?";
+                String sql = "DELETE FROM users WHERE fullname = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
+                int effectRows = stm.executeUpdate();
+                if (effectRows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
+    public boolean manageAccount(String fullName, String email, String password, String phone) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "insert into users (fullname, email, password, phone, avatar, roleID) values(?, ?, ?, ?, 'default.png', 3)";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, fullName);
+                stm.setString(2, email);
+                stm.setString(3, password);
+                stm.setString(4, phone);
                 int effectRows = stm.executeUpdate();
                 if (effectRows > 0) {
                     result = true;

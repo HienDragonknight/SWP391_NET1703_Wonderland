@@ -523,7 +523,7 @@
                     <div class="admin-container">
                         <div class="admin-header">
                             <h1>Admin Dashboard</h1>
-                            <a href="ManageAccountServlet">Manage Account</a>
+                            <a href="manageAccount.jsp">Manage Account</a>
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");

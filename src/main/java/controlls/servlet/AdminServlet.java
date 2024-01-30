@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminServlet extends HttpServlet {
     private final String ADMIN_PAGE = "ViewUserServlet";
     private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
+    private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,6 +41,8 @@ public class AdminServlet extends HttpServlet {
                 
             } else if (button.equals("delete")) {
                 url = ADMIN_DELETE_CONTROLLER;
+            } else if (button.equals("Create")) {
+                url = MANAGE_ACCOUNT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
