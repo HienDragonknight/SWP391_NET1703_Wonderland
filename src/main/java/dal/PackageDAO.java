@@ -10,38 +10,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import models.LocationDTO;
+import models.PackageDTO;
 import util.DBUtils;
 
 /**
  *
  * @author bao.kun
  */
-public class LocationDAO {
+public class PackageDAO {
 
-    private static final String GET_LIST_LOCATION = "SELECT locationID,locationDetails FROM [Location] ";
+    private static final String GET_LIST_PACKAGE = "SELECT packageID,packageName,unitPrice,image,video,description FROM [Packages] ";
 
-    
-     public List<LocationDTO> getListLocation() throws SQLException {
+    public List<PackageDTO> getListPackage() throws SQLException {
 
-        boolean check = true;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        List<LocationDTO> listLocation = new ArrayList<LocationDTO>();
+        List<PackageDTO> listLocation = new ArrayList<PackageDTO>();
 
         try {
 
             conn = DBUtils.createConnection();
-            ptm = conn.prepareStatement(GET_LIST_LOCATION);
-         
+            ptm = conn.prepareStatement(GET_LIST_PACKAGE);
+
             rs = ptm.executeQuery();
 
             while (rs.next()) {
-                String locationID = rs.getInt("locationID") + "";
-                String locationDetails = rs.getNString("locationDetails");
 
-                listLocation.add(new LocationDTO(locationID, locationDetails));
+                String packageID = rs.getInt("packageID") + "";
+                String packageName = rs.getString("packageName");
+                double unitPrice = rs.getDouble("unitPrice");
+                String image = rs.getString("image");
+                String video = rs.getString("video");
+                String description = rs.getString("description");
+
+                listLocation.add(new PackageDTO(packageID, packageName, unitPrice, image, video, description));
             }
 
         } catch (Exception e) {
@@ -57,6 +60,7 @@ public class LocationDAO {
             }
         }
         return listLocation;
+
     }
 
 }

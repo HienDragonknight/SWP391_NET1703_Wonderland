@@ -1,12 +1,12 @@
 <%-- 
-    Document   : admin
-    Created on : Jan 24, 2024, 3:01:36 PM
+    Document   : order
+    Created on : Jan 25, 2024, 5:51:00 PM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="models.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -407,34 +407,6 @@
                 background: #388E3C;
             }
 
-            .delete {
-                border: 1px solid #D32F2F;
-                padding: 4px;
-                border-radius: 50px;
-                background-color: #D32F2F;
-                color: #fff;
-            }
-
-            .admin-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-
-            .admin-header a {
-                height: 36px;
-                padding: 0 16px;
-                border-radius: 36px;
-                background: #1976D2;
-                color: #f6f6f9;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                grid-gap: 10px;
-                font-weight: 500;
-            }
-
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -477,7 +449,6 @@
                     </div>
                 </aside>
             </header>
-
 
             <main>
                 <div class="column">
@@ -522,22 +493,19 @@
                     </div>
 
                     <div class="admin-container">
-                        <div class="admin-header">
+                        <div>
                             <h1>Admin Dashboard</h1>
-                            <a href="ManageAccountServlet">Manage Account</a>
                         </div>
                         <%
-                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                            List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("LIST_ORDER");
 
                             int totalUsers = 0; // Counter for total users
 
-                            if (result != null) {
-                                for (UserDTO dto : result) {
+                            if (orderList != null) {
+                                for (OrderDTO dto : orderList) {
                                     totalUsers++;
                                 }
                             }
-
-
                         %>
                         <div>
 
@@ -573,60 +541,51 @@
                             </ul>
                         </div>
                         <!-- End of Insights -->
+                        <form action="ViewUserServlet" method="POST">
+                            <div class="bottom-data">
+                                <div class="orders">
+                                    <div class="header">
+                                        <i class='bx bx-receipt'></i>
+                                        <h3>Amount: <span><%= totalUsers %> Order</span></h3>
+                                        <i class='bx bx-filter'></i>
+                                        <i class='bx bx-search'></i>
+                                    </div>
 
-                        <div class="bottom-data">
-                            <div class="orders">
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Amount: <span><%= totalUsers%> Users</span></h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
-                                </div>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Date</th>
+                                                <th>TotalPrice</th>
+                                            </tr>
+                                        </thead>
+                                        <%
+                                            if (orderList != null) {
+                                                for (OrderDTO dto : orderList) {
+                                        %>
 
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Edit Profile</th>
-                                        </tr>
-                                    </thead>
 
-                                    <%
-                                        if (result != null) {
-                                            for (UserDTO dto : result) {
-                                                String urlRewriting = "AdminServlet"
-                                                        + "?action=delete"
-                                                        + "&pk=" + dto.getFullName();
-                                    %>
-                                    <form action="AdminServlet" method="POST">
+
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <p><%= dto.getFullName()%></p>
+                                                    <p><%= dto.getUserName() %></p>
                                                 </td>
-                                                <td><%= dto.getPhoneNumber()%></td>
-                                                <td><%= dto.getEmail()%></td>
-                                                <td><%= dto.getRoleID()%></td>
-                                                <td>
-                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
-                                                </td>
+                                                <td><%= dto.getCreateDate() %></td>
+                                                <td><%= dto.getTotalPrice() %></td>
                                             </tr>
-                                        </tbody>
-                                    </form>
-                                    <%
-                                            }
-                                        }
-                                    %>
 
-                                    </tbody>
-                                </table>
 
+
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                    </table>
+
+                                </div>
                             </div>
-                        </div>
-
+                        </form>
                     </div>
 
             </main>

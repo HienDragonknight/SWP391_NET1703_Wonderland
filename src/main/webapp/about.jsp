@@ -185,7 +185,7 @@
             }
 
             main .about h1 {
-                padding-bottom: 30px;
+                padding: 20px 0px 30px 0px;
             }
             main .about .history h2 {
                 font-weight: 500;
@@ -279,7 +279,7 @@
                         </li>
                         <li>
                             <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
+                            <a href="ViewBookingServlet">Booking Party</a>
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
@@ -290,7 +290,7 @@
 
                 <div class="about">
                     <div class="add-ab">
-                        <a href="home.jsp">Home</a>&#10095;<span>About Us</span>
+                        <a href="home.jsp">Home</a><span> &#10095; About Us</span>
                     </div>
 
                     <h1>About Wonderland</h1>

@@ -17,6 +17,7 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
             * {
                 padding: 0;
@@ -116,32 +117,32 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 35px;
+                gap: 30px;
                 padding: 30px;
             }
-            
+
             header .side-bar .user-logined .logined,
             header .side-bar .user-logined .cart-items{
                 display: flex;
                 justify-items: center;
                 align-items: center;
             }
-            
+
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
-            
+
             header .side-bar .user-logined .logined:hover i,
             header .side-bar .user-logined .logined:hover a {
                 color: #5773ff;
             }
-            
+
             header .side-bar .user-logined .cart-items:hover i,
             header .side-bar .user-logined .cart-items:hover a {
                 color: #5773ff;
             }
-            
-            .container main {
+
+            .container .column {
                 display: grid;
                 grid-template-columns: 1fr 5fr 1fr;
             }
@@ -175,7 +176,7 @@
                 position: relative;
                 width: 100%;
                 max-width: 100vw;
-                height: 600px;
+                height: 650px;
                 max-height: 100vh;
                 margin: auto;
             }
@@ -192,6 +193,7 @@
                 height: 100%;
                 position: absolute;
                 object-fit: cover;
+                border-radius: 50px;
             }
 
             .slide-container .slides img:not(.active) {
@@ -225,6 +227,110 @@
                 display: inline-block;
                 transition: background-color 0.6s ease;
                 cursor: pointer;
+            }
+
+            .column-about {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+            }
+
+            .column-about img {
+                width: 30%;
+                border-radius: 50px;
+            }
+
+            .column-about .column-about-container {
+                width: 100%;
+                padding: 0px 100px;
+            }
+
+            .column-about .column-about-container button {
+                padding: 10px;
+                border-radius: 50px;
+                background-color: #0b96d3;
+                cursor: pointer;
+                border: none;
+            }
+
+            .column-about .column-about-container button a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #fff;
+                gap: 8px;
+            }
+            
+            .column-about img,
+            .column-about .column-about-container {
+                width: 50%;
+            }
+
+            .logout {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+
+            .logout li a{
+                color: red;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                cursor: pointer;
+            }
+
+            .page-footer {
+                background-color: #f6f6f9;
+                border-top-left-radius: 50%;
+                border-top-right-radius: 50%;
+                font-family: 'Poppins', sans-serif;
+            }
+
+            .footer-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+                gap: 100px;
+                margin-bottom: -50px;
+            }
+
+            .footer-content-usp ul {
+                list-style: none;
+            }
+
+            .footer-content-usp ul li {
+                margin-bottom: 20px;
+            }
+
+            .footer-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .footer-header h2 {
+                margin-top: 40px;
+            }
+
+            .footer-content-usp a {
+                display: flex;
+                align-items: center;
+            }
+
+            .copy-right {
+                background-color: #fff;
+            }
+
+            .copy-right-content {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             @keyframes next1 {
@@ -308,90 +414,322 @@
 
                         <div class="sign-pro">
                             <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
+                            <a href="register.jsp">Sign Up</a>
                         </div>
                     </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="user-logined">
-                        <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-                        <div class="cart-items">
-                            <i class='bx bx-cart' ></i>
-                            <a href="#">Cart</a>
-                        </div>
-                    </div>
-                    <%
-                        }
-                    %>
                 </aside>
             </header>
 
-
-
             <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
+                <div class="column">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                            <a href="home.jsp">Home</a>
-                        </li>
+                                <a href="home.jsp">Home</a>
+                            </li>
 
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
 
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="about.jsp">About Us</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="slide-container">
-                    <div class="slides">
-                        <img src="image/cover1.jpg" alt="image #1" class="active"/>
-                        <img src="image/cover2.jpg" alt="image #2"/>
-                        <img src="image/cover3.jpg" alt="image #3"/>
-                        <img src="image/cover4.png" alt="image #4"/>
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="#">Order Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
                     </div>
 
-                    <div class="buttons">
-                        <span class="next">&#10095;</span>
-                        <span class="prev">&#10094;</span>
-                    </div>
+                    <div class="column-content">
+                        <div class="slide-container">
+                            <div class="slides">
+                                <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                                <img src="image/cover2.jpg" alt="image #2"/>
+                                <img src="image/cover3.jpg" alt="image #3"/>
+                                <img src="image/cover4.png" alt="image #4"/>
+                            </div>
 
-                    <div class="dotsContainer">
-                        <div class="dot active" attr='0' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='1' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='2' onclick="switchImage(this)"></div>
-                        <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                            <div class="buttons">
+                                <span class="next">&#10095;</span>
+                                <span class="prev">&#10094;</span>
+                            </div>
+
+                            <div class="dotsContainer">
+                                <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                                <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                            </div>
+                        </div>
+
+                        <div class="column-about">
+                            <img src="image/Birthday.png" alt="Birthday"/>
+                            <div class="column-about-container">
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <p>
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    <font style="vertical-align: inherit; font-size: 18px">
+                                    With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
+                                    </font>
+                                    </font>
+                                </p>
+                                <br/>
+                                <button>
+                                    <a href="#">
+                                        <i class='bx bx-cake' ></i>
+                                        <span>Contact to book a party</span>
+                                    </a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div>
-
-                </div>
             </main>
+
+            <footer class="page-footer">
+                <div class="footer-header">
+                    <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+                </div>
+
+                <div class="footer-content">
+                    <div class="footer-content-usp">
+                        <ul>
+                            <li>History begin</li>
+                            <li>Job opportunities</li>
+                            <li>Wonder regulation</li>
+                            <li>Wonder Partner</li>
+                            <li>Wonder Charity Foundation</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-content-usp">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class='bx bx-world'></i>
+                                    <span>nkidgroup.com</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class='bx bx-envelope' ></i>
+                                    <span>cskh@wonderland.com</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class='bx bx-phone' ></i>
+                                    <span>1900 63 63 28</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class='bx bx-current-location' ></i>
+                                    <span>SWP391</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="copy-right">
+                    <div class="copy-right-content">
+                        <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <%
+        } else {
+        %>
+        <div class="user-logined">
+            <div class="logined">
+                <i class='bx bx-user-circle'></i>
+                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+            </div>
+            <div class="cart-items">
+                <i class='bx bx-cart' ></i>
+                <a href="#">Cart</a>
+            </div>
+        </div>
+    </aside>
+</header>
+
+<main>
+    <div class="column">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
+
+                    <a href="home.jsp">Home</a>
+                </li>
+
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
+
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="#">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="ViewBookingServlet">Booking Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+            <ul class="logout">
+                <li>
+                    <form action="LogoutServlet" method="POST">
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
+                </li>
+            </ul>
+
         </div>
 
-        <script src="js/slider.js"></script>
-    </body>
+        <div class="column-content">
+            <div class="slide-container">
+                <div class="slides">
+                    <img src="image/cover1.jpg" alt="image #1" class="active"/>
+                    <img src="image/cover2.jpg" alt="image #2"/>
+                    <img src="image/cover3.jpg" alt="image #3"/>
+                    <img src="image/cover4.png" alt="image #4"/>
+                </div>
+
+                <div class="buttons">
+                    <span class="next">&#10095;</span>
+                    <span class="prev">&#10094;</span>
+                </div>
+
+                <div class="dotsContainer">
+                    <div class="dot active" attr='0' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='1' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='2' onclick="switchImage(this)"></div>
+                    <div class="dot" attr='3' onclick="switchImage(this)"></div>
+                </div>
+            </div>
+
+            <div class="column-about">
+                <img src="image/Birthday.png" alt="Birthday"/>
+                <div class="column-about-container">
+                    <p>
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                        </font>
+                        </font>
+                    </p>
+                    <br/>
+                    <p>
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        <font style="vertical-align: inherit; font-size: 18px">
+                        With a variety of birthday party packages, Wonderland promises to bring little angels a party full of surprises and memorable moments.
+                        </font>
+                        </font>
+                    </p>
+                    <br/>
+                    <button>
+                        <a href="#">
+                            <i class='bx bx-cake' ></i>
+                            <span>Contact to book a party</span>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="page-footer">
+    <div class="footer-header">
+        <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+    </div>
+
+    <div class="footer-content">
+        <div class="footer-content-usp">
+            <ul>
+                <li>History begin</li>
+                <li>Job opportunities</li>
+                <li>Wonder regulation</li>
+                <li>Wonder Partner</li>
+                <li>Wonder Charity Foundation</li>
+            </ul>
+        </div>
+
+        <div class="footer-content-usp">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-world'></i>
+                        <span>nkidgroup.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-envelope' ></i>
+                        <span>cskh@wonderland.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-phone' ></i>
+                        <span>1900 63 63 28</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-current-location' ></i>
+                        <span>SWP391</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="copy-right">
+
+    </div>
+</footer>
+
+</div>
+<%
+    }
+%>
+
+
+<script src="js/slider.js"></script>
+</body>
 </html>

@@ -10,53 +10,52 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import models.LocationDTO;
+import models.ThemeDTO;
 import util.DBUtils;
 
 /**
  *
  * @author bao.kun
  */
-public class LocationDAO {
+public class ThemeDAO {
 
-    private static final String GET_LIST_LOCATION = "SELECT locationID,locationDetails FROM [Location] ";
+    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImagePath FROM [Themes]";
 
-    
-     public List<LocationDTO> getListLocation() throws SQLException {
+    public List<ThemeDTO> getListThemes() throws SQLException {
 
-        boolean check = true;
+        List<ThemeDTO> listTheme = new ArrayList<ThemeDTO>();
+
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
-        List<LocationDTO> listLocation = new ArrayList<LocationDTO>();
 
         try {
 
             conn = DBUtils.createConnection();
-            ptm = conn.prepareStatement(GET_LIST_LOCATION);
-         
+            ptm = conn.prepareStatement(GET_THEME_LIST);
             rs = ptm.executeQuery();
 
             while (rs.next()) {
-                String locationID = rs.getInt("locationID") + "";
-                String locationDetails = rs.getNString("locationDetails");
+                String themID = rs.getInt("themeID") + "";
+                String themeName = rs.getString("themeName");
+                String themeImagePath = rs.getString("themeImagePath");
 
-                listLocation.add(new LocationDTO(locationID, locationDetails));
+                listTheme.add(new ThemeDTO(themID, themeName));
             }
 
         } catch (Exception e) {
         } finally {
-            if (rs != null) {
-                rs.close();
+            if (conn != null) {
+                conn.close();
             }
             if (ptm != null) {
                 ptm.close();
             }
-            if (conn != null) {
-                conn.close();
+            if (rs != null) {
+                rs.close();
             }
         }
-        return listLocation;
+        return listTheme;
     }
 
 }

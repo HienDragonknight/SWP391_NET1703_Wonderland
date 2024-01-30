@@ -12,7 +12,21 @@ import java.io.Serializable;
  */
 public class ThemeDTO implements Serializable {
 
+    private String themeID;
     private String themeName;
+
+    public ThemeDTO(String themeID, String themeName) {
+        this.themeID = themeID;
+        this.themeName = themeName;
+    }
+
+    public String getThemeID() {
+        return themeID;
+    }
+
+    public void setThemeID(String themeID) {
+        this.themeID = themeID;
+    }
 
     public ThemeDTO(String themeName) {
         this.themeName = themeName;

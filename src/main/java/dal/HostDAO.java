@@ -17,6 +17,8 @@ import util.DBUtils;
  *
  * @author phanv
  */
+
+
 public class HostDAO {
 
     public boolean addTheme(ThemeDTO theme) throws SQLException {
@@ -53,7 +55,7 @@ public class HostDAO {
             conn = DBUtils.createConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(sql);
-                ptm.setString(1, pakage.getPackageName());
+                ptm.setString(1, pakage.getPakageName());
                 ptm.setDouble(2, pakage.getUnitPrice());
                 ptm.setString(3, pakage.getImage());
                 ptm.setString(4, pakage.getVideo());
@@ -100,6 +102,7 @@ public class HostDAO {
         }
         return check;
     }
+        
         
     public boolean addLocation(LocationDTO location) throws SQLException {
         boolean check = false;

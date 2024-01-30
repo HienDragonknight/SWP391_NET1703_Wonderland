@@ -22,7 +22,6 @@ import models.ThemeDTO;
  * @author phanv
  */
 @WebServlet(name = "AddServiceServlet", urlPatterns = {"/AddServiceServlet"})
-
 public class AddServiceServlet extends HttpServlet {
 
     /**
@@ -36,6 +35,7 @@ public class AddServiceServlet extends HttpServlet {
      */
     private static final String ERROR = "CreatePartyPage.jsp";
     private static final String SUCCESS = "CreatePartyPage.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -72,6 +72,7 @@ public class AddServiceServlet extends HttpServlet {
         } finally {
             request.setAttribute("message", message);
             if (url.equals(SUCCESS)) {
+
                 response.sendRedirect(url);
             } else {
                 request.getRequestDispatcher(url).forward(request, response);
@@ -79,7 +80,7 @@ public class AddServiceServlet extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
