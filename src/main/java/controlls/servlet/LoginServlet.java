@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,35 +21,61 @@ import models.UserDTO;
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = "/LoginServlet")
+
 public class LoginServlet extends HttpServlet {
 
     private final String HOME_PAGE = "home.jsp";
     private final String LOGIN_PAGE = "login.jsp";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         HttpSession session = request.getSession();
         session.setAttribute("ERROR_INFO", "Incorrect username or password");
+
         String url = LOGIN_PAGE;
         String button = request.getParameter("action");
+
         try {
             if (button.equals("Login")) {
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
+                String remember = request.getParameter("RememberMe");
+
+                Cookie cEmail = new Cookie("cEmail", email);
+                Cookie cPassword = new Cookie("cPassword", password);
+                Cookie cRemember = new Cookie("cRemember", remember);
+                if (email == null || password == null) {
+                    response.sendRedirect("login");
+                    return;
+                }
+
                 UserDAO dao = new UserDAO();
                 UserDTO result = dao.checkLogin(email, password);
                 if (result != null) {
+//<<<<<<< HEAD
+//                                    session.setAttribute("user_loged", result); 
+//                String role = result.getRole();
+//=======
+                    session.setAttribute("user_loged", result);
+                    String role = result.getRoleID();
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
+
+                    if (remember != null && remember.equals("ON")) {
+                        cEmail.setMaxAge(60 * 60 * 24 * 7);
+                        cPassword.setMaxAge(60 * 60 * 24 * 7);
+                        cRemember.setMaxAge(60 * 60 * 24 * 7);
+                    } else {
+                        cEmail.setMaxAge(0);
+                        cPassword.setMaxAge(0);
+                        cRemember.setMaxAge(0);
+                    }
+
+                    response.addCookie(cEmail);
+                    response.addCookie(cPassword);
+                    response.addCookie(cRemember);
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
                 }
@@ -58,7 +85,8 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } finally {
-            response.sendRedirect(url);
+            //response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

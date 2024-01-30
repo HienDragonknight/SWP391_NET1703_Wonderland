@@ -12,25 +12,38 @@ import java.io.Serializable;
  */
 public class UserDTO implements Serializable {
 
-    private int userID;
+
+    private String userID;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
     private String avatar;
-    private String role;
+    private String roleID;
 
     public UserDTO() {
     }
 
-    public UserDTO(int userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+//<<<<<<< HEAD
+//    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+//=======
+    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String roleID) {
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
         this.userID = userID;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.avatar = avatar;
-        this.role = role;
+        this.roleID = roleID;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getFullName() {
@@ -73,20 +86,20 @@ public class UserDTO implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleID() {
+        return roleID;
     }
-
-    public void setRole(String role) {
-        this.role = role;
+//
+//<<<<<<< HEAD
+//    public void setRole(String role) {
+//        this.role = role;
+//    }
+//
+//
+//=======
+    public void setRole(String roleID) {
+        this.roleID = roleID;
     }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+//>>>>>>> bc8d51679b055e973291653f90686fccb32bb8f5
 
 }

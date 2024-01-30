@@ -279,7 +279,7 @@
                         </li>
                         <li>
                             <i class='bx bx-party'></i>
-                            <a href="#">Order Party</a>
+                            <a href="ViewBookingServlet">Booking Party</a>
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
