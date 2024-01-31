@@ -4,6 +4,7 @@
     Author     : bao.kun
 --%>
 
+<%@page import="models.LocationDTO"%>
 <%@page import="models.PackageDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,8 +12,6 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
         <title>Shop Item - Start Bootstrap Template</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -192,6 +191,69 @@
 
             }
 
+
+         
+
+            .model {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                transition: 200ms ease-in-out;
+                border: 1px solid black;
+                border-radius: 10px;
+                z-index: 10;
+                background-color: white;
+                width: 500px;
+                max-width: 80%;
+            }
+
+            .model.active {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .model-header {
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+            }
+
+            .model-header .title {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .model-header .close-button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .model-body {
+                padding: 10px 15px;
+            }
+
+            #overlay {
+                position: fixed;
+                opacity: 0;
+                transition: 200ms ease-in-out;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, .5);
+                pointer-events: none;
+            }
+
+            #overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
         </style>
     </head>
     <body>
@@ -270,11 +332,10 @@
         </header>
 
 
-
-
         <%
 
             PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKGE_ITEM");
+            LocationDTO locationDTO = (LocationDTO) request.getAttribute("LOCATION");
             if (packageDTO != null) {
         %>
 
@@ -282,24 +343,39 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
                     <div class="col-md-6">
 
                         <div class="small mb-1">
-                            <i class="fa-solid fa-location-dot"></i>SKU: BST-498</div>
-                        <h1 class="display-5 fw-bolder">Shop item template</h1>
+
+                        </div>
+                        <h1 class="display-5 fw-bolder"><%= packageDTO.getPackageName()%></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$45.00</span>
-                            <span>$40.00</span>
+                            <span class="text-decoration-line-through">$<%= packageDTO.getUnitPrice()%></span>
+                            <span style="color: blue;" >$40.00</span>
                         </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                        <p class="lead"><%= packageDTO.getDescription() + "\nThis is details"%></p>
+
+
+                        <button data-model-target="#model" class="btn btn-outline-dark flex-shrink-0" >
+                            <i class="bi-cart-fill me-1"></i>
+                            Buy Now
+
+                        </button>
+
+
+                        <div class="model" id="model">
+                            <div class="model-header">
+                                <div class="title">Example model</div>
+                                <button class="close-button">&times;</button>
+                            </div>
+                            <div  data-close-button class="model-body">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod alias ut illo doloremque eum ipsum obcaecati distinctio debitis reiciendis quae quia soluta totam doloribus quos nesciunt necessitatibus, consectetur quisquam accusamus ex, dolorum, dicta vel? Nostrum voluptatem totam, molestiae rem at ad autem dolor ex aperiam. Amet assumenda eos architecto, dolor placeat deserunt voluptatibus tenetur sint officiis perferendis atque! Voluptatem maxime eius eum dolorem dolor exercitationem quis iusto totam! Repudiandae nobis nesciunt sequi iure! Eligendi, eius libero. Ex, repellat sapiente!
+                            </div>
                         </div>
+                        <div id="overlay"></div>
+
+
                     </div>
                 </div>
             </div>
@@ -423,8 +499,12 @@
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
         <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
         <!-- Core theme JS-->
+        <script src="js/slider.js" >
+
+
+        </script>
 
     </body>
 </html>

@@ -4,6 +4,7 @@
  */
 package controlls.servlet;
 
+import dal.LocationDAO;
 import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.LocationDTO;
 import models.PackageDTO;
 
 // from packageList: /PackageItemServlet?packageID={}
@@ -29,12 +31,22 @@ public class PakcageItemServlet extends HttpServlet {
 
             String packageID = request.getParameter("packageID");
 
+            // get package 
             PackageDAO dao = new PackageDAO();
             PackageDTO packageDTO = dao.getPackageByID(packageID);
+
+            // get location 
+            LocationDAO locationDAO = new LocationDAO();
+
+           
+         //   LocationDTO locationDTO = dao.getLocationToPackage(locationID);
+            
+            
 
             if (packageDTO != null) {
                 url = SUCCESS;
                 request.setAttribute("PACKGE_ITEM", packageDTO);
+              //  request.setAttribute("LOCATION", locationDTO);
             }
 
         } catch (Exception e) {

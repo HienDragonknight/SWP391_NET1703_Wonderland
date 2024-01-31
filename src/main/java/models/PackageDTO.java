@@ -22,15 +22,13 @@ public class PackageDTO implements Serializable {
     private String feedbackID;
     private String size;
 
-    public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description, String locationID, String feedbackID, String size) {
+    public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description, String size) {
         this.packageID = packageID;
         this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
-        this.locationID = locationID;
-        this.feedbackID = feedbackID;
         this.size = size;
     }
 
