@@ -1255,6 +1255,7 @@
                                                     <%
                                                             }
                                                         }
+}
                                                     %>
                                                 </select>
                                                 <input type="hidden" id="center_name" name="location_id">

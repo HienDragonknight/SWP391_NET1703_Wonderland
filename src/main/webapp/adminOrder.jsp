@@ -4,6 +4,9 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -407,6 +410,21 @@
                 background: #388E3C;
             }
 
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -484,10 +502,10 @@
                         </ul>
                         <ul class="logout">
                             <li>
-                                <a href="#">
-                                    <i class='bx bx-log-out-circle' ></i>
-                                    <span>Logout</span>
-                                </a>
+                                <form action="LogoutServlet" method="POST">
+                                    <i class='bx bx-log-out-circle'></i>
+                                    <input type="submit" value="Logout" name="action" />
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -499,16 +517,29 @@
                         <%
                             List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("LIST_ORDER");
 
-                            int totalUsers = 0; // Counter for total users
-
                             if (orderList != null) {
-                                for (OrderDTO dto : orderList) {
-                                    totalUsers++;
-                                }
-                            }
-                        %>
-                        <div>
+                                Map<String, Map<String, Double>> totalPriceMap = new HashMap<>(); // Map to store total prices by date and name
+                                double grandTotalPrice = 0; // Total price across all users and dates
 
+                                // Calculate total prices
+                                for (OrderDTO dto : orderList) {
+                                    String userName = dto.getUserName();
+                                    String createDate = dto.getCreateDate().toString(); // Convert date to string for simplicity
+                                    double totalPrice = dto.getTotalPrice();
+                                    String status = dto.getStatus(); // Get status from the OrderDTO
+
+                                    if (!totalPriceMap.containsKey(userName)) {
+                                        totalPriceMap.put(userName, new HashMap<String, Double>());
+                                    }
+
+                                    Map<String, Double> dateTotalPriceMap = totalPriceMap.get(userName);
+                                    dateTotalPriceMap.put(createDate, dateTotalPriceMap.getOrDefault(createDate, 0.0) + totalPrice);
+
+                                    grandTotalPrice += totalPrice;
+                                }
+                        %>
+
+                        <div>
                             <ul class="insights">
                                 <li>
                                     <i class='bx bx-box'></i>
@@ -517,36 +548,27 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bx-user'></i>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
                                 </li>
-                                <li><i class='bx bx-line-chart'></i>
+                                <li>
+                                    <i class='bx bx-dollar-circle'></i>
                                     <span class="info">
-                                        <h3>
-                                            14,721
-                                        </h3>
-                                        <p>Searches</p>
-                                    </span>
-                                </li>
-                                <li><i class='bx bx-dollar-circle'></i>
-                                    <span class="info">
-                                        <h3>
-                                            $6,742
-                                        </h3>
-                                        <p>Total Sales</p>
+                                        <h3><%= grandTotalPrice%></h3>
+                                        <p>Total Price</p>
                                     </span>
                                 </li>
                             </ul>
                         </div>
-                        <!-- End of Insights -->
+
                         <form action="ViewUserServlet" method="POST">
                             <div class="bottom-data">
                                 <div class="orders">
                                     <div class="header">
                                         <i class='bx bx-receipt'></i>
-                                        <h3>Amount: <span><%= totalUsers %> Order</span></h3>
+                                        <h3>Total Orders:</h3>
                                         <i class='bx bx-filter'></i>
                                         <i class='bx bx-search'></i>
                                     </div>
@@ -554,38 +576,51 @@
                                     <table>
                                         <thead>
                                             <tr>
+                                                <th>No.</th>
                                                 <th>User</th>
                                                 <th>Date</th>
-                                                <th>TotalPrice</th>
+                                                <th>Status</th>
+                                                <th>Total Price</th>
                                             </tr>
                                         </thead>
-                                        <%
-                                            if (orderList != null) {
-                                                for (OrderDTO dto : orderList) {
-                                        %>
-
-
 
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p><%= dto.getUserName() %></p>
-                                                </td>
-                                                <td><%= dto.getCreateDate() %></td>
-                                                <td><%= dto.getTotalPrice() %></td>
-                                            </tr>
-
-
-
                                             <%
-                                                    }
+                                                int rowNumber = 1;
+                                                for (String userName : totalPriceMap.keySet()) {
+                                                    Map<String, Double> dateTotalPriceMap = totalPriceMap.get(userName);
+                                                    for (String createDate : dateTotalPriceMap.keySet()) {
+                                                        double totalPerDate = dateTotalPriceMap.get(createDate);
+                                                        String status = "";
+                                                        for (OrderDTO order : orderList) {
+                                                            if (order.getUserName().equals(userName) && order.getCreateDate().toString().equals(createDate)) {
+                                                                status = order.getStatus();
+                                                                break;
+                                                            }
+                                                        }
+                                            %>
+                                            <tr>
+                                                <td><%= rowNumber++ %></td>
+                                                <td>
+                                                    <p><%= userName%></p>
+                                                </td>
+                                                <td><%= createDate%></td>
+                                                <td><%= status%></td>
+                                                <td><%= totalPerDate%></td>
+                                            </tr>
+                                            <% }
                                                 }
                                             %>
+                                        </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </form>
+
+                        <%
+                            }
+                        %>
+
                     </div>
 
             </main>

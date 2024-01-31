@@ -407,14 +407,6 @@
                 background: #388E3C;
             }
 
-            .delete {
-                border: 1px solid #D32F2F;
-                padding: 4px;
-                border-radius: 50px;
-                background-color: #D32F2F;
-                color: #fff;
-            }
-
             .admin-header {
                 display: flex;
                 justify-content: space-between;
@@ -433,6 +425,21 @@
                 justify-content: center;
                 grid-gap: 10px;
                 font-weight: 500;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
             }
 
             @media screen and (max-width: 992px) {
@@ -513,10 +520,10 @@
                         </ul>
                         <ul class="logout">
                             <li>
-                                <a href="#">
-                                    <i class='bx bx-log-out-circle' ></i>
-                                    <span>Logout</span>
-                                </a>
+                                <form action="LogoutServlet" method="POST">
+                                    <i class='bx bx-log-out-circle'></i>
+                                    <input type="submit" value="Logout" name="action" />
+                                </form>
                             </li>
                         </ul>
                     </div>
@@ -528,19 +535,10 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-
-                            int totalUsers = 0; // Counter for total users
-
-                            if (result != null) {
-                                for (UserDTO dto : result) {
-                                    totalUsers++;
-                                }
-                            }
-
-
+                            List<UserDTO> listHost = (List<UserDTO>) request.getAttribute("LIST_HOST");
                         %>
-                        <div>
 
+                        <div>
                             <ul class="insights">
                                 <li>
                                     <i class='bx bx-box'></i>
@@ -549,64 +547,46 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bx-user'></i>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
                                 </li>
-                                <li><i class='bx bx-line-chart'></i>
-                                    <span class="info">
-                                        <h3>
-                                            14,721
-                                        </h3>
-                                        <p>Searches</p>
-                                    </span>
-                                </li>
-                                <li><i class='bx bx-dollar-circle'></i>
-                                    <span class="info">
-                                        <h3>
-                                            $6,742
-                                        </h3>
-                                        <p>Total Sales</p>
-                                    </span>
-                                </li>
                             </ul>
                         </div>
-                        <!-- End of Insights -->
 
+                        <!-- Users Table -->
                         <div class="bottom-data">
                             <div class="orders">
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
-                                    <h3>Amount: <span><%= totalUsers%> Users</span></h3>
+                                    <h3>Users</h3>
                                     <i class='bx bx-filter'></i>
                                     <i class='bx bx-search'></i>
                                 </div>
 
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Edit Profile</th>
-                                        </tr>
-                                    </thead>
-
-                                    <%
-                                        if (result != null) {
-                                            for (UserDTO dto : result) {
-                                                String urlRewriting = "AdminServlet"
-                                                        + "?action=delete"
-                                                        + "&pk=" + dto.getFullName();
-                                    %>
-                                    <form action="AdminServlet" method="POST">
-                                        <tbody>
+                                <form action="AdminServlet" method="POST">
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <p><%= dto.getFullName()%></p>
-                                                </td>
+                                                <th>No.</th>
+                                                <th>User</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Edit Profile</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% int countUser = 1;
+                                                if (result != null) {
+                                                    for (UserDTO dto : result) {
+                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + dto.getFullName();
+                                            %>
+                                            <tr>
+                                                <td><%= countUser++%></td>
+                                                <td><%= dto.getFullName()%></td>
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
                                                 <td><%= dto.getRoleID()%></td>
@@ -614,18 +594,61 @@
                                                     <a class="delete" href="<%= urlRewriting%>">Delete</a>
                                                 </td>
                                             </tr>
+                                            <% }
+                        } %>
                                         </tbody>
-                                    </form>
-                                    <%
-                                            }
-                                        }
-                                    %>
-
-                                    </tbody>
-                                </table>
-
+                                    </table>
+                                </form>
                             </div>
                         </div>
+
+                        <!-- Host Table -->
+                        <div class="bottom-data">
+                            <div class="orders">
+                                <div class="header">
+                                    <i class='bx bx-receipt'></i>
+                                    <h3>Party Host</h3>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
+                                </div>
+
+                                <form action="AdminServlet" method="POST">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>User</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Edit Profile</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% int countHost = 1;
+                                                if (listHost != null) {
+                                                    for (UserDTO host : listHost) {
+                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + host.getFullName();
+                                            %>
+                                            <tr>
+                                                <td><%= countHost++%></td>
+                                                <td><%= host.getFullName()%></td>
+                                                <td><%= host.getPhoneNumber()%></td>
+                                                <td><%= host.getEmail()%></td>
+                                                <td><%= host.getRoleID()%></td>
+                                                <td>
+                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <% }
+                        }%>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+
 
                     </div>
 

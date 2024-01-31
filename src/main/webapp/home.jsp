@@ -261,7 +261,7 @@
                 color: #fff;
                 gap: 8px;
             }
-            
+
             .column-about img,
             .column-about .column-about-container {
                 width: 50%;
@@ -331,6 +331,25 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+            
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+            
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
+            
+            main {
+                margin-bottom: 30px;
             }
 
             @keyframes next1 {
@@ -445,7 +464,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -612,6 +631,7 @@
             <ul class="logout">
                 <li>
                     <form action="LogoutServlet" method="POST">
+                        <i class='bx bx-log-out-circle'></i>
                         <input type="submit" value="Logout" name="action" />
                     </form>
                 </li>
@@ -720,7 +740,9 @@
     </div>
 
     <div class="copy-right">
-
+        <div class="copy-right-content">
+            <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+        </div>
     </div>
 </footer>
 

@@ -31,37 +31,34 @@ public class OrderDAO implements Serializable {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-        boolean result = false;
+
         try {
-            //create connection
+            // create connection
             con = DBUtils.createConnection();
             if (con != null) {
-                //create sql string
-                String sql = "SELECT o.orderID, u.fullname, o.create_at, o.totalPrice, o.status FROM [Order] o JOIN users u ON u.userID = o.userID";
-                //create statement obj
+                // create sql string
+                String sql = "SELECT o.orderID, u.fullname, o.create_at, SUM(o.totalPrice) AS total_price, o.status FROM [Order] o JOIN users u ON u.userID = o.userID GROUP BY o.orderID, u.fullname, o.create_at, o.status";
+                // create statement obj
                 stm = con.prepareStatement(sql);
-                //execute query
+                // execute query
                 rs = stm.executeQuery();
-                //5. process
+                // process
                 while (rs.next()) {
-                    //5.1 map data
-                    //5.1.1 get data from rs
                     int orderID = rs.getInt("orderID");
                     String fullName = rs.getString("fullname");
                     Date createDate = rs.getDate("create_at");
-                    double totalPrice = rs.getDouble("totalPrice");
+                    double totalPrice = rs.getDouble("total_price");
                     String status = rs.getString("status");
-                    //5.1.2 set data into properties of DTO
+
                     OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
-                    //5.1.3 add DTO into list
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
-                    }//end accounts had not existed
+                    }
                     this.listOrder.add(dto);
-                    //5.2 done
-                }//end traverse rs
-            }//end connection is available
+                }
+            }
         } finally {
+            // close resources in a finally block
             if (rs != null) {
                 rs.close();
             }
