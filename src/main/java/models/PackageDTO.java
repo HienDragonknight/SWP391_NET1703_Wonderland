@@ -12,17 +12,12 @@ import java.io.Serializable;
  */
 public class PackageDTO implements Serializable {
 
-//<<<<<<< HEAD
     private String pakageID;
     private String pakageName;
-//=======
-//    private String packageName;
-//>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
     private double unitPrice;
     private String image;
     private String video;
     private String description;
-
 
     public PackageDTO(String packageName, double unitPrice, String image, String video, String description) {
         this.pakageName = packageName;
@@ -31,7 +26,6 @@ public class PackageDTO implements Serializable {
         this.video = video;
         this.description = description;
     }
-
 
     public PackageDTO(String pakageID, String pakageName, double unitPrice, String image, String video, String description) {
         this.pakageID = pakageID;

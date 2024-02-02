@@ -31,7 +31,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM [Users] WHERE email = ? AND password = ?";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -247,7 +247,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "DELETE FROM [User] WHERE fullname = ?";
+                String sql = "DELETE FROM [Users] WHERE fullname = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 int effectRows = stm.executeUpdate();
