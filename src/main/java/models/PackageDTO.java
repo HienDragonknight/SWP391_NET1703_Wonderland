@@ -11,52 +11,67 @@ import java.io.Serializable;
  * @author phanv
  */
 public class PackageDTO implements Serializable {
-
-//<<<<<<< HEAD
-    private String pakageID;
-    private String pakageName;
-//=======
-//    private String packageName;
-//>>>>>>> 77d4c3a55ac4e66368efcae21116afbd4c5ac128
+    private String packageID;
+    private String packageName;
     private double unitPrice;
     private String image;
     private String video;
     private String description;
-
-
-    public PackageDTO(String packageName, double unitPrice, String image, String video, String description) {
-        this.pakageName = packageName;
+    private String locationID;
+    private String feedbackID;
+    private String size;
+    
+    
+    public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description, String size) {
+        this.packageID = packageID;
+        this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
+        this.size = size;
+    }
+    
+    public String getLocationID() {
+        return locationID;
     }
 
+    public void setLocationID(String locationID) {
+        this.locationID = locationID;
+    }
 
-    public PackageDTO(String pakageID, String pakageName, double unitPrice, String image, String video, String description) {
-        this.pakageID = pakageID;
-        this.pakageName = pakageName;
-        this.unitPrice = unitPrice;
-        this.image = image;
-        this.video = video;
-        this.description = description;
+    public String getFeedbackID() {
+        return feedbackID;
+    }
+
+    public void setFeedbackID(String feedbackID) {
+        this.feedbackID = feedbackID;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public String getPakageID() {
-        return pakageID;
+        return packageID;
     }
 
     public void setPakageID(String pakageID) {
-        this.pakageID = pakageID;
+        this.packageID = pakageID;
     }
-
+    
+    
     public String getPakageName() {
-        return pakageName;
+        return packageName;
 
     }
 
     public void setPackageName(String packageName) {
-        this.pakageName = packageName;
+        this.packageName = packageName;
     }
 
     public double getUnitPrice() {

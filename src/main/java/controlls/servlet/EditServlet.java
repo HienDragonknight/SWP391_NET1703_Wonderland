@@ -13,15 +13,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "ManageAccountServlet", urlPatterns = {"/ManageAccountServlet"})
-public class ManageAccountServlet extends HttpServlet {
-    private final String ERROR = "manageAccount.jsp";
-    private final String SUCCESS = "ViewUserServlet";
+@WebServlet(name = "EditServlet", urlPatterns = {"/EditServlet"})
+public class EditServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,21 +35,22 @@ public class ManageAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String name = request.getParameter("txtName");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
         String phone = request.getParameter("txtPhone");
-        String url = ERROR;
+        String email = request.getParameter("txtEmail");
+        String url = "ViewUserServlet";
         
-        try {
+         try {
+           //2. call DAO
+           //2.1 new DAO
             UserDAO dao = new UserDAO();
-            boolean result = dao.manageAccount(name, email, password, phone);
-            if (result) {
-                url = SUCCESS;
-                request.setAttribute("status", "success");
-            } else {
-                url = ERROR;
-                request.setAttribute("status", "error");
-            }
+           //2.2 call method of DAO
+            UserDTO result = dao.updateHost(name, phone, email);
+           //3. process result
+           if (result != null) {
+               //refresh --> call previous function again (Search)
+               //--> using url rewriting technique
+               url = "ViewUserServlet";
+           }//delete action is successfull
         } catch (SQLException ex) {
             log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {

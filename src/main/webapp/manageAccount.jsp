@@ -71,6 +71,7 @@
         </style>
     </head>
     <body>
+        
         <div class="container">
             <header>Create Party Host</header>
             <form action="AdminServlet" method="POST">
@@ -81,6 +82,5 @@
                 <input type="submit" value="Create" name="action" class="btn"/>
             </form>
         </div>
-
     </body>
 </html>

@@ -60,7 +60,7 @@ public class AddServiceServlet extends HttpServlet {
                 String image = request.getParameter("image");
                 String locationDetails = request.getParameter("locationDetails");
                 hostDao.addTheme(new ThemeDTO(themeName));
-                hostDao.addPackage(new PackageDTO(packageName, packagePrice, packageImage, packageVideo, packageDesciption));
+                hostDao.addPackage(new PackageDTO(packageVideo, packageName, servicePrice, image, image, descriptions, image));
                 hostDao.addBonusService(new BonusServiceDTO(serviceName, servicePrice, descriptions, image));
                 hostDao.addLocation(new LocationDTO(locationDetails));
                 message = "Party created successfully!";

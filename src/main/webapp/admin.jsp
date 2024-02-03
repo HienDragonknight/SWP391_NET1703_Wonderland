@@ -171,63 +171,6 @@
                 transition: all 0.3s ease;
             }
 
-            .slide-container {
-                position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 650px;
-                max-height: 100vh;
-                margin: auto;
-            }
-
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-                border-radius: 50px;
-            }
-
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
-            }
-
-            span.next, span.prev {
-                display: none;
-            }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
             .column-about {
                 display: flex;
                 justify-content: center;
@@ -385,6 +328,14 @@
 
             .bottom-data .orders table td{
                 padding: 16px 0;
+            }
+
+            .bottom-data .orders table td input {
+                border: none;
+                outline: none;
+                background: #f6f6f9;
+                font-size: 16px;
+                width: 100%;
             }
 
             .bottom-data .orders table tr td:first-child{
@@ -552,6 +503,12 @@
                                         <p>User</p>
                                     </a>
                                 </li>
+                                <li>
+                                    <i class='bx bx-face'></i>
+                                    <a href="ViewUserServlet" class="info">
+                                        <p>Profile</p>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
 
@@ -574,6 +531,7 @@
                                                 <th>Phone</th>
                                                 <th>Email</th>
                                                 <th>Role</th>
+                                                <th>Report</th>
                                                 <th>Edit Profile</th>
                                             </tr>
                                         </thead>
@@ -582,7 +540,7 @@
                                             <% int countUser = 1;
                                                 if (result != null) {
                                                     for (UserDTO dto : result) {
-                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + dto.getFullName();
+                                                        
                                             %>
                                             <tr>
                                                 <td><%= countUser++%></td>
@@ -590,12 +548,13 @@
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
                                                 <td><%= dto.getRoleID()%></td>
+                                                <td><%= dto.getReported()%></td>
                                                 <td>
-                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                    Reported
                                                 </td>
                                             </tr>
                                             <% }
-                        } %>
+                                                } %>
                                         </tbody>
                                     </table>
                                 </form>
@@ -629,20 +588,33 @@
                                             <% int countHost = 1;
                                                 if (listHost != null) {
                                                     for (UserDTO host : listHost) {
-                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + host.getFullName();
+                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
                                             %>
                                             <tr>
                                                 <td><%= countHost++%></td>
-                                                <td><%= host.getFullName()%></td>
-                                                <td><%= host.getPhoneNumber()%></td>
-                                                <td><%= host.getEmail()%></td>
-                                                <td><%= host.getRoleID()%></td>
+                                                <td>
+                                                    <input type="text" name="txtName" value="<%= host.getFullName()%>" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="txtPhone" value="<%= host.getPhoneNumber()%>" />
+                                                </td>
+                                                <td>
+                                                    <%= host.getEmail()%>
+                                                    <input type="hidden" name="txtEmail" value="<%= host.getEmail()%>" />
+                                                </td>
+                                                <td>
+                                                    <%= host.getRoleID()%>
+
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="Edit" name="action" />
+                                                </td>
                                                 <td>
                                                     <a class="delete" href="<%= urlRewriting%>">Delete</a>
                                                 </td>
                                             </tr>
                                             <% }
-                        }%>
+                                                }%>
                                         </tbody>
                                     </table>
                                 </form>

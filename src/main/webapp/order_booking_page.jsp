@@ -1025,117 +1025,117 @@
                                            </div>
                
                
-                                           BONUS SERVICE
-                                           <div class="services-others">
-                                               <div class="special-title">
-                                                   <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png" alt="others-services-title">
-                                                   <span class="special-title-text">
-                                                       Bonus Service
-                                                   </span>
-                                               </div>
-                                               <div class="services-others-contents row">
-                                                   <div class="row services-others-list">
-               
-                <%
-                    List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
-                    if (bonusServiceList != null && bonusServiceList.size() > 0) {
+                -->                                       
+                <div class="services-others">
+                    <div class="special-title">
+                        <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png" alt="others-services-title">
+                        <span class="special-title-text">
+                            Bonus Service
+                        </span>
+                    </div>
+                    <div class="services-others-contents row">
+                        <div class="row services-others-list">
 
-                        int index = 1;
-                        for (BonusServiceDTO bonuesService : bonusServiceList) {
-                %>
+                            <%
+                                List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
+                                if (bonusServiceList != null && bonusServiceList.size() > 0) {
 
-                <div class="services-others-item col-3" id="<%= index++%>"  >
-                    <img class="services-others-image" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png" alt="others-1">
-                    <div class="services-others-text">
-                        <span class="services-others-text-content">
-                <%= bonuesService.getServiceName()%>
-            </span>
-        </div>
-    </div>
+                                    int index = 1;
+                                    for (BonusServiceDTO bonuesService : bonusServiceList) {
+                            %>
 
-                <%
-                        }
-                    }
-                %>
-            </div>
-        </div>
-    </div>
+                            <div class="services-others-item col-3" id="<%= index++%>"  >
+                                <img class="services-others-image" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png" alt="others-1">
+                                <div class="services-others-text">
+                                    <span class="services-others-text-content">
+                                        <%= bonuesService.getServiceName()%>
+                                    </span>
+                                </div>
+                            </div>
 
+                            <%
+                                    }
+                                }
+                            %>
+                        </div>
+                    </div>
+                </div>
 
-
-
-
-
-
-
-    <div class="services-desc">
-        Vui lòng liên hệ nhân viên tiNi để được tư vấn các dịch vụ đặc biệt
-    </div>
-    <div class="text-center">
-        <button class="services-button special-button btn btn-primary rounded-pill">
-            <img class="special-button-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/birthday.png" alt="icon-birthday">
-            <span class="special-button-text">
-                Liên hệ tư vấn và đặt tiệc
-            </span>
-        </button>
-    </div>
-</div>
-</div>
-</section>
+                <!--
                 
                 
                 
-<section id="gallery">
-<div class="gallery">
-<div class="container">
-    <div class="gallery-heading">
-        <h2 class="heading-text">
-            <span class="heading-text-content">
-                Lưu giữ cột mốc tuổi thơ
-            </span>
-        </h2>
-    </div>
-    <div class="gallery-video text-center">
-        <iframe class="gallery-video-iframe" width="1240" height="690" src="https://www.youtube.com/embed/npa-6xyvdJ 4" title="tiNiWorld - Tròn 10 Năm Tuổi, Trọn Tuổi Thơ Vui" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
-    </div>
-    <div class="gallery-images">
-        <div class="row">
-            <div class="grid-row">
-                <div class="grid-column grid-column-large">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-1.png" alt="Image 1">
+                
+                
+                
+                    <div class="services-desc">
+                        Vui lòng liên hệ nhân viên tiNi để được tư vấn các dịch vụ đặc biệt
+                    </div>
+                    <div class="text-center">
+                        <button class="services-button special-button btn btn-primary rounded-pill">
+                            <img class="special-button-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/birthday.png" alt="icon-birthday">
+                            <span class="special-button-text">
+                                Liên hệ tư vấn và đặt tiệc
+                            </span>
+                        </button>
+                    </div>
                 </div>
-                <div class="grid-column">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-3.png" alt="Image 3">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-4.png" alt="Image 4">
                 </div>
-                <div class="grid-column">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-2.png" alt="Image 2">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-5.png" alt="Image 5">
+                </section>
+                                
+                                
+                                
+                <section id="gallery">
+                <div class="gallery">
+                <div class="container">
+                    <div class="gallery-heading">
+                        <h2 class="heading-text">
+                            <span class="heading-text-content">
+                                Lưu giữ cột mốc tuổi thơ
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="gallery-video text-center">
+                        <iframe class="gallery-video-iframe" width="1240" height="690" src="https://www.youtube.com/embed/npa-6xyvdJ 4" title="tiNiWorld - Tròn 10 Năm Tuổi, Trọn Tuổi Thơ Vui" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+                    </div>
+                    <div class="gallery-images">
+                        <div class="row">
+                            <div class="grid-row">
+                                <div class="grid-column grid-column-large">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-1.png" alt="Image 1">
+                                </div>
+                                <div class="grid-column">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-3.png" alt="Image 3">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-4.png" alt="Image 4">
+                                </div>
+                                <div class="grid-column">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-2.png" alt="Image 2">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-5.png" alt="Image 5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="grid-row">
+                                <div class="grid-column">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-6.png" alt="Image 6">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-7.png" alt="Image 7">
+                                </div>
+                
+                                <div class="grid-column grid-column-large">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-8.png" alt="Image 8">
+                                </div>
+                
+                                <div class="grid-column">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-9.png" alt="Image 9">
+                                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-10.png" alt="Image 10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="grid-row">
-                <div class="grid-column">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-6.png" alt="Image 6">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-7.png" alt="Image 7">
                 </div>
-
-                <div class="grid-column grid-column-large">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-8.png" alt="Image 8">
-                </div>
-
-                <div class="grid-column">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-9.png" alt="Image 9">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/gallery-10.png" alt="Image 10">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</section>
--->
+                </section>
+                -->
 
 
 
@@ -1281,25 +1281,25 @@
                                                 </label>
                                                 <input class="form-input form-control" type="number" id="number_of_passengers" name="number_of_passengers" placeholder="Số lượng bé tham dự">
                                             </div>
-                                            <div class="mb-3">
-                                                <label class="form-label text-blue" for="package">
-                                                    Gói tiệc (tùy chọn)
-                                                </label>
-                                                <select class="form-select-input form-control" id="package" name="packageType">
-                                                    <%
-                                                        List<PackageDTO> packageList = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
-                                                        if (packageList != null && packageList.size() > 0) {
+                                            <!--                                            <div class="mb-3">
+                                                                                            <label class="form-label text-blue" for="package">
+                                                                                                Gói tiệc (tùy chọn)
+                                                                                            </label>
+                                                                                            <select class="form-select-input form-control" id="package" name="packageType">
+                                            <%
+                                                List<PackageDTO> packageList = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
+                                                if (packageList != null && packageList.size() > 0) {
 
-                                                            int index = 1;
-                                                            for (PackageDTO packageIndex : packageList) {
-                                                    %>
-                                                    <option value="<%= packageIndex.getPakageID()%>"> <%= packageIndex.getPakageName()%> </option>
-                                                    <%
-                                                            }
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
+                                                    int index = 1;
+                                                    for (PackageDTO packageIndex : packageList) {
+                                            %>
+                                            <option value="<%= packageIndex.getPakageID()%>"> <%= packageIndex.getPackageName() %> </option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
+                                        </select>
+                                    </div>-->
                                             <div class="mb-3">
                                                 <label class="form-label text-blue" for="theme">
                                                     Chủ đề trang trí (tùy chọn)
@@ -1322,6 +1322,30 @@
 
                                                 </select>
                                             </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label text-blue" for="theme">
+                                                    Dịch vụ kèm thêm (tùy chọn)
+                                                </label>
+                                                <select class="form-select-input form-control" id="theme" name="theme">
+
+                                                    <%
+                                                        List<BonusServiceDTO> serviceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
+                                                        if (serviceList != null && serviceList.size() > 0) {
+
+                                                            int index = 1;
+                                                            for (BonusServiceDTO bonusServiceItem : bonusServiceList) {
+                                                    %>
+                                                    <option value="<%= bonusServiceItem.getServiceID() %>"> <%= bonusServiceItem.getServiceName() %> </option>
+
+                                                    <%
+                                                            }
+                                                        }
+                                                    %>
+
+                                                </select>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="form-footer">
@@ -1334,8 +1358,8 @@
                         </div>
                     </div>
                 </section>
-                                                    
-                                                    
+
+
 
 
             </div>

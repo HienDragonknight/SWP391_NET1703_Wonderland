@@ -4,59 +4,57 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
+import dal.LocationDAO;
+import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.LocationDTO;
+import models.PackageDTO;
 
-/**
- *
- * @author Le Huu Huy
- */
-@WebServlet(name = "ManageAccountServlet", urlPatterns = {"/ManageAccountServlet"})
-public class ManageAccountServlet extends HttpServlet {
-    private final String ERROR = "manageAccount.jsp";
-    private final String SUCCESS = "ViewUserServlet";
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String phone = request.getParameter("txtPhone");
+// from packageList: /PackageItemServlet?packageID={}
+@WebServlet(name = "PakcageItemServlet", urlPatterns = {"/PackageItemServlet"})
+public class PakcageItemServlet extends HttpServlet {
+
+    private static final String SUCCESS = "package_item.jsp";
+    private static final String ERROR = "package_item.jsp";
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String url = ERROR;
-        
+
         try {
-            UserDAO dao = new UserDAO();
-            boolean result = dao.manageAccount(name, email, password, phone);
-            if (result) {
+
+            String packageID = request.getParameter("packageID");
+
+            // get package 
+            PackageDAO dao = new PackageDAO();
+            PackageDTO packageDTO = dao.getPackageByID(packageID);
+
+            // get location 
+            LocationDAO locationDAO = new LocationDAO();
+
+           
+         //   LocationDTO locationDTO = dao.getLocationToPackage(locationID);
+            
+            
+
+            if (packageDTO != null) {
                 url = SUCCESS;
-                request.setAttribute("status", "success");
-            } else {
-                url = ERROR;
-                request.setAttribute("status", "error");
+                request.setAttribute("PACKGE_ITEM", packageDTO);
+              //  request.setAttribute("LOCATION", locationDTO);
             }
-        } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+
+        } catch (Exception e) {
+            log("Error at PackageItemServlet");
         } finally {
-            response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

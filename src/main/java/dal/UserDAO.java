@@ -31,7 +31,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -43,7 +43,8 @@ public class UserDAO implements Serializable {
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
-                    result = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
+                    String reported = rs.getString("reported");
+                    result = new UserDTO(roleID, fullName, email, password, phoneNum, avatar, roleID, reported);
                 }
             }
         } finally {
@@ -76,7 +77,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails FROM users u JOIN [Role] r ON u.roleID = r.roleID WHERE u.roleID = 1";
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported FROM users u JOIN [Role] r ON u.roleID = r.roleID WHERE u.roleID = 1";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -93,8 +94,9 @@ public class UserDAO implements Serializable {
                     String phoneNumber = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
                     //5.1.2 set data into properties of DTO
-                    UserDTO dto = new UserDTO(ID, fullName, email, password, phoneNumber, avatar, roleID);
+                    UserDTO dto = new UserDTO(ID, fullName, email, password, phoneNumber, avatar, roleID, reported);
                     //5.1.3 add DTO into list
                     if (this.listUser == null) {
                         this.listUser = new ArrayList<>();
@@ -115,13 +117,13 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     List<UserDTO> listHost;
 
     public List<UserDTO> getListHost() {
         return listHost;
     }
-    
+
     public void getHost() throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -132,7 +134,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 //create sql string
-                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails FROM users u JOIN [Role] r ON u.roleID = r.roleID WHERE u.roleID = 3";
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported FROM users u JOIN [Role] r ON u.roleID = r.roleID WHERE u.roleID = 3";
                 //create statement obj
                 stm = con.prepareStatement(sql);
                 //execute query
@@ -141,16 +143,16 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-                    int userID = rs.getInt("userID");
-                    ID += userID;
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
                     String phoneNumber = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
                     //5.1.2 set data into properties of DTO
-                    UserDTO dto = new UserDTO(ID, fullName, email, password, phoneNumber, avatar, roleID);
+                    UserDTO dto = new UserDTO(userID, fullName, email, password, phoneNumber, avatar, roleID, reported);
                     //5.1.3 add DTO into list
                     if (this.listHost == null) {
                         this.listHost = new ArrayList<>();
@@ -159,45 +161,6 @@ public class UserDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
-    
-    public void checkUser(String user) throws ClassNotFoundException, SQLException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            con = DBUtils.createConnection();
-            if (con != null) {
-                String sql = "SELECT u.userID, u.fullname, u.email, u.phone, r.roleDetails FROM [Users] u JOIN [Role] r ON r.roleID = u.roleID WHERE u.fullname = ?";
-                stm = con.prepareStatement(sql);
-                stm.setString(1, "%" + user + "%");
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    int userID = rs.getInt("userID");
-                    ID += userID;
-                    String fullName = rs.getString("fullname");
-                    String email = rs.getString("email");
-                    String phoneNum = rs.getString("phone");
-                    String avatar = rs.getString("avatar");
-                    String roleID = rs.getString("roleID");
-                    UserDTO dto = new UserDTO(ID, fullName, email, "", phoneNum, avatar, roleID);
-                    if (this.listUser == null) {
-                        this.listUser = new ArrayList<>();
-                    }
-                    this.listUser.add(dto);
-                }
-            }
         } finally {
             if (rs != null) {
                 rs.close();
@@ -242,7 +205,7 @@ public class UserDAO implements Serializable {
                         // Retrieve other user details if needed
                         ID += userID;
                         // Create the UserDTO object with the retrieved data
-                        result = new UserDTO(ID, fullname, email, "", phone, "", "");
+                        result = new UserDTO(ID, fullname, email, password, phone, email, ID, phone);
                     }
                 }
             }
@@ -296,6 +259,7 @@ public class UserDAO implements Serializable {
 
         return false; // Default to false if an exception occurs
     }
+
     public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -303,7 +267,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "DELETE FROM users WHERE fullname = ?";
+                String sql = "DELETE FROM users WHERE email = ?";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 int effectRows = stm.executeUpdate();
@@ -321,7 +285,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public boolean manageAccount(String fullName, String email, String password, String phone) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -329,7 +293,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "insert into users (fullname, email, password, phone, avatar, roleID) values(?, ?, ?, ?, 'default.png', 3)";
+                String sql = "insert into users (fullname, email, password, phone, avatar, roleID, reported) values(?, ?, ?, ?, 'default.png', 3, NULL)";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, fullName);
                 stm.setString(2, email);
@@ -340,6 +304,40 @@ public class UserDAO implements Serializable {
                     result = true;
                 }
             }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
+    public UserDTO updateHost(String name, String phone, String email) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+//        boolean result = false;
+        UserDTO result = null;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "UPDATE users SET fullname = ?, phone = ? WHERE email = ?";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, name);
+                stm.setString(2, phone);
+                stm.setString(3, email);
+                //execute query
+                int effectRows = stm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, name, email, phone, phone, name, ID, phone);
+                }
+            }//end connection is available
         } finally {
             if (stm != null) {
                 stm.close();
