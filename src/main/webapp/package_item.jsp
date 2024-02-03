@@ -192,7 +192,7 @@
             }
 
 
-         
+
 
             .model {
                 position: fixed;
@@ -254,6 +254,95 @@
                 opacity: 1;
                 pointer-events: all;
             }
+
+
+
+
+            div.elem-group {
+                margin: 20px 0;
+            }
+
+            div.elem-group.inlined {
+                width: 49%;
+                display: inline-block;
+                float: left;
+                margin: 3% 0;
+                
+            }
+
+            label {
+                display: block;
+                font-family: 'Nanum Gothic';
+                padding-bottom: 10px;
+                font-size: 1.25em;
+            }
+
+            input, select, textarea {
+                border-radius: 2px;
+                border: 2px solid #777;
+                box-sizing: border-box;
+                font-size: 1.25em;
+                font-family: 'Nanum Gothic';
+                width: 100%;
+                padding: 10px;
+            }
+
+            div.elem-group.inlined input {
+                width: 95%;
+                display: inline-block;
+            }
+
+            textarea {
+                height: 250px;
+            }
+
+            hr {
+                border: 1px dotted #ccc;
+            }
+
+            #checkout{
+                height: 50px;
+                background: #3498db;
+                border: none;
+                color: white;
+                font-size: 1.25em;
+                font-family: 'Nunito','Helvetica Neue',Helvetica,Arial,sans-serif;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 40%;
+
+                font-weight: 700;
+                text-align: center;
+                letter-spacing: .05em;
+                text-transform: uppercase;
+                color: #fff;
+                border-radius: 18px;
+            }
+            #checkout:hover
+            {
+                background-color: #2980b9;
+            }
+
+
+            button:hover {
+                border: 2px solid black;
+            }
+
+            .model-body
+            {
+
+                justify-items: center;
+                align-items: center;
+            }
+
+            #checkout-class
+            {
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            
+           
+
         </style>
     </head>
     <body>
@@ -360,17 +449,80 @@
                         <button data-model-target="#model" class="btn btn-outline-dark flex-shrink-0" >
                             <i class="bi-cart-fill me-1"></i>
                             Buy Now
-
                         </button>
+
 
 
                         <div class="model" id="model">
                             <div class="model-header">
-                                <div class="title">Example model</div>
-                                <button class="close-button">&times;</button>
+                                <div class="title">Booking Party</div>
+                                <button data-close-button class="close-button">&times;</button>
                             </div>
-                            <div  data-close-button class="model-body">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse quod alias ut illo doloremque eum ipsum obcaecati distinctio debitis reiciendis quae quia soluta totam doloribus quos nesciunt necessitatibus, consectetur quisquam accusamus ex, dolorum, dicta vel? Nostrum voluptatem totam, molestiae rem at ad autem dolor ex aperiam. Amet assumenda eos architecto, dolor placeat deserunt voluptatibus tenetur sint officiis perferendis atque! Voluptatem maxime eius eum dolorem dolor exercitationem quis iusto totam! Repudiandae nobis nesciunt sequi iure! Eligendi, eius libero. Ex, repellat sapiente!
+
+                            <div class="model-body">
+
+                                <form action="reservation.php" method="post">
+                       
+                                    <div class="elem-group">
+                                        <label for="room-selection">Center</label>
+                                        <select id="room-selection" name="room_preference" required>
+                                            <option value="">Choose a Room from the List</option>
+                                            <option value="connecting">Connecting</option>
+                                            <option value="adjoining">Adjoining</option>
+                                            <option value="adjacent">Adjacent</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="elem-group">
+
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-date">Date</label>
+                                            <input type="date" id="checkin-date" name="checkin" required>
+                                        </div> 
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Time</label>
+                                            <input type="time" name="checkin-time" placeholder="2" min="0" required>
+                                        </div>
+                                    </div>
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Attended children</label>
+                                            <input type="number" name="checkin-time" min="0" required>
+                                        </div>
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Type</label>
+                                            <input type="text" name="package-type" placeholder="Standard" required>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="elem-group">
+                                        <label for="room-selection">Bonus Service</label>
+                                        <select id="room-selection" name="room_preference" required>
+                                            <option value="">Choose a Room from the List</option>
+                                            <option value="connecting">Connecting</option>
+                                            <option value="adjoining">Adjoining</option>
+                                            <option value="adjacent">Adjacent</option>
+                                        </select>
+                                    </div>
+                                    <div class="elem-group">
+                                        <label for="room-selection">Theme</label>
+                                        <select id="room-selection" name="room_preference" required>
+                                            <option value="">Choose a Room from the List</option>
+                                            <option value="connecting">Connecting</option>
+                                            <option value="adjoining">Adjoining</option>
+                                            <option value="adjacent">Adjacent</option>
+                                        </select>
+                                    </div>
+
+                                  
+                                    <div id="checkout-class">   
+                                        <button id="checkout" type="submit">Checkout</button>
+                                    </div>
+                                </form>
+
+
                             </div>
                         </div>
                         <div id="overlay"></div>
@@ -501,9 +653,70 @@
         <!-- Bootstrap core JS-->
 
         <!-- Core theme JS-->
-        <script src="js/slider.js" >
+        <script >
+
+            const openModelButtons = document.querySelectorAll('[data-model-target]');
+            const closeModelButtons = document.querySelectorAll('[data-close-button]');
+            const overlay = document.getElementById('overlay');
+
+            openModelButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const model = document.querySelector(button.dataset.modelTarget);
+                    openModel(model);
+                });
+            });
+
+            overlay.addEventListener('click', () => {
+                const models = document.querySelectorAll('.model.active');
+                models.forEach(model => {
+                    closeModel(model);
+                });
+            });
+
+            closeModelButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const model = button.closest('.model');
+                    closeModel(model);
+                });
+            });
+
+            function openModel(model) {
+                if (model === null)
+                    return;
+                model.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            function closeModel(model) {
+                if (model === null)
+                    return;
+                model.classList.remove('active');
+                overlay.classList.remove('active');
+            }
 
 
+
+            var currentDateTime = new Date();
+            var year = currentDateTime.getFullYear();
+            var month = (currentDateTime.getMonth() + 1);
+            var date = (currentDateTime.getDate() + 1);
+
+            if (date < 10) {
+                date = '0' + date;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+
+            var dateTomorrow = year + "-" + month + "-" + date;
+            var checkinElem = document.querySelector("#checkin-date");
+            var checkoutElem = document.querySelector("#checkout-date");
+
+            checkinElem.setAttribute("min", dateTomorrow);
+
+            checkinElem.onchange = function () {
+                checkoutElem.setAttribute("min", this.value);
+            }
         </script>
 
     </body>
