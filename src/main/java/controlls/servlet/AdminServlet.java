@@ -23,6 +23,7 @@ public class AdminServlet extends HttpServlet {
     private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
     private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
     private final String EDIT_ACCOUNT_CONTROLLER = "EditServlet";
+    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,6 +47,8 @@ public class AdminServlet extends HttpServlet {
                 url = MANAGE_ACCOUNT_CONTROLLER;
             } else if (button.equals("Edit")) {
                 url = EDIT_ACCOUNT_CONTROLLER;
+            } else if (button.equals("Edit Account")) {
+                url = UPDATE_ACCOUNT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

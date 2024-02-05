@@ -36,7 +36,6 @@
         <input type="submit" value="Login" name="action" /> 
 
     </form>-->
-        <input type="hidden" id="status" value="<%= session.getAttribute("status")%>" />
         <div class="container-fluid position-relative d-flex p-0">
             <div class="container-fluid">
                 <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
@@ -73,7 +72,6 @@
                                     <input type="password" name="txtPassword" class="form-control" id="floatingPassword" placeholder="Password" value="<%= cpValue%>" required="required">
                                     <label for="floatingPassword">Password</label>
                                 </div>
-
 
                                 <div class="d-flex align-items-center justify-content-between mb-4">
                                     <div class="form-check">

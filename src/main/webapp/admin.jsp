@@ -505,7 +505,7 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-face'></i>
-                                    <a href="ViewUserServlet" class="info">
+                                    <a href="profile.jsp" class="info">
                                         <p>Profile</p>
                                     </a>
                                 </li>

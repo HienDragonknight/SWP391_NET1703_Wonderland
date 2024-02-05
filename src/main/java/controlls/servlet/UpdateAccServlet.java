@@ -13,16 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
-
-    private final String ERROR = "register.jsp";
-    private final String SUCCESS = "home.jsp";
+@WebServlet(name = "UpdateAccServlet", urlPatterns = {"/UpdateAccServlet"})
+public class UpdateAccServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,44 +37,28 @@ public class RegisterServlet extends HttpServlet {
         String name = request.getParameter("txtName");
         String email = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
-        String confirm = request.getParameter("txtCfPassword");
         String phone = request.getParameter("txtPhone");
-        String url = ERROR;
-
+        String url = "profile.jsp";
+        
         try {
-            if (name == null || email == null || password == null || confirm == null || phone == null
-                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
-                    || confirm.trim().isEmpty() || phone.trim().isEmpty()) {
-                // Handle the case where any of the parameters are null or empty
-                url = ERROR;
-                request.setAttribute("status", "error");
-            } else if (!confirm.trim().equals(password.trim())) {
-                // Password and confirm password do not match
-                url = ERROR;
-                request.setAttribute("ERROR_CONFIRM", "Passwords do not match");
-                request.setAttribute("status", "error");
-            } else {
-                // All validations passed, proceed with registration
-                UserDAO dao = new UserDAO();
-                boolean result = dao.registerUser(name, email, password, phone);
-                if (result) {
-                    url = SUCCESS;
-                    request.setAttribute("status", "success");
-                } else {
-                    // Handle registration failure
-                    url = ERROR;
-                    request.setAttribute("status", "error");
-                }
-            }
+           //2. call DAO
+           //2.1 new DAO
+            UserDAO dao = new UserDAO();
+           //2.2 call method of DAO
+            UserDTO result = dao.updateAccount(name, phone, email, password);
+           //3. process result
+           if (result != null) {
+               //refresh --> call previous function again (Search)
+               //--> using url rewriting technique
+               url = "login.jsp";
+           }//delete action is successfull
         } catch (SQLException ex) {
             log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
             log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            // Redirect to the appropriate URL
             response.sendRedirect(url);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
