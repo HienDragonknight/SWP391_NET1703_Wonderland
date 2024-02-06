@@ -8,23 +8,19 @@ import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "EditUserServlet", urlPatterns = {"/EditUserServlet"})
-public class EditUserServlet extends HttpServlet {
-    private final String ERROR = "adminEdit.jsp";
-    private final String SUCCESS = "adminEdit.jsp";
+@WebServlet(name = "DeleteUserServlet", urlPatterns = {"/DeleteUserServlet"})
+public class DeleteUserServlet extends HttpServlet {
+    private final String ADMIN_PAGE = "ViewUserServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,21 +33,20 @@ public class EditUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        String userName = request.getParameter("txtUserName");
+        String url = ADMIN_PAGE;
+        String email = request.getParameter("pk");
         try {
             UserDAO dao = new UserDAO();
-            dao.checkUser(userName);
-            List<UserDTO> result = dao.getListUser();
-            url = SUCCESS;
-            request.setAttribute("USER_PRO", result);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
+            boolean result = dao.deleteUser(email);
+            if (result) {
+                url = "AdminServlet";
+            }
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

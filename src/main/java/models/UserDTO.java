@@ -11,26 +11,34 @@ import java.io.Serializable;
  * @author Hp
  */
 public class UserDTO implements Serializable {
-
     private String userID;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
     private String avatar;
-    private String role;
+    private String roleID;
+    private String reported;
 
     public UserDTO() {
     }
-
-    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String role) {
+    public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String roleID, String reported) {
         this.userID = userID;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.avatar = avatar;
-        this.role = role;
+        this.roleID = roleID;
+        this.reported = reported;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getFullName() {
@@ -73,20 +81,20 @@ public class UserDTO implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getRole() {
-        return role;
+    public String getRoleID() {
+        return roleID;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleID(String roleID) {
+        this.roleID = roleID;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getReported() {
+        return reported;
     }
 
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public void setReported(String reported) {
+        this.reported = reported;
     }
-
+    
 }

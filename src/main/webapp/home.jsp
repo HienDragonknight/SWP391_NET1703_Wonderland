@@ -229,36 +229,38 @@
                 cursor: pointer;
             }
 
-            .column-about {
+            .intro-wrapper {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 50px;
+                padding-left: 100px;
+                padding-right: 100px;
+                margin-top: 30px;
+                gap: 30px;
             }
 
-            .column-about img {
-                width: 40%;
-                border-radius: 50px;
+            .intro-image {
+                width: 50%;
             }
 
-            .column-about .column-about-container {
-                padding: 0px 100px;
+            .intro-image img {
+                width: 100%;
+                border-radius: 20px;
             }
 
-            .column-about .column-about-container button {
-                padding: 10px;
-                border-radius: 50px;
-                background-color: #0b96d3;
-                cursor: pointer;
-                border: none;
+            .intro-text {
+                width: 50%;
             }
 
-            .column-about .column-about-container button a {
+            .intro-text p {
+                margin-bottom: 20px;
+            }
+
+            .intro-text button a{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                color: #fff;
-                gap: 8px;
+                padding: 8px;
             }
 
             .logout {
@@ -282,6 +284,10 @@
                 border-top-left-radius: 50%;
                 border-top-right-radius: 50%;
                 font-family: 'Poppins', sans-serif;
+            }
+            
+            footer {
+                height: 100%;
             }
 
             .footer-content {
@@ -325,6 +331,25 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
+
+            main {
+                margin-bottom: 30px;
             }
 
             @keyframes next1 {
@@ -431,7 +456,6 @@
                             <li>
                                 <i class='bx bx-package'></i>
                                 <a href="ViewPackage">Packages</a>
-
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
@@ -439,7 +463,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -470,25 +494,19 @@
                             </div>
                         </div>
 
-                        <div class="column-about">
-                            <img src="image/Birthday.png" alt="Birthday"/>
-                            <div class="column-about-container">
-                                <p>
-                                    <font style="vertical-align: inherit; font-size: 18px">
-                                    <font style="vertical-align: inherit; font-size: 18px">
-                                    Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                                    </font>
-                                    </font>
-                                </p>
-                                <br/>
-                                <p>
-                                    <font style="vertical-align: inherit; font-size: 18px">
-                                    <font style="vertical-align: inherit; font-size: 18px">
-                                    With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
-                                    </font>
-                                    </font>
-                                </p>
-                                <br/>
+                        <div class="intro-wrapper">
+                            <div class="intro-image">
+                                <img src="image/Birthday.png" alt="Birthday"/>
+                            </div>
+                            <div class="intro-text">
+                                <div>
+                                    <p>
+                                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                                    </p>
+                                    <p>
+                                        With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
+                                    </p>
+                                </div>
                                 <button>
                                     <a href="#">
                                         <i class='bx bx-cake' ></i>
@@ -596,7 +614,7 @@
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
-                    <a href="#">Order Party</a>
+                    <a href="ViewBookingServlet">Booking Party</a>
                 </li>
                 <li>
                     <i class='bx bx-info-circle'></i>
@@ -606,6 +624,7 @@
             <ul class="logout">
                 <li>
                     <form action="LogoutServlet" method="POST">
+                        <i class='bx bx-log-out-circle'></i>
                         <input type="submit" value="Logout" name="action" />
                     </form>
                 </li>
@@ -635,25 +654,19 @@
                 </div>
             </div>
 
-            <div class="column-about">
-                <img src="image/Birthday.png" alt="Birthday"/>
-                <div class="column-about-container">
-                    <p>
-                        <font style="vertical-align: inherit; font-size: 18px">
-                        <font style="vertical-align: inherit; font-size: 18px">
-                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                        </font>
-                        </font>
-                    </p>
-                    <br/>
-                    <p>
-                        <font style="vertical-align: inherit; font-size: 18px">
-                        <font style="vertical-align: inherit; font-size: 18px">
-                        With a variety of birthday party packages, tiNi promises to bring little angels a party full of surprises and memorable moments.
-                        </font>
-                        </font>
-                    </p>
-                    <br/>
+            <div class="intro-wrapper">
+                <div class="intro-image">
+                    <img src="image/Birthday.png" alt="Birthday"/>
+                </div>
+                <div class="intro-text">
+                    <div>
+                        <p>
+                            Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                        </p>
+                        <p>
+                            With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
+                        </p>
+                    </div>
                     <button>
                         <a href="#">
                             <i class='bx bx-cake' ></i>
@@ -714,7 +727,9 @@
     </div>
 
     <div class="copy-right">
-
+        <div class="copy-right-content">
+            <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+        </div>
     </div>
 </footer>
 

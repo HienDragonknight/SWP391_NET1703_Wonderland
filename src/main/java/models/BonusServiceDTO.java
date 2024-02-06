@@ -12,13 +12,20 @@ import java.io.Serializable;
  */
 public class BonusServiceDTO implements Serializable {
 
-    private int serviceID;
+    private String serviceID;
     private String serviceName;
     private double servicePrice;
     private String descriptions;
     private String image;
 
-    public BonusServiceDTO(int serviceID, String serviceName, double servicePrice, String descriptions, String image) {
+    public BonusServiceDTO(String serviceName, double servicePrice, String descriptions, String image) {
+        this.serviceName = serviceName;
+        this.servicePrice = servicePrice;
+        this.descriptions = descriptions;
+        this.image = image;
+    }
+
+    public BonusServiceDTO(String serviceID, String serviceName, double servicePrice, String descriptions, String image) {
         this.serviceID = serviceID;
         this.serviceName = serviceName;
         this.servicePrice = servicePrice;
@@ -26,11 +33,13 @@ public class BonusServiceDTO implements Serializable {
         this.image = image;
     }
 
-    public int getServiceID() {
+
+    
+    public String getServiceID() {
         return serviceID;
     }
 
-    public void setServiceID(int serviceID) {
+    public void setServiceID(String serviceID) {
         this.serviceID = serviceID;
     }
 
@@ -65,6 +74,5 @@ public class BonusServiceDTO implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
-    
-    
+
 }

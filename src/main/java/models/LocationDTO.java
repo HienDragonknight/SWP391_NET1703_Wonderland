@@ -10,16 +10,17 @@ import java.io.Serializable;
  *
  * @author bao.kun
  */
-public class LocationDTO implements Serializable{
+public class LocationDTO implements Serializable {
 
     private String locationID;
     private String locationDetails;
 
-    public LocationDTO(String locationID, String locationDetails) {
-        this.locationID = locationID;
+    public LocationDTO(String locationDetails) {
         this.locationDetails = locationDetails;
     }
 
+
+    
     public LocationDTO() {
     }
 
@@ -38,5 +39,12 @@ public class LocationDTO implements Serializable{
     public void setLocationDetails(String locationDetails) {
         this.locationDetails = locationDetails;
     }
+
+    public LocationDTO(String locationID, String locationDetails) {
+        this.locationID = locationID;
+        this.locationDetails = locationDetails;
+    }
+
+  
 
 }

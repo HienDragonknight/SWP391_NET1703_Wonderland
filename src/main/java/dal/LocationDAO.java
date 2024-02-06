@@ -39,7 +39,7 @@ public class LocationDAO {
 
             while (rs.next()) {
                 String locationID = rs.getInt("locationID") + "";
-                String locationDetails = rs.getString("locationDetails");
+                String locationDetails = rs.getNString("locationDetails");
 
                 listLocation.add(new LocationDTO(locationID, locationDetails));
             }

@@ -171,63 +171,6 @@
                 transition: all 0.3s ease;
             }
 
-            .slide-container {
-                position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 650px;
-                max-height: 100vh;
-                margin: auto;
-            }
-
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-                border-radius: 50px;
-            }
-
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
-            }
-
-            span.next, span.prev {
-                display: none;
-            }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
             .column-about {
                 display: flex;
                 justify-content: center;
@@ -387,6 +330,14 @@
                 padding: 16px 0;
             }
 
+            .bottom-data .orders table td input {
+                border: none;
+                outline: none;
+                background: #f6f6f9;
+                font-size: 16px;
+                width: 100%;
+            }
+
             .bottom-data .orders table tr td:first-child{
                 display: flex;
                 align-items: center;
@@ -405,6 +356,41 @@
 
             .bottom-data .orders table tr td .status.completed{
                 background: #388E3C;
+            }
+
+            .admin-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .admin-header a {
+                height: 36px;
+                padding: 0 16px;
+                border-radius: 36px;
+                background: #1976D2;
+                color: #f6f6f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                grid-gap: 10px;
+                font-weight: 500;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
             }
 
             @media screen and (max-width: 992px) {
@@ -450,6 +436,7 @@
                 </aside>
             </header>
 
+
             <main>
                 <div class="column">
                     <div class="menu">
@@ -475,7 +462,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -484,33 +471,25 @@
                         </ul>
                         <ul class="logout">
                             <li>
-                                <a href="#">
-                                    <i class='bx bx-log-out-circle' ></i>
-                                    <span>Logout</span>
-                                </a>
+                                <form action="LogoutServlet" method="POST">
+                                    <i class='bx bx-log-out-circle'></i>
+                                    <input type="submit" value="Logout" name="action" />
+                                </form>
                             </li>
                         </ul>
                     </div>
 
                     <div class="admin-container">
-                        <div>
+                        <div class="admin-header">
                             <h1>Admin Dashboard</h1>
+                            <a href="manageAccount.jsp">Manage Account</a>
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-
-                            int totalUsers = 0; // Counter for total users
-
-                            if (result != null) {
-                                for (UserDTO dto : result) {
-                                    totalUsers++;
-                                }
-                            }
-
-
+                            List<UserDTO> listHost = (List<UserDTO>) request.getAttribute("LIST_HOST");
                         %>
-                        <div>
 
+                        <div>
                             <ul class="insights">
                                 <li>
                                     <i class='bx bx-box'></i>
@@ -519,81 +498,131 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bx-user'></i>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
                                 </li>
-                                <li><i class='bx bx-line-chart'></i>
-                                    <span class="info">
-                                        <h3>
-                                            14,721
-                                        </h3>
-                                        <p>Searches</p>
-                                    </span>
-                                </li>
-                                <li><i class='bx bx-dollar-circle'></i>
-                                    <span class="info">
-                                        <h3>
-                                            $6,742
-                                        </h3>
-                                        <p>Total Sales</p>
-                                    </span>
+                                <li>
+                                    <i class='bx bx-face'></i>
+                                    <a href="profile.jsp" class="info">
+                                        <p>Profile</p>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                        <!-- End of Insights -->
 
+                        <!-- Users Table -->
                         <div class="bottom-data">
                             <div class="orders">
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
-                                    <h3>Amount: <span><%= totalUsers%> Users</span></h3>
+                                    <h3>Users</h3>
                                     <i class='bx bx-filter'></i>
                                     <i class='bx bx-search'></i>
                                 </div>
 
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>User</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Role</th>
-                                            <th>Edit Profile</th>
-                                        </tr>
-                                    </thead>
-
-                                    <%
-                                        if (result != null) {
-                                            for (UserDTO dto : result) {
-                                    %>
-                                    <form action="EditUserServlet" method="POST">
-                                        <tbody>
+                                <form action="AdminServlet" method="POST">
+                                    <table>
+                                        <thead>
                                             <tr>
-                                                <td>
-                                                    <p><%= dto.getFullName()%></p>
-                                                </td>
+                                                <th>No.</th>
+                                                <th>User</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Report</th>
+                                                <th>Edit Profile</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% int countUser = 1;
+                                                if (result != null) {
+                                                    for (UserDTO dto : result) {
+                                                        
+                                            %>
+                                            <tr>
+                                                <td><%= countUser++%></td>
+                                                <td><%= dto.getFullName()%></td>
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
-                                                <td>Customer</td>
+                                                <td><%= dto.getRoleID()%></td>
                                                 <td>
-                                                    <input type="submit" name="txtUserName" value="<%= dto.getFullName() %>"/>
-                                                    <a href="EditUserServlet?userName=<%= dto.getFullName() %>">Edit</a>
+                                                    <input type="text" name="" value="<%= dto.getReported() %>" />
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="Reported" name="action" />
                                                 </td>
                                             </tr>
+                                            <% }
+                                                } %>
                                         </tbody>
-                                    </form>
-                                    <%
-                                            }
-                                        }
-                                    %>
-
-                                    </tbody>
-                                </table>
-
+                                    </table>
+                                </form>
                             </div>
                         </div>
+
+                        <!-- Host Table -->
+                        <div class="bottom-data">
+                            <div class="orders">
+                                <div class="header">
+                                    <i class='bx bx-receipt'></i>
+                                    <h3>Party Host</h3>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
+                                </div>
+
+                                <form action="AdminServlet" method="POST">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>User</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Edit Profile</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% int countHost = 1;
+                                                if (listHost != null) {
+                                                    for (UserDTO host : listHost) {
+                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
+                                                        String urlEditing = "AdminServlet?action=Edit&email=" + host.getEmail();
+                                            %>
+                                            <tr>
+                                                <td><%= countHost++%></td>
+                                                <td>
+                                                    <%= host.getFullName()%>
+                                                </td>
+                                                <td>
+                                                    <%= host.getPhoneNumber()%>
+                                                </td>
+                                                <td>
+                                                    <%= host.getEmail()%>
+                                                </td>
+                                                <td>
+                                                    <%= host.getRoleID()%>
+
+                                                </td>
+                                                <td>
+                                                    <a href="<%= urlEditing %>">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                </td>
+                                            </tr>
+                                            <% }
+                                                }%>
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+
 
                     </div>
 
