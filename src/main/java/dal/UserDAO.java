@@ -35,7 +35,7 @@ public class UserDAO implements Serializable {
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    int userID = rs.getInt("userID");
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
@@ -82,7 +82,7 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-                    int userID = rs.getInt("userID");
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -124,7 +124,7 @@ public class UserDAO implements Serializable {
                 stm.setString(1, "%" + user + "%");
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    int userID = rs.getInt("userID");
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String phoneNum = rs.getString("phone");
@@ -160,7 +160,7 @@ public class UserDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 // Define your SQL query for user registration
-                String sql = "INSERT INTO your_user_table (email, password, fullname, phone) VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO [User] (email, password, fullname, phone, avatar, roleID) VALUES (?, ?, ?, ?, 'a.png', 1)";
 
                 // Use PreparedStatement for safe SQL query execution
                 stm = con.prepareStatement(sql);
@@ -177,7 +177,7 @@ public class UserDAO implements Serializable {
                     // Retrieve the generated keys (if any)
                     rs = stm.getGeneratedKeys();
                     if (rs.next()) {
-                        int userID = rs.getInt(1); // Assuming userID is an auto-generated key
+                        String userID = rs.getString(1); // Assuming userID is an auto-generated key
                         // Retrieve other user details if needed
 
                         // Create the UserDTO object with the retrieved data
