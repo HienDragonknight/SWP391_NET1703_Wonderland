@@ -21,14 +21,14 @@ public class OrderDetailDTO implements Serializable {
     String amountPeople;
     String theme;
     String location;
-    String price;
+    double price;
     String note;
     String status;
 
     public OrderDetailDTO() {
     }
 
-    public OrderDetailDTO(String orderDetailID, String userName, String service, String packages, String dateStart, String dateOrder, String amountPeople, String theme, String location, String price, String note, String status) {
+    public OrderDetailDTO(String orderDetailID, String userName, String service, String packages, String dateStart, String dateOrder, String amountPeople, String theme, String location, double price, String note, String status) {
         this.orderDetailID = orderDetailID;
         this.userName = userName;
         this.service = service;
@@ -115,11 +115,11 @@ public class OrderDetailDTO implements Serializable {
         this.location = location;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

@@ -405,7 +405,7 @@
             .bottom-data .orders table tr td .status.completed{
                 background: #388E3C;
             }
-            
+
             .admin-header {
                 display: flex;
                 justify-content: space-between;
@@ -440,7 +440,7 @@
                 color: red;
                 cursor: pointer;
             }
-            
+
             .view-detail {
                 font-size: 16px;
                 text-decoration: underline;
@@ -516,7 +516,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -540,6 +540,13 @@
                         </div>
                         <%
                             List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
+
+                            double totalIncome = 0;
+                            if (result != null) {
+                                for (OrderDetailDTO dto : result) {
+                                    totalIncome += dto.getPrice();
+                                }
+                            }
                         %>
 
                         <div>
@@ -559,12 +566,15 @@
                                 <li>
                                     <i class='bx bx-money'></i>
                                     <a href="ViewUserServlet" class="info">
+                                        <h3 style="font-size: 20px;">
+                                            <%= totalIncome %>
+                                        </h3>
                                         <p>Income</p>
                                     </a>
                                 </li>
                                 <li>
                                     <i class='bx bx-face'></i>
-                                    <a href="ViewUserServlet" class="info">
+                                    <a href="profile.jsp" class="info">
                                         <p>Profile</p>
                                     </a>
                                 </li>
@@ -601,18 +611,18 @@
                                                 int countOrder = 1;
                                                 if (result != null) {
                                                     for (OrderDetailDTO dto : result) {
-                                                    
+
 
                                             %>
                                             <tr>
-                                                <td><%= countOrder++ %></td>
-                                                <td><%= dto.getUserName() %></td>
-                                                <td><%= dto.getDateOrder() %></td>
-                                                <td><%= dto.getPackages() %></td>
-                                                <td><%= dto.getAmountPeople() %></td>
-                                                <td><%= dto.getTheme() %></td>
-                                                <td><%= dto.getPrice() %></td>
-                                                <td><%= dto.getStatus() %></td>
+                                                <td><%= countOrder++%></td>
+                                                <td><%= dto.getUserName()%></td>
+                                                <td><%= dto.getDateOrder()%></td>
+                                                <td><%= dto.getPackages()%></td>
+                                                <td><%= dto.getAmountPeople()%></td>
+                                                <td><%= dto.getTheme()%></td>
+                                                <td><%= dto.getPrice()%></td>
+                                                <td><%= dto.getStatus()%></td>
                                                 <td>
                                                     <a class="view-detail" href="#">
                                                         View Details

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RegisterServlet extends HttpServlet {
 
     private final String ERROR = "register.jsp";
-    private final String SUCCESS = "home.jsp";
+    private final String SUCCESS = "login.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

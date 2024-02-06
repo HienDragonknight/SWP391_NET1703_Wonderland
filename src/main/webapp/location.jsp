@@ -464,7 +464,7 @@
         <div class="user-logined">
             <div class="logined">
                 <i class='bx bx-user-circle'></i>
-                <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
             </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>

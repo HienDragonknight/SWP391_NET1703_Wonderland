@@ -300,6 +300,11 @@
                 padding-right: 270px;
                 gap: 10px;
             }
+            
+            .intro-text p {
+                color: #565656;
+                font-size: 15px;
+            }
 
             .intro-text-main {
                 display: flex;

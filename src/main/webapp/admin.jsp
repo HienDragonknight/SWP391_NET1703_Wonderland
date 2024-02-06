@@ -462,7 +462,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -548,9 +548,11 @@
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
                                                 <td><%= dto.getRoleID()%></td>
-                                                <td><%= dto.getReported()%></td>
                                                 <td>
-                                                    Reported
+                                                    <input type="text" name="" value="<%= dto.getReported() %>" />
+                                                </td>
+                                                <td>
+                                                    <input type="submit" value="Reported" name="action" />
                                                 </td>
                                             </tr>
                                             <% }
@@ -589,25 +591,25 @@
                                                 if (listHost != null) {
                                                     for (UserDTO host : listHost) {
                                                         String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
+                                                        String urlEditing = "AdminServlet?action=Edit&email=" + host.getEmail();
                                             %>
                                             <tr>
                                                 <td><%= countHost++%></td>
                                                 <td>
-                                                    <input type="text" name="txtName" value="<%= host.getFullName()%>" />
+                                                    <%= host.getFullName()%>
                                                 </td>
                                                 <td>
-                                                    <input type="text" name="txtPhone" value="<%= host.getPhoneNumber()%>" />
+                                                    <%= host.getPhoneNumber()%>
                                                 </td>
                                                 <td>
                                                     <%= host.getEmail()%>
-                                                    <input type="hidden" name="txtEmail" value="<%= host.getEmail()%>" />
                                                 </td>
                                                 <td>
                                                     <%= host.getRoleID()%>
 
                                                 </td>
                                                 <td>
-                                                    <input type="submit" value="Edit" name="action" />
+                                                    <a href="<%= urlEditing %>">Edit</a>
                                                 </td>
                                                 <td>
                                                     <a class="delete" href="<%= urlRewriting%>">Delete</a>

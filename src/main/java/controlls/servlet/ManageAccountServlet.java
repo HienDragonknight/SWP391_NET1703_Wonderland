@@ -41,19 +41,28 @@ public class ManageAccountServlet extends HttpServlet {
         String url = ERROR;
         
         try {
-            UserDAO dao = new UserDAO();
-            boolean result = dao.manageAccount(name, email, password, phone);
-            if (result) {
-                url = SUCCESS;
-                request.setAttribute("status", "success");
-            } else {
+            if (name == null || email == null || password == null || phone == null
+                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
+                    || phone.trim().isEmpty()) {
+                // Handle the case where any of the parameters are null or empty
                 url = ERROR;
                 request.setAttribute("status", "error");
+            } else {
+                UserDAO dao = new UserDAO();
+                boolean result = dao.manageAccount(name, email, password, phone);
+                if (result) {
+                    url = SUCCESS;
+                    request.setAttribute("status", "success");
+                } else {
+                    url = ERROR;
+                    request.setAttribute("status", "error");
+                }
             }
+            
         } catch (SQLException ex) {
             log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+            log("CreateAccountServlet _ Class: " + ex.getMessage());
         } finally {
             response.sendRedirect(url);
         }

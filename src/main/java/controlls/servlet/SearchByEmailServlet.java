@@ -4,27 +4,24 @@
  */
 package controlls.servlet;
 
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
-public class AdminServlet extends HttpServlet {
-    private final String ADMIN_PAGE = "ViewUserServlet";
-    private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
-    private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
-    private final String EDIT_ACCOUNT_CONTROLLER = "SearchByEmailServlet";
-    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccServlet";
-    private final String EDIT_HOST_CONTROLLER = "EditHostServlet";
+@WebServlet(name = "SearchByEmailServlet", urlPatterns = {"/SearchByEmailServlet"})
+public class SearchByEmailServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,25 +34,20 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ADMIN_PAGE;
-        String button = request.getParameter("action");
+        String email = request.getParameter("email");
+        String url = "ViewUserServlet";
         try {
-            if (button == null) {
-                
-            } else if (button.equals("delete")) {
-                url = ADMIN_DELETE_CONTROLLER;
-            } else if (button.equals("Create")) {
-                url = MANAGE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit")) {
-                url = EDIT_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Account")) {
-                url = UPDATE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Host")) {
-                url = EDIT_HOST_CONTROLLER;
+            if(!email.trim().isEmpty()) {
+                UserDAO dao = new UserDAO();
+                dao.searchByEmail(email);
+                List<UserDTO> dto = dao.getListHost();
+                url = "editHost.jsp";
+                request.setAttribute("SEARCH_RESULT", dto);
             }
+        } catch (Exception e) {
+            log("Error at ViewLocationServlet " + e);
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

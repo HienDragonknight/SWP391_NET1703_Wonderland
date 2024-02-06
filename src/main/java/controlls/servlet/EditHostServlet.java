@@ -4,27 +4,24 @@
  */
 package controlls.servlet;
 
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
-public class AdminServlet extends HttpServlet {
-    private final String ADMIN_PAGE = "ViewUserServlet";
-    private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
-    private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
-    private final String EDIT_ACCOUNT_CONTROLLER = "SearchByEmailServlet";
-    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccServlet";
-    private final String EDIT_HOST_CONTROLLER = "EditHostServlet";
+@WebServlet(name = "EditHostServlet", urlPatterns = {"/EditHostServlet"})
+public class EditHostServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -37,25 +34,27 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ADMIN_PAGE;
-        String button = request.getParameter("action");
-        try {
-            if (button == null) {
-                
-            } else if (button.equals("delete")) {
-                url = ADMIN_DELETE_CONTROLLER;
-            } else if (button.equals("Create")) {
-                url = MANAGE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit")) {
-                url = EDIT_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Account")) {
-                url = UPDATE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Host")) {
-                url = EDIT_HOST_CONTROLLER;
-            }
+        String name = request.getParameter("txtName");
+        String phone = request.getParameter("txtPhone");
+        String email = request.getParameter("txtEmail");
+        String url = "ViewUserServlet";
+        
+         try {
+           //2. call DAO
+           //2.1 new DAO
+            UserDAO dao = new UserDAO();
+           //2.2 call method of DAO
+            UserDTO result = dao.updateHost(name, phone, email);
+           //3. process result
+           if (result != null) {
+               url = "ViewUserServlet";
+           }//delete action is successfull
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect(url);
         }
     }
 

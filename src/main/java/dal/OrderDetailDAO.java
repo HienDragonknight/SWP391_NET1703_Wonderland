@@ -60,7 +60,7 @@ public class OrderDetailDAO implements Serializable {
                     String amountPeople = rs.getString("numberOfPeople");
                     String theme = rs.getString("themeName");
                     String location = rs.getString("locationDetails");
-                    String price = rs.getString("totalPrice");
+                    double price = rs.getDouble("totalPrice");
                     String note = rs.getString("notes");
                     String status = rs.getString("status");
                     

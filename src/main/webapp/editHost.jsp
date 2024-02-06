@@ -1,16 +1,17 @@
 <%-- 
-    Document   : profile
-    Created on : Feb 5, 2024, 10:30:35 AM
+    Document   : edit
+    Created on : Feb 6, 2024, 8:41:37 PM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Profile</title>
+        <title>JSP Page</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
             * {
@@ -71,15 +72,24 @@
         </style>
     </head>
     <body>
+        <%
+            List<UserDTO> host = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
+            if (host != null) {
+                for (UserDTO dto : host) {
+                %>
         <div class="container">
             <header>Profile</header>
             <form action="AdminServlet" method="POST">
-                <input type="text" name="txtName" value="${sessionScope.USER_INFO.fullName}" placeholder="Full Name"/>
-                <input type="email" name="txtEmail" value="${sessionScope.USER_INFO.email}" placeholder="Email"/>
-                <input type="password" name="txtPassword" value="${sessionScope.USER_INFO.password}" placeholder="Password"/>
-                <input type="text" name="txtPhone" value="${sessionScope.USER_INFO.phoneNumber}" placeholder="Phone"/>
-                <input type="submit" value="Edit Account" name="action" class="btn"/>
+                <input type="text" name="txtName" value="<%= dto.getFullName() %>" placeholder="Full Name"/>
+                <input type="email" name="txtEmail" value="<%= dto.getEmail() %>" placeholder="Email"/>
+                <input type="password" name="txtPassword" value="<%= dto.getPassword() %>" placeholder="Password"/>
+                <input type="text" name="txtPhone" value="<%= dto.getPhoneNumber() %>" placeholder="Phone"/>
+                <input type="submit" value="Edit Host" name="action" class="btn"/>
             </form>
         </div>
+        <%
+            }
+            }
+        %>
     </body>
 </html>
