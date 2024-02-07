@@ -4,19 +4,24 @@
  */
 package controlls.servlet;
 
+import dal.BonusServiceDAO;
 import dal.LocationDAO;
 import dal.PackageDAO;
+import dal.ThemeDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.BonusServiceDTO;
 import models.LocationDTO;
 import models.PackageDTO;
+import models.ThemeDTO;
 
-// from packageList: /PackageItemServlet?packageID={}
+    // from packageList: /PackageItemServlet?packageID={}
 @WebServlet(name = "PakcageItemServlet", urlPatterns = {"/PackageItemServlet"})
 public class PakcageItemServlet extends HttpServlet {
 
@@ -32,21 +37,27 @@ public class PakcageItemServlet extends HttpServlet {
             String packageID = request.getParameter("packageID");
 
             // get package 
-            PackageDAO dao = new PackageDAO();
-            PackageDTO packageDTO = dao.getPackageByID(packageID);
+            PackageDAO packageDAO = new PackageDAO();
+            PackageDTO packageDTO = packageDAO.getPackageByID(packageID);
 
             // get location 
             LocationDAO locationDAO = new LocationDAO();
+            List<LocationDTO> locationList = locationDAO.getListLocation();
 
-           
-         //   LocationDTO locationDTO = dao.getLocationToPackage(locationID);
-            
-            
+            // get bonus service
+            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
+            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
 
-            if (packageDTO != null) {
+            // get theme
+            ThemeDAO themeDAO = new ThemeDAO();
+            List<ThemeDTO> themeList = themeDAO.getListThemes();
+
+            if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
                 url = SUCCESS;
                 request.setAttribute("PACKGE_ITEM", packageDTO);
-              //  request.setAttribute("LOCATION", locationDTO);
+                request.setAttribute("LOCATION_LIST", locationList);
+                request.setAttribute("BONUS_SERVICE_LIST", bonusServiceList);
+                request.setAttribute("THEME_LIST", themeList);
             }
 
         } catch (Exception e) {
