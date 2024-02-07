@@ -1,13 +1,11 @@
 <%-- 
-    Document   : home
-    Created on : Jan 20, 2024, 11:02:52 AM
+    Document   : party_booking
+    Created on : Feb 5, 2024, 8:41:23 AM
     Author     : Le Huu Huy
 --%>
 
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -237,6 +235,7 @@
                 padding-right: 100px;
                 margin-top: 30px;
                 gap: 30px;
+                margin-bottom: 20px;
             }
 
             .intro-image {
@@ -352,6 +351,20 @@
                 margin-bottom: 30px;
             }
 
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
+            }
+
             @keyframes next1 {
                 from {
                     left: 0%;
@@ -397,6 +410,31 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+
+            .about {
+                background: #FFF5CB;
+                padding: 50px;
+            }
+
+            .about .about-top h2 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 40px;
+            }
+
+            .ups-row {
+                display: flex;
+                justify-content: space-evenly;
+            }
+
+            .ups-row-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                margin-bottom: 60px;
             }
         </style>
     </head>
@@ -473,6 +511,12 @@
                     </div>
 
                     <div class="column-content">
+                        <div class="add-ab">
+                            <a href="home.jsp">Home</a><span> &#10095; Booking</span>
+                        </div>
+
+                        <h1>Party Booking</h1>
+
                         <div class="slide-container">
                             <div class="slides">
                                 <img src="image/cover1.jpg" alt="image #1" class="active"/>
@@ -496,7 +540,7 @@
 
                         <div class="intro-wrapper">
                             <div class="intro-image">
-                                <img src="image/Birthday.png" alt="Birthday"/>
+                                <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
                             </div>
                             <div class="intro-text">
                                 <div>
@@ -513,6 +557,50 @@
                                         <span>Contact to book a party</span>
                                     </a>
                                 </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about">
+                    <div class="about-top">
+                        <h2>WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
+                        <div class="ups-row">
+                            <div class="ups-row-content">
+                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
+                                <div>
+                                    <h3 style="color: #f86080">UNLIMITED FUN</h3>
+                                </div>
+                            </div>
+
+                            <div class="ups-row-content">
+                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
+                                <div>
+                                    <h3 style="color: #f0b000">LOVELY DECORATION</h3>
+                                </div>
+                            </div>
+
+                            <div class="ups-row-content">
+                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
+                                <div>
+                                    <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ups-row">
+                            <div class="ups-row-content">
+                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
+                                <div>
+                                    <h3 style="color: #20b050">DIVERSE GAMES</h3>
+                                </div>
+                            </div>
+
+                            <div class="ups-row-content">
+                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
+                                <div>
+                                    <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -656,7 +744,7 @@
 
             <div class="intro-wrapper">
                 <div class="intro-image">
-                    <img src="image/Birthday.png" alt="Birthday"/>
+                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
                 </div>
                 <div class="intro-text">
                     <div>
@@ -673,6 +761,50 @@
                             <span>Contact to book a party</span>
                         </a>
                     </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="about">
+        <div class="about-top">
+            <h2>WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
+            <div class="ups-row">
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #f86080">UNLIMITED FUN</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #f0b000">LOVELY DECORATION</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ups-row">
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #20b050">DIVERSE GAMES</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
+                    </div>
                 </div>
             </div>
         </div>

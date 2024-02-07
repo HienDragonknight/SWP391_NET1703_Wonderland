@@ -11,7 +11,6 @@ import java.io.Serializable;
  * @author phanv
  */
 public class PackageDTO implements Serializable {
-
     private String packageID;
     private String packageName;
     private double unitPrice;
@@ -21,7 +20,8 @@ public class PackageDTO implements Serializable {
     private String locationID;
     private String feedbackID;
     private String size;
-
+    
+    
     public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description, String size) {
         this.packageID = packageID;
         this.packageName = packageName;
@@ -31,7 +31,7 @@ public class PackageDTO implements Serializable {
         this.description = description;
         this.size = size;
     }
-
+    
     public String getLocationID() {
         return locationID;
     }
@@ -63,9 +63,11 @@ public class PackageDTO implements Serializable {
     public void setPakageID(String pakageID) {
         this.packageID = pakageID;
     }
-
-    public String getPackageName() {
+    
+    
+    public String getPakageName() {
         return packageName;
+
     }
 
     public void setPackageName(String packageName) {

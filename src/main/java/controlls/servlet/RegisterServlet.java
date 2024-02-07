@@ -8,24 +8,22 @@ import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "ViewUserServlet", urlPatterns = {"/ViewUserServlet"})
-public class ViewUserServlet extends HttpServlet {
-    public final String ERROR = "admin.jsp";
-    public final String SUCCESS = "admin.jsp";
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
+public class RegisterServlet extends HttpServlet {
+
+    private final String ERROR = "register.jsp";
+    private final String SUCCESS = "login.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,24 +36,47 @@ public class ViewUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String name = request.getParameter("txtName");
+        String email = request.getParameter("txtEmail");
+        String password = request.getParameter("txtPassword");
+        String confirm = request.getParameter("txtCfPassword");
+        String phone = request.getParameter("txtPhone");
         String url = ERROR;
+
         try {
-            UserDAO dao = new UserDAO();
-            dao.getUser();
-            dao.getHost();
-            List<UserDTO> host = dao.getListHost();
-            List<UserDTO> user = dao.getListUser();
-            url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
-            request.setAttribute("LIST_HOST", host);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
+            if (name == null || email == null || password == null || confirm == null || phone == null
+                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
+                    || confirm.trim().isEmpty() || phone.trim().isEmpty()) {
+                // Handle the case where any of the parameters are null or empty
+                url = ERROR;
+                request.setAttribute("status", "error");
+            } else if (!confirm.trim().equals(password.trim())) {
+                // Password and confirm password do not match
+                url = ERROR;
+                request.setAttribute("ERROR_CONFIRM", "Passwords do not match");
+                request.setAttribute("status", "error");
+            } else {
+                // All validations passed, proceed with registration
+                UserDAO dao = new UserDAO();
+                boolean result = dao.registerUser(name, email, password, phone);
+                if (result) {
+                    url = SUCCESS;
+                    request.setAttribute("status", "success");
+                } else {
+                    // Handle registration failure
+                    url = ERROR;
+                    request.setAttribute("status", "error");
+                }
+            }
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            // Redirect to the appropriate URL
+            response.sendRedirect(url);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

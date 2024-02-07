@@ -2,72 +2,47 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controlls.servlet;
+package controlls.email.forgotpassword;
 
-import dal.BonusServiceDAO;
-import dal.LocationDAO;
-import dal.PackageDAO;
-import dal.ThemeDAO;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.BonusServiceDTO;
-import models.LocationDTO;
-import models.PackageDTO;
-import models.ThemeDTO;
 
 /**
  *
- * @author bao.kun
+ * @author Phong
  */
-@WebServlet(name = "ViewBookingServlet", urlPatterns = {"/ViewBookingServlet"})
-public class ViewBookingServlet extends HttpServlet {
+@WebServlet(name = "ReturnLogin", urlPatterns = {"/ReturnLogin"})
+public class ReturnLogin extends HttpServlet {
 
-    private static final String ERROR = "party_booking.jsp";
-    private static final String SUCCESS = "party_booking.jsp";
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String url = ERROR;
-
-        try {
-
-            // get THEMES_LIST
-            ThemeDAO themeDAO = new ThemeDAO();
-            List<ThemeDTO> themeList = themeDAO.getListThemes();
-
-            // get BONUS_SERVICES
-            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
-
-            // get LOCATION
-            LocationDAO locationDAO = new LocationDAO();
-            List<LocationDTO> locationList = locationDAO.getListLocation();
-
-            PackageDAO packageDAO = new PackageDAO();
-            List<PackageDTO> packageList = packageDAO.getListPackage();
-
-            if (themeList != null && bonusServiceList != null && locationList != null && packageList != null) {
-                url = SUCCESS;
-                request.setAttribute("BONUS_SERVICE_LIST", bonusServiceList);
-                request.setAttribute("THEME_LIST", themeList);
-                request.setAttribute("LIST_LOCATION", locationList);
-                request.setAttribute("PACKAGE_LIST", packageList);
-            }
-
-        } catch (Exception e) {
-            log("Error at ViewBookingServlet");
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReturnLogin</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReturnLogin at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +57,10 @@ public class ViewBookingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String button = request.getParameter("btnReturn");
+        if(button.equals("Return to sign in")){
+             response.sendRedirect("/views/login.jsp");
+        }
     }
 
     /**
