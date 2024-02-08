@@ -127,7 +127,12 @@
                 justify-items: center;
                 align-items: center;
             }
-
+            .edit-profile{
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                gap: 5px;
+            }
             header .side-bar .user-logined i {
                 cursor: pointer;
             }
@@ -261,7 +266,7 @@
                 color: #fff;
                 gap: 8px;
             }
-            
+
             .column-about img,
             .column-about .column-about-container {
                 width: 50%;
@@ -572,6 +577,10 @@
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
                 <a href="#">Cart</a>
+            </div>
+            <div class="edit-profile">
+                <i class='bx bxs-user-detail'></i>
+                <a href="customer_profile.jsp">Edit Your Profile</a>
             </div>
         </div>
     </aside>

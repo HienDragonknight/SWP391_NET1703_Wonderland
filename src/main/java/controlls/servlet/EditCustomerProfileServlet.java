@@ -4,8 +4,9 @@
  */
 package controlls.servlet;
 
-import dal.CustomerDAO;
+import dal.UserDAO;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,35 +30,36 @@ public class EditCustomerProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "host_profile.jsp";
-    private static final String SUCCESS = "host_profile.jsp";
+    private static final String ERROR = "customer_profile.jsp";
+    private static final String SUCCESS = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String fullname = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        String emailConfirm = request.getParameter("emailConfirm");
         String url = ERROR;
-        String message = "";
-        CustomerDAO hostDao = new CustomerDAO();
         try {
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-            String avatar = request.getParameter("avatar");
-            String passwordEdit = request.getParameter("passwordEdit");
-            UserDTO user = new UserDTO("", fullname, "", passwordEdit, phone, avatar, "");
-            boolean checkEdit = hostDao.editCustomerProfile(user);
-            if (checkEdit) {
+            //2. call DAO
+            //2.1 new DAO
+            UserDAO dao = new UserDAO();
+            //2.2 call method of DAO
+            UserDTO result = dao.editCustomerProfile(email, fullname, phone, password, emailConfirm);
+            //3. process result
+            if (result != null) {
+                //refresh --> call previous function again (Search)
+                //--> using url rewriting technique
                 url = SUCCESS;
-            }
-        } catch (Exception ex) {
-            log("Error at EditHostProfileServlet:" + ex);
+            }//delete action is successfull
+        } catch (SQLException ex) {
+            log(ex.getMessage());
         } finally {
-            request.setAttribute("message", message);
-            if (url.equals(SUCCESS)) {
-                response.sendRedirect(url);
-            } else {
-                request.getRequestDispatcher(url).forward(request, response);
-            }
+            response.sendRedirect(url);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

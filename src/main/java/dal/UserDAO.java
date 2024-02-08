@@ -240,6 +240,7 @@ public class UserDAO implements Serializable {
 
         return false; // Default to false if an exception occurs
     }
+
     public boolean deleteUser(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -261,6 +262,38 @@ public class UserDAO implements Serializable {
             }
             if (con != null) {
                 con.close();
+            }
+        }
+        return result;
+    }
+
+    public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        UserDTO result = null;
+        try {
+            conn = DBUtils.createConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
+                ptm.setString(1, fullname);
+                ptm.setString(2, email);
+                ptm.setString(3, phone);
+                ptm.setString(4, password);
+                ptm.setString(5, emailConfirm);
+                int effectRows = ptm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, fullname, email, password, phone, email, ID);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
             }
         }
         return result;

@@ -13,12 +13,12 @@
     </head>
     <body>
         <h1>Your Profile</h1>
-        <form action="EditHostProfileServlet" method="POST">
+        <form action="EditCustomerProfileServlet" method="POST">
             Email <input type="text" name="email" value="${sessionScope.USER_INFO.email}" readonly><br>
             Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
             Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
-            Avatar <input type="text" name="avatar" value="${sessionScope.USER_INFO.avatar}" required><br>
-            Password <input type="text" name="passwordEdit" value="${sessionScope.USER_INFO.password}" required><br>
+            Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required><br>
+            <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}" />
             <input type="submit" name="edit" value="edit">
         </form>
     </body>
