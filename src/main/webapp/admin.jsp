@@ -540,7 +540,7 @@
                                             <% int countUser = 1;
                                                 if (result != null) {
                                                     for (UserDTO dto : result) {
-                                                        
+                                                        String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
                                             %>
                                             <tr>
                                                 <td><%= countUser++%></td>
@@ -549,10 +549,10 @@
                                                 <td><%= dto.getEmail()%></td>
                                                 <td><%= dto.getRoleID()%></td>
                                                 <td>
-                                                    <input type="text" name="" value="<%= dto.getReported() %>" />
+                                                    <%= dto.getReported()%>
                                                 </td>
                                                 <td>
-                                                    <input type="submit" value="Reported" name="action" />
+                                                    <a href="<%= urlReport%>">Report</a>
                                                 </td>
                                             </tr>
                                             <% }
@@ -609,7 +609,7 @@
 
                                                 </td>
                                                 <td>
-                                                    <a href="<%= urlEditing %>">Edit</a>
+                                                    <a href="<%= urlEditing%>">Edit</a>
                                                 </td>
                                                 <td>
                                                     <a class="delete" href="<%= urlRewriting%>">Delete</a>

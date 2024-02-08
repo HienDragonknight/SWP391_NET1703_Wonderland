@@ -25,6 +25,8 @@ public class AdminServlet extends HttpServlet {
     private final String EDIT_ACCOUNT_CONTROLLER = "SearchByEmailServlet";
     private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccServlet";
     private final String EDIT_HOST_CONTROLLER = "EditHostServlet";
+    private final String SEARCH_CUSTOMER_CONTROLLER = "SearchCustServlet";
+    private final String REPORT_CONTROLLER = "ReportServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,10 +50,14 @@ public class AdminServlet extends HttpServlet {
                 url = MANAGE_ACCOUNT_CONTROLLER;
             } else if (button.equals("Edit")) {
                 url = EDIT_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Account")) {
+            } else if (button.equals("Update Account")) {
                 url = UPDATE_ACCOUNT_CONTROLLER;
             } else if (button.equals("Edit Host")) {
                 url = EDIT_HOST_CONTROLLER;
+            } else if (button.equals("Update")) {
+                url = SEARCH_CUSTOMER_CONTROLLER;
+            } else if (button.equals("Report")) {
+                url = REPORT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

@@ -19,8 +19,8 @@ import models.UserDTO;
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "UpdateAccServlet", urlPatterns = {"/UpdateAccServlet"})
-public class UpdateAccServlet extends HttpServlet {
+@WebServlet(name = "ReportServlet", urlPatterns = {"/ReportServlet"})
+public class ReportServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,24 +34,19 @@ public class UpdateAccServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
         String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String phone = request.getParameter("txtPhone");
-        String cEmail = request.getParameter("txtCEmail");
-        String url = "profile.jsp";
+        String report = request.getParameter("txtReport");
+        String url = "ViewUserServlet";
         
         try {
            //2. call DAO
            //2.1 new DAO
             UserDAO dao = new UserDAO();
            //2.2 call method of DAO
-            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
+            UserDTO result = dao.reportCus(report, email);
            //3. process result
            if (result != null) {
-               //refresh --> call previous function again (Search)
-               //--> using url rewriting technique
-               url = "login.jsp";
+               url = "ViewUserServlet";
            }//delete action is successfull
         } catch (SQLException ex) {
             log("CreateAccountServlet _ SQL: " + ex.getMessage());
