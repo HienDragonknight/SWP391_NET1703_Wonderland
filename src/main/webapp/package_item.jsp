@@ -262,8 +262,10 @@
 
 
 
+
             div.elem-group {
                 margin: 20px 0;
+                display: flex;
             }
 
             div.elem-group.inlined {
@@ -293,6 +295,10 @@
 
             div.elem-group.inlined input {
                 width: 95%;
+                display: inline-block;
+            }
+            div.elem-group.inlined select {
+                padding: 6.68px;
                 display: inline-block;
             }
 
@@ -349,6 +355,10 @@
                 height: 54px;
             }
 
+            #childrenNums
+            {
+                padding: 2%;
+            }
         </style>
     </head>
     <body>
@@ -397,7 +407,6 @@
 
 
         <%
-
             PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKGE_ITEM");
             List<LocationDTO> locationList = (List< LocationDTO>) request.getAttribute("LOCATION_LIST");
             List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
@@ -418,9 +427,11 @@
                         </div>
                         <h1 class="display-5 fw-bolder"><%= packageDTO.getPackageName()%></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$<%= packageDTO.getUnitPrice()%></span>
-                            <span style="color: blue;" >$40.00</span>
+                            <span class="text-decoration-line-through" id="price-unit-original">$<%= packageDTO.getUnitPrice()%></span>
+                            <span style="color: blue;" id="price-unit-discounted" >$<%= packageDTO.getUnitPrice() * 0.8%></span>
+                            <input type="hidden" id="packageID" value="<%= packageDTO.getPackageID()%>" >
                         </div>
+
                         <p class="lead"><%= packageDTO.getDescription() + "\nThis is details"%></p>
 
 
@@ -442,16 +453,19 @@
                                 <form action="ready_for_checkout.jsp" method="post">
 
                                     <div class="elem-group">
-                                        <label>Center</label>
-                                        <select id="center-selection" name="location" required>
-                                            <option value="">Choose your location</option>
-                                            <%
-                                                for (LocationDTO location : locationList) {
-                                            %>                                          
-                                            <option value="<%= location.getLocationID()%>"> <%= location.getLocationDetails()%> </option>                                           
-                                            <%                                            }
-                                            %>
-                                        </select>
+                                        <div class="full-lined">
+                                            <label>Center</label>
+                                            <select id="center-selection" name="location" required>
+                                                <option value="">Choose your location</option>
+                                                <%
+                                                    for (LocationDTO location : locationList) {
+                                                %>                                          
+
+                                                <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                                <%                                            }
+                                                %>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="elem-group">
@@ -472,7 +486,7 @@
                                         </div>
 
                                         <div class="elem-group inlined">
-                                            <label for="theme-selection">Theme</label>
+                                            <label>Theme</label>
                                             <select id="theme" name="theme" required>
                                                 <option value="">Choose a Theme</option>
                                                 <%
@@ -486,16 +500,18 @@
                                     </div>
 
                                     <div class="elem-group">
-                                        <label for="servce-selection">Bonus Service</label>
-                                        <select id="bonus_service" name="bonus_service" required>
-                                            <option value="">Choose a service</option>
-                                            <%
-                                                for (BonusServiceDTO bonusService : bonusServiceList) {
-                                            %>
-                                            <option value="<%= bonusService.getServiceID()%>"> <%= bonusService.getServiceName()%> </option>
-                                            <%                                                    }
-                                            %>
-                                        </select>
+                                        <div class="elem-group inlined">
+                                            <label for="servce-selection">Bonus Service</label>
+                                            <select id="bonus_service" name="bonus_service" required>
+                                                <option value="">Choose a service</option>
+                                                <%
+                                                    for (BonusServiceDTO bonusService : bonusServiceList) {
+                                                %>
+                                                <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                                <%                                                    }
+                                                %> 
+                                            </select>
+                                        </div>           
                                     </div>
 
                                     <div id="checkout-class">  
@@ -504,7 +520,7 @@
                                 </form>
                             </div>
                         </div>
-                        <div id="overlay"></div>
+                        <div id="overlay"></div>   <!--for close package form without clicking x button-->
 
 
                     </div>
@@ -612,7 +628,6 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    <!-- Product price-->
                                     $40.00
                                 </div>
                             </div>
@@ -629,9 +644,7 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
 
-        <!-- Core theme JS-->
         <script >
 
             const openModelButtons = document.querySelectorAll('[data-model-target]');
@@ -698,9 +711,11 @@
             };
 
 
-
             function storePackageInfo() {
                 // get data from form
+
+                var packageID = document.getElementById("packageID").value;
+                var packageUnitPrice = document.getElementById("price-unit-original").textContent;
                 var center = document.getElementById("center-selection").value;
                 var checkinDate = document.getElementById("checkin-date").value;
                 var checkinTime = document.getElementById("checkin-time").value;
@@ -711,12 +726,15 @@
 
                 // create an object to store data
                 var packageInfo = {
+                    packgeID: packageID,
+                    packageUnitPrice: packageUnitPrice,
                     center: center,
                     checkinDate: checkinDate,
                     checkinTime: checkinTime,
                     childrenNums: childrenNums,
                     theme: theme,
                     bonusService: bonusService
+
                 };
 
                 // convert the object into JSON string
@@ -725,7 +743,6 @@
                 // store the JSON string into local storage
                 localStorage.setItem("packageInfo", packageInfoJSON);
             }
-
 
 
 //            document.addEventListener("click", function ()
@@ -742,6 +759,7 @@
 //                    console.log("Form data not found in Local Storage or Local Storage is cleared");
 //                }
 //            });
+
 
 
             function updateCartCount()

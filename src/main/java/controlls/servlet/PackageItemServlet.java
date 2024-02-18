@@ -21,9 +21,9 @@ import models.LocationDTO;
 import models.PackageDTO;
 import models.ThemeDTO;
 
-    // from packageList: /PackageItemServlet?packageID={}
-@WebServlet(name = "PakcageItemServlet", urlPatterns = {"/PackageItemServlet"})
-public class PakcageItemServlet extends HttpServlet {
+// from packageList: /PackageItemServlet?packageID={}               
+@WebServlet(name = "PackageItemServlet", urlPatterns = {"/PackageItemServlet"})
+public class PackageItemServlet extends HttpServlet {
 
     private static final String SUCCESS = "package_item.jsp";
     private static final String ERROR = "package_item.jsp";

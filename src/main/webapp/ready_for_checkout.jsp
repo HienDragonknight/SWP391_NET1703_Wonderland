@@ -193,156 +193,80 @@
 
 
 
-
-            .model {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                transition: 200ms ease-in-out;
-                border: 1px solid black;
-                border-radius: 10px;
-                z-index: 10;
-                background-color: white;
-                width: 500px;
-                max-width: 80%;
+            .page-footer {
+                background-color: #f6f6f9;
+                border-top-left-radius: 50%;
+                border-top-right-radius: 50%;
+                font-family: 'Poppins', sans-serif;
             }
 
-            .model.active {
-                transform: translate(-50%, -50%) scale(1);
+            footer {
+                height: 100%;
             }
 
-            .model-header {
-                padding: 10px 15px;
+            .footer-content {
                 display: flex;
-                justify-content: space-between;
+                justify-content: center;
                 align-items: center;
-                border-bottom: 1px solid black;
+                padding: 50px;
+                gap: 100px;
+                margin-bottom: -50px;
             }
 
-            .model-header .title {
-                font-size: 1.25rem;
-                font-weight: bold;
+            .footer-content-usp ul {
+                list-style: none;
             }
 
-            .model-header .close-button {
-                cursor: pointer;
-                border: none;
-                outline: none;
-                background: none;
-                font-size: 1.25rem;
-                font-weight: bold;
+            .footer-content-usp ul li {
+                margin-bottom: 20px;
             }
 
-            .model-body {
-                padding: 10px 15px;
-            }
-
-            #overlay {
-                position: fixed;
-                opacity: 0;
-                transition: 200ms ease-in-out;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, .5);
-                pointer-events: none;
-            }
-
-            #overlay.active {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-
-
-
-            div.elem-group {
-                margin: 20px 0;
-            }
-
-            div.elem-group.inlined {
-                width: 49%;
-                display: inline-block;
-                float: left;
-                margin: 3% 0;
-
-            }
-
-            label {
-                display: block;
-                font-family: 'Nanum Gothic';
-                padding-bottom: 10px;
-                font-size: 1.25em;
-            }
-
-            input, select, textarea {
-                border-radius: 2px;
-                border: 2px solid #777;
-                box-sizing: border-box;
-                font-size: 1.25em;
-                font-family: 'Nanum Gothic';
-                width: 100%;
-                padding: 10px;
-            }
-
-            div.elem-group.inlined input {
-                width: 95%;
-                display: inline-block;
-            }
-
-            textarea {
-                height: 250px;
-            }
-
-            hr {
-                border: 1px dotted #ccc;
-            }
-
-            #checkout{
-                height: 50px;
-                background: #3498db;
-                border: none;
-                color: white;
-                font-size: 1.25em;
-                font-family: 'Nunito','Helvetica Neue',Helvetica,Arial,sans-serif;
-                border-radius: 4px;
-                cursor: pointer;
-                width: 40%;
-
-                font-weight: 700;
-                text-align: center;
-                letter-spacing: .05em;
-                text-transform: uppercase;
-                color: #fff;
-                border-radius: 18px;
-            }
-            #checkout:hover
-            {
-                background-color: #2980b9;
-            }
-
-
-            button:hover {
-                border: 2px solid black;
-            }
-
-            .model-body
-            {
-
-                justify-items: center;
+            .footer-header {
+                display: flex;
+                justify-content: center;
                 align-items: center;
             }
 
-            #checkout-class
-            {
-                text-align: center;
-                margin-bottom: 10px;
+            .footer-header h2 {
+                margin-top: 40px;
             }
 
-            #theme-selection{
-                height: 54px;
+            .footer-content-usp a {
+                display: flex;
+                align-items: center;
+            }
+
+            .copy-right {
+                background-color: #fff;
+            }
+
+            .copy-right-content {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
+            }
+
+
+            .checkout-container
+            {
+                display: flex;
+                justify-content: space-evenly;
+
             }
 
 
@@ -350,11 +274,9 @@
     </head>
     <body>
 
-
         <header>
             <aside class="side-bar">
                 <div class="logo">
-
                     <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                 </div>
 
@@ -366,7 +288,6 @@
                         <input type="text" placeholder="Type here to search">
                     </form>
                 </div>
-
 
                 <div class="profile">
                     <div class="login-pro">
@@ -394,29 +315,235 @@
         </header>
 
 
+        <section>
+            <div class="column-content">
+                <div class="add-ab">
+                    <a href="home.jsp">Home</a><span> &#10095; Booking</span>
+                </div>
 
-        <script >
+                <h1>Party Booking</h1>
 
-            function updateCartCount()
+
+                <div class="column">
+
+                    <div class="checkout-container">
+
+                        <div class="order-info">
+                            <div class="order-info-block" >
+                                <span class="order-info-title">Order Information</span>
+                            </div>
+
+                            <div class="content minicart-items" data-role="content">
+                                <div class="minicart-items-wrapper">
+
+
+
+                                    <div class="product">
+
+                                        <span class="product-image-container"  style="height: 97px; width: 97px;">
+                                            <span class="product-image-wrapper">
+                                                <img src="image/packages/package_1.png" width="160" height="200" alt="TINIWORLD LOTTE TÂY HỒ" title="TINIWORLD LOTTE TÂY HỒ">
+                                            </span>
+                                        </span>
+
+                                        <div class="product-item-details">
+
+                                            <div class="product-item-inner">
+                                                <div class="product-item-name-block">
+                                                    <strong class="product-item-name" data-bind="html: getNameUnsanitizedHtml($parent)">WONDERLAND CITY</strong>
+                                                    <div class="product options">
+                                                        <div class="content">
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="details-qty">
+                                                        <span class="number_of_children">0</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="subtotal">
+
+
+                                                    <span class="cart-price">
+                                                        <span class="price">120.000&nbsp;₫</span>
+                                                    </span>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="order-info-subtotal">
+                                <span class="subtotal-text" >Price</span>
+                                <span class="subtotal-price" >500</span>
+                            </div>
+
+                            <div class="block-summary-content">
+                                <tbody>
+                                    <tr class="totals sub">
+                                        <th data-bind="i18n: 'Provisional'" class="mark" scope="row">Tạm tính</th>
+                                        <td class="amount">
+                                            <span class="price" data-bind="text: getValue(), attr: {'data-th': title}" data-th="Tổng cộng">150.000&nbsp;₫</span>
+                                        </td>
+                                    </tr> <br>
+
+                                <tr class="totals shipping excl">
+                                    <th class="mark" scope="row">
+                                        <span class="label" data-bind="i18n: 'Transport fee'">Discount</span>
+
+                                        <span class="value" data-bind="text: getShippingMethodTitle()">50</span>
+                                    </th>
+                                    <td class="amount">
+
+                                        <span class="price" data-bind="text: getValue(), attr: {'data-th': title}" data-th="Vận chuyển">0&nbsp;₫</span>
+
+                                    </td>
+                                </tr>  <br>
+
+                                <tr class="grand totals">
+                                    <th class="mark" scope="row">
+                                        <strong data-bind="i18n: 'Total'">Tổng cộng</strong>
+                                    </th>
+                                    <td data-bind="attr: {'data-th': title}" class="amount" data-th="Tổng đơn đặt hàng">
+                                        <strong><span class="price" data-bind="text: getValue()">150.000&nbsp;₫</span></strong>
+                                    </td>
+                                </tr>
+                                </tbody>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="customer-info">
+                            <div class="customer-info-block" >
+                                <span class="customer-info-title">Customer Information</span>
+                            </div>
+
+                            <div class="checkout-login" data-bind="visible: !window.isCustomerLoggedIn">
+                                <span data-bind="i18n: 'Have an account?'">Have an account?</span>
+                                <a class="login action"  href="login.jsp">Login</a>
+                            </div>
+
+
+                            <div class="customer-info-details" >
+
+                                <form action="#" method="POST">
+                                    <div class="control"">
+
+                                        <input class="input-text" type="text"  name="fullName" placeholder="Họ và Tên"><br>
+                                        <input class="input-text" type="email"  name="email" placeholder="Email"><br>
+                                        <input class="input-text" type="tel"  name="phone" placeholder="Phone"><br>
+                                        <textarea class="input-text" id="order-note" name="description" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
+                                        <button  type="submit" class="button action continue primary">
+                                            <span>Payment</span>
+                                        </button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="page-footer">
+        <div class="footer-header">
+            <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+        </div>
+
+        <div class="footer-content">
+            <div class="footer-content-usp">
+                <ul>
+                    <li>History begin</li>
+                    <li>Job opportunities</li>
+                    <li>Wonder regulation</li>
+                    <li>Wonder Partner</li>
+                    <li>Wonder Charity Foundation</li>
+                </ul>
+            </div>
+
+            <div class="footer-content-usp">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-world'></i>
+                            <span>nkidgroup.com</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-envelope' ></i>
+                            <span>cskh@wonderland.com</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-phone' ></i>
+                            <span>1900 63 63 28</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class='bx bx-current-location' ></i>
+                            <span>SWP391</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="copy-right">
+            <div class="copy-right-content">
+                <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+            </div>
+        </div>
+    </footer>
+
+
+    <script >
+
+        function updateCartCount()
+        {
+            var packgeInfo = localStorage.getItem("packageInfo");
+
+            if (packgeInfo !== null)
             {
-                var packgeInfo = localStorage.getItem("packageInfo");
-
-                if (packgeInfo !== null)
+                var localStorageLength = localStorage.length;
+                if (localStorageLength !== 0)
                 {
-                    var localStorageLength = localStorage.length;
-                    if (localStorageLength !== 0)
-                    {
-                        document.getElementById("numsOfCart").innerHTML = localStorageLength;
-                    } else
-                    {
-                        document.getElementById("numsOfCart").innerHTML = 0;
-                    }
+                    document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                } else
+                {
+                    document.getElementById("numsOfCart").innerHTML = 0;
                 }
             }
+        }
+
+        updateCartCount();
+
+
+        
+        function updateOrderInfomation()
+        {
             
-            updateCartCount();
+        }
 
-        </script>
 
-    </body>
+    </script>
+
+</body>
 </html>
