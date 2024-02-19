@@ -726,7 +726,7 @@
 
                 // create an object to store data
                 var packageInfo = {
-                    packgeID: packageID,
+                    packageID: packageID,
                     packageUnitPrice: packageUnitPrice,
                     center: center,
                     checkinDate: checkinDate,

@@ -325,95 +325,70 @@
 
 
                 <div class="column">
-
                     <div class="checkout-container">
-
                         <div class="order-info">
                             <div class="order-info-block" >
                                 <span class="order-info-title">Order Information</span>
                             </div>
-
                             <div class="content minicart-items" data-role="content">
                                 <div class="minicart-items-wrapper">
-
-
-
                                     <div class="product">
-
                                         <span class="product-image-container"  style="height: 97px; width: 97px;">
                                             <span class="product-image-wrapper">
                                                 <img src="image/packages/package_1.png" width="160" height="200" alt="TINIWORLD LOTTE TÂY HỒ" title="TINIWORLD LOTTE TÂY HỒ">
                                             </span>
                                         </span>
-
                                         <div class="product-item-details">
 
                                             <div class="product-item-inner">
                                                 <div class="product-item-name-block">
-                                                    <strong class="product-item-name" data-bind="html: getNameUnsanitizedHtml($parent)">WONDERLAND CITY</strong>
+                                                    <strong class="location-name" id="location-name"></strong>
                                                     <div class="product options">
                                                         <div class="content">
 
                                                         </div>
                                                     </div>
                                                     <div class="details-qty">
-                                                        <span class="number_of_children">0</span>
+                                                        <span class="number-of-children" id="number-of-children">0</span>
                                                     </div>
                                                 </div>
 
-                                                <div class="subtotal">
-
-
-                                                    <span class="cart-price">
-                                                        <span class="price">120.000&nbsp;₫</span>
+                                                <div class="package-unit">
+                                                    <span class="package-unit-value">
+                                                        <span class="price-unit" id="price-unit">0$</span>
                                                     </span>
-
                                                 </div>
-
                                             </div>
                                         </div>
-
                                     </div>
-
-
                                 </div>
                             </div>
 
 
-                            <div class="order-info-subtotal">
-                                <span class="subtotal-text" >Price</span>
-                                <span class="subtotal-price" >500</span>
-                            </div>
+
 
                             <div class="block-summary-content">
                                 <tbody>
                                     <tr class="totals sub">
-                                        <th data-bind="i18n: 'Provisional'" class="mark" scope="row">Tạm tính</th>
-                                        <td class="amount">
-                                            <span class="price" data-bind="text: getValue(), attr: {'data-th': title}" data-th="Tổng cộng">150.000&nbsp;₫</span>
-                                        </td>
-                                    </tr> <br>
+
+                                <span class="lable">Price</span>
+                                <span class="price-multiple" id="price-multiple">0$</span>
+
+                                </tr> <br>
 
                                 <tr class="totals shipping excl">
-                                    <th class="mark" scope="row">
-                                        <span class="label" data-bind="i18n: 'Transport fee'">Discount</span>
 
-                                        <span class="value" data-bind="text: getShippingMethodTitle()">50</span>
-                                    </th>
-                                    <td class="amount">
+                                <span class="label" >Bonus Service</span>
+                                <span class="value" id="price-bonus">0$</span>
 
-                                        <span class="price" data-bind="text: getValue(), attr: {'data-th': title}" data-th="Vận chuyển">0&nbsp;₫</span>
 
-                                    </td>
                                 </tr>  <br>
 
                                 <tr class="grand totals">
-                                    <th class="mark" scope="row">
-                                        <strong data-bind="i18n: 'Total'">Tổng cộng</strong>
-                                    </th>
-                                    <td data-bind="attr: {'data-th': title}" class="amount" data-th="Tổng đơn đặt hàng">
-                                        <strong><span class="price" data-bind="text: getValue()">150.000&nbsp;₫</span></strong>
-                                    </td>
+
+                                <strong>Total</strong>
+                                <strong><span class="price" id="price-total">0$</span></strong>
+
                                 </tr>
                                 </tbody>
 
@@ -428,8 +403,8 @@
                                 <span class="customer-info-title">Customer Information</span>
                             </div>
 
-                            <div class="checkout-login" data-bind="visible: !window.isCustomerLoggedIn">
-                                <span data-bind="i18n: 'Have an account?'">Have an account?</span>
+                            <div class="checkout-login" >
+                                <span ">Have an account?</span>
                                 <a class="login action"  href="login.jsp">Login</a>
                             </div>
 
@@ -439,9 +414,9 @@
                                 <form action="#" method="POST">
                                     <div class="control"">
 
-                                        <input class="input-text" type="text"  name="fullName" placeholder="Họ và Tên"><br>
-                                        <input class="input-text" type="email"  name="email" placeholder="Email"><br>
-                                        <input class="input-text" type="tel"  name="phone" placeholder="Phone"><br>
+                                        <input class="input-text" type="text"  name="fullName" placeholder="Full name" required="" ><br>
+                                        <input class="input-text" type="email"  name="email" placeholder="Email" required="" ><br>
+                                        <input class="input-text" type="tel"  name="phone" placeholder="Phone" required="" ><br>
                                         <textarea class="input-text" id="order-note" name="description" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
                                         <button  type="submit" class="button action continue primary">
                                             <span>Payment</span>
@@ -536,11 +511,37 @@
         updateCartCount();
 
 
-        
+//{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
+////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
         function updateOrderInfomation()
         {
-            
+            var packageInfo = localStorage.getItem("packageInfo");
+            var packageData = JSON.parse(packageInfo);
+            var locationName = document.getElementById("location-name");
+            var numberOfChildren = document.getElementById("number-of-children");
+            var pricePackageUnit = document.getElementById("price-unit");
+
+            locationName.outerHTML = packageData['center'].split('-')[1];
+            numberOfChildren.outerHTML = packageData['childrenNums'];
+            var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
+            pricePackageUnit.outerHTML = pricePackageUnitValue + '$';
+
+
+            var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
+            var priceMultiple = document.getElementById("price-multiple");
+            priceMultiple.outerHTML = priceMultipleValue + '$';
+
+            var bonusServiceValue = packageData["bonusService"].split(' ')[1];
+            var bonusService = document.getElementById("price-bonus");
+            bonusService.outerHTML = bonusServiceValue + '$';
+
+            var totalValue = parseInt(priceMultipleValue) + parseInt(bonusServiceValue);
+            var total = document.getElementById("price-total");
+            total.outerHTML = totalValue + '$';
+
         }
+
+        updateOrderInfomation();
 
 
     </script>
