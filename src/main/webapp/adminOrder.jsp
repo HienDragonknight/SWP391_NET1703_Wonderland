@@ -447,6 +447,67 @@
                 color: blue;
             }
 
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                transition: 200ms ease-in-out;
+                border: 1px solid black;
+                border-radius: 10px;
+                z-index: 10;
+                background-color: white;
+                width: 500px;
+                max-width: 80%;
+            }
+
+            .modal.active {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .modal-header {
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+            }
+
+            .modal-header .title {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-header .close-button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-body {
+                padding: 10px 15px;
+            }
+
+            #overlay {
+                position: fixed;
+                opacity: 0;
+                transition: 200ms ease-in-out;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, .5);
+                pointer-events: none;
+            }
+
+            #overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -567,7 +628,7 @@
                                     <i class='bx bx-money'></i>
                                     <a href="ViewUserServlet" class="info">
                                         <h3 style="font-size: 20px;">
-                                            <%= totalIncome %>
+                                            <%= totalIncome%>
                                         </h3>
                                         <p>Income</p>
                                     </a>
@@ -599,8 +660,6 @@
                                                 <th>User</th>
                                                 <th>Date Order</th>
                                                 <th>Party Name</th>
-                                                <th>People</th>
-                                                <th>Theme</th>
                                                 <th>Price</th>
                                                 <th>Status</th>
                                             </tr>
@@ -619,14 +678,49 @@
                                                 <td><%= dto.getUserName()%></td>
                                                 <td><%= dto.getDateOrder()%></td>
                                                 <td><%= dto.getPackages()%></td>
-                                                <td><%= dto.getAmountPeople()%></td>
-                                                <td><%= dto.getTheme()%></td>
                                                 <td><%= dto.getPrice()%></td>
                                                 <td><%= dto.getStatus()%></td>
                                                 <td>
-                                                    <a class="view-detail" href="#">
-                                                        View Details
-                                                    </a>
+                                                    <a data-modal-target="#modal<%= countOrder %>">View Details</a>
+                                                    <div class="modal" id="modal<%= countOrder %>">
+                                                        <div class="modal-header">
+                                                            <div class="title"><%= dto.getUserName() %></div>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <ul style="list-style: none">
+                                                                <li>
+                                                                    Party Name: <%= dto.getPackages() %>
+                                                                </li>
+                                                                <li>
+                                                                    Theme: <%= dto.getTheme() %>
+                                                                </li>
+                                                                <li>
+                                                                    Amount: <%= dto.getAmountPeople() %>
+                                                                </li>
+                                                                <li>
+                                                                    Service: <%= dto.getService() %>
+                                                                </li>
+                                                                <li>
+                                                                    Date Order: <%= dto.getDateOrder() %>
+                                                                </li>
+                                                                <li>
+                                                                    Party Date: <%= dto.getDateStart() %>
+                                                                </li>
+                                                                <li>
+                                                                    Location: <%= dto.getLocation() %>
+                                                                </li>
+                                                                <li>
+                                                                    Note: <%= dto.getNote() %>
+                                                                </li>
+                                                                <li>
+                                                                    Price: <%= dto.getPrice() %>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="overlay"></div>
                                                 </td>
                                             </tr>
                                             <%                                                    }
@@ -643,5 +737,47 @@
 
             </main>
         </div>
+
+        <script>
+            const openModalButtons = document.querySelectorAll('[data-modal-target]');
+            const closeModalButtons = document.querySelectorAll('[data-close-button]');
+            const overlay = document.getElementById('overlay');
+
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = document.querySelector(button.dataset.modalTarget);
+                    openModal(modal);
+                });
+            });
+
+            overlay.addEventListener('click', () => {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    closeModal(modal);
+                });
+            });
+
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+
+            function openModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            function closeModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        </script>
+
     </body>
 </html>

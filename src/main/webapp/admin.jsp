@@ -312,6 +312,12 @@
             .bottom-data .orders{
                 flex-grow: 1;
                 flex-basis: 500px;
+
+            }
+
+            .orders .scrollable {
+                max-height: 150px; /* Adjust this value as needed */
+                overflow-y: auto;
             }
 
             .bottom-data .orders table{
@@ -536,8 +542,9 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody>
-                                            <% int countUser = 1;
+                                        <tbody class="scrollable">
+                                            <%
+                                                int countUser = 1;
                                                 if (result != null) {
                                                     for (UserDTO dto : result) {
                                                         String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
@@ -548,19 +555,21 @@
                                                 <td><%= dto.getPhoneNumber()%></td>
                                                 <td><%= dto.getEmail()%></td>
                                                 <td><%= dto.getRoleID()%></td>
-                                                <td>
-                                                    <%= dto.getReported()%>
-                                                </td>
-                                                <td>
-                                                    <a href="<%= urlReport%>">Report</a>
-                                                </td>
+                                                <td><%= dto.getReported()%></td>
+                                                <td><a href="<%= urlReport%>">Report</a></td>
                                             </tr>
-                                            <% }
-                                                } %>
+                                            <%
+                                                        if (countUser > 3) {
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                            %>
                                         </tbody>
                                     </table>
                                 </form>
                             </div>
+
                         </div>
 
                         <!-- Host Table -->
