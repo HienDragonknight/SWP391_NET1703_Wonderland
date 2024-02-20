@@ -64,11 +64,11 @@ public class OrderDetailDAO implements Serializable {
                     String note = rs.getString("notes");
                     String status = rs.getString("status");
                     
-                    OrderDetailDTO dto = new OrderDetailDTO(orderDetailID, userName, service, packages, dateStart, dateOrder, amountPeople, theme, location, price, note, status);
+       //             OrderDetailDTO dto = new OrderDetailDTO(orderDetailID, userName, service, packages, dateStart, dateOrder, amountPeople, theme, location, price, note, status);
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
-                    this.listOrder.add(dto);
+          //          this.listOrder.add(dto);
                 }
             }
         } finally {

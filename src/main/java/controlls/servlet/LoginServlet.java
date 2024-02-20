@@ -32,6 +32,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        String contextPath = request.getContextPath();
+        System.out.println(contextPath);
+
         HttpSession session = request.getSession();
         session.setAttribute("ERROR_INFO", "Incorrect username or password");
 

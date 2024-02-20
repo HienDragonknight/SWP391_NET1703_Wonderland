@@ -33,7 +33,7 @@ public class UserDAO implements Serializable {
             if (con != null) {
                 String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, email);
+                stm.setString(1, email);    
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {

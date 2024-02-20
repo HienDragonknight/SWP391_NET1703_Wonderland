@@ -21,7 +21,7 @@ import models.LocationDTO;
 import models.PackageDTO;
 import models.ThemeDTO;
 
-// from packageList: /PackageItemServlet?packageID={}               
+// from packageList: /PackageItemServlet?packageID={}
 @WebServlet(name = "PackageItemServlet", urlPatterns = {"/PackageItemServlet"})
 public class PackageItemServlet extends HttpServlet {
 

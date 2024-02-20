@@ -342,7 +342,7 @@
 
                                             <div class="product-item-inner">
                                                 <div class="product-item-name-block">
-                                                    <strong class="location-name" id="location-name"></strong>
+                                                    <strong class="location-name" id="location-name">HCM</strong>
                                                     <div class="product options">
                                                         <div class="content">
 
@@ -413,22 +413,24 @@
 
                                 <form action="#" method="POST">
                                     <div class="control"">
-
                                         <input class="input-text" type="text"  name="fullName" placeholder="Full name" required="" ><br>
                                         <input class="input-text" type="email"  name="email" placeholder="Email" required="" ><br>
                                         <input class="input-text" type="tel"  name="phone" placeholder="Phone" required="" ><br>
-                                        <textarea class="input-text" id="order-note" name="description" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
+                                        <textarea class="input-text" id="order-note" name="note" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
                                         <button  type="submit" class="button action continue primary">
                                             <span>Payment</span>
                                         </button>
+                                        <input type="hidden" id="service-id" name="service-id" value="" /><br>
+                                        <input type="hidden" id="package-id" name="package-id" value="" /><br>
+                                        <input type="hidden" id="checkin-time" name="checkin-time" value="" /><br>
+                                        <input type="hidden" id="number-children" name="number-children" value="" /><br>
+                                        <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
+                                        <input type="hidden" id="location-id" name="location-id" value="" /><br>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -508,7 +510,7 @@
             }
         }
 
-        updateCartCount();
+
 
 
 //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
@@ -541,7 +543,52 @@
 
         }
 
+
+
+        function setValueToOrderDetailForm()
+        {
+            /*
+             {"packageID":"1","packageUnitPrice":"$250.0","center":"4-Wonderland District 4,
+             Ho Chi Minh City","checkinDate":"2024-02-20","checkinTime":"04:04",
+             "childrenNums":"3","theme":"13","bonusService":"12 85.0"}
+             */
+
+            var packageInfo = localStorage.getItem("packageInfo");
+            var packageData = JSON.parse(packageInfo);
+
+            var bonusService = packageData['bonusService'];
+            var serviceID = bonusService.split(' ')[0];
+            var serviceInput = document.getElementById('service-id');
+            serviceInput.value = serviceID;
+
+            var packageID = packageData['packageID'];
+            var packageIDInput = document.getElementById('package-id');
+            packageIDInput.value = packageID;
+
+            var checkinDate = packageData['checkinDate'];
+            var checkinTime = packageData['checkinTime'];
+            var checkinTimeInput = document.getElementById('checkin-time');
+            checkinTimeInput.value = checkinDate + ' ' + checkinTime;
+
+            var numberOfChildren = packageData['childrenNums'];
+            var numberOfChildrenInput = document.getElementById('number-children');
+            numberOfChildrenInput.value = numberOfChildren;
+
+            var themeID = packageData['theme'];
+            var themIDInput = document.getElementById('theme-id');
+            themIDInput.value = themeID;
+
+            var locationID = packageData['center'];
+            locationID = locationID.split('-')[0];
+            var locationIDInput = document.getElementById('location-id');
+            locationIDInput.value = locationID;
+
+        }
+
+
+        updateCartCount();
         updateOrderInfomation();
+        setValueToOrderDetailForm();
 
 
     </script>
