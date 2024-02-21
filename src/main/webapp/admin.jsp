@@ -315,11 +315,6 @@
 
             }
 
-            .orders .scrollable {
-                max-height: 150px; /* Adjust this value as needed */
-                overflow-y: auto;
-            }
-
             .bottom-data .orders table{
                 width: 100%;
                 border-collapse: collapse;
@@ -397,6 +392,18 @@
                 font-size: 17px;
                 color: red;
                 cursor: pointer;
+            }
+
+            .table-wrapper {
+                overflow-y: auto;
+                height: 180px;
+            }
+            
+            .header form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
             }
 
             @media screen and (max-width: 992px) {
@@ -524,53 +531,50 @@
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
+                                    <form action="SearchByAdminServlet" method="POST">
+                                        <input type="text" name="txtSearchValue" value="" />
+                                        <i class='bx bx-search'></i>
+                                    </form>
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>User</th>
-                                                <th>Phone</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Report</th>
-                                                <th>Edit Profile</th>
-                                            </tr>
-                                        </thead>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>User</th>
+                                                    <th>Phone</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Report</th>
+                                                    <th>Edit Profile</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody class="scrollable">
-                                            <%
-                                                int countUser = 1;
+                                            <tbody class="scrollable">
+                                                <% int countUser = 1;
                                                 if (result != null) {
                                                     for (UserDTO dto : result) {
-                                                        String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
-                                            %>
-                                            <tr>
-                                                <td><%= countUser++%></td>
-                                                <td><%= dto.getFullName()%></td>
-                                                <td><%= dto.getPhoneNumber()%></td>
-                                                <td><%= dto.getEmail()%></td>
-                                                <td><%= dto.getRoleID()%></td>
-                                                <td><%= dto.getReported()%></td>
-                                                <td><a href="<%= urlReport%>">Report</a></td>
-                                            </tr>
-                                            <%
-                                                        if (countUser > 3) {
-                                                            break;
-                                                        }
-                                                    }
-                                                }
-                                            %>
-                                        </tbody>
-                                    </table>
+                                                        String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail(); %>
+                                                <tr>
+                                                    <td><%= countUser++%></td>
+                                                    <td><%= dto.getFullName()%></td>
+                                                    <td><%= dto.getPhoneNumber()%></td>
+                                                    <td><%= dto.getEmail()%></td>
+                                                    <td><%= dto.getRoleID()%></td>
+                                                    <td><%= dto.getReported()%></td>
+                                                    <td><a href="<%= urlReport%>">Report</a></td>
+                                                </tr>
+                                                <% }
+                        } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </form>
                             </div>
-
                         </div>
+
 
                         <!-- Host Table -->
                         <div class="bottom-data">
@@ -578,56 +582,60 @@
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Party Host</h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
+                                    <form>
+                                        <input type="text" name="txtSearchValue" value="" />
+                                        <i class='bx bx-search'></i>
+                                    </form>
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>User</th>
-                                                <th>Phone</th>
-                                                <th>Email</th>
-                                                <th>Role</th>
-                                                <th>Edit Profile</th>
-                                            </tr>
-                                        </thead>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>User</th>
+                                                    <th>Phone</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Edit Profile</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <% int countHost = 1;
-                                                if (listHost != null) {
-                                                    for (UserDTO host : listHost) {
-                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
-                                                        String urlEditing = "AdminServlet?action=Edit&email=" + host.getEmail();
-                                            %>
-                                            <tr>
-                                                <td><%= countHost++%></td>
-                                                <td>
-                                                    <%= host.getFullName()%>
-                                                </td>
-                                                <td>
-                                                    <%= host.getPhoneNumber()%>
-                                                </td>
-                                                <td>
-                                                    <%= host.getEmail()%>
-                                                </td>
-                                                <td>
-                                                    <%= host.getRoleID()%>
+                                            <tbody>
+                                                <% int countHost = 1;
+                                                    if (listHost != null) {
+                                                        for (UserDTO host : listHost) {
+                                                            String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
+                                                            String urlEditing = "AdminServlet?action=Edit&email=" + host.getEmail();
+                                                %>
+                                                <tr>
+                                                    <td><%= countHost++%></td>
+                                                    <td>
+                                                        <%= host.getFullName()%>
+                                                    </td>
+                                                    <td>
+                                                        <%= host.getPhoneNumber()%>
+                                                    </td>
+                                                    <td>
+                                                        <%= host.getEmail()%>
+                                                    </td>
+                                                    <td>
+                                                        <%= host.getRoleID()%>
 
-                                                </td>
-                                                <td>
-                                                    <a href="<%= urlEditing%>">Edit</a>
-                                                </td>
-                                                <td>
-                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <% }
+                                                    </td>
+                                                    <td>
+                                                        <a href="<%= urlEditing%>">Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                    </td>
+                                                </tr>
+                                                <% }
                                                 }%>
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </form>
                             </div>
                         </div>

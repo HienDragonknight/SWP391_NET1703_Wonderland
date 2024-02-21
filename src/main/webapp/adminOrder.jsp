@@ -508,6 +508,19 @@
                 pointer-events: all;
             }
 
+            .modal-body ul li {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .modal-body button {
+                border: none;
+                padding: 20px 50px;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -679,7 +692,9 @@
                                                 <td><%= dto.getDateOrder()%></td>
                                                 <td><%= dto.getPackages()%></td>
                                                 <td><%= dto.getPrice()%></td>
-                                                <td><%= dto.getStatus()%></td>
+                                                <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor" %>;p">
+                                                    <%= dto.getStatus()%>
+                                                </td>
                                                 <td>
                                                     <a data-modal-target="#modal<%= countOrder %>">View Details</a>
                                                     <div class="modal" id="modal<%= countOrder %>">
@@ -687,37 +702,42 @@
                                                             <div class="title"><%= dto.getUserName() %></div>
                                                         </div>
 
-                                                        <div class="modal-body">
-                                                            <ul style="list-style: none">
+                                                        <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                            <ul style="list-style: none; width: 100%; text-align: center;">
                                                                 <li>
-                                                                    Party Name: <%= dto.getPackages() %>
+                                                                    <p style="font-weight: bold">Party Name:</p> <%= dto.getPackages() %>
                                                                 </li>
                                                                 <li>
-                                                                    Theme: <%= dto.getTheme() %>
+                                                                    <p style="font-weight: bold">Theme:</p> <%= dto.getTheme() %>
                                                                 </li>
                                                                 <li>
-                                                                    Amount: <%= dto.getAmountPeople() %>
+                                                                    <p style="font-weight: bold">Amount:</p> <%= dto.getAmountPeople() %>
                                                                 </li>
                                                                 <li>
-                                                                    Service: <%= dto.getService() %>
+                                                                    <p style="font-weight: bold">Service:</p> <%= dto.getService() %>
                                                                 </li>
                                                                 <li>
-                                                                    Date Order: <%= dto.getDateOrder() %>
+                                                                    <p style="font-weight: bold">Date Order:</p> <%= dto.getDateOrder() %>
                                                                 </li>
                                                                 <li>
-                                                                    Party Date: <%= dto.getDateStart() %>
+                                                                    <p style="font-weight: bold">Party Date:</p> <%= dto.getDateStart() %>
                                                                 </li>
                                                                 <li>
-                                                                    Location: <%= dto.getLocation() %>
+                                                                    <p style="font-weight: bold">Location:</p> <%= dto.getLocation() %>
                                                                 </li>
                                                                 <li>
-                                                                    Note: <%= dto.getNote() %>
+                                                                    <p style="font-weight: bold">Note:</p> <%= dto.getNote() %>
                                                                 </li>
                                                                 <li>
-                                                                    Price: <%= dto.getPrice() %>
+                                                                    <p style="font-weight: bold">Price:</p> <%= dto.getPrice() %>
                                                                 </li>
                                                             </ul>
+                                                            <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor" %>;">
+                                                                <%= dto.getStatus() %>
+                                                            </button>
+
                                                         </div>
+
                                                     </div>
 
                                                     <div id="overlay"></div>
