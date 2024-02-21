@@ -4,6 +4,9 @@
     Author     : bao.kun
 --%>
 
+<%@page import="models.ThemeDTO"%>
+<%@page import="models.BonusServiceDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="models.LocationDTO"%>
 <%@page import="models.PackageDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -13,6 +16,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <title>Shop Item - Start Bootstrap Template</title>
+
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -258,8 +262,10 @@
 
 
 
+
             div.elem-group {
                 margin: 20px 0;
+                display: flex;
             }
 
             div.elem-group.inlined {
@@ -267,7 +273,7 @@
                 display: inline-block;
                 float: left;
                 margin: 3% 0;
-                
+
             }
 
             label {
@@ -289,6 +295,10 @@
 
             div.elem-group.inlined input {
                 width: 95%;
+                display: inline-block;
+            }
+            div.elem-group.inlined select {
+                padding: 6.68px;
                 display: inline-block;
             }
 
@@ -340,44 +350,19 @@
                 text-align: center;
                 margin-bottom: 10px;
             }
-            
-           
 
+            #theme-selection{
+                height: 54px;
+            }
+
+            #childrenNums
+            {
+                padding: 2%;
+            }
         </style>
     </head>
     <body>
-        <!-- Navigation-->
-        <!--        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container px-4 px-lg-5">
-                        <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                        <li><hr class="dropdown-divider" /></li>
-                                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <form class="d-flex">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>  
-                </nav-->
-        <!--
-        
-        -->        <header>
+        <header>
             <aside class="side-bar">
                 <div class="logo">
 
@@ -411,7 +396,7 @@
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
                     </form>
                 </div>
@@ -422,10 +407,12 @@
 
 
         <%
-
             PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKGE_ITEM");
-            LocationDTO locationDTO = (LocationDTO) request.getAttribute("LOCATION");
-            if (packageDTO != null) {
+            List<LocationDTO> locationList = (List< LocationDTO>) request.getAttribute("LOCATION_LIST");
+            List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
+            List<ThemeDTO> themeList = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
+
+            if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
         %>
 
         <!-- Product section-->
@@ -440,9 +427,11 @@
                         </div>
                         <h1 class="display-5 fw-bolder"><%= packageDTO.getPackageName()%></h1>
                         <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through">$<%= packageDTO.getUnitPrice()%></span>
-                            <span style="color: blue;" >$40.00</span>
+                            <span class="text-decoration-line-through" id="price-unit-original">$<%= packageDTO.getUnitPrice()%></span>
+                            <span style="color: blue;" id="price-unit-discounted" >$<%= packageDTO.getUnitPrice() * 0.8%></span>
+                            <input type="hidden" id="packageID" value="<%= packageDTO.getPackageID()%>" >
                         </div>
+
                         <p class="lead"><%= packageDTO.getDescription() + "\nThis is details"%></p>
 
 
@@ -461,71 +450,77 @@
 
                             <div class="model-body">
 
-                                <form action="reservation.php" method="post">
-                       
+                                <form action="ready_for_checkout.jsp" method="post">
+
                                     <div class="elem-group">
-                                        <label for="room-selection">Center</label>
-                                        <select id="room-selection" name="room_preference" required>
-                                            <option value="">Choose a Room from the List</option>
-                                            <option value="connecting">Connecting</option>
-                                            <option value="adjoining">Adjoining</option>
-                                            <option value="adjacent">Adjacent</option>
-                                        </select>
+                                        <div class="full-lined">
+                                            <label>Center</label>
+                                            <select id="center-selection" name="location" required>
+                                                <option value="">Choose your location</option>
+                                                <%
+                                                    for (LocationDTO location : locationList) {
+                                                %>                                          
+
+                                                <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                                <%                                            }
+                                                %>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="elem-group">
-
                                         <div class="elem-group inlined">
                                             <label for="checkin-date">Date</label>
-                                            <input type="date" id="checkin-date" name="checkin" required>
+                                            <input type="date" id="checkin-date" name="checkin-date"  required>
                                         </div> 
                                         <div class="elem-group inlined">
                                             <label for="checkin-time">Time</label>
-                                            <input type="time" name="checkin-time" placeholder="2" min="0" required>
+                                            <input type="time" id="checkin-time"  name="checkin-time" required>
                                         </div>
-                                    </div>
+                                    </div>                                       
+
                                     <div class="elem-group">
                                         <div class="elem-group inlined">
-                                            <label for="checkin-time">Attended children</label>
-                                            <input type="number" name="checkin-time" min="0" required>
+                                            <label>Attended children</label>
+                                            <input type="number" id="childrenNums" name="children"  min="0" required>
                                         </div>
+
                                         <div class="elem-group inlined">
-                                            <label for="checkin-time">Type</label>
-                                            <input type="text" name="package-type" placeholder="Standard" required>
+                                            <label>Theme</label>
+                                            <select id="theme" name="theme" required>
+                                                <option value="">Choose a Theme</option>
+                                                <%
+                                                    for (ThemeDTO theme : themeList) {
+                                                %>
+                                                <option value="<%= theme.getThemeID()%>"> <%= theme.getThemeName()%> </option>
+                                                <%                                                    }
+                                                %>
+                                            </select>
                                         </div>
-
                                     </div>
-
 
                                     <div class="elem-group">
-                                        <label for="room-selection">Bonus Service</label>
-                                        <select id="room-selection" name="room_preference" required>
-                                            <option value="">Choose a Room from the List</option>
-                                            <option value="connecting">Connecting</option>
-                                            <option value="adjoining">Adjoining</option>
-                                            <option value="adjacent">Adjacent</option>
-                                        </select>
-                                    </div>
-                                    <div class="elem-group">
-                                        <label for="room-selection">Theme</label>
-                                        <select id="room-selection" name="room_preference" required>
-                                            <option value="">Choose a Room from the List</option>
-                                            <option value="connecting">Connecting</option>
-                                            <option value="adjoining">Adjoining</option>
-                                            <option value="adjacent">Adjacent</option>
-                                        </select>
+                                        <div class="elem-group inlined">
+                                            <label for="servce-selection">Bonus Service</label>
+                                            <select id="bonus_service" name="bonus_service" required>
+                                                <option value="">Choose a service</option>
+                                                <%
+                                                    for (BonusServiceDTO bonusService : bonusServiceList) {
+                                                %>
+                                                <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                                <%                                                    }
+                                                %> 
+                                            </select>
+                                        </div>           
                                     </div>
 
-                                  
-                                    <div id="checkout-class">   
-                                        <button id="checkout" type="submit">Checkout</button>
+                                    <div id="checkout-class">  
+                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
                                     </div>
                                 </form>
-
-
                             </div>
                         </div>
-                        <div id="overlay"></div>
+                        <div id="overlay"></div>   <!--for close package form without clicking x button-->
 
 
                     </div>
@@ -633,7 +628,6 @@
                                         <div class="bi-star-fill"></div>
                                         <div class="bi-star-fill"></div>
                                     </div>
-                                    <!-- Product price-->
                                     $40.00
                                 </div>
                             </div>
@@ -650,9 +644,7 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
-        <!-- Bootstrap core JS-->
 
-        <!-- Core theme JS-->
         <script >
 
             const openModelButtons = document.querySelectorAll('[data-model-target]');
@@ -716,7 +708,73 @@
 
             checkinElem.onchange = function () {
                 checkoutElem.setAttribute("min", this.value);
+            };
+
+
+            function storePackageInfo() {
+                // get data from form
+
+                var packageID = document.getElementById("packageID").value;
+                var packageUnitPrice = document.getElementById("price-unit-original").textContent;
+                var center = document.getElementById("center-selection").value;
+                var checkinDate = document.getElementById("checkin-date").value;
+                var checkinTime = document.getElementById("checkin-time").value;
+                var childrenNums = document.getElementById("childrenNums").value;
+                var theme = document.getElementById("theme").value;
+                var bonusService = document.getElementById("bonus_service").value;
+
+
+                // create an object to store data
+                var packageInfo = {
+                    packageID: packageID,
+                    packageUnitPrice: packageUnitPrice,
+                    center: center,
+                    checkinDate: checkinDate,
+                    checkinTime: checkinTime,
+                    childrenNums: childrenNums,
+                    theme: theme,
+                    bonusService: bonusService
+
+                };
+
+                // convert the object into JSON string
+                var packageInfoJSON = JSON.stringify(packageInfo);
+
+                // store the JSON string into local storage
+                localStorage.setItem("packageInfo", packageInfoJSON);
             }
+
+
+//            document.addEventListener("click", function ()
+//            {
+//                var storedFormData = localStorage.getItem("packageInfo");
+//
+//                if (storedFormData !== null)
+//                {
+//                    var packageData = JSON.parse(storedFormData);
+//                    console.log("Form data not found in Local Storage ");
+//
+//                } else
+//                {
+//                    console.log("Form data not found in Local Storage or Local Storage is cleared");
+//                }
+//            });
+
+
+
+            function updateCartCount()
+            {
+                var packgeInfo = localStorage.getItem("packageInfo");
+                if (packgeInfo !== null)
+                {
+                    var localStorageLength = localStorage.length;
+                    document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                }
+            }
+
+            updateCartCount();
+
+
         </script>
 
     </body>

@@ -50,11 +50,11 @@ public class OrderDAO implements Serializable {
                     double totalPrice = rs.getDouble("total_price");
                     String status = rs.getString("status");
 
-                    OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+          //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
-                    this.listOrder.add(dto);
+            //        this.listOrder.add(dto);
                 }
             }
         } finally {

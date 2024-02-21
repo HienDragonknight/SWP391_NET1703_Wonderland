@@ -4,8 +4,6 @@
  */
 package controlls.servlet;
 
-import dal.LocationDAO;
-import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,47 +11,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.LocationDTO;
-import models.PackageDTO;
 
-// from packageList: /PackageItemServlet?packageID={}
-@WebServlet(name = "PakcageItemServlet", urlPatterns = {"/PackageItemServlet"})
-public class PakcageItemServlet extends HttpServlet {
+/**
+ *
+ * @author bao.kun
+ */
+@WebServlet(name = "AddOrderWithoutCheckout", urlPatterns = {"/AddOrderWithoutCheckout"})
+public class AddOrderWithoutCheckout extends HttpServlet {
 
+    private static final String ERROR = "order_ready_for_checkout.jsp";
     private static final String SUCCESS = "package_item.jsp";
-    private static final String ERROR = "package_item.jsp";
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String url = ERROR;
-
-        try {
-
-            String packageID = request.getParameter("packageID");
-
-            // get package 
-            PackageDAO dao = new PackageDAO();
-            PackageDTO packageDTO = dao.getPackageByID(packageID);
-
-            // get location 
-            LocationDAO locationDAO = new LocationDAO();
-
-           
-         //   LocationDTO locationDTO = dao.getLocationToPackage(locationID);
-            
-            
-
-            if (packageDTO != null) {
-                url = SUCCESS;
-                request.setAttribute("PACKGE_ITEM", packageDTO);
-              //  request.setAttribute("LOCATION", locationDTO);
-            }
-
-        } catch (Exception e) {
-            log("Error at PackageItemServlet");
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
-        }
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
+        
+        
+        
 
     }
 
