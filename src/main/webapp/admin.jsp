@@ -398,7 +398,7 @@
                 overflow-y: auto;
                 height: 180px;
             }
-            
+
             .header form {
                 display: flex;
                 justify-content: center;
@@ -531,10 +531,8 @@
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
-                                    <form action="SearchByAdminServlet" method="POST">
-                                        <input type="text" name="txtSearchValue" value="" />
-                                        <i class='bx bx-search'></i>
-                                    </form>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
@@ -554,9 +552,9 @@
 
                                             <tbody class="scrollable">
                                                 <% int countUser = 1;
-                                                if (result != null) {
-                                                    for (UserDTO dto : result) {
-                                                        String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail(); %>
+                                                    if (result != null) {
+                                                        for (UserDTO dto : result) {
+                                                            String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();%>
                                                 <tr>
                                                     <td><%= countUser++%></td>
                                                     <td><%= dto.getFullName()%></td>
@@ -567,7 +565,7 @@
                                                     <td><a href="<%= urlReport%>">Report</a></td>
                                                 </tr>
                                                 <% }
-                        } %>
+                                                    } %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -582,10 +580,8 @@
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Party Host</h3>
-                                    <form>
-                                        <input type="text" name="txtSearchValue" value="" />
-                                        <i class='bx bx-search'></i>
-                                    </form>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
@@ -632,7 +628,7 @@
                                                     </td>
                                                 </tr>
                                                 <% }
-                                                }%>
+                                                    }%>
                                             </tbody>
                                         </table>
                                     </div>
