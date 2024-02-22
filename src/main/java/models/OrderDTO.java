@@ -11,38 +11,64 @@ import java.util.Date;
  *
  * @author phanv
  */
-public class OrderDTO implements Serializable{
-    private int orderID;
-    private String userName;
+public class OrderDTO implements Serializable {
+
+    private String orderID;
+    private String userID;
     private Date createDate;
     private double totalPrice;
     private String status;
+    private String email;
+    private String phoneNumber;
+    private String fullName;
+    private String orderDetailID;
 
-    public OrderDTO() {
-    }
-
-    public OrderDTO(int orderID, String userName, Date createDate, double totalPrice, String status) {
+    public OrderDTO(String orderID, String userID, Date createDate, double totalPrice, String status, String email, String phoneNumber, String fullName, String orderDetailID) {
         this.orderID = orderID;
-        this.userName = userName;
+        this.userID = userID;
         this.createDate = createDate;
         this.totalPrice = totalPrice;
         this.status = status;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
+        this.orderDetailID = orderDetailID;
     }
 
-    public int getOrderID() {
+    public OrderDTO() {
+        this.orderID = "";
+        this.userID = "";
+        this.createDate = null;
+        this.totalPrice = 0;
+        this.status = "";
+        this.email = "";
+        this.phoneNumber = "";
+        this.fullName = "";
+        this.orderDetailID = "";
+    }
+
+    public String getOrderDetailID() {
+        return orderDetailID;
+    }
+
+    public void setOrderDetailID(String orderDetailID) {
+        this.orderDetailID = orderDetailID;
+    }
+
+    public String getOrderID() {
         return orderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public Date getCreateDate() {
@@ -68,5 +94,29 @@ public class OrderDTO implements Serializable{
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
 }

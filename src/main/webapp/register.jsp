@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action="RegisterServlet" method="POST">
-            FullName<input type="text" name="txtFullName" value="" /><br/>
+            FullName<input type="text" name="txtName" value="" /><br/>
             Email <input type="text" name="txtEmail" value="" /><br/>
             Password <input type="password" name="txtPassword" value="" /><br/>
             Confirm Password <input type="password" name="txtCfPassword" value="" /><br/>

@@ -43,7 +43,7 @@ autoSliding();
 
 //stop auto slide when move mouse
 const container = document.querySelector('.slide-container');
-container.addEventListener('mouseover', function(){
+container.addEventListener('mouseover', function () {
     clearInterval(deletInterval);
 });
 
@@ -51,7 +51,7 @@ container.addEventListener('mouseover', function(){
 container.addEventListener('mouseout', autoSliding);
 
 //add and remove active class from the indicators
-function indicators(){
+function indicators() {
     for (i = 0; i < dots.length; i++) {
         dots[i].className = dots[i].className.replace(' active', '');
     }
@@ -66,7 +66,7 @@ function switchImage(currentImage) {
         slideImages[counter].style.animation = 'next1 0.5s ease-in forwards';
         counter = imageId;
         slideImages[counter].style.animation = 'next2 0.5s ease-in forwards';
-    } else if (imageId == counter) {
+    } else if (imageId === counter) {
         return;
     } else {
         slideImages[counter].style.animation = 'prev1 0.5s ease-in forwards';
@@ -75,3 +75,4 @@ function switchImage(currentImage) {
     }
     indicators();
 }
+

@@ -56,7 +56,7 @@ public class HostDAO {
             conn = DBUtils.createConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(sql);
-                ptm.setString(1, pakage.getPakageName());
+              //  ptm.setString(1, pakage.getPakageName());
                 ptm.setDouble(2, pakage.getUnitPrice());
                 ptm.setString(3, pakage.getImage());
                 ptm.setString(4, pakage.getVideo());

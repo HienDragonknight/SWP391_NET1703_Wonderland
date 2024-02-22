@@ -4,70 +4,61 @@
  */
 package controlls.servlet;
 
-import dal.BonusServiceDAO;
-import dal.LocationDAO;
-import dal.PackageDAO;
-import dal.ThemeDAO;
+import dal.UserDAO;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.BonusServiceDTO;
-import models.LocationDTO;
-import models.PackageDTO;
-import models.ThemeDTO;
+import models.UserDTO;
 
 /**
  *
- * @author bao.kun
+ * @author Le Huu Huy
  */
-@WebServlet(name = "ViewBookingServlet", urlPatterns = {"/ViewBookingServlet"})
-public class ViewBookingServlet extends HttpServlet {
+@WebServlet(name = "UpdateAccServlet", urlPatterns = {"/UpdateAccServlet"})
+public class UpdateAccServlet extends HttpServlet {
 
-    private static final String ERROR = "party_booking.jsp";
-    private static final String SUCCESS = "party_booking.jsp";
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String url = ERROR;
-
+        String name = request.getParameter("txtName");
+        String email = request.getParameter("txtEmail");
+        String password = request.getParameter("txtPassword");
+        String phone = request.getParameter("txtPhone");
+        String url = "profile.jsp";
+        
         try {
-
-            // get THEMES_LIST
-            ThemeDAO themeDAO = new ThemeDAO();
-            List<ThemeDTO> themeList = themeDAO.getListThemes();
-
-            // get BONUS_SERVICES
-            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
-
-            // get LOCATION
-            LocationDAO locationDAO = new LocationDAO();
-            List<LocationDTO> locationList = locationDAO.getListLocation();
-
-            PackageDAO packageDAO = new PackageDAO();
-            List<PackageDTO> packageList = packageDAO.getListPackage();
-
-            if (themeList != null && bonusServiceList != null && locationList != null && packageList != null) {
-                url = SUCCESS;
-                request.setAttribute("BONUS_SERVICE_LIST", bonusServiceList);
-                request.setAttribute("THEME_LIST", themeList);
-                request.setAttribute("LIST_LOCATION", locationList);
-                request.setAttribute("PACKAGE_LIST", packageList);
-            }
-
-        } catch (Exception e) {
-            log("Error at ViewBookingServlet");
+           //2. call DAO
+           //2.1 new DAO
+            UserDAO dao = new UserDAO();
+           //2.2 call method of DAO
+            UserDTO result = dao.updateAccount(name, phone, email, password);
+           //3. process result
+           if (result != null) {
+               //refresh --> call previous function again (Search)
+               //--> using url rewriting technique
+               url = "login.jsp";
+           }//delete action is successfull
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            response.sendRedirect(url);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

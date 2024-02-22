@@ -4,8 +4,10 @@
  */
 package controlls.servlet;
 
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ManageAccountServlet", urlPatterns = {"/ManageAccountServlet"})
 public class ManageAccountServlet extends HttpServlet {
-    public final String ERROR = "manageAccount.jsp";
+    private final String ERROR = "manageAccount.jsp";
+    private final String SUCCESS = "ViewUserServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,9 +34,35 @@ public class ManageAccountServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String name = request.getParameter("txtName");
+        String email = request.getParameter("txtEmail");
+        String password = request.getParameter("txtPassword");
+        String phone = request.getParameter("txtPhone");
         String url = ERROR;
+        
         try {
+            if (name == null || email == null || password == null || phone == null
+                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
+                    || phone.trim().isEmpty()) {
+                // Handle the case where any of the parameters are null or empty
+                url = ERROR;
+                request.setAttribute("status", "error");
+            } else {
+                UserDAO dao = new UserDAO();
+                boolean result = dao.manageAccount(name, email, password, phone);
+                if (result) {
+                    url = SUCCESS;
+                    request.setAttribute("status", "success");
+                } else {
+                    url = ERROR;
+                    request.setAttribute("status", "error");
+                }
+            }
             
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Class: " + ex.getMessage());
         } finally {
             response.sendRedirect(url);
         }

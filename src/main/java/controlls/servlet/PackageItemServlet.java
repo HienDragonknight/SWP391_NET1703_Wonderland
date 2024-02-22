@@ -9,7 +9,7 @@ import dal.LocationDAO;
 import dal.PackageDAO;
 import dal.ThemeDAO;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,49 +21,47 @@ import models.LocationDTO;
 import models.PackageDTO;
 import models.ThemeDTO;
 
-/**
- *
- * @author bao.kun
- */
-@WebServlet(name = "ViewBookingServlet", urlPatterns = {"/ViewBookingServlet"})
-public class ViewBookingServlet extends HttpServlet {
+// from packageList: /PackageItemServlet?packageID={}
+@WebServlet(name = "PackageItemServlet", urlPatterns = {"/PackageItemServlet"})
+public class PackageItemServlet extends HttpServlet {
 
-    private static final String ERROR = "party_booking.jsp";
-    private static final String SUCCESS = "party_booking.jsp";
+    private static final String SUCCESS = "package_item.jsp";
+    private static final String ERROR = "package_item.jsp";
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String url = ERROR;
 
         try {
 
-            // get THEMES_LIST
-            ThemeDAO themeDAO = new ThemeDAO();
-            List<ThemeDTO> themeList = themeDAO.getListThemes();
+            String packageID = request.getParameter("packageID");
 
-            // get BONUS_SERVICES
-            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
+            // get package 
+            PackageDAO packageDAO = new PackageDAO();
+            PackageDTO packageDTO = packageDAO.getPackageByID(packageID);
 
-            // get LOCATION
+            // get location 
             LocationDAO locationDAO = new LocationDAO();
             List<LocationDTO> locationList = locationDAO.getListLocation();
 
-            PackageDAO packageDAO = new PackageDAO();
-            List<PackageDTO> packageList = packageDAO.getListPackage();
+            // get bonus service
+            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
+            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
 
-            if (themeList != null && bonusServiceList != null && locationList != null && packageList != null) {
+            // get theme
+            ThemeDAO themeDAO = new ThemeDAO();
+            List<ThemeDTO> themeList = themeDAO.getListThemes();
+
+            if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
                 url = SUCCESS;
+                request.setAttribute("PACKGE_ITEM", packageDTO);
+                request.setAttribute("LOCATION_LIST", locationList);
                 request.setAttribute("BONUS_SERVICE_LIST", bonusServiceList);
                 request.setAttribute("THEME_LIST", themeList);
-                request.setAttribute("LIST_LOCATION", locationList);
-                request.setAttribute("PACKAGE_LIST", packageList);
             }
 
         } catch (Exception e) {
-            log("Error at ViewBookingServlet");
+            log("Error at PackageItemServlet");
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

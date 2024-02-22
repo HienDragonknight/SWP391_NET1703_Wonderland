@@ -1,16 +1,16 @@
 <%-- 
-    Document   : manageAccount
-    Created on : Jan 30, 2024, 7:43:06 AM
+    Document   : profile
+    Created on : Feb 5, 2024, 10:30:35 AM
     Author     : Le Huu Huy
 --%>
 
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Manage Account</title>
-        <link rel="icon" href="image/LogoTron.png"/>
+        <title>Profile</title>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
             * {
@@ -71,15 +71,14 @@
         </style>
     </head>
     <body>
-        
         <div class="container">
-            <header>Create Party Host</header>
+            <header>Profile</header>
             <form action="AdminServlet" method="POST">
-                <input type="text" name="txtName" value="" placeholder="Full Name"/>
-                <input type="email" name="txtEmail" value="" placeholder="Email"/>
-                <input type="password" name="txtPassword" value="" placeholder="Password"/>
-                <input type="text" name="txtPhone" value="" placeholder="Phone"/>
-                <input type="submit" value="Create" name="action" class="btn"/>
+                <input type="text" name="txtName" value="${sessionScope.USER_INFO.fullName}" placeholder="Full Name"/>
+                <input type="email" name="txtEmail" value="${sessionScope.USER_INFO.email}" placeholder="Email"/>
+                <input type="password" name="txtPassword" value="${sessionScope.USER_INFO.password}" placeholder="Password"/>
+                <input type="text" name="txtPhone" value="${sessionScope.USER_INFO.phoneNumber}" placeholder="Phone"/>
+                <input type="submit" value="Edit Account" name="action" class="btn"/>
             </form>
         </div>
     </body>

@@ -1,18 +1,17 @@
 <%-- 
-    Document   : order
-    Created on : Jan 25, 2024, 5:51:00 PM
+    Document   : adminOrder
+    Created on : Feb 1, 2024, 10:15:00 AM
     Author     : Le Huu Huy
 --%>
 
-<%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="java.util.List"%>
+<%@page import="models.OrderDetailDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin</title>
+        <title>Admin Page</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -407,6 +406,47 @@
                 background: #388E3C;
             }
 
+            .admin-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .admin-header a {
+                height: 36px;
+                padding: 0 16px;
+                border-radius: 36px;
+                background: #1976D2;
+                color: #f6f6f9;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                grid-gap: 10px;
+                font-weight: 500;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
+
+            .view-detail {
+                font-size: 16px;
+                text-decoration: underline;
+                color: blue;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -450,6 +490,7 @@
                 </aside>
             </header>
 
+
             <main>
                 <div class="column">
                     <div class="menu">
@@ -475,7 +516,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="#">Order Party</a>
+                                <a href="ViewBookingServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -484,31 +525,31 @@
                         </ul>
                         <ul class="logout">
                             <li>
-                                <a href="#">
-                                    <i class='bx bx-log-out-circle' ></i>
-                                    <span>Logout</span>
-                                </a>
+                                <form action="LogoutServlet" method="POST">
+                                    <i class='bx bx-log-out-circle'></i>
+                                    <input type="submit" value="Logout" name="action" />
+                                </form>
                             </li>
                         </ul>
                     </div>
 
                     <div class="admin-container">
-                        <div>
+                        <div class="admin-header">
                             <h1>Admin Dashboard</h1>
+                            <a href="manageAccount.jsp">Manage Account</a>
                         </div>
                         <%
-                            List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("LIST_ORDER");
+                            List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
-                            int totalUsers = 0; // Counter for total users
-
-                            if (orderList != null) {
-                                for (OrderDTO dto : orderList) {
-                                    totalUsers++;
+                            double totalIncome = 0;
+                            if (result != null) {
+                                for (OrderDetailDTO dto : result) {
+                                    totalIncome += dto.getPrice();
                                 }
                             }
                         %>
-                        <div>
 
+                        <div>
                             <ul class="insights">
                                 <li>
                                     <i class='bx bx-box'></i>
@@ -517,75 +558,87 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <i class='bx bx-user' ></i>
+                                    <i class='bx bx-user'></i>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
                                 </li>
-                                <li><i class='bx bx-line-chart'></i>
-                                    <span class="info">
-                                        <h3>
-                                            14,721
+                                <li>
+                                    <i class='bx bx-money'></i>
+                                    <a href="ViewUserServlet" class="info">
+                                        <h3 style="font-size: 20px;">
+                                            <%= totalIncome %>
                                         </h3>
-                                        <p>Searches</p>
-                                    </span>
+                                        <p>Income</p>
+                                    </a>
                                 </li>
-                                <li><i class='bx bx-dollar-circle'></i>
-                                    <span class="info">
-                                        <h3>
-                                            $6,742
-                                        </h3>
-                                        <p>Total Sales</p>
-                                    </span>
+                                <li>
+                                    <i class='bx bx-face'></i>
+                                    <a href="profile.jsp" class="info">
+                                        <p>Profile</p>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
-                        <!-- End of Insights -->
-                        <form action="ViewUserServlet" method="POST">
-                            <div class="bottom-data">
-                                <div class="orders">
-                                    <div class="header">
-                                        <i class='bx bx-receipt'></i>
-                                        <h3>Amount: <span><%= totalUsers %> Order</span></h3>
-                                        <i class='bx bx-filter'></i>
-                                        <i class='bx bx-search'></i>
-                                    </div>
 
+                        <!-- Users Table -->
+                        <div class="bottom-data">
+                            <div class="orders">
+                                <div class="header">
+                                    <i class='bx bx-receipt'></i>
+                                    <h3>Users</h3>
+                                    <i class='bx bx-filter'></i>
+                                    <i class='bx bx-search'></i>
+                                </div>
+
+                                <form action="AdminServlet" method="POST">
                                     <table>
                                         <thead>
                                             <tr>
+                                                <th>No.</th>
                                                 <th>User</th>
-                                                <th>Date</th>
-                                                <th>TotalPrice</th>
+                                                <th>Date Order</th>
+                                                <th>Party Name</th>
+                                                <th>People</th>
+                                                <th>Theme</th>
+                                                <th>Price</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
-                                        <%
-                                            if (orderList != null) {
-                                                for (OrderDTO dto : orderList) {
-                                        %>
-
-
 
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p><%= dto.getUserName() %></p>
-                                                </td>
-                                                <td><%= dto.getCreateDate() %></td>
-                                                <td><%= dto.getTotalPrice() %></td>
-                                            </tr>
-
-
-
                                             <%
-                                                    }
+                                                int countOrder = 1;
+                                                if (result != null) {
+                                                    for (OrderDetailDTO dto : result) {
+
+
+                                            %>
+                                            <tr>
+                                                <td><%= countOrder++%></td>
+                                                <td><%= dto.getUserName()%></td>
+                                                <td><%= dto.getDateOrder()%></td>
+                                                <td><%= dto.getPackages()%></td>
+                                                <td><%= dto.getAmountPeople()%></td>
+                                                <td><%= dto.getTheme()%></td>
+                                                <td><%= dto.getPrice()%></td>
+                                                <td><%= dto.getStatus()%></td>
+                                                <td>
+                                                    <a class="view-detail" href="#">
+                                                        View Details
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <%                                                    }
                                                 }
                                             %>
+                                        </tbody>
                                     </table>
-
-                                </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+
+
                     </div>
 
             </main>
