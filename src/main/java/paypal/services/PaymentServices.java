@@ -60,7 +60,7 @@ public class PaymentServices {
         payerInfo.setFirstName("John")
                 .setLastName("Bao")
                 .setEmail("sb-koxdo29488218@personal.example.com");
-        // password: 4?{*HHEg
+            // password: 4?{*HHEg
 
         payer.setPayerInfo(payerInfo);
 
