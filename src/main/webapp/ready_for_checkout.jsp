@@ -369,25 +369,27 @@
 
                             <div class="block-summary-content">
                                 <tbody>
-                                    <tr class="totals sub">
+                                    <tr>
 
-                                <span class="lable">Price</span>
+                                <span class="lable">Subtotal</span>
                                 <span class="price-multiple" id="price-multiple">0$</span>
 
-                                </tr> <br>
+                                </tr> 
 
-                                <tr class="totals shipping excl">
+                                <br>
+
+                                <tr >
 
                                 <span class="label" >Bonus Service</span>
-                                <span class="value" id="price-bonus">0$</span>
+                                <span class="price-bonus" id="price-bonus">0$</span>
 
 
                                 </tr>  <br>
 
-                                <tr class="grand totals">
+                                <tr>
 
                                 <strong>Total</strong>
-                                <strong><span class="price" id="price-total">0$</span></strong>
+                                <strong><span class="price-total" id="price-total">0$</span></strong>
 
                                 </tr>
                                 </tbody>
@@ -411,11 +413,11 @@
 
                             <div class="customer-info-details" >
 
-                                <form action="#" method="POST">
+                                <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
                                     <div class="control"">
                                         <input class="input-text" type="text"  name="fullName" placeholder="Full name" required="" ><br>
-                                        <input class="input-text" type="email"  name="email" placeholder="Email" required="" ><br>
-                                        <input class="input-text" type="tel"  name="phone" placeholder="Phone" required="" ><br>
+                                        <input class="input-text" type="email" name="email" id="email" placeholder="Email"><br>
+                                        <input class="input-text" type="tel" name="phone" id="phone" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="formatPhoneNumber(this)"><br>
                                         <textarea class="input-text" id="order-note" name="note" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
                                         <button  type="submit" class="button action continue primary">
                                             <span>Payment</span>
@@ -426,6 +428,10 @@
                                         <input type="hidden" id="number-children" name="number-children" value="" /><br>
                                         <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
                                         <input type="hidden" id="location-id" name="location-id" value="" /><br>
+                                        <input type="hidden" id="subtotal"  name="subtotal" value=""> 
+                                        <input type="hidden" id="shipping"  name="shipping" value=""> 
+                                        <input type="hidden" id="tax"  name="tax" value=""> 
+                                        <input type="hidden" id="total"  name="total" value=""> 
                                     </div>
                                 </form>
                             </div>
@@ -523,25 +529,26 @@
             var numberOfChildren = document.getElementById("number-of-children");
             var pricePackageUnit = document.getElementById("price-unit");
 
-            locationName.outerHTML = packageData['center'].split('-')[1];
-            numberOfChildren.outerHTML = packageData['childrenNums'];
+            locationName.innerHTML = packageData['center'].split('-')[1];
+            numberOfChildren.innerHTML = packageData['childrenNums'];
             var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-            pricePackageUnit.outerHTML = pricePackageUnitValue + '$';
+            pricePackageUnit.innerHTML = pricePackageUnitValue + '$';
 
 
             var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
             var priceMultiple = document.getElementById("price-multiple");
-            priceMultiple.outerHTML = priceMultipleValue + '$';
+            priceMultiple.innerHTML = priceMultipleValue + '$';
 
             var bonusServiceValue = packageData["bonusService"].split(' ')[1];
             var bonusService = document.getElementById("price-bonus");
-            bonusService.outerHTML = bonusServiceValue + '$';
+            bonusService.innerHTML = bonusServiceValue + '$';
 
             var totalValue = parseInt(priceMultipleValue) + parseInt(bonusServiceValue);
             var total = document.getElementById("price-total");
-            total.outerHTML = totalValue + '$';
+            total.innerHTML = totalValue + '$';
 
         }
+        updateOrderInfomation();
 
 
 
@@ -585,10 +592,76 @@
 
         }
 
-
         updateCartCount();
-        updateOrderInfomation();
         setValueToOrderDetailForm();
+
+
+
+        document.getElementById('form-to-payment').addEventListener('submit', function (event) {
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+
+            if (email.trim() === '' && phone.trim() === '') {
+                alert('Please enter either your email or phone number.');
+                event.preventDefault(); // prevent form submission
+            }
+        });
+
+
+
+
+
+
+
+
+
+        function updatePayPalForm()
+        {
+            // set value for SubTotal
+            var subtotal = document.getElementById("subtotal");
+            var price_multiple = document.getElementById("price-multiple");
+            subtotal.value = price_multiple.innerHTML.split('$')[0];
+
+            // set value for Shipping: suppose Shipping value  =  BonusService value
+            var shipping = document.getElementById("shipping");
+            var price_bonus = document.getElementById("price-bonus");
+            shipping.value = price_bonus.innerHTML.split('$')[0];
+
+            // set value for tax
+            var tax = document.getElementById("tax");
+            tax.value = 0;
+
+            // set value for total
+            var total = document.getElementById("total");
+            var price_total = document.getElementById("price-total");
+            total.value = price_total.innerHTML.split('$')[0];
+        }
+
+        updatePayPalForm();
+
+
+
+        var inputPhone = document.getElementById("phone");
+
+        function formatPhoneNumber(inputPhone) {
+            // Remove non-numeric characters from the input
+            var phoneNumber = inputPhone.value.replace(/\D/g, '');
+
+            // Check if the input value is empty or not
+            if (phoneNumber.length > 0) {
+                // Create a regular expression to match the desired phone number format
+                var regex = /^(\d{1})(\d{2})(\d{3})(\d{4})$/;
+
+                // Apply the regular expression to the phone number
+                var formattedPhoneNumber = phoneNumber.replace(regex, '0$2-$3-$4');
+
+                // Update the input value with the formatted phone number
+                inputPhone.value = formattedPhoneNumber;
+            }
+        }
+
+// Call the function with the inputPhone argument
+        formatPhoneNumber(inputPhone);
 
 
     </script>

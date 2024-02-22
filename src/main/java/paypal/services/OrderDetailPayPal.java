@@ -29,7 +29,7 @@ public class OrderDetailPayPal {
     }
     
     public String getSubTotal() {
-        return String.format("%.2f", subTotal);
+        return String.format("%.1f", subTotal);
     }
     
     public void setSubTotal(float subTotal) {
@@ -37,7 +37,7 @@ public class OrderDetailPayPal {
     }
     
     public String getShipping() {
-        return String.format("%.2f", shipping);
+        return String.format("%.1f", shipping);
     }
     
     public void setShipping(float shipping) {
@@ -45,7 +45,7 @@ public class OrderDetailPayPal {
     }
     
     public String getTax() {
-        return String.format("%.2f", tax);
+        return String.format("%.1f", tax);
     }
     
     public void setTax(float tax) {
@@ -53,7 +53,7 @@ public class OrderDetailPayPal {
     }
     
     public String getTotal() {
-        return String.format("%.2f", total);
+        return String.format("%.1f", total);
     }
     
     public void setTotal(float total) {

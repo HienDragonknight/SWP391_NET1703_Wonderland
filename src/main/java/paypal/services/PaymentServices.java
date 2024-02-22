@@ -12,18 +12,18 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payer;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.PaymentExecution;
 import com.paypal.api.payments.RedirectUrls;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentServices {
 
-    private static final String CLIENT_ID = "AftudlEyEA0-OvtUKbmINdQniVHtIW2dSJW2gvN_23GQdeQMcyrZIw0f6JQFjaJhe8EUazQgCZNW6ycL";
-    private static final String SECRET = "EIUFsN0ZoeIbdv2_94I9LNSoe58NNofWpSZXCKKuq4nPTd4IrUrL6IehHXGFUw_GJQ71G8J9ivVkcIuq";
+    private static final String CLIENT_ID = "AYJg27UKpdkYMjOipKNQr-BnMnOH_cmEEubaxO38pU45b0oFBPq5yMea7pew9M7Hm95mWLV3Bw3Evb1y";
+    private static final String CLIENT_SECRET = "EDVbYlLO8X4L3HcN4V9PBGoaBTC9y6Brn2_a_6uIt6yxk-pMz1RcfUnfm74DBX_juk3gqyHU29gL6X_r";
     private static final String MODE = "sandbox";
 
     // this method using for send payment details for Payer for verification
@@ -39,7 +39,7 @@ public class PaymentServices {
                 .setPayer(payer)
                 .setIntent("authorize");
 
-        APIContext apiContext = new APIContext(CLIENT_ID, SECRET, MODE);    // create APIContext object to connect PayPal Server
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);    // create APIContext object to connect PayPal Server
         Payment approvedPayment = requestPayment.create(apiContext);
 
         System.out.println(approvedPayment);
@@ -47,14 +47,20 @@ public class PaymentServices {
         return getApprovalLink(approvedPayment);
     }
 
+    public Payment getPaymentDetails(String paymentID) throws PayPalRESTException {
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+        return Payment.get(apiContext, paymentID);
+    }
+
     private Payer getPayerInfomation() {
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
 
         PayerInfo payerInfo = new PayerInfo();
-        payerInfo.setFirstName("Tran")
+        payerInfo.setFirstName("John")
                 .setLastName("Bao")
-                .setEmail("bao@gmail.com");
+                .setEmail("sb-koxdo29488218@personal.example.com");
+        // password: 4?{*HHEg
 
         payer.setPayerInfo(payerInfo);
 
@@ -65,8 +71,8 @@ public class PaymentServices {
         RedirectUrls redirectUrls = new RedirectUrls();
 
         // create 2 redirect URL
-        redirectUrls.setCancelUrl("http://localhost:6969/SWP391_NET1703_Wonderland/cancel.html");            // this url is used when user cancels the payment
-        redirectUrls.setReturnUrl("http://localhost:6969/SWP391_NET1703_Wonderland/review_payment.html");    // this url is used when user accepts to continue the payment
+        redirectUrls.setCancelUrl("http://localhost:6969/SWP391_NET1703_Wonderland/cancel_paypal.html");            // this url is used when user cancels the payment
+        redirectUrls.setReturnUrl("http://localhost:6969/SWP391_NET1703_Wonderland/review_payment_paypal");    // this url is used when user accepts to continue the payment
 
         return redirectUrls;
     }
@@ -118,4 +124,15 @@ public class PaymentServices {
         }
         return approvalLink;
     }
+
+    public Payment executePayment(String paymentId, String payerID) throws PayPalRESTException {
+        PaymentExecution paymentExecution = new PaymentExecution();
+        paymentExecution.setPayerId(payerID);
+        
+        Payment payment = new Payment().setId(paymentId);
+
+        APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
+        return payment.execute(apiContext, paymentExecution);
+    }
+
 }
