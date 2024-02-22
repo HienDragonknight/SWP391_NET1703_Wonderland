@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package paypal.services;
+package controlls.servlet;
 
+import com.paypal.api.payments.PayerInfo;
+import com.paypal.api.payments.Payment;
+import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,31 +15,46 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import paypal.services.PaymentServices;
 
-@WebServlet(name = "AuthorizePaymentPayPalServlet", urlPatterns = {"/authorize_payment_paypal"})
-public class AuthorizePaymentPayPalServlet extends HttpServlet {
-    
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        
+/**
+ *
+ * @author bao.kun
+ */
+@WebServlet(name = "ExecutePaymentPayPalServlet", urlPatterns = {"/execute_payment_paypal"})
+public class ExecutePaymentPayPalServlet extends HttpServlet {
+
+    private static final long serialVersionUID = 1L;
+
+    public ExecutePaymentPayPalServlet() {
+        super();
+    }
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        String paymentID = request.getParameter("paymentId");
+        String payerID = request.getParameter("PayerID");
+
         try {
-            String packageProduct = request.getParameter("packageProduct");
-            String subtotal = request.getParameter("subtotal");
-            String shipping = request.getParameter("shipping");
-            String tax = request.getParameter("tax");
-            String total = request.getParameter("total");
-            
-            OrderDetailPayPal orderDetail = new OrderDetailPayPal(packageProduct, subtotal, shipping, tax, total);
-            
-            PaymentServices paymentService = new PaymentServices();
-            String approvalLink = paymentService.authorizedPayment(orderDetail);
-            response.sendRedirect(approvalLink);
-            
+            PaymentServices paymentServices = new PaymentServices();
+            Payment payment = paymentServices.executePayment(paymentID, payerID);
+
+            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+            Transaction transaction = payment.getTransactions().get(0);
+
+            request.setAttribute("PAYER", payerInfo);
+            request.setAttribute("TRANSACTION", transaction);
+
+            request.getRequestDispatcher("receipt_paypal.jsp").forward(request, response);
+
         } catch (PayPalRESTException e) {
-            log("Error at AuthorizePaymentPayPalServlet");
-            request.setAttribute("ERROR_MESSAGE", e.getMessage());
+            e.getStackTrace();
+            request.setAttribute("ERROR_MESSAGE", "Could not execute payment");
             request.getRequestDispatcher("error_paypal.jsp").forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

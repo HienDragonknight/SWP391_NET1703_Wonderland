@@ -288,7 +288,7 @@ public class UserDAO implements Serializable {
         return result;
     }
     
-    public UserDTO updateAccount(String name, String phone, String email, String password) throws ClassNotFoundException, SQLException {
+    public UserDTO updateAccount(String name, String phone, String email, String password, String cEmail) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
 //        boolean result = false;
@@ -305,7 +305,7 @@ public class UserDAO implements Serializable {
                 stm.setString(2, phone);
                 stm.setString(3, email);
                 stm.setString(4, password);
-                stm.setString(5, email);
+                stm.setString(5, cEmail);
                 //execute query
                 int effectRows = stm.executeUpdate();
                 //process
@@ -373,4 +373,37 @@ public class UserDAO implements Serializable {
             }
         }
     }
+    
+    public UserDTO reportCus(String report, String email) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+//        boolean result = false;
+        UserDTO result = null;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "UPDATE users SET reported = ? WHERE email = ?";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, report);
+                stm.setString(2, email);
+                //execute query
+                int effectRows = stm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, sql, email, report, email, email, ID, report);
+                }
+            }//end connection is available
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    } 
 }

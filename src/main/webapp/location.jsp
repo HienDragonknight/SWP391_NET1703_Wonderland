@@ -293,14 +293,14 @@
                 justify-content: center;
                 align-items: center;
             }
-            
+
             .logout li form {
                 display: flex;
                 gap: 20px;
                 color: red;
                 cursor: pointer
             }
-            
+
             .logout li form input {
                 border: none;
                 background-color: #fff;
@@ -308,9 +308,51 @@
                 color: red;
                 cursor: pointer;
             }
-            
+
             main {
                 margin-bottom: 30px;
+            }
+
+            .map-wrapper {
+                margin-top: 20px;
+            }
+
+            .location-map {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 20px;
+            }
+
+            .map-information {
+                display: flex;
+                padding: 0px 100px;
+                margin-top: 20px;
+            }
+
+            .map-content {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .map-info-location {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .info-location {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .info-location div {
+                display: flex;
+                flex-direction: column;
             }
 
             @media screen and (max-width: 992px) {
@@ -449,10 +491,80 @@
                             </ul>
                         </div>
 
+                        <div class="map-wrapper">
+                            <div class="location-map">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251637.49974770905!2d105.61890389777197!3d9.779946371442254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08802e41c6519%3A0xb89484264970426c!2stiNiWorld!5e0!3m2!1svi!2s!4v1707787334630!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
 
+                            <div class="map-information">
+                                <div>
+                                    <img src="https://tiniworld.com/media/wysiwyg/Group_912_1__2.png"/>
+                                </div>
 
+                                <div class="map-content">
+                                    <h1 style="font-weight: 400">
+                                        WONDER SYSTEM
+                                    </h1>
 
+                                    <p style="font-weight: 100">
+                                        The central system stretches from North to South, with impressive talking numbers!
+                                    </p>
 
+                                    <div class="map-info-location">
+                                        <div class="info-location">
+                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                            42
+                                            </font>
+
+                                            <div>
+                                                <font style="font-size: 18px;">
+                                                CENTER
+                                                </font>
+                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group.png" alt="LogoCN"/>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="info-location">
+                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                            35
+                                            </font>
+
+                                            <div>
+                                                <font style="font-size: 18px;">
+                                                CENTER
+                                                </font>
+                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_1_.png" alt="LogoCN"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="map-info-location">
+                                        <div class="info-location">
+                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                            2000
+                                            </font>
+
+                                            <div>
+                                                <font style="font-size: 18px;">
+                                                SALE POINT
+                                                </font>
+                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_2_.png" alt="LogoCN"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="info-location">
+                                            <font style="font-size: 40px; font-weight: 500; color: #045FB4">
+                                            > 12,000,000
+                                            <p style="font-size: 18px; color: #1b2d5a; text-align: center;">
+                                                CUSTOMERS/YEAR
+                                            </p>
+                                            </font>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
 
                     </div>
                 </div>
@@ -562,9 +674,80 @@
                 <ul class="listPage">
                 </ul>
             </div>
+            <div class="map-wrapper">
+                <div class="location-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251637.49974770905!2d105.61890389777197!3d9.779946371442254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08802e41c6519%3A0xb89484264970426c!2stiNiWorld!5e0!3m2!1svi!2s!4v1707787334630!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
 
+                <div class="map-information">
+                    <div>
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_912_1__2.png"/>
+                    </div>
 
+                    <div class="map-content">
+                        <h1 style="font-weight: 400">
+                            WONDER SYSTEM
+                        </h1>
 
+                        <p style="font-weight: 100">
+                            The central system stretches from North to South, with impressive talking numbers!
+                        </p>
+
+                        <div class="map-info-location">
+                            <div class="info-location">
+                                <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                42
+                                </font>
+
+                                <div>
+                                    <font style="font-size: 18px;">
+                                    CENTER
+                                    </font>
+                                    <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group.png" alt="LogoCN"/>
+
+                                </div>
+                            </div>
+
+                            <div class="info-location">
+                                <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                35
+                                </font>
+
+                                <div>
+                                    <font style="font-size: 18px;">
+                                    CENTER
+                                    </font>
+                                    <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_1_.png" alt="LogoCN"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="map-info-location">
+                            <div class="info-location">
+                                <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                2000
+                                </font>
+
+                                <div>
+                                    <font style="font-size: 18px;">
+                                    SALE POINT
+                                    </font>
+                                    <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_2_.png" alt="LogoCN"/>
+                                </div>
+                            </div>
+
+                            <div class="info-location">
+                                <font style="font-size: 40px; font-weight: 500; color: #045FB4">
+                                > 12,000,000
+                                <p style="font-size: 18px; color: #1b2d5a; text-align: center;">
+                                    CUSTOMERS/YEAR
+                                </p>
+                                </font>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            </div>
 
         </div>
     </div>

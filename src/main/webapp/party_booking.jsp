@@ -255,11 +255,18 @@
                 margin-bottom: 20px;
             }
 
+            .intro-text button {
+                border: none;
+                border-radius: 5px;
+            }
+
             .intro-text button a{
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: 8px;
+                color: #5773ff;
+                gap: 5px;
             }
 
             .logout {
@@ -284,7 +291,7 @@
                 border-top-right-radius: 50%;
                 font-family: 'Poppins', sans-serif;
             }
-            
+
             footer {
                 height: 100%;
             }
@@ -415,6 +422,11 @@
             .about {
                 background: #FFF5CB;
                 padding: 50px;
+                border-top-left-radius: 25%;
+                border-top-right-radius: 25%;
+                border-bottom-left-radius: 25%;
+                border-bottom-right-radius: 25%;
+                margin-bottom: 40px;
             }
 
             .about .about-top h2 {
@@ -435,6 +447,127 @@
                 align-items: center;
                 gap: 20px;
                 margin-bottom: 60px;
+            }
+
+            .service {
+                padding: 60px;
+            }
+
+            .service-container {
+                margin: 0px 231.5px;
+                padding: 0px 7.5px;
+            }
+
+            .special-image {
+                width: 100%;
+                border-radius: 50px;
+                margin-top: 20px;
+            }
+
+            .service .service-heading{
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .special-title {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .special-title span {
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            .special-image {
+                margin-bottom: 20px;
+            }
+
+            .special-image img {
+                width: 100%;
+                border-radius: 30px;
+            }
+
+            .theme {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                margin-bottom: 20px;
+            }
+
+            .theme h4 {
+                border: 1px solid #ffa000;
+                max-width: 250px;
+                padding: 10px 20px;
+                border-radius: 30px;
+                position: relative;
+                top: 20px;
+                background: #fff;
+            }
+
+            .theme-container {
+                background-color: #fff8e0;
+                border-radius: 32px;
+                padding: 40px;
+                margin: 0 auto;
+            }
+
+            .service-other {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .services-others-contents {
+                border-radius: 32px;
+                border: 6px dashed #c0f0ff;
+                padding: 30px 0;
+                gap: 30px;
+                margin-top: 20px;
+            }
+
+            .services-other-list {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: 0 auto;
+                gap: 150px;
+            }
+
+            .services-other-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .service-desc {
+                padding: 20px 0px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .service-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .service-btn button {
+                padding: 20px;
+                border-radius: 30px;
+                background: #00a0e0;
+                border: none;
+            }
+
+            .service-btn button a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -564,7 +697,7 @@
 
                 <div class="about">
                     <div class="about-top">
-                        <h2>WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
+                        <h2 style="color: #005198;">WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
                         <div class="ups-row">
                             <div class="ups-row-content">
                                 <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
@@ -601,6 +734,113 @@
                                 <div>
                                     <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service">
+                    <div class="service-container">
+                        <div class="service-heading">
+                            <h1 style="color: #005198;">SPECIAL SERVICE</h1>
+                        </div>
+
+                        <div class="special-title">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/color-wheel%201.png"/>
+                            <span style="color: #005198; font-weight: bold">Full decoration according to theme</span>
+                        </div>
+
+                        <div class="special-image">
+                            <img src="https://tiniworld.com/media/wysiwyg/birthday/birthday_slide-3.png"/>
+                        </div>
+
+                        <div class="theme">
+                            <h4 style="color: #ffa000; text-align: center">HOT decoration theme</h4>
+
+                            <div class="theme-container">
+                                <div class="service-theme">
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(2).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(3).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(4).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(5).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(6).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(7).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(8).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(9).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(10).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(11).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(12).png"/>
+                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(15).png"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="service-other">
+                            <div class="special-title">
+                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png"/>
+                                <span style="color: #005198; font-weight: bold">Other services</span>
+                            </div>
+
+                            <div class="services-others-contents">
+                                <div class="services-other-list">
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(1).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Smash Pinata candy</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(2).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Bubble clown</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(4).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Giant bubble</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(6).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">English MC</font>
+                                    </div>
+                                </div>
+                                <br/>
+                                <br/>
+                                <div class="services-other-list">
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(8).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Artistic face painting</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(3).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Magic magic</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(5).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Lovely cake</font>
+                                    </div>
+                                    <div class="services-other-item">
+                                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png"/>
+                                        <br>
+                                        <font style="font-size: 19px; color: #00c2f3">Gift for baby</font>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="service-desc">
+                                <font>Please contact Wonder staff for advice on special services</font>
+                            </div>
+
+                            <div class="service-btn">
+                                <button>
+                                    <a href="#">
+                                        <i style="color: #FFAC85" class='bx bx-cake' ></i>
+                                        <font style="color: #fff">CONTACT FOR CONSULATION</font>
+                                    </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -721,6 +961,12 @@
         </div>
 
         <div class="column-content">
+            <div class="add-ab">
+                <a href="home.jsp">Home</a><span> &#10095; Booking</span>
+            </div>
+            
+            <h1>Party Booking</h1>
+            
             <div class="slide-container">
                 <div class="slides">
                     <img src="image/cover1.jpg" alt="image #1" class="active"/>
@@ -805,6 +1051,113 @@
                     <div>
                         <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service">
+        <div class="service-container">
+            <div class="service-heading">
+                <h1 style="color: #005198;">SPECIAL SERVICE</h1>
+            </div>
+
+            <div class="special-title">
+                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/color-wheel%201.png"/>
+                <span style="color: #005198; font-weight: bold">Full decoration according to theme</span>
+            </div>
+
+            <div class="special-image">
+                <img src="https://tiniworld.com/media/wysiwyg/birthday/birthday_slide-3.png"/>
+            </div>
+
+            <div class="theme">
+                <h4 style="color: #ffa000; text-align: center">HOT decoration theme</h4>
+
+                <div class="theme-container">
+                    <div class="service-theme">
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(2).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(3).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(4).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(5).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(6).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(7).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(8).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(9).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(10).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(11).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(12).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(15).png"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-other">
+                <div class="special-title">
+                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png"/>
+                    <span style="color: #005198; font-weight: bold">Other services</span>
+                </div>
+
+                <div class="services-others-contents">
+                    <div class="services-other-list">
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(1).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Smash Pinata candy</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(2).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Bubble clown</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(4).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Giant bubble</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(6).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">English MC</font>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="services-other-list">
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(8).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Artistic face painting</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(3).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Magic magic</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(5).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Lovely cake</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Gift for baby</font>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-desc">
+                    <font>Please contact Wonder staff for advice on special services</font>
+                </div>
+
+                <div class="service-btn">
+                    <button>
+                        <a href="#">
+                            <i style="color: #FFAC85" class='bx bx-cake' ></i>
+                            <font style="color: #fff">CONTACT FOR CONSULATION</font>
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>

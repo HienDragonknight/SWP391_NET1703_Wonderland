@@ -229,6 +229,41 @@
                 cursor: pointer;
             }
 
+            .intro-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .intro-top {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .intro-top h2 {
+                margin: 22px 0px 15px;
+            }
+
+            .intro-top div {
+                margin: 0px 405.5px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .intro-top div p font {
+                font-size: 15px;
+                color: #1b2d5a;
+            }
+
+            .intro-top img {
+                width: 20%;
+            }
+
             .intro-wrapper {
                 display: flex;
                 justify-content: center;
@@ -237,6 +272,7 @@
                 padding-right: 100px;
                 margin-top: 30px;
                 gap: 30px;
+                flex-direction: column
             }
 
             .intro-image {
@@ -249,18 +285,32 @@
             }
 
             .intro-text {
-                width: 50%;
-            }
-
-            .intro-text p {
-                margin-bottom: 20px;
-            }
-
-            .intro-text button a{
+                width: 20%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                padding: 8px;
+                gap: 10px;
+                flex-direction: column;
+            }
+
+            .intro-text h2,
+            .intro-text p {
+                margin-bottom: 15px;
+            }
+
+            .intro-text a {
+                background: #DF005B;
+                padding: 10px 30px;
+                border-radius: 30px;
+                font-style: italic;
+                color: #fff;
+            }
+
+            .intro-birthday {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 50px;
             }
 
             .logout {
@@ -285,7 +335,7 @@
                 border-top-right-radius: 50%;
                 font-family: 'Poppins', sans-serif;
             }
-            
+
             footer {
                 height: 100%;
             }
@@ -398,6 +448,40 @@
                     left: -100%;
                 }
             }
+
+            .promo {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .promo div {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .promo div {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            .promo h4 {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                right: 500px;
+            }
+
+            .promo h4 font {
+                font-weight: 100;
+            }
         </style>
     </head>
     <body>
@@ -494,30 +578,151 @@
                             </div>
                         </div>
 
-                        <div class="intro-wrapper">
-                            <div class="intro-image">
-                                <img src="image/Birthday.png" alt="Birthday"/>
-                            </div>
-                            <div class="intro-text">
+                        <div class="intro-container">
+                            <div class="intro-top">
+                                <img src="image/LogoTron.png"/>
+
                                 <div>
-                                    <p>
-                                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                                    </p>
-                                    <p>
-                                        With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
+                                    <h2 style="color: #0b96d3">
+                                        WHAT'S ATTRACTIVE ABOUT WONDERLANDS?
+                                    </h2>
+
+                                    <p style="text-align: center">
+                                        <font style="vertical-align: inherit;">
+                                        <font style="vertical-align: inherit;">
+                                        As the leading chain of Education-Entertain centers in Vietnam, wonderlands continuously applies modern technology to playgrounds specifically for children from 0-12 years old.
+                                        </font>
+                                        </font>
                                     </p>
                                 </div>
-                                <button>
-                                    <a href="#">
-                                        <i class='bx bx-cake' ></i>
-                                        <span>Contact to book a party</span>
-                                    </a>
-                                </button>
                             </div>
+
+                            <div style="background: #E2FEFF; border-radius: 10px;" class="intro-wrapper">
+                                <div>
+                                    <img src="https://tiniworld.com/media/wysiwyg/Group_1284.png"/>
+                                </div>
+                                <div class="intro-birthday">
+
+                                    <div class="intro-text">
+                                        <div>
+                                            <h2 style="color: #ce2020">BIRTHDAY PARTY</h2>
+                                            <p>
+                                                <font style="vertical-align: inherit">
+                                                <font style="vertical-align: inherit">
+                                                Feel free to book themed birthday parties, invite friends to have fun & enjoy delicious food, only at wonderlands!
+                                                </font>
+                                                </font>
+                                            </p>
+
+                                            <p>
+                                                <font style="vertical-align: inherit">
+                                                <font style="vertical-align: inherit">
+                                                Hotline number: 1900 63 63 28
+                                                </font>
+                                                </font>
+                                            </p>
+                                        </div>
+                                        <a href="#">
+                                            <span>CONTACT HOTLINE</span>
+                                        </a>
+                                    </div>
+                                    <div class="intro-image">
+                                        <img src="image/Birthday.png" alt="Birthday"/>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="background: #FDFFE5; border-radius: 10px;" class="intro-wrapper">
+                                <div>
+                                    <img src="https://tiniworld.com/media/wysiwyg/Group_975.png"/>
+                                </div>
+                                <div class="intro-birthday">
+                                    <div class="intro-image">
+                                        <img src="https://tiniworld.com/media/wysiwyg/Workshop_1.jpg" alt="Birthday"/>
+                                    </div>
+                                    <div class="intro-text">
+                                        <div>
+                                            <h2 style="color: #eb6300">CLASSES & WORKSHOPS</h2>
+                                            <p>
+                                                <font style="vertical-align: inherit">
+                                                <font style="vertical-align: inherit">
+                                                A series of workshop activities with a variety of topics are held weekly, giving children the opportunity to maximize their creativity and open their thinking.
+                                                </font>
+                                                </font>
+                                            </p>
+                                        </div>
+                                        <a style="background: #07b3fb; font-style: initial" href="#">
+                                            <span>CONTACT HOTLINE</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div style="background: #E5FFC3; border-radius: 10px;" class="intro-wrapper">
+                                <div>
+                                    <img src="https://tiniworld.com/media/wysiwyg/Group_977.png"/>
+                                </div>
+                                <div class="intro-birthday">
+                                    <div class="intro-text">
+                                        <div>
+                                            <h2 style="color: #00875d">EVENTS & EXTRACURRICULARS</h2>
+                                            <p>
+                                                <font style="vertical-align: inherit">
+                                                <font style="vertical-align: inherit">
+                                                A series of workshop activities with a variety of topics are held weekly, giving children the opportunity to maximize their creativity and open their thinking.
+                                                </font>
+                                                </font>
+                                            </p>
+                                        </div>
+                                        <a style="background: #07b3fb; font-style: initial" href="#">
+                                            <span>CONTACT NOW</span>
+                                        </a>
+                                    </div>
+
+                                    <div class="intro-image">
+                                        <img src="https://tiniworld.com/media/wysiwyg/B2B_1.jpg" alt="Birthday"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="promo">
+                            <div>
+                                <h2>
+                                    PROMOTIONAL NEWSLETTER
+                                </h2>
+
+                                <font style="vertical-align: inherit">
+                                Don't miss the opportunity to have fun and shop at super savings from wonder!
+                                </font>
+                            </div>
+
+                            <h4>
+                                <img src="image/icon.png" alt="icon"/>
+                                <span>Explosive incentives with Combo wonderLands</span> 
+
+                            </h4>
+
+                            <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/workshop_free_1_.png"/>
+
+                        </div>
+
+                        <div class="promo">
+
+                            <h4>
+                                <img src="image/icondeal.png" alt="icon"/>
+                                <span>wonderStore UP TO 60%++ OFF</span> 
+
+                            </h4>
+
+                            <img style="width: 100%; padding: 0px 50px" src="https://tiniworld.com/media/wysiwyg/nayne_1.jpg"/>
+
                         </div>
                     </div>
                 </div>
-
             </main>
 
             <footer class="page-footer">
@@ -654,30 +859,151 @@
                 </div>
             </div>
 
-            <div class="intro-wrapper">
-                <div class="intro-image">
-                    <img src="image/Birthday.png" alt="Birthday"/>
-                </div>
-                <div class="intro-text">
+            <div class="intro-container">
+                <div class="intro-top">
+                    <img src="image/LogoTron.png"/>
+
                     <div>
-                        <p>
-                            Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                        </p>
-                        <p>
-                            With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
+                        <h2 style="color: #0b96d3">
+                            WHAT'S ATTRACTIVE ABOUT WONDERLANDS?
+                        </h2>
+
+                        <p style="text-align: center">
+                            <font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                            As the leading chain of Education-Entertain centers in Vietnam, wonderlands continuously applies modern technology to playgrounds specifically for children from 0-12 years old.
+                            </font>
+                            </font>
                         </p>
                     </div>
-                    <button>
-                        <a href="#">
-                            <i class='bx bx-cake' ></i>
-                            <span>Contact to book a party</span>
-                        </a>
-                    </button>
                 </div>
+
+                <div style="background: #E2FEFF; border-radius: 10px;" class="intro-wrapper">
+                    <div>
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_1284.png"/>
+                    </div>
+                    <div class="intro-birthday">
+
+                        <div class="intro-text">
+                            <div>
+                                <h2 style="color: #ce2020">BIRTHDAY PARTY</h2>
+                                <p>
+                                    <font style="vertical-align: inherit">
+                                    <font style="vertical-align: inherit">
+                                    Feel free to book themed birthday parties, invite friends to have fun & enjoy delicious food, only at wonderlands!
+                                    </font>
+                                    </font>
+                                </p>
+
+                                <p>
+                                    <font style="vertical-align: inherit">
+                                    <font style="vertical-align: inherit">
+                                    Hotline number: 1900 63 63 28
+                                    </font>
+                                    </font>
+                                </p>
+                            </div>
+                            <a href="#">
+                                <span>CONTACT HOTLINE</span>
+                            </a>
+                        </div>
+                        <div class="intro-image">
+                            <img src="image/Birthday.png" alt="Birthday"/>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="background: #FDFFE5; border-radius: 10px;" class="intro-wrapper">
+                    <div>
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_975.png"/>
+                    </div>
+                    <div class="intro-birthday">
+                        <div class="intro-image">
+                            <img src="https://tiniworld.com/media/wysiwyg/Workshop_1.jpg" alt="Birthday"/>
+                        </div>
+                        <div class="intro-text">
+                            <div>
+                                <h2 style="color: #eb6300">CLASSES & WORKSHOPS</h2>
+                                <p>
+                                    <font style="vertical-align: inherit">
+                                    <font style="vertical-align: inherit">
+                                    A series of workshop activities with a variety of topics are held weekly, giving children the opportunity to maximize their creativity and open their thinking.
+                                    </font>
+                                    </font>
+                                </p>
+                            </div>
+                            <a style="background: #07b3fb; font-style: initial" href="#">
+                                <span>CONTACT HOTLINE</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div style="background: #E5FFC3; border-radius: 10px;" class="intro-wrapper">
+                    <div>
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_977.png"/>
+                    </div>
+                    <div class="intro-birthday">
+                        <div class="intro-text">
+                            <div>
+                                <h2 style="color: #00875d">EVENTS & EXTRACURRICULARS</h2>
+                                <p>
+                                    <font style="vertical-align: inherit">
+                                    <font style="vertical-align: inherit">
+                                    A series of workshop activities with a variety of topics are held weekly, giving children the opportunity to maximize their creativity and open their thinking.
+                                    </font>
+                                    </font>
+                                </p>
+                            </div>
+                            <a style="background: #07b3fb; font-style: initial" href="#">
+                                <span>CONTACT NOW</span>
+                            </a>
+                        </div>
+
+                        <div class="intro-image">
+                            <img src="https://tiniworld.com/media/wysiwyg/B2B_1.jpg" alt="Birthday"/>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="promo">
+                <div>
+                    <h2>
+                        PROMOTIONAL NEWSLETTER
+                    </h2>
+
+                    <font style="vertical-align: inherit">
+                    Don't miss the opportunity to have fun and shop at super savings from wonder!
+                    </font>
+                </div>
+
+                <h4>
+                    <img src="image/icon.png" alt="icon"/>
+                    <span>Explosive incentives with Combo wonderLands</span> 
+
+                </h4>
+
+                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/workshop_free_1_.png"/>
+
+            </div>
+
+            <div class="promo">
+
+                <h4>
+                    <img src="image/icondeal.png" alt="icon"/>
+                    <span>wonderStore UP TO 60%++ OFF</span> 
+
+                </h4>
+
+                <img style="width: 100%; padding: 0px 50px" src="https://tiniworld.com/media/wysiwyg/nayne_1.jpg"/>
+
             </div>
         </div>
     </div>
-
 </main>
 
 <footer class="page-footer">

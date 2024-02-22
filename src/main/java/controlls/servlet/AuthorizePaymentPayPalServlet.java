@@ -4,23 +4,52 @@
  */
 package controlls.servlet;
 
+import com.paypal.base.rest.PayPalRESTException;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.UserDTO;
+import paypal.services.OrderDetailPayPal;
+import paypal.services.PaymentServices;
+
+@WebServlet(name = "AuthorizePaymentPayPalServlet", urlPatterns = {"/authorize_payment_paypal"})
+public class AuthorizePaymentPayPalServlet extends HttpServlet {
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, PayPalRESTException {
+        
+        try {
+            String packageProduct = request.getParameter("packageProduct");
+            String subtotal = request.getParameter("subtotal");
+            String shipping = request.getParameter("shipping");
+            String tax = request.getParameter("tax");
+            String total = request.getParameter("total");
+            
+            OrderDetailPayPal orderDetail = new OrderDetailPayPal(packageProduct, subtotal, shipping, tax, total);
+            
+            PaymentServices paymentService = new PaymentServices();
+            String approvalLink = paymentService.authorizedPayment(orderDetail);
+            response.sendRedirect(approvalLink);
+            
+        } catch (PayPalRESTException e) {
+            log("Error at AuthorizePaymentPayPalServlet");
+            request.setAttribute("ERROR_MESSAGE", e.getMessage());
+            request.getRequestDispatcher("error_paypal.jsp").forward(request, response);
+        }
+    }
+}
 
 /**
  *
  * @author Le Huu Huy
  */
-@WebServlet(name = "EditServlet", urlPatterns = {"/EditServlet"})
-public class EditServlet extends HttpServlet {
+@WebServlet(name = "SearchCustServlet", urlPatterns = {"/SearchCustServlet"})
+ class SearchCustServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,29 +63,20 @@ public class EditServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
-        String phone = request.getParameter("txtPhone");
-        String email = request.getParameter("txtEmail");
+        String email = request.getParameter("email");
         String url = "ViewUserServlet";
-        
-         try {
-           //2. call DAO
-           //2.1 new DAO
-            UserDAO dao = new UserDAO();
-           //2.2 call method of DAO
-            UserDTO result = dao.updateHost(name, phone, email);
-           //3. process result
-           if (result != null) {
-               //refresh --> call previous function again (Search)
-               //--> using url rewriting technique
-               url = "ViewUserServlet";
-           }//delete action is successfull
-        } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+        try {
+            if(!email.trim().isEmpty()) {
+                UserDAO dao = new UserDAO();
+                dao.searchByEmail(email);
+                List<UserDTO> dto = dao.getListHost();
+                url = "report.jsp";
+                request.setAttribute("SEARCH_RESULT", dto);
+            }
+        } catch (Exception e) {
+            log("Error at ViewLocationServlet " + e);
         } finally {
-            response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
@@ -100,3 +120,4 @@ public class EditServlet extends HttpServlet {
     }// </editor-fold>
 
 }
+    

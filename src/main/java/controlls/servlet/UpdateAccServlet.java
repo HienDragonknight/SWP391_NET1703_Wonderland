@@ -38,6 +38,7 @@ public class UpdateAccServlet extends HttpServlet {
         String email = request.getParameter("txtEmail");
         String password = request.getParameter("txtPassword");
         String phone = request.getParameter("txtPhone");
+        String cEmail = request.getParameter("txtCEmail");
         String url = "profile.jsp";
         
         try {
@@ -45,7 +46,7 @@ public class UpdateAccServlet extends HttpServlet {
            //2.1 new DAO
             UserDAO dao = new UserDAO();
            //2.2 call method of DAO
-            UserDTO result = dao.updateAccount(name, phone, email, password);
+            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
            //3. process result
            if (result != null) {
                //refresh --> call previous function again (Search)
