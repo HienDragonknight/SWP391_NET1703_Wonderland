@@ -25,12 +25,13 @@ public class HostDAO {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        String sql = "INSERT INTO [Themes] (themeName) VALUES(?)";
+      String sql = "INSERT INTO [Themes] (themeName, themeImage) VALUES (?, ?)";
         try {
             conn = DBUtils.createConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(sql);
                 ptm.setString(1, theme.getThemeName());
+                ptm.setString(2, theme.getThemeImage());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

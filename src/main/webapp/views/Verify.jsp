@@ -4,7 +4,8 @@
     Author     : kienb
 --%>
 
-<%@page import="fpt.fu.prj301_se17c02_undeee.controllers.email.UserDTO"%>
+<%@page import="models.UserDTO"%>
+<%--<%@page import="fpt.fu.prj301_se17c02_undeee.controllers.email.UserDTO"%>--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
