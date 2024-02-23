@@ -69,12 +69,7 @@
     </head>
 
     <body>
-        <%
-
-            // Get a session attribute
-            UserDTO user = (UserDTO) session.getAttribute("authcode");
-        %>
-        <h1>Code: <%= user.getCode()%></h1>
+    
         <div>
             <form action="check-code" method="post">
                 <h1>Verification Code Input</h1>

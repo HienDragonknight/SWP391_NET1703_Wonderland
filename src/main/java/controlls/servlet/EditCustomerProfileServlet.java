@@ -6,24 +6,20 @@ package controlls.servlet;
 
 import dal.UserDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author phanv
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
-
-    private final String ERROR = "register.jsp";
-    private final String SUCCESS = "login.jsp";
+@WebServlet(name = "EditCustomerProfileServlet", urlPatterns = {"/EditCustomerProfileServlet"})
+public class EditCustomerProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,56 +30,33 @@ public class RegisterServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "customer_profile.jsp";
+    private static final String SUCCESS = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String confirm = request.getParameter("txtCfPassword");
-        String phone = request.getParameter("txtPhone");
+        String fullname = request.getParameter("fullname");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
+        String password = request.getParameter("password");
+        String emailConfirm = request.getParameter("emailConfirm");
         String url = ERROR;
-
         try {
-            if (name == null || email == null || password == null || confirm == null || phone == null
-                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
-                    || confirm.trim().isEmpty() || phone.trim().isEmpty()) {
-                // Handle the case where any of the parameters are null or empty
-                url = ERROR;
-                request.setAttribute("status", "error");
-            } else if (!confirm.trim().equals(password.trim())) {
-                // Password and confirm password do not match
-                url = ERROR;
-                request.setAttribute("ERROR_CONFIRM", "Passwords do not match");
-                request.setAttribute("status", "error");
-            } else {
-                // All validations passed, proceed with registration
-                
-
-                HttpSession session = request.getSession();
-                session.setAttribute("newFullName", name);
-                session.setAttribute("newEmail", email);
-                session.setAttribute("newPhone", phone);
-                session.setAttribute("newPassword", password);
-
-                response.sendRedirect("UserVerify");
-                UserDAO dao = new UserDAO();
-                boolean result = dao.registerUser(name, email, password, phone);
-                if (result) {
-                    url = SUCCESS;
-                    request.setAttribute("status", "success");
-                } else {
-                    // Handle registration failure
-                    url = ERROR;
-                    request.setAttribute("status", "error");
-                }
-            }
+            //2. call DAO
+            //2.1 new DAO
+            UserDAO dao = new UserDAO();
+            //2.2 call method of DAO
+            UserDTO result = dao.editCustomerProfile(email, fullname, phone, password, emailConfirm);
+            //3. process result
+            if (result != null) {
+                //refresh --> call previous function again (Search)
+                //--> using url rewriting technique
+                url = SUCCESS;
+            }//delete action is successfull
         } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+            log(ex.getMessage());
         } finally {
-            // Redirect to the appropriate URL
             response.sendRedirect(url);
         }
 

@@ -80,8 +80,10 @@
                                     </div>
                                     <a href="ForgotPasswordServlet" style="color: aqua;">Forgot Password</a>
                                 </div>
-                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: aqua; border-color: aqua;">Sign In</button>
-                                <p class="text-center mb-0">Don't have an Account? <a href="./register" style="color: aqua;">  <input type="submit" value="Login" name="action" /> </a></p>
+                                        
+                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: aqua; border-color: aqua;"><input type="submit" value="Login" name="action" /> </button>
+                              
+                                 <a href="./RegisterServlet" style="color: aqua;">   <p class="text-center mb-0">Don't have an Account?</p>  </a>
                             </form>
                         </div>
                     </div>

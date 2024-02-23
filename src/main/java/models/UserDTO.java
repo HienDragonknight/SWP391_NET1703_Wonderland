@@ -11,6 +11,8 @@ import java.io.Serializable;
  * @author Hp
  */
 public class UserDTO implements Serializable {
+
+
     private String userID;
     private String fullName;
     private String email;
@@ -22,6 +24,7 @@ public class UserDTO implements Serializable {
 
     public UserDTO() {
     }
+
     public UserDTO(String userID, String fullName, String email, String password, String phoneNumber, String avatar, String roleID, String reported) {
         this.userID = userID;
         this.fullName = fullName;
@@ -96,5 +99,6 @@ public class UserDTO implements Serializable {
     public void setReported(String reported) {
         this.reported = reported;
     }
+
     
 }

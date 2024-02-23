@@ -128,7 +128,7 @@ public class SendEmail {
                     + "<body>\n"
                     + "\n"
                     + "    <div class=\"verification-form\">\n"
-                    + "        <h2>Welcomes to the Undeee Coffee & MilkTea !</h2>\n"
+                    + "        <h2>Welcomes to the Wonderland Party for Kids !</h2>\n"
                     + "        <p>Thank you for being one of our beloved customers</p>\n"
                     + "        <p style=\"    font-size: 12px;\">Please enter this code in the verification form to confirm your account</p>\n"
                     + "\n"

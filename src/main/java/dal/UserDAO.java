@@ -31,13 +31,15 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? ";
+    //            String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);    
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    String userID = rs.getString("userID");
+                    int userID = rs.getInt("userID");
+                    ID += userID;
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
@@ -85,7 +87,8 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-                    String userID = rs.getString("userID");
+                    int userID = rs.getInt("userID");
+                    ID += userID;
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -139,6 +142,8 @@ public class UserDAO implements Serializable {
                 rs = stm.executeQuery();
                 //5. process
                 while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
@@ -405,5 +410,35 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    } 
+    }  public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        UserDTO result = null;
+        try {
+            conn = DBUtils.createConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
+                ptm.setString(1, fullname);
+                ptm.setString(2, email);
+                ptm.setString(3, phone);
+                ptm.setString(4, password);
+                ptm.setString(5, emailConfirm);
+                int effectRows = ptm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, fullname, email, password, phone, email, ID, "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
 }
