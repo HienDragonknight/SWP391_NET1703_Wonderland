@@ -33,7 +33,7 @@ public class UserDAO implements Serializable {
             if (con != null) {
                 String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, email);    
+                stm.setString(1, email);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -228,7 +228,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public UserDTO updateHost(String name, String phone, String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -262,7 +262,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public boolean registerUser(String fullName, String email, String password, String phone) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -291,7 +291,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public UserDTO updateAccount(String name, String phone, String email, String password, String cEmail) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -327,7 +327,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public void searchByEmail(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -377,7 +377,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public UserDTO reportCus(String report, String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -409,5 +409,113 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    } 
+    }
+
+    public void searchUserDashboard(String inputValue) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported "
+                        + "FROM users u "
+                        + "JOIN Role r ON r.roleID = u.roleID "
+                        + "WHERE fullname LIKE ? AND r.roleDetails = 'Customer'";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + inputValue + "%");
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String phone = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String role = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
+                    //5.1.2 set data into properties of DTO
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phone, avatar, role, reported);
+                    //5.1.3 add DTO into list
+                    if (this.listUser == null) {
+                        this.listUser = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listUser.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+    public void searchHostDashboard(String inputValue) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported "
+                        + "FROM users u "
+                        + "JOIN Role r ON r.roleID = u.roleID "
+                        + "WHERE fullname LIKE ? AND r.roleDetails = 'Party Host'";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + inputValue + "%");
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String phone = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String role = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
+                    //5.1.2 set data into properties of DTO
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phone, avatar, role, reported);
+                    //5.1.3 add DTO into list
+                    if (this.listHost == null) {
+                        this.listHost = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listHost.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }
