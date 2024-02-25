@@ -37,8 +37,7 @@ public class UserDAO implements Serializable {
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    int userID = rs.getInt("userID");
-                    ID += userID;
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
@@ -86,8 +85,7 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-                    int userID = rs.getInt("userID");
-                    ID += userID;
+                    String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -141,8 +139,6 @@ public class UserDAO implements Serializable {
                 rs = stm.executeQuery();
                 //5. process
                 while (rs.next()) {
-                    //5.1 map data
-                    //5.1.1 get data from rs
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
