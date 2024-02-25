@@ -53,5 +53,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
         </form>
     </div>
+
+    <script>
+
+        // Check if localStorage is supported by the browser
+        if (typeof (Storage) !== "undefined") {
+            // Remove item with key "packageInfo"
+            localStorage.removeItem("packageInfo");
+            console.log("Item with key 'packageInfo' removed from localStorage.");
+        } else {
+            console.log("Sorry, your browser does not support web storage...");
+        }
+
+    </script>
 </body>
 </html>
