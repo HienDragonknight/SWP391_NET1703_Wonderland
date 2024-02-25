@@ -8,14 +8,24 @@ import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+<<<<<<< HEAD:src/main/java/controlls/servlet/ExecutePaymentPayPalServlet.java
 import paypal.services.PaymentServices;
+=======
+import javax.servlet.http.HttpSession;
+>>>>>>> eb5b07f35e310b409f9966e1d380ed8c9258305e:src/main/java/paypal/services/ExecutePaymentPayPalServlet.java
 
 /**
  *
@@ -38,16 +48,41 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
         String payerID = request.getParameter("PayerID");
 
         try {
+
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.executePayment(paymentID, payerID);
 
-            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
-            Transaction transaction = payment.getTransactions().get(0);
+            if (payment != null) {
+                // ############## WONDERLAND ##############  
+                // ########################################
+                HttpSession session = request.getSession();
+                Map<String, String> orderDetailInfo = (Map<String, String>) session.getAttribute("ORDER_DETAIL_INFO");
 
-            request.setAttribute("PAYER", payerInfo);
-            request.setAttribute("TRANSACTION", transaction);
+                OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+                boolean checkInserOrderDetail = false;
+                try {
+                    checkInserOrderDetail = orderDetailDAO.insertOrderDetail(orderDetailInfo);
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
 
-            request.getRequestDispatcher("receipt_paypal.jsp").forward(request, response);
+                Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
+                OrderDAO orderDAO = new OrderDAO();
+                //  boolean checkInsertOrder = orderDAO.insertOrder(orderInfo);
+
+                if (checkInserOrderDetail) {
+                    PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+                    Transaction transaction = payment.getTransactions().get(0);
+
+                    request.setAttribute("PAYER", payerInfo);
+                    request.setAttribute("TRANSACTION", transaction);
+
+                    request.getRequestDispatcher("receipt_paypal.jsp").forward(request, response);
+                }
+
+                // ########################################
+                // ########################################
+            }
 
         } catch (PayPalRESTException e) {
             e.getStackTrace();
