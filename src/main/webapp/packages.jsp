@@ -202,16 +202,21 @@
             }
             packages {
                 display: flex;
-                gap: 10px;
+                gap: 15px;
             }
 
             .container-packages {
-                background-color: #f0fafc; /* Màu nền trắng cho các container */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
-                border: 1px solid #e0e0e0; /* Viền ngoài */
-                border-radius: 5px; /* Bo tròn góc */
+                background-color: #f0fafc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
                 overflow: hidden;
                 padding: 20px 20px 20px 20px;
+                min-height: 260px;
+                max-height: 260px;
+                min-width: 400px;
+                max-width: 400px;
+                position: relative;
             }
 
             .white-container {
@@ -225,8 +230,37 @@
             .packages-list {
                 display: flex;
                 flex-wrap: inherit;
-                gap: 10px;
+                gap: 20px;
                 justify-content: space-between;
+            }
+
+            .container-packages .packages-detail #more-detail {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                color: #333;
+                transition: color 0.3s ease;
+            }
+
+            .container-packages:hover .packages-detail #more-detail {
+                color: #fff;
+            }
+            #more-detail {
+                background-color: #76def5;
+                color: #fff;
+                border: 0px solid;
+                border-radius: 10px;
+                padding: 10px 20px;
+                margin: 0px;
+                font-family: 'Arial', sans-serif;
+                font-size: 16px;
+                font-weight: bold;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            #more-detail:hover {
+                background-color: #0cc5f0;
+                color: #fff;
             }
 
         </style>
@@ -321,7 +355,7 @@
                                     <h2><%= packages.getPackageName()%></h2></br>
                                     <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                                     <h3>Description: <%= packages.getDescription()%></h3></br>
-                                    <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]">More Detail</a>
+                                    <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]" ><button id="more-detail">More Detail</button></a>
                                 </div>
                             </div>
                         </div>
@@ -407,7 +441,7 @@
                         <h2><%= packages.getPackageName()%></h2></br>
                         <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                         <h3>Description: <%= packages.getDescription()%></h3></br>
-                        <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]">More Detail</a>
+                        <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]" ><button id="more-detail">More Detail</button></a>
                     </div>
                 </div>
             </div>
