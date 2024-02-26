@@ -217,8 +217,12 @@
                 min-width: 400px;
                 max-width: 400px;
                 position: relative;
+                transition: transform 0.3s;
             }
-
+            .container-packages:hover {
+                transform: scale(1.05);
+            }
+            
             .white-container {
                 background-color: #fff;
                 margin-bottom: 10px;
