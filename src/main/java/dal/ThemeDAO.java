@@ -40,7 +40,7 @@ public class ThemeDAO {
                 String themeName = rs.getString("themeName");
                 String themeImagePath = rs.getString("themeImagePath");
 
-                listTheme.add(new ThemeDTO(themID, themeName));
+                listTheme.add(new ThemeDTO(themID, themeName, themeImagePath));
             }
 
         } catch (Exception e) {

@@ -14,17 +14,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import models.UserDTO;
 
 /**
  *
- * @author 84335
+ * @author Le Huu Huy
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
 public class RegisterServlet extends HttpServlet {
 
-    private final String REGISTER_PAGE = "register.jsp";
-    private final String LOGIN_PAGE = "login.jsp";
+    private final String ERROR = "register.jsp";
+    private final String SUCCESS = "login.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,52 +37,53 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        session.setAttribute("ERROR_INFO", null); // Reset error info
-        String url = REGISTER_PAGE;
+        String name = request.getParameter("txtName");
+        String email = request.getParameter("txtEmail");
+        String password = request.getParameter("txtPassword");
+        String confirm = request.getParameter("txtCfPassword");
+        String phone = request.getParameter("txtPhone");
+        String url = ERROR;
 
         try {
-            String button = request.getParameter("action");
+            if (name == null || email == null || password == null || confirm == null || phone == null
+                    || name.trim().isEmpty() || email.trim().isEmpty() || password.trim().isEmpty()
+                    || confirm.trim().isEmpty() || phone.trim().isEmpty()) {
+                // Handle the case where any of the parameters are null or empty
+                url = ERROR;
+                request.setAttribute("status", "error");
+            } else if (!confirm.trim().equals(password.trim())) {
+                // Password and confirm password do not match
+                url = ERROR;
+                request.setAttribute("ERROR_CONFIRM", "Passwords do not match");
+                request.setAttribute("status", "error");
+            } else {
+                // All validations passed, proceed with registration
+                
 
-            if ("Sign Up".equals(button)) {
-                String fullname = request.getParameter("txtFullName");
-                String email = request.getParameter("txtEmail");
-                String password = request.getParameter("txtPassword");
-                String phone = request.getParameter("txtPhone");
+                HttpSession session = request.getSession();
+                session.setAttribute("newFullName", name);
+                session.setAttribute("newEmail", email);
+                session.setAttribute("newPhone", phone);
+                session.setAttribute("newPassword", password);
 
-                // Validate user input (you may want to add more validation logic)
-                if (fullname != null && email != null && password != null && phone != null) {
-                    UserDAO dao = new UserDAO();
-
-                    // Check if the user already exists
-                    if (!dao.userExists(email)) {
-                        // User does not exist, proceed with registration
-                        UserDTO newUser = dao.registerUser(fullname, email, password, phone);
-
-                        if (newUser != null) {
-                            // Registration successful, redirect to login page
-                            url = LOGIN_PAGE;
-                            session.setAttribute("USER_INFO", newUser);
-                        } else {
-                            // Handle registration failure, set appropriate error message
-                            session.setAttribute("ERROR_INFO", "Failed to register. Please try again.");
-                        }
-                    } else {
-                        // User already exists, set appropriate error message
-                        session.setAttribute("ERROR_INFO", "Email already in use. Please choose a different email.");
-                    }
+                response.sendRedirect("UserVerify");
+                UserDAO dao = new UserDAO();
+                boolean result = dao.registerUser(name, email, password, phone);
+                if (result) {
+                    url = SUCCESS;
+                    request.setAttribute("status", "success");
                 } else {
-                    // Handle invalid or missing parameters, set appropriate error message
-                    session.setAttribute("ERROR_INFO", "Invalid registration parameters. Please try again.");
+                    // Handle registration failure
+                    url = ERROR;
+                    request.setAttribute("status", "error");
                 }
             }
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
-            session.setAttribute("ERROR_INFO", "Internal error. Please try again later.");
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-            session.setAttribute("ERROR_INFO", "Database error. Please try again later.");
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
+            // Redirect to the appropriate URL
             response.sendRedirect(url);
         }
 

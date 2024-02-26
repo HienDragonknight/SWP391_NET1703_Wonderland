@@ -28,8 +28,8 @@ import models.ThemeDTO;
 @WebServlet(name = "ViewBookingServlet", urlPatterns = {"/ViewBookingServlet"})
 public class ViewBookingServlet extends HttpServlet {
 
-    private static final String ERROR = "order_booking_page.jsp";
-    private static final String SUCCESS = "order_booking_page.jsp";
+    private static final String ERROR = "party_booking.jsp";
+    private static final String SUCCESS = "party_booking.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

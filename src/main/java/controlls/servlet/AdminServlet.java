@@ -21,6 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 public class AdminServlet extends HttpServlet {
     private final String ADMIN_PAGE = "ViewUserServlet";
     private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
+    private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
+    private final String EDIT_ACCOUNT_CONTROLLER = "SearchByEmailServlet";
+    private final String UPDATE_ACCOUNT_CONTROLLER = "UpdateAccServlet";
+    private final String EDIT_HOST_CONTROLLER = "EditHostServlet";
+    private final String SEARCH_CUSTOMER_CONTROLLER = "SearchCustServlet";
+    private final String REPORT_CONTROLLER = "ReportServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,6 +46,18 @@ public class AdminServlet extends HttpServlet {
                 
             } else if (button.equals("delete")) {
                 url = ADMIN_DELETE_CONTROLLER;
+            } else if (button.equals("Create")) {
+                url = MANAGE_ACCOUNT_CONTROLLER;
+            } else if (button.equals("Edit")) {
+                url = EDIT_ACCOUNT_CONTROLLER;
+            } else if (button.equals("Update Account")) {
+                url = UPDATE_ACCOUNT_CONTROLLER;
+            } else if (button.equals("Edit Host")) {
+                url = EDIT_HOST_CONTROLLER;
+            } else if (button.equals("Update")) {
+                url = SEARCH_CUSTOMER_CONTROLLER;
+            } else if (button.equals("Report")) {
+                url = REPORT_CONTROLLER;
             }
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);

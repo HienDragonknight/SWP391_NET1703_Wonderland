@@ -4,7 +4,7 @@
  */
 package controlls.servlet;
 
-import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,7 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.OrderDTO;
+import models.OrderDetailDTO;
 
 /**
  *
@@ -23,7 +23,7 @@ import models.OrderDTO;
  */
 @WebServlet(name = "ViewOrderServlet", urlPatterns = {"/ViewOrderServlet"})
 public class ViewOrderServlet extends HttpServlet {
-    private final String ERROR = "adminOrder.jsp";
+    private final String ERROR = "ViewUserServlet";
     private final String SUCCESS = "adminOrder.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,9 +39,9 @@ public class ViewOrderServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            OrderDAO dao = new OrderDAO();
+            OrderDetailDAO dao = new OrderDetailDAO();
             dao.getOrder();
-            List<OrderDTO> order = dao.getListOrder();
+            List<OrderDetailDTO> order = dao.getListOrder();
             url = SUCCESS;
             request.setAttribute("LIST_ORDER", order);
         } catch (SQLException e) {
