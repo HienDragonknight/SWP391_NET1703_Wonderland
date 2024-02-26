@@ -5,13 +5,15 @@
 --%>
 
 
+<%@page import="models.PackageDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Wonderlands</title>
+        <title>Available Packages</title>
         <link rel="icon" href="image/img1.jpg"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -32,6 +34,19 @@
                 text-decoration: none;
                 font-size: 18px;
                 color: #232325;
+            }
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
             }
 
             header .side-bar {
@@ -185,12 +200,37 @@
                 }
 
             }
+            packages {
+                display: flex;
+                gap: 10px;
+            }
+
+            .container-packages {
+                background-color: #f0fafc; /* Màu nền trắng cho các container */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng */
+                border: 1px solid #e0e0e0; /* Viền ngoài */
+                border-radius: 5px; /* Bo tròn góc */
+                overflow: hidden;
+                padding: 20px 20px 20px 20px;
+            }
+
+            .white-container {
+                background-color: #fff;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                border: 1px solid #3a913a;
+            }
+
+            .packages-list {
+                display: flex;
+                flex-wrap: inherit;
+                gap: 10px;
+                justify-content: space-between;
+            }
 
         </style>
     </head
-
-
-    
     <body>
         <div class="container">
             <header>
@@ -211,6 +251,7 @@
 
                     <%
                         UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
                         if (dto == null) {
                     %>
                     <div class="profile">
@@ -226,102 +267,159 @@
                             <a href="#">Sign Up</a>
                         </div>
                     </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="user-logined">
-                        <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-                        <div class="cart-items">
-                            <i class='bx bx-cart' ></i>
-                            <a href="#">Cart</a>
-                        </div>
-                    </div>
-                    <%
-                        }
-                    %>
                 </aside>
             </header>
+            <main class="main">
+                <div class="column">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-
-            <main>
-                <div class="menu">
-                    <ul class="menu-ic">
-                        <li>
-                            <i class='bx bx-home-alt-2'></i>
-
-                            <a href="home.jsp">Home</a>
-                        </li>
-
-                        <li>
-                            <i class='bx bx-location-plus'></i>
-                            <a href="ViewLocation">Location</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-package'></i>
-                            <a href="ViewPackage">Packages</a>
-
-                        </li>
-                        <li>
-                            <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-party'></i>
-                            <a href="ViewBookingServlet">Booking Party</a>
-                        </li>
-                        <li>
-                            <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
-                        </li>
-                    </ul>
-                </div>
-
-
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
-                    </div>
-
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
-                        </form>
-                    </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
+                                <a href="home.jsp">Home</a>
                             </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
+
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
+
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="#">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="ViewBookingServlet">Booking Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
                             </li>
                         </ul>
                     </div>
+
                 </div>
-
-
-                <div class="container-location-products">
-                    <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                        <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
+                <div class="packages">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a><span> &#10095; Packages</span>
+                    </div>
+                    <h1>Packages</h1></br>
+                    <div class="packages-list">
+                        <%
+                            List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
+                            if (listPackage != null && listPackage.size() > 0) {
+                                for (PackageDTO packages : listPackage) {
+                        %>
+                        <div class="green-container">
+                            <div class="container-packages">
+                                <div class="packages-detail">
+                                    <h2><%= packages.getPackageName()%></h2></br>
+                                    <h3>Price: <%= packages.getUnitPrice()%>$</h3>
+                                    <h3>Description: <%= packages.getDescription()%></h3></br>
+                                    <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]">More Detail</a>
+                                </div>
+                            </div>
                         </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+                        <%
+                                }
+                            }
+                        %>
                     </div>
                 </div>
+
             </main>
         </div>
-    </body>
+        <%        } else {
+        %>
+        <div class="user-logined">
+            <div class="logined">
+                <i class='bx bx-user-circle'></i>
+                <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+            </div>
+            <div class="cart-items">
+                <i class='bx bx-cart' ></i>
+                <a href="#">Cart</a>
+            </div>
+        </div>
+    </aside>
+</header>
+<main class="main">
+    <div class="column">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
+
+                    <a href="home.jsp">Home</a>
+                </li>
+
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
+
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="#">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="ViewBookingServlet">Booking Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+            <ul class="logout">
+                <li>
+                    <a href="#">
+                        <i class='bx bx-log-out-circle' ></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="packages">
+        <div class="add-ab">
+            <a href="home.jsp">Home</a><span> &#10095; Packages</span>
+        </div>
+        <h1>Packages</h1></br>
+        <div class="packages-list">
+            <%
+                List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
+                if (listPackage != null && listPackage.size() > 0) {
+                    for (PackageDTO packages : listPackage) {
+            %>
+            <div class="green-container">
+                <div class="container-packages">
+                    <div class="packages-detail">
+                        <h2><%= packages.getPackageName()%></h2></br>
+                        <h3>Price: <%= packages.getUnitPrice()%>$</h3>
+                        <h3>Description: <%= packages.getDescription()%></h3></br>
+                        <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]">More Detail</a>
+                    </div>
+                </div>
+            </div>
+            <%
+                    }
+                }
+            %>
+        </div>
+    </div>
+</main>
+</div>
+<%    }
+%>
+</body>
 </html>

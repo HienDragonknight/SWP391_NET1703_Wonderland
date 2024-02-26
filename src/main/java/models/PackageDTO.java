@@ -12,45 +12,45 @@ import java.io.Serializable;
  */
 public class PackageDTO implements Serializable {
 
-    private String pakageID;
-    private String pakageName;
+    private String packageID;
+    private String packageName;
     private double unitPrice;
     private String image;
     private String video;
     private String description;
 
     public PackageDTO(String packageName, double unitPrice, String image, String video, String description) {
-        this.pakageName = packageName;
+        this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
     }
 
-    public PackageDTO(String pakageID, String pakageName, double unitPrice, String image, String video, String description) {
-        this.pakageID = pakageID;
-        this.pakageName = pakageName;
+    public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description) {
+        this.packageID = packageID;
+        this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
         this.video = video;
         this.description = description;
     }
 
-    public String getPakageID() {
-        return pakageID;
+    public String getPackageID() {
+        return packageID;
     }
 
-    public void setPakageID(String pakageID) {
-        this.pakageID = pakageID;
+    public void setPackageID(String packageID) {
+        this.packageID = packageID;
     }
 
-    public String getPakageName() {
-        return pakageName;
+    public String getPackageName() {
+        return packageName;
 
     }
 
     public void setPackageName(String packageName) {
-        this.pakageName = packageName;
+        this.packageName = packageName;
     }
 
     public double getUnitPrice() {
