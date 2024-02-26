@@ -23,12 +23,12 @@
                 color: #333;
             }
 
-            form {
+            #info {
                 max-width: 400px;
-                margin: 20px auto;
+                margin: 50px auto;
                 background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
+                padding: 40px ;
+                border-radius: 20px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
@@ -58,7 +58,7 @@
     </head>
     <body>
         <h1>Edit Your Info</h1>
-        <form action="EditCustomerProfileServlet" method="POST">
+        <form action="EditCustomerProfileServlet" method="POST" id="info">
             Email <input type="text" name="email" value="${sessionScope.USER_INFO.email}" readonly><br>
             Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
             Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
