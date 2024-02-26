@@ -70,10 +70,12 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
 
+        
         // create 2 redirect URL
         redirectUrls.setCancelUrl("http://localhost:6969/SWP391_NET1703_Wonderland/cancel_paypal.html");            // this url is used when user cancels the payment
         redirectUrls.setReturnUrl("http://localhost:6969/SWP391_NET1703_Wonderland/review_payment_paypal");    // this url is used when user accepts to continue the payment
 
+        
         return redirectUrls;
     }
 
