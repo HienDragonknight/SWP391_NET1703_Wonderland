@@ -20,7 +20,7 @@ import util.DBUtils;
  */
 public class PackageDAO {
 
-    private static final String GET_LIST_PACKAGE = "SELECT packageID,packageName,unitPrice,image,video,description FROM [Packages] ";
+    private static final String GET_LIST_PACKAGE = "SELECT packageID,packageName,unitPrice,image,video,description FROM [Packages]";
     private static final String GET_PACKAGE_BY_ID = "SELECT packageID,packageName,unitPrice,image,video,description, size FROM [Packages] WHERE packageID = ?";
     private static final String GET_LOCATION_BY_ID = "SELECT locationID, locationDetails FROM [Location] WHERE locationID = ?";
 
@@ -47,7 +47,7 @@ public class PackageDAO {
                 String video = rs.getString("video");
                 String description = rs.getString("description");
 
-                //         listLocation.add(new PackageDTO(packageID, packageName, unitPrice, image, video, description));
+                listLocation.add(new PackageDTO(packageID, packageName, unitPrice, image, video, description, video));
             }
 
         } catch (Exception e) {

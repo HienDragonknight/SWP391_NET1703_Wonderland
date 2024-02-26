@@ -20,6 +20,12 @@ import util.DBUtils;
 public class ThemeDAO {
 
     private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImagePath FROM [Themes]";
+    
+    List<ThemeDTO> listTheme;
+
+    public List<ThemeDTO> getListTheme() {
+        return listTheme;
+    }
 
     public List<ThemeDTO> getListThemes() throws SQLException {
 
@@ -56,6 +62,50 @@ public class ThemeDAO {
             }
         }
         return listTheme;
+    }
+    
+    public void printTheme() throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT themeID, themeName FROM Themes";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String id = rs.getString("themeID");
+                    String name = rs.getString("themeName");
+                    //5.1.2 set data into properties of DTO
+                    ThemeDTO dto = new ThemeDTO(id, name);
+                    //5.1.3 add DTO into list
+                    if (this.listTheme == null) {
+                        this.listTheme = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listTheme.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 
 }

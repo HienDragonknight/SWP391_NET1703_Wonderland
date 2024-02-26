@@ -125,6 +125,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -521,6 +522,11 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
+            
+            .table-wrapper {
+                overflow-y: auto;
+                height: 450px;
+            }
 
             @media screen and (max-width: 992px) {
                 .container main {
@@ -587,7 +593,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
@@ -667,6 +673,7 @@
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
+                                    <div class="table-wrapper">
                                     <table>
                                         <thead>
                                             <tr>
@@ -756,6 +763,7 @@
                                             %>
                                         </tbody>
                                     </table>
+                                    </div>
                                 </form>
                             </div>
                         </div>

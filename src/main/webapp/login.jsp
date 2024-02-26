@@ -36,6 +36,19 @@
         <input type="submit" value="Login" name="action" /> 
 
     </form>-->
+
+        <%
+            String errorMessage = (String) session.getAttribute("ERROR_INFO");
+            if (errorMessage != null && !errorMessage.isEmpty()) {
+        %>
+        <div class="alert alert-danger" role="alert">
+            <%= errorMessage%>
+        </div>
+        <%
+                session.removeAttribute("ERROR_INFO");
+            }
+        %>
+
         <div class="container-fluid position-relative d-flex p-0">
             <div class="container-fluid">
                 <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">

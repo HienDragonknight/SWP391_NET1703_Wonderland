@@ -20,6 +20,18 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class UserDAO implements Serializable {
+    
+    List<UserDTO> listUser;
+
+    public List<UserDTO> getListUser() {
+        return listUser;
+    }
+    
+    List<UserDTO> listHost;
+
+    public List<UserDTO> getListHost() {
+        return listHost;
+    }
 
     String ID = "";
 
@@ -59,12 +71,6 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    }
-
-    List<UserDTO> listUser;
-
-    public List<UserDTO> getListUser() {
-        return listUser;
     }
 
     public void getUser() throws SQLException, ClassNotFoundException {
@@ -116,12 +122,6 @@ public class UserDAO implements Serializable {
                 con.close();
             }
         }
-    }
-
-    List<UserDTO> listHost;
-
-    public List<UserDTO> getListHost() {
-        return listHost;
     }
 
     public void getHost() throws SQLException, ClassNotFoundException {

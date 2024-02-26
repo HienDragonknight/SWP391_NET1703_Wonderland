@@ -125,6 +125,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -481,7 +482,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
