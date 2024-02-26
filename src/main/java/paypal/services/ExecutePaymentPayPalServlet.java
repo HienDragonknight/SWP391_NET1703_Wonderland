@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controlls.servlet;
+package paypal.services;
 
+import controlls.servlet.*;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.Transaction;
@@ -21,11 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-<<<<<<< HEAD:src/main/java/controlls/servlet/ExecutePaymentPayPalServlet.java
-import paypal.services.PaymentServices;
-=======
 import javax.servlet.http.HttpSession;
->>>>>>> eb5b07f35e310b409f9966e1d380ed8c9258305e:src/main/java/paypal/services/ExecutePaymentPayPalServlet.java
 
 /**
  *
