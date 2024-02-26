@@ -4,6 +4,7 @@
     Author     : bao.kun
 --%>
 
+<%@page import="models.UserDTO"%>
 <%@page import="models.ThemeDTO"%>
 <%@page import="models.BonusServiceDTO"%>
 <%@page import="java.util.List"%>
@@ -359,6 +360,11 @@
             {
                 padding: 2%;
             }
+            
+            #nickname
+            {
+                margin-left: 40%;
+            }
         </style>
     </head>
     <body>
@@ -379,6 +385,12 @@
                 </div>
 
 
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                    if (dto == null) {
+                %>
+
                 <div class="profile">
                     <div class="login-pro">
                         <i class='bx bx-user'></i>
@@ -392,15 +404,33 @@
                         <a href="#">Sign Up</a>
                     </div>
 
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                </div>
+                    <%
+                    } else {
+                    %>
 
+
+                    <div class="logined" id="nickname">
+                        <i class='bx bx-user-circle'></i>
+                        <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                    </div>
+
+
+                    <div>
+
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                    </div>
+
+
+
+                </div>
+                <%   }
+                %>
 
             </aside>
         </header>
