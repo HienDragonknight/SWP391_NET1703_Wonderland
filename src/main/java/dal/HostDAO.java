@@ -18,15 +18,13 @@ import util.DBUtils;
  *
  * @author phanv
  */
-
-
 public class HostDAO {
 
     public boolean addTheme(ThemeDTO theme) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
-      String sql = "INSERT INTO [Themes] (themeName, themeImage) VALUES (?, ?)";
+        String sql = "INSERT INTO [Themes] (themeName, themeImage) VALUES (?, ?)";
         try {
             conn = DBUtils.createConnection();
             if (conn != null) {
@@ -56,8 +54,8 @@ public class HostDAO {
         try {
             conn = DBUtils.createConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(sql);
-              //  ptm.setString(1, pakage.getPakageName());
+
+                ptm.setString(1, pakage.getPackageName());
                 ptm.setDouble(2, pakage.getUnitPrice());
                 ptm.setString(3, pakage.getImage());
                 ptm.setString(4, pakage.getVideo());
@@ -76,8 +74,8 @@ public class HostDAO {
         }
         return check;
     }
-    
-        public boolean addBonusService(BonusServiceDTO bonusService) throws SQLException {
+
+    public boolean addBonusService(BonusServiceDTO bonusService) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -104,8 +102,7 @@ public class HostDAO {
         }
         return check;
     }
-        
-        
+
     public boolean addLocation(LocationDTO location) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -130,6 +127,7 @@ public class HostDAO {
         }
         return check;
     }
+
     public boolean editHostProfile(UserDTO user) throws SQLException {
         boolean check = false;
         Connection conn = null;

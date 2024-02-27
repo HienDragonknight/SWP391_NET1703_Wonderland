@@ -510,7 +510,18 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+<<<<<<< HEAD
                             
+=======
+
+                            int totalUsers = 0; // Counter for total users
+
+                            if (result != null) {
+                                for (UserDTO dto : result) {
+                                    totalUsers++;
+                                }
+                            }
+>>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
                         %>
 
                         <div>
@@ -548,6 +559,7 @@
                                     </form>
                                 </div>
 
+<<<<<<< HEAD
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
@@ -711,8 +723,50 @@
                         </div>
 
 
-                    </div>
+=======
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>User</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Edit Profile</th>
+                                        </tr>
+                                    </thead>
 
+                                    <%
+                                        if (result != null) {
+                                            for (UserDTO dto : result) {
+                                                String urlRewriting = "AdminServlet"
+                                                        + "?action=delete"
+                                                        + "&pk=" + dto.getFullName();
+                                    %>
+                                    <form action="AdminServlet" method="POST">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <p><%= dto.getFullName()%></p>
+                                                </td>
+                                                <td><%= dto.getPhoneNumber()%></td>
+                                                <td><%= dto.getEmail()%></td>
+                                                <td><%= dto.getRoleID()%></td>
+                                                <td>
+                                                    <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </form>
+                                    <%
+                                            }
+                                        }
+                                    %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+>>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
+                    </div>
             </main>
         </div>
     </body>
