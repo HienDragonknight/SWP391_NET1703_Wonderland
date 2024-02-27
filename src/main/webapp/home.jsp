@@ -656,7 +656,7 @@
 
                         <div class="intro-wrapper">
                             <div class="intro-image">
-                                <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
+                                <img src="image/Birthday.png" alt="Best Party">
                             </div>
                             <div class="intro-text">
                                 <div>
@@ -889,7 +889,22 @@
         <div class="user-logined">
             <div class="logined">
                 <i class='bx bx-user-circle'></i>
+                <%
+                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+                %>
                 <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                } else if (dto.getRoleID().equals("1")) {
+                %>
+                <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                } else {
+                %>
+                <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                    }
+                %>
+
             </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
@@ -964,7 +979,7 @@
 
             <div class="intro-wrapper">
                 <div class="intro-image">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
+                    <img src="image/Birthday.png" alt="Best Party">                
                 </div>
                 <div class="intro-text">
                     <div>
