@@ -328,7 +328,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
@@ -407,7 +407,7 @@
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>
-                    <a href="#">Service</a>
+                    <a href="ViewServiceServlet">Service</a>
                 </li>
                 <li>
                     <i class='bx bx-party'></i>

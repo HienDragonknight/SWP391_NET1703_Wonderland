@@ -23,6 +23,7 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
             }
+
         </style>
     </head>
     <body>
@@ -93,10 +94,10 @@
                                     </div>
                                     <a href="ForgotPasswordServlet" style="color: aqua;">Forgot Password</a>
                                 </div>
-                                        
-                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: aqua; border-color: aqua;"><input type="submit" value="Login" name="action" /> </button>
-                              
-                                 <a href="./RegisterServlet" style="color: aqua;">   <p class="text-center mb-0">Don't have an Account?</p>  </a>
+
+                                <input type="submit" value="Login" name="action" class="btn btn-primary py-3 w-100 mb-4"></a>
+
+                                <a href="./RegisterServlet" style="color: aqua;">   <p class="text-center mb-0">Don't have an Account?</p>  </a>
                             </form>
                         </div>
                     </div>

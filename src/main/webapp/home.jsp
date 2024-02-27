@@ -561,41 +561,12 @@
         </style>
     </head>
     <body>
-<<<<<<< HEAD
         <div class="container">
             <header>
                 <aside class="side-bar">
                     <div class="logo">
 
                         <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
-=======
-    <div class="container">
-        <header>
-            <aside class="side-bar">
-                <div class="logo">
-
-                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
-                </div>
-
-                <div class="search-bar">
-                    <form action="SearchServlet">
-                        <button>
-                            <i class='bx bx-search'></i>
-                        </button>
-                        <input type="text" placeholder="Type here to search">
-                    </form>
-                </div>
-
-                <%
-                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                    if (dto == null) {
-                %>
-                <div class="profile">
-                    <div class="login-pro">
-                        <i class='bx bx-user'></i>
-                        <a href="login.jsp">Login</a>
->>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
                     </div>
 
                     <div class="search-bar">
@@ -606,6 +577,8 @@
                             <input type="text" placeholder="Type here to search">
                         </form>
                     </div>
+
+
 
                     <%
                         UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
