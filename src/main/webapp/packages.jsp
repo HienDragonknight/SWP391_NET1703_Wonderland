@@ -359,7 +359,7 @@
                                     <h2><%= packages.getPackageName()%></h2></br>
                                     <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                                     <h3>Description: <%= packages.getDescription()%></h3></br>
-                                    <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]" ><button id="more-detail">More Detail</button></a>
+                                    <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
                         <h2><%= packages.getPackageName()%></h2></br>
                         <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                         <h3>Description: <%= packages.getDescription()%></h3></br>
-                        <a href="PackageItemServlet?packageID=[<%= packages.getPackageID()%>]" ><button id="more-detail">More Detail</button></a>
+                        <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
                     </div>
                 </div>
             </div>
