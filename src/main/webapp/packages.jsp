@@ -222,7 +222,7 @@
             .container-packages:hover {
                 transform: scale(1.05);
             }
-            
+
             .white-container {
                 background-color: #fff;
                 margin-bottom: 10px;
@@ -313,8 +313,6 @@
                         <ul class="menu-ic">
                             <li>
                                 <i class='bx bx-home-alt-2'></i>
-
-                                <a href="home.jsp">Home</a>
                             </li>
 
                             <li>

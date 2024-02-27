@@ -1,18 +1,18 @@
 <%-- 
-    Document   : admin
-    Created on : Jan 24, 2024, 3:01:36 PM
-    Author     : Le Huu Huy
+    Document   : host
+    Created on : Feb 27, 2024, 8:09:21 AM
+    Author     : huY
 --%>
 
-<%@page import="models.OrderDTO"%>
-<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin</title>
+        <title>Party Host</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -406,11 +406,11 @@
                 align-items: center;
                 gap: 10px;
             }
-
+            
             .header .search-btn {
                 display: none;
             }
-
+            
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -510,12 +510,7 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-                            int totalUsers = 0; // Counter for total users
-                            if (result != null) {
-                                for (UserDTO dto : result) {
-                                    totalUsers++;
-                                }
-                            }
+
                         %>
 
                         <div>
@@ -548,10 +543,12 @@
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
                                     <form action="AdminServlet" method="POST">
+                                        <i class='bx bx-search'></i>
                                         <input type="text" name="txtInputValue" value="${param.txtInputValue}" />
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
                                     </form>
                                 </div>
+
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
@@ -567,7 +564,7 @@
                                             </thead>
 
                                             <tbody class="scrollable">
-                                                <%
+                                                <%                                                    
                                                     List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
                                                     if (searchResult == null) {
                                                         int countUser = 1;
@@ -611,112 +608,9 @@
                                 </form>
                             </div>
                         </div>
-
-
-                        <!-- Host Table -->
-                        <div class="bottom-data">
-                            <div class="orders">
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Party Host</h3>
-                                    <form action="AdminServlet" method="POST">
-                                        <input type="text" name="txtHostValue" value="${param.txtHostValue}" />
-                                        <input class="search-btn" type="submit" value="Search Host" name="action"/>
-                                    </form>
-                                </div>
-
-                                <form action="AdminServlet" method="POST">
-                                    <div class="table-wrapper">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>User</th>
-                                                    <th>Phone</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Edit Profile</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <%
-                                                    List<UserDTO> hostResult = (List<UserDTO>) request.getAttribute("HOST_RESULT");
-                                                    List<UserDTO> listHost = (List<UserDTO>) request.getAttribute("LIST_HOST");
-                                                    if (hostResult == null) {
-                                                        int countHost = 1;
-                                                        if (listHost != null) {
-                                                            for (UserDTO host : listHost) {
-                                                                String urlRewriting = "AdminServlet?action=delete&pk=" + host.getEmail();
-                                                                String urlEditing = "AdminServlet?action=Edit&email=" + host.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= countHost++%></td>
-                                                    <td>
-                                                        <%= host.getFullName()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= host.getPhoneNumber()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= host.getEmail()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= host.getRoleID()%>
-
-                                                    </td>
-                                                    <td>
-                                                        <a href="<%= urlEditing%>">Edit</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="delete" href="<%= urlRewriting%>">Delete</a>
-                                                    </td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                } else if (hostResult != null) {
-                                                    int countHost = 1;
-                                                    for (UserDTO hostSearch : hostResult) {
-                                                        String urlRewriting = "AdminServlet?action=delete&pk=" + hostSearch.getEmail();
-                                                        String urlEditing = "AdminServlet?action=Edit&email=" + hostSearch.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= countHost++%></td>
-                                                    <td>
-                                                        <%= hostSearch.getFullName()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= hostSearch.getPhoneNumber()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= hostSearch.getEmail()%>
-                                                    </td>
-                                                    <td>
-                                                        <%= hostSearch.getRoleID()%>
-
-                                                    </td>
-                                                    <td>
-                                                        <a href="<%= urlEditing%>">Edit</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="delete" href="<%= urlRewriting%>">Delete</a>
-                                                    </td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
-                </div>
+
+            </main>
         </div>
-    </main>
-</div>
-</body>
+    </body>
 </html>

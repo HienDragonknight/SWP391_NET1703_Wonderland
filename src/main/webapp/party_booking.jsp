@@ -473,9 +473,13 @@
                 border-radius: 20px;
                 cursor: pointer;
             }
-            
+
             .content-form form > div {
                 justify-content: center;
+            }
+            
+            label {
+                color: #00A0F0;
             }
         </style>
     </head>
@@ -626,6 +630,7 @@
                                             List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
                                             List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
                                             List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
+                                            List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
                                         %>
 
                                         <div class="list-booking">
@@ -649,6 +654,7 @@
                                             <div>
                                                 <label>Date/Time</label>
                                                 <input type="text" name="" value="" />
+                                                <input type="text" name="" value="" /> 
                                             </div>
 
                                             <div>
@@ -659,7 +665,13 @@
                                             <div>
                                                 <label>Package</label>
                                                 <select>
-
+                                                    <%
+                                                        for (PackageDTO packages : packageDTO) {
+                                                    %>
+                                                    <option><%= packages.getPackageName()%></option>
+                                                    <%
+                                                        }
+                                                    %>
                                                 </select>
                                             </div>
 
@@ -868,6 +880,7 @@
                                 List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
                                 List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
                                 List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
+                                List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
                             %>
 
                             <div class="list-booking">
@@ -901,7 +914,13 @@
                                 <div>
                                     <label>Package</label>
                                     <select>
-
+                                        <%
+                                            for (PackageDTO packages : packageDTO) {
+                                        %>
+                                        <option><%= packages.getPackageName()%></option>
+                                        <%
+                                            }
+                                        %>
                                     </select>
                                 </div>
 
