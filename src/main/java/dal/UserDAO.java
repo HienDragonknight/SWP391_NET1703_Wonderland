@@ -20,6 +20,18 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class UserDAO implements Serializable {
+    
+    List<UserDTO> listUser;
+
+    public List<UserDTO> getListUser() {
+        return listUser;
+    }
+    
+    List<UserDTO> listHost;
+
+    public List<UserDTO> getListHost() {
+        return listHost;
+    }
 
     String ID = "";
 
@@ -31,10 +43,9 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? ";
-    //            String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, email);    
+                stm.setString(1, email);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -60,12 +71,6 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    }
-
-    List<UserDTO> listUser;
-
-    public List<UserDTO> getListUser() {
-        return listUser;
     }
 
     public void getUser() throws SQLException, ClassNotFoundException {
@@ -117,12 +122,6 @@ public class UserDAO implements Serializable {
                 con.close();
             }
         }
-    }
-
-    List<UserDTO> listHost;
-
-    public List<UserDTO> getListHost() {
-        return listHost;
     }
 
     public void getHost() throws SQLException, ClassNotFoundException {
@@ -229,7 +228,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public UserDTO updateHost(String name, String phone, String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -263,7 +262,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public boolean registerUser(String fullName, String email, String password, String phone) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -292,7 +291,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public UserDTO updateAccount(String name, String phone, String email, String password, String cEmail) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -328,7 +327,7 @@ public class UserDAO implements Serializable {
         }
         return result;
     }
-    
+
     public void searchByEmail(String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -378,7 +377,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public UserDTO reportCus(String report, String email) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -410,35 +409,113 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    }  public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
-        Connection conn = null;
-        PreparedStatement ptm = null;
-        UserDTO result = null;
+    }
+
+    public void searchUserDashboard(String inputValue) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
         try {
-            conn = DBUtils.createConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
-                ptm.setString(1, fullname);
-                ptm.setString(2, email);
-                ptm.setString(3, phone);
-                ptm.setString(4, password);
-                ptm.setString(5, emailConfirm);
-                int effectRows = ptm.executeUpdate();
-                //process
-                if (effectRows > 0) {
-                    result = new UserDTO(ID, fullname, email, password, phone, email, ID, "");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported "
+                        + "FROM users u "
+                        + "JOIN Role r ON r.roleID = u.roleID "
+                        + "WHERE fullname LIKE ? AND r.roleDetails = 'Customer'";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + inputValue + "%");
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String phone = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String role = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
+                    //5.1.2 set data into properties of DTO
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phone, avatar, role, reported);
+                    //5.1.3 add DTO into list
+                    if (this.listUser == null) {
+                        this.listUser = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listUser.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
         } finally {
-            if (ptm != null) {
-                ptm.close();
+            if (rs != null) {
+                rs.close();
             }
-            if (conn != null) {
-                conn.close();
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
             }
         }
-        return result;
+    }
+    
+    public void searchHostDashboard(String inputValue) throws ClassNotFoundException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        boolean result = false;
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "SELECT userID, fullname, email, password, phone, avatar, r.roleDetails, reported "
+                        + "FROM users u "
+                        + "JOIN Role r ON r.roleID = u.roleID "
+                        + "WHERE fullname LIKE ? AND r.roleDetails = 'Party Host'";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, "%" + inputValue + "%");
+                //execute query
+                rs = stm.executeQuery();
+                //5. process
+                while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullname");
+                    String email = rs.getString("email");
+                    String password = rs.getString("password");
+                    String phone = rs.getString("phone");
+                    String avatar = rs.getString("avatar");
+                    String role = rs.getString("roleDetails");
+                    String reported = rs.getString("reported");
+                    //5.1.2 set data into properties of DTO
+                    UserDTO dto = new UserDTO(userID, fullName, email, "", phone, avatar, role, reported);
+                    //5.1.3 add DTO into list
+                    if (this.listHost == null) {
+                        this.listHost = new ArrayList<>();
+                    }//end accounts had not existed
+                    this.listHost.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 }

@@ -7,6 +7,8 @@ package controlls.servlet;
 import dal.UserDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class EditCustomerProfileServlet extends HttpServlet {
     private static final String SUCCESS = "login.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         String fullname = request.getParameter("fullname");
         String email = request.getParameter("email");
@@ -47,7 +49,7 @@ public class EditCustomerProfileServlet extends HttpServlet {
             //2.1 new DAO
             UserDAO dao = new UserDAO();
             //2.2 call method of DAO
-            UserDTO result = dao.editCustomerProfile(email, fullname, phone, password, emailConfirm);
+            UserDTO result = dao.updateAccount(email, fullname, phone, password, emailConfirm);
             //3. process result
             if (result != null) {
                 //refresh --> call previous function again (Search)
@@ -74,7 +76,11 @@ public class EditCustomerProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EditCustomerProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -88,7 +94,11 @@ public class EditCustomerProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EditCustomerProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

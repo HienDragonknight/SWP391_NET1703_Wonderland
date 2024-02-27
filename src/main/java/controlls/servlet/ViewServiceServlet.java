@@ -4,8 +4,7 @@
  */
 package controlls.servlet;
 
-import dal.OrderDAO;
-import dal.OrderDetailDAO;
+import dal.BonusServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,16 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.OrderDetailDTO;
+import models.BonusServiceDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author huY
  */
-@WebServlet(name = "ViewOrderServlet", urlPatterns = {"/ViewOrderServlet"})
-public class ViewOrderServlet extends HttpServlet {
-    private final String ERROR = "ViewUserServlet";
-    private final String SUCCESS = "adminOrder.jsp";
+@WebServlet(name = "ViewServiceServlet", urlPatterns = {"/ViewServiceServlet"})
+public class ViewServiceServlet extends HttpServlet {
+    private final String ERROR = "service.jsp";
+    private final String SUCCESS = "service.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,15 +39,12 @@ public class ViewOrderServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            OrderDetailDAO dao = new OrderDetailDAO();
-            dao.getOrder();
-            List<OrderDetailDTO> order = dao.getListOrder();
+            BonusServiceDAO dao = new BonusServiceDAO();
+            List<BonusServiceDTO> bonusServiceList = dao.getBonusServiceList();
             url = SUCCESS;
-            request.setAttribute("LIST_ORDER", order);
+            request.setAttribute("SERVICE_LIST", bonusServiceList);
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
