@@ -31,14 +31,9 @@ public class SearchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = SEARCH_PAGE;
         String searchValue = request.getParameter("txtSearchValue");
-        boolean error = false;
-        try {
-            
-        } finally {
-            
-        }
+        PrintWriter out = response.getWriter();
+        out.print(searchValue);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

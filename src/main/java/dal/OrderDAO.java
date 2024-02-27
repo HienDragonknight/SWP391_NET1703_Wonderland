@@ -27,38 +27,46 @@ public class OrderDAO implements Serializable {
         return listOrder;
     }
 
-    public void getOrder() throws SQLException, ClassNotFoundException {
+    public void getOrder() throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        boolean result = false;
         try {
-            // create connection
+            //create connection
             con = DBUtils.createConnection();
             if (con != null) {
-                // create sql string
-                String sql = "SELECT o.orderID, u.fullname, o.create_at, SUM(o.totalPrice) AS total_price, o.status FROM [Order] o JOIN users u ON u.userID = o.userID GROUP BY o.orderID, u.fullname, o.create_at, o.status";
-                // create statement obj
+                //create sql string
+                String sql = "SELECT p.packageName, create_at, totalPrice, email, phone, fullname, status "
+                        + "FROM [Order] o "
+                        + "JOIN OrderDetails od ON o.orderDetailID = od.orderDetailID "
+                        + "JOIN Packages p ON p.packageID = od.packageID";
+                //create statement obj
                 stm = con.prepareStatement(sql);
-                // execute query
+                //execute query
                 rs = stm.executeQuery();
-                // process
+                //5. process
                 while (rs.next()) {
-                    int orderID = rs.getInt("orderID");
-                    String fullName = rs.getString("fullname");
+                    //5.1 map data
+                    //5.1.1 get data from rs
                     Date createDate = rs.getDate("create_at");
-                    double totalPrice = rs.getDouble("total_price");
+                    double totalPrice = rs.getDouble("totalPrice");
                     String status = rs.getString("status");
-
-          //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String fullName = rs.getString("fullname");
+                    String packageName = rs.getString("packageName");
+                    //5.1.2 set data into properties of DTO
+                    OrderDTO dto = new OrderDTO("", "", createDate, totalPrice, status, email, phone, fullName, packageName);
+                    //5.1.3 add DTO into list
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
-                    }
-            //        this.listOrder.add(dto);
-                }
-            }
+                    }//end accounts had not existed
+                    this.listOrder.add(dto);
+                    //5.2 done
+                }//end traverse rs
+            }//end connection is available
         } finally {
-            // close resources in a finally block
             if (rs != null) {
                 rs.close();
             }
@@ -70,5 +78,4 @@ public class OrderDAO implements Serializable {
             }
         }
     }
-
 }

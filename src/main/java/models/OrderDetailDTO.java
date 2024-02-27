@@ -13,66 +13,55 @@ import java.util.Date;
  */
 public class OrderDetailDTO implements Serializable {
 
-    String orderDetailID;
-    String orderID;
-    String serviceID;
-    String packageID;
-    Date dateStart;
-    Date dateOrder;
-    String numberOfPeople;
-    String themeID;
-    String locationID;
-    String note;
-    String paymentMethod;
+    private String fullName;
+    private String packageName;
+    private Date dateStart;
+    private Date dateOrder;
+    private double totalPrice;
+    private String status;
+    private String email;
+    private String phone;
+    private String serviceName;
+    private int amountOfPeople;
+    private String themeName;
+    private String location;
+    private String notes;
+    private String payment;
 
     public OrderDetailDTO() {
-        this.orderDetailID = "";
-        this.serviceID = "";
-        this.packageID = "";
-        this.dateStart = null;
-        this.dateOrder = null;
-        this.numberOfPeople = "";
-        this.themeID = "";
-        this.locationID = "";
-        this.note = "";
-        this.paymentMethod = "";
     }
 
-    public OrderDetailDTO(String orderDetailID, String serviceID, String packageID, Date dateStart, Date dateOrder, String numberOfPeople, String themeID, String locationID, String note, String paymentMethod) {
-        this.orderDetailID = orderDetailID;
-        this.serviceID = serviceID;
-        this.packageID = packageID;
+    public OrderDetailDTO(String fullName, String packageName, Date dateStart, Date dateOrder, double totalPrice, String status, String email, String phone, String serviceName, int amountOfPeople, String themeName, String location, String notes, String payment) {
+        this.fullName = fullName;
+        this.packageName = packageName;
         this.dateStart = dateStart;
         this.dateOrder = dateOrder;
-        this.numberOfPeople = numberOfPeople;
-        this.themeID = themeID;
-        this.locationID = locationID;
-        this.note = note;
-        this.paymentMethod = paymentMethod;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.email = email;
+        this.phone = phone;
+        this.serviceName = serviceName;
+        this.amountOfPeople = amountOfPeople;
+        this.themeName = themeName;
+        this.location = location;
+        this.notes = notes;
+        this.payment = payment;
     }
 
-    public String getOrderID() {
-        return orderID;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
-    public String getServiceID() {
-        return serviceID;
+    public String getPackageName() {
+        return packageName;
     }
 
-    public void setServiceID(String serviceID) {
-        this.serviceID = serviceID;
-    }
-
-    public String getPackageID() {
-        return packageID;
-    }
-
-    public void setPackageID(String packageID) {
-        this.packageID = packageID;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public Date getDateStart() {
@@ -91,44 +80,86 @@ public class OrderDetailDTO implements Serializable {
         this.dateOrder = dateOrder;
     }
 
-    public String getNumberOfPeople() {
-        return numberOfPeople;
+    public double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setNumberOfPeople(String numberOfPeople) {
-        this.numberOfPeople = numberOfPeople;
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public String getThemeID() {
-        return themeID;
+    public String getStatus() {
+        return status;
     }
 
-    public void setThemeID(String themeID) {
-        this.themeID = themeID;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getLocationID() {
-        return locationID;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLocationID(String locationID) {
-        this.locationID = locationID;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getNote() {
-        return note;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
+    public String getServiceName() {
+        return serviceName;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
+    public int getAmountOfPeople() {
+        return amountOfPeople;
+    }
+
+    public void setAmountOfPeople(int amountOfPeople) {
+        this.amountOfPeople = amountOfPeople;
+    }
+
+    public String getThemeName() {
+        return themeName;
+    }
+
+    public void setThemeName(String themeName) {
+        this.themeName = themeName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getPayment() {
+        return payment;
+    }
+
+    public void setPayment(String payment) {
+        this.payment = payment;
+    }
+    
+    
+    
 }

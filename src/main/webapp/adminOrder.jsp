@@ -4,8 +4,9 @@
     Author     : Le Huu Huy
 --%>
 
-<%@page import="java.util.List"%>
 <%@page import="models.OrderDetailDTO"%>
+<%@page import="models.OrderDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -124,6 +125,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -520,6 +522,11 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
+            
+            .table-wrapper {
+                overflow-y: auto;
+                height: 450px;
+            }
 
             @media screen and (max-width: 992px) {
                 .container main {
@@ -586,7 +593,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
@@ -618,7 +625,7 @@
                             double totalIncome = 0;
                             if (result != null) {
                                 for (OrderDetailDTO dto : result) {
-                                    totalIncome += dto.getPrice();
+                                    totalIncome += dto.getTotalPrice();
                                 }
                             }
                         %>
@@ -666,6 +673,7 @@
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
+                                    <div class="table-wrapper">
                                     <table>
                                         <thead>
                                             <tr>
@@ -684,56 +692,63 @@
                                                 if (result != null) {
                                                     for (OrderDetailDTO dto : result) {
 
-
                                             %>
                                             <tr>
                                                 <td><%= countOrder++%></td>
-                                                <td><%= dto.getUserName()%></td>
+                                                <td><%= dto.getFullName()%></td>
                                                 <td><%= dto.getDateOrder()%></td>
-                                                <td><%= dto.getPackages()%></td>
-                                                <td><%= dto.getPrice()%></td>
-                                                <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor" %>;p">
+                                                <td><%= dto.getPackageName()%></td>
+                                                <td><%= dto.getTotalPrice()%></td>
+                                                <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
                                                     <%= dto.getStatus()%>
                                                 </td>
                                                 <td>
-                                                    <a data-modal-target="#modal<%= countOrder %>">View Details</a>
-                                                    <div class="modal" id="modal<%= countOrder %>">
+                                                    <a data-modal-target="#modal<%= countOrder%>">View Details</a>
+                                                    <div class="modal" id="modal<%= countOrder%>">
                                                         <div class="modal-header">
-                                                            <div class="title"><%= dto.getUserName() %></div>
+                                                            <div class="title"><%= dto.getFullName()%></div>
                                                         </div>
 
                                                         <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
                                                             <ul style="list-style: none; width: 100%; text-align: center;">
                                                                 <li>
-                                                                    <p style="font-weight: bold">Party Name:</p> <%= dto.getPackages() %>
+                                                                    <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Theme:</p> <%= dto.getTheme() %>
+                                                                    <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Amount:</p> <%= dto.getAmountPeople() %>
+                                                                    <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Service:</p> <%= dto.getService() %>
+                                                                    <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Date Order:</p> <%= dto.getDateOrder() %>
+                                                                    <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Party Date:</p> <%= dto.getDateStart() %>
+                                                                    <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Location:</p> <%= dto.getLocation() %>
+                                                                    <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone() %></span>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Note:</p> <%= dto.getNote() %>
+                                                                    <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
                                                                 </li>
+
                                                                 <li>
-                                                                    <p style="font-weight: bold">Price:</p> <%= dto.getPrice() %>
+                                                                    <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
                                                                 </li>
                                                             </ul>
-                                                            <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor" %>;">
-                                                                <%= dto.getStatus() %>
+                                                            <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
+                                                                <%= dto.getStatus()%>
                                                             </button>
 
                                                         </div>
@@ -748,6 +763,7 @@
                                             %>
                                         </tbody>
                                     </table>
+                                    </div>
                                 </form>
                             </div>
                         </div>
