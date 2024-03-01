@@ -78,4 +78,35 @@ public class OrderDAO implements Serializable {
             }
         }
     }
+    
+    public double getChartInYear(int year) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        double totalPrice = 0.0;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "  SELECT sum(totalprice) as totalPrice from [Order] WHERE year(create_at) = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, year);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    totalPrice = rs.getDouble("totalPrice");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        
+        return totalPrice;
+    }
 }

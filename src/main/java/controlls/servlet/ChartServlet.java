@@ -4,28 +4,28 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.UserDTO;
+import models.OrderDetailDTO;
 
 /**
  *
  * @author huY
  */
-@WebServlet(name = "PartyHostServlet", urlPatterns = {"/PartyHostServlet"})
-public class PartyHostServlet extends HttpServlet {
+@WebServlet(name = "ChartServlet", urlPatterns = {"/ChartServlet"})
+public class ChartServlet extends HttpServlet {
 
-    private final String SUCCESS = "host.jsp";
-    private final String ERROR = "host.jsp";
+    private final String SUCCESS = "chart.jsp";
+    private final String ERROR = "chart.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,19 +41,33 @@ public class PartyHostServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            UserDAO dao = new UserDAO();
-            dao.getUser();
-            List<UserDTO> user = dao.getListUser();
+            OrderDAO dao = new OrderDAO();
+            double year20 = dao.getChartInYear(2020);
+            double year21 = dao.getChartInYear(2021);
+            double year22 = dao.getChartInYear(2022);
+            double year23 = dao.getChartInYear(2023);
+            double year24 = dao.getChartInYear(2024);
+
+            request.setAttribute("year20", year20);
+            request.setAttribute("year21", year21);
+            request.setAttribute("year22", year22);
+            request.setAttribute("year23", year23);
+            request.setAttribute("year24", year24);
+            
+            OrderDetailDAO daoo = new OrderDetailDAO();
+            daoo.getOrder();
+            List<OrderDetailDTO> order = daoo.getListOrder();
+            request.setAttribute("LIST_ORDER", order);
+            
             url = SUCCESS;
-            request.setAttribute("LIST_USER", user);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Class: " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

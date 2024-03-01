@@ -1,10 +1,11 @@
 <%-- 
-    Document   : host
-    Created on : Feb 27, 2024, 8:09:21 AM
+    Document   : chart
+    Created on : Feb 29, 2024, 3:56:09 PM
     Author     : huY
 --%>
 
 <%@page import="models.UserDTO"%>
+<%@page import="models.OrderDetailDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Party Host</title>
+        <title>JSP Page</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -172,6 +173,63 @@
                 transition: all 0.3s ease;
             }
 
+            .slide-container {
+                position: relative;
+                width: 100%;
+                max-width: 100vw;
+                height: 650px;
+                max-height: 100vh;
+                margin: auto;
+            }
+
+            .slide-container .slides {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .slide-container .slides img{
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                object-fit: cover;
+                border-radius: 50px;
+            }
+
+            .slide-container .slides img:not(.active) {
+                top: 0;
+                left: -100%;
+            }
+
+            span.next, span.prev {
+                display: none;
+            }
+
+            .dotsContainer {
+                position: absolute;
+                bottom: 5px;
+                z-index: 3;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 10px;
+            }
+
+            .dotsContainer .active {
+                background-color: #5773ff;
+            }
+
+            .dotsContainer .dot {
+                width: 15px;
+                height: 15px;
+                margin: 0px 2px;
+                border: 3px solid #bbb;
+                border-radius: 50%;
+                display: inline-block;
+                transition: background-color 0.6s ease;
+                cursor: pointer;
+            }
+
             .column-about {
                 display: flex;
                 justify-content: center;
@@ -277,89 +335,8 @@
                 color: #363949;
             }
 
-            .bottom-data {
-                display: flex;
-                flex-wrap: wrap;
-                grid-gap: 24px;
-                margin-top: 24px;
-                width: 100%;
-                color: #363949;
-                max-height: 600px;
-                height: 600px;
-            }
-
-            .bottom-data>div {
-                border-radius: 20px;
-                background: #f6f6f9;
-                padding: 24px;
-                overflow-x: auto;
-            }
-
-            .bottom-data .header {
-                display: flex;
-                align-items: center;
-                grid-gap: 16px;
-                margin-bottom: 24px;
-            }
-
-            .bottom-data .header h3 {
-                margin-right: auto;
-                font-size: 24px;
-                font-weight: 600;
-            }
-
-            .bottom-data .header bx {
-                cursor: pointer;
-            }
-
-            .bottom-data .orders{
-                flex-grow: 1;
-                flex-basis: 500px;
-
-            }
-
-            .bottom-data .orders table{
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            .bottom-data .orders table th{
-                padding-bottom: 12px;
-                font-size: 13px;
-                text-align: left;
-                border-bottom: 1px solid #eee;
-            }
-
-            .bottom-data .orders table td{
-                padding: 16px 0;
-            }
-
-            .bottom-data .orders table td input {
-                border: none;
-                outline: none;
-                background: #f6f6f9;
-                font-size: 16px;
-                width: 100%;
-            }
-
-            .bottom-data .orders table tr td:first-child{
-                display: flex;
-                align-items: center;
-                grid-gap: 12px;
-                padding-left: 6px;
-            }
-
-            .bottom-data .orders table tbody tr{
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .bottom-data .orders table tbody tr:hover{
-                background: #eee;
-            }
-
-            .bottom-data .orders table tr td .status.completed{
-                background: #388E3C;
+            #sale-revenue {
+                max-height: 650px;
             }
 
             .admin-header {
@@ -396,39 +373,6 @@
                 color: red;
                 cursor: pointer;
             }
-
-            .table-wrapper {
-                overflow-y: auto;
-                height: 500px;
-            }
-
-            .header form {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-            }
-            
-            .header .search-btn {
-                display: none;
-            }
-            
-            .header input {
-                border: none;
-                padding: 5px 20px;
-                outline: none;
-            }
-
-            @media screen and (max-width: 992px) {
-                .container main {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .menu {
-                    position: absolute;
-                    left: -100%;
-                }
-            }
         </style>
     </head>
     <body>
@@ -448,11 +392,25 @@
                             <input type="text" placeholder="Type here to search">
                         </form>
                     </div>
+                    
+                    <%
+                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
+                    %>
 
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
-                            <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <%
+                            if (hostDTO.getRoleID().equals("3")) {
+                                    %>
+                                    <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <%
+                                } else if (hostDTO.getRoleID().equals("2")) {
+%>
+                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                                    <%
+}
+                            %>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -504,10 +462,6 @@
                             </li>
                         </ul>
                     </div>
-                    
-                    <%
-                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
-                    %>
 
                     <div class="admin-container">
                         <%
@@ -526,9 +480,16 @@
                         <%
                             }
                         %>
+                        
                         <%
-                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                            List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
+                            double totalIncome = 0;
+                            if (result != null) {
+                                for (OrderDetailDTO dto : result) {
+                                    totalIncome += dto.getTotalPrice();
+                                }
+                            }
                         %>
 
                         <div>
@@ -541,8 +502,28 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-user'></i>
+                                    <%                                        if (hostDTO.getRoleID().equals("3")) {
+                                    %>
                                     <a href="PartyHostServlet" class="info">
                                         <p>User</p>
+                                    </a>
+                                    <%
+                                    } else if (hostDTO.getRoleID().equals("2")) {
+                                    %>
+                                    <a href="ViewUserServlet" class="info">
+                                        <p>User</p>
+                                    </a>
+                                    <%
+                                        }
+                                    %>
+                                </li>
+                                <li>
+                                    <i class='bx bx-money'></i>
+                                    <a href="ChartServlet" class="info">
+                                        <h3 style="font-size: 20px;">
+                                            <%= totalIncome%>
+                                        </h3>
+                                        <p>Income</p>
                                     </a>
                                 </li>
                                 <li>
@@ -553,82 +534,35 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <!-- Users Table -->
-                        <div class="bottom-data">
-                            <div class="orders">
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Users</h3>
-                                    <form action="AdminServlet" method="POST">
-                                        <i class='bx bx-search'></i>
-                                        <input type="text" name="txtInputValue" value="${param.txtInputValue}" />
-                                        <input class="search-btn" type="submit" value="Search" name="action"/>
-                                    </form>
-                                </div>
-
-                                <form action="AdminServlet" method="POST">
-                                    <div class="table-wrapper">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>User</th>
-                                                    <th>Phone</th>
-                                                    <th>Email</th>
-                                                    <th>Role</th>
-                                                    <th>Report</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody class="scrollable">
-                                                <%                                                    
-                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
-                                                    if (searchResult == null) {
-                                                        int countUser = 1;
-                                                        if (result != null) {
-                                                            for (UserDTO dto : result) {
-                                                                String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= countUser++%></td>
-                                                    <td><%= dto.getFullName()%></td>
-                                                    <td><%= dto.getPhoneNumber()%></td>
-                                                    <td><%= dto.getEmail()%></td>
-                                                    <td><%= dto.getRoleID()%></td>
-                                                    <td style="display: <%= (dto.getReported() != null && !dto.getReported().isEmpty()) ? "block" : "none"%>;"><%= dto.getReported()%></td>
-                                                    <td><a href="<%= urlReport%>">Report</a></td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                } else {
-                                                    int coutUser = 1;
-                                                    for (UserDTO searchR : searchResult) {
-                                                        String urlReport = "AdminServlet?action=Update&email=" + searchR.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= coutUser++%></td>
-                                                    <td><%= searchR.getFullName()%></td>
-                                                    <td><%= searchR.getPhoneNumber()%></td>
-                                                    <td><%= searchR.getEmail()%></td>
-                                                    <td><%= searchR.getRoleID()%></td>
-                                                    <td><%= searchR.getReported()%></td>
-                                                    <td><a href="<%= urlReport%>">Report</a></td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <canvas id="sale-revenue"></canvas>
                     </div>
 
             </main>
         </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script type="text/javascript">
+            var chart = document.getElementById("sale-revenue").getContext("2d");
+            var myChart = new Chart(chart, {
+                type: "line",
+                data: {
+                    labels: ["2020", "2021", "2022", "2023", "2024"],
+                    datasets: [{
+                            label: "Revenue",
+                            data: [
+            <%= request.getAttribute("year20")%>,
+            <%= request.getAttribute("year21")%>,
+            <%= request.getAttribute("year22")%>,
+            <%= request.getAttribute("year23")%>,
+            <%= request.getAttribute("year24")%>
+                            ],
+                            backgroundColor: "rgba(0, 156, 255, .5)"
+                        }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+        </script>
     </body>
 </html>

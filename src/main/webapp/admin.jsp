@@ -543,6 +543,7 @@
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
                                     <form action="AdminServlet" method="POST">
+                                        <i class='bx bx-search'></i>
                                         <input type="text" name="txtInputValue" value="${param.txtInputValue}" />
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
                                     </form>
@@ -616,6 +617,7 @@
                                     <i class='bx bx-receipt'></i>
                                     <h3>Party Host</h3>
                                     <form action="AdminServlet" method="POST">
+                                        <i class='bx bx-search'></i>
                                         <input type="text" name="txtHostValue" value="${param.txtHostValue}" />
                                         <input class="search-btn" type="submit" value="Search Host" name="action"/>
                                     </form>

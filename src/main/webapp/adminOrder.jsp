@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="models.UserDTO"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
@@ -522,7 +523,7 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
-            
+
             .table-wrapper {
                 overflow-y: auto;
                 height: 450px;
@@ -558,10 +559,25 @@
                         </form>
                     </div>
 
+                    <%
+                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
+                    %>
+
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
+                            <%
+                            if (hostDTO.getRoleID().equals("3")) {
+                                    %>
+                                    <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <%
+                                } else if (hostDTO.getRoleID().equals("2")) {
+%>
                             <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                                    <%
+}
+                            %>
+                            
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -615,10 +631,23 @@
                     </div>
 
                     <div class="admin-container">
+                        <%
+                            if (hostDTO.getRoleID().equals("3")) {
+                        %>
+                        <div class="admin-header">
+                            <h1>Party Host Dashboard</h1>
+                        </div>
+                        <%
+                        } else if (hostDTO.getRoleID().equals("2")) {
+                        %>
                         <div class="admin-header">
                             <h1>Admin Dashboard</h1>
                             <a href="manageAccount.jsp">Manage Account</a>
                         </div>
+                        <%
+                            }
+                        %>
+
                         <%
                             List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
@@ -628,6 +657,7 @@
                                     totalIncome += dto.getTotalPrice();
                                 }
                             }
+
                         %>
 
                         <div>
@@ -640,13 +670,24 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-user'></i>
+                                    <%                                        if (hostDTO.getRoleID().equals("3")) {
+                                    %>
+                                    <a href="PartyHostServlet" class="info">
+                                        <p>User</p>
+                                    </a>
+                                    <%
+                                    } else if (hostDTO.getRoleID().equals("2")) {
+                                    %>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
+                                    <%
+                                        }
+                                    %>
                                 </li>
                                 <li>
                                     <i class='bx bx-money'></i>
-                                    <a href="ViewUserServlet" class="info">
+                                    <a href="ChartServlet" class="info">
                                         <h3 style="font-size: 20px;">
                                             <%= totalIncome%>
                                         </h3>
@@ -674,95 +715,95 @@
 
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>User</th>
-                                                <th>Date Order</th>
-                                                <th>Party Name</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>User</th>
+                                                    <th>Date Order</th>
+                                                    <th>Party Name</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <%
-                                                int countOrder = 1;
-                                                if (result != null) {
-                                                    for (OrderDetailDTO dto : result) {
+                                            <tbody>
+                                                <%
+                                                    int countOrder = 1;
+                                                    if (result != null) {
+                                                        for (OrderDetailDTO dto : result) {
 
-                                            %>
-                                            <tr>
-                                                <td><%= countOrder++%></td>
-                                                <td><%= dto.getFullName()%></td>
-                                                <td><%= dto.getDateOrder()%></td>
-                                                <td><%= dto.getPackageName()%></td>
-                                                <td><%= dto.getTotalPrice()%></td>
-                                                <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
-                                                    <%= dto.getStatus()%>
-                                                </td>
-                                                <td>
-                                                    <a data-modal-target="#modal<%= countOrder%>">View Details</a>
-                                                    <div class="modal" id="modal<%= countOrder%>">
-                                                        <div class="modal-header">
-                                                            <div class="title"><%= dto.getFullName()%></div>
+                                                %>
+                                                <tr>
+                                                    <td><%= countOrder++%></td>
+                                                    <td><%= dto.getFullName()%></td>
+                                                    <td><%= dto.getDateOrder()%></td>
+                                                    <td><%= dto.getPackageName()%></td>
+                                                    <td><%= dto.getTotalPrice()%></td>
+                                                    <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
+                                                        <%= dto.getStatus()%>
+                                                    </td>
+                                                    <td>
+                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
+                                                        <div class="modal" id="modal<%= countOrder%>">
+                                                            <div class="modal-header">
+                                                                <div class="title"><%= dto.getFullName()%></div>
+                                                            </div>
+
+                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                                <ul style="list-style: none; width: 100%; text-align: center;">
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone()%></span>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
+                                                                    </li>
+                                                                </ul>
+                                                                <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
+                                                                    <%= dto.getStatus()%>
+                                                                </button>
+
+                                                            </div>
+
                                                         </div>
 
-                                                        <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                            <ul style="list-style: none; width: 100%; text-align: center;">
-                                                                <li>
-                                                                    <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone() %></span>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
-                                                                </li>
-
-                                                                <li>
-                                                                    <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
-                                                                </li>
-                                                            </ul>
-                                                            <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
-                                                                <%= dto.getStatus()%>
-                                                            </button>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div id="overlay"></div>
-                                                </td>
-                                            </tr>
-                                            <%                                                    }
-                                                }
-                                            %>
-                                        </tbody>
-                                    </table>
+                                                        <div id="overlay"></div>
+                                                    </td>
+                                                </tr>
+                                                <%                                                    }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </form>
                             </div>
