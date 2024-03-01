@@ -267,6 +267,36 @@
                 color: #fff;
             }
 
+            .logout {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+
+            .logout li a{
+                color: red;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                cursor: pointer;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
         </style>
     </head
     <body>
@@ -313,6 +343,7 @@
                         <ul class="menu-ic">
                             <li>
                                 <i class='bx bx-home-alt-2'></i>
+                                <a href="home.jsp">Home</a>
                             </li>
 
                             <li>
@@ -322,7 +353,6 @@
                             <li>
                                 <i class='bx bx-package'></i>
                                 <a href="ViewPackage">Packages</a>
-
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
@@ -330,7 +360,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
+                                <a href="BookingPartyServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -418,10 +448,10 @@
             </ul>
             <ul class="logout">
                 <li>
-                    <a href="#">
-                        <i class='bx bx-log-out-circle' ></i>
-                        <span>Logout</span>
-                    </a>
+                    <form action="LogoutServlet" method="POST">
+                        <i class='bx bx-log-out-circle'></i>
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
                 </li>
             </ul>
         </div>
@@ -440,6 +470,7 @@
             <div class="green-container">
                 <div class="container-packages">
                     <div class="packages-detail">
+                        <img></<img src="src" alt="alt"/>
                         <h2><%= packages.getPackageName()%></h2></br>
                         <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                         <h3>Description: <%= packages.getDescription()%></h3></br>
