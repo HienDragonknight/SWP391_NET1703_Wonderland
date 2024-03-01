@@ -757,7 +757,6 @@
 </div>
 <%    }
 %>
-<<<<<<< HEAD
 <footer class="page-footer">
     <div class="footer-header">
         <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
