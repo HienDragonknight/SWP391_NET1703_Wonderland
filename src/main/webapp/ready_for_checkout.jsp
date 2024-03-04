@@ -314,6 +314,16 @@
                         <i class='bx bx-lock-alt'></i>
                         <a href="#">Sign Up</a>
                     </div>
+                    <div>
+
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                    </div>
 
                     <%
                     } else {
@@ -356,12 +366,15 @@
                 <h1>Party Booking</h1>
 
 
+
                 <div class="column">
                     <div class="checkout-container">
                         <div class="order-info">
+
                             <div class="order-info-block" >
                                 <span class="order-info-title">Order Information</span>
                             </div>
+
                             <div class="content minicart-items" data-role="content">
                                 <div class="minicart-items-wrapper">
                                     <div class="product">
@@ -371,8 +384,8 @@
                                             </span>
                                         </span>
                                         <div class="product-item-details">
-
                                             <div class="product-item-inner">
+
                                                 <div class="product-item-name-block">
                                                     <strong class="location-name" id="location-name">HCM</strong>
                                                     <div class="product options">
@@ -413,7 +426,7 @@
                                 <tr >
 
                                 <span class="label" >Bonus Service</span>
-                                <span class="price-bonus" id="price-bonus">0$</span>
+                                <span class="price  -bonus" id="price-bonus">0$</span>
 
 
                                 </tr>  <br>
@@ -436,13 +449,6 @@
                             <div class="customer-info-block" >
                                 <span class="customer-info-title">Customer Information</span>
                             </div>
-
-
-
-
-
-
-
                             <%
                                 if (dto == null) {
                             %>
@@ -474,6 +480,7 @@
                                         <input type="hidden" id="total"  name="total" value=""> 
                                     </div>
                                 </form>
+
                             </div>
 
                             <%
@@ -500,12 +507,14 @@
                                         <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
                                         <input type="hidden" id="location-id" name="location-id" value="" /><br>
                                         <input type="hidden" id="subtotal"  name="subtotal" value=""> 
-                                        <input type="hidden" id="shipping"  name="shipping" value=""> 
+                                        <input type="hidden" id="shipping" name="shipping" value=""> 
                                         <input type="hidden" id="tax"  name="tax" value=""> 
                                         <input type="hidden" id="total"  name="total" value=""> 
                                     </div>
                                 </form>
                             </div>
+
+
 
                             <%   }
                             %>
@@ -591,8 +600,7 @@
         }
 
 
-
-
+        updateCartCount();
         //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
         ////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
         function updateOrderInfomation()
@@ -607,7 +615,6 @@
             numberOfChildren.innerHTML = packageData['childrenNums'];
             var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
             pricePackageUnit.innerHTML = pricePackageUnitValue + '$';
-
 
             var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
             var priceMultiple = document.getElementById("price-multiple");
@@ -665,8 +672,6 @@
             locationIDInput.value = locationID;
 
         }
-
-        updateCartCount();
         setValueToOrderDetailForm();
 
 
@@ -680,12 +685,6 @@
                 event.preventDefault(); // prevent form submission
             }
         });
-
-
-
-
-
-
 
 
 

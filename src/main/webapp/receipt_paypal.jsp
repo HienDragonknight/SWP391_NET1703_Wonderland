@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+
 <html>
     <head>
         <title>Payment Receipt</title>
@@ -23,6 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <div align="center">
             <h1>Payment Done. Thank you for purchasing our products</h1>
             <table >
+
                 <tr>
                     <td>Merchant</td>
                     <td> ${requestScope.TRANSACTION.description} </td>
@@ -38,8 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <tr>
                     <td>Subtotal</td>
                     <td> ${requestScope.TRANSACTION.amount.details.subtotal} </td>
-                </tr>
-
+                </tr>               
                 <tr>
                     <td>Total</td>
                     <td> ${requestScope.TRANSACTION.amount.total} </td>
@@ -47,7 +44,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
 
                 <tr></tr><br>
                 <tr></tr>
-
 
             </table>
 
