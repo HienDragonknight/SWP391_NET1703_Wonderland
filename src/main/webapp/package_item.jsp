@@ -21,6 +21,7 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="cs/style.css" rel="stylesheet" />
         <style>
@@ -359,13 +360,68 @@
             {
                 padding: 2%;
             }
+            .container .column {
+                display: grid;
+                grid-template-columns: 1fr 5fr 1fr;
+            }
+            .menu-ic {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+            .py-5 {
+                display: flex;
+                justify-content: flex-start;
+            }
+            header .side-bar .search-bar {
+                position: relative;
+                display: flex;
+                width: 30%;
+                padding: 8px;
+                border-radius: 250px;
+                border: 1px solid #919191;
+                border-color: #5773ff;
+            }
+
+            header .side-bar .search-bar form {
+                display: flex;
+                gap: 6px;
+                width: 100%;
+            }
+
+            header .side-bar .search-bar button {
+                border: none;
+                background-color: #fff;
+            }
+
+            header .side-bar .search-bar input {
+                width: 100%;
+                border: none;
+                outline: none;
+                background-color: transparent;
+                font-size: 18px;
+            }
+
+            header .side-bar .search-bar:hover i{
+                color: #5773ff;
+            }
+            header .side-bar .search-bar {
+                position: relative;
+                display: flex;
+                width: 30%;
+                padding: 5px;
+                border-radius: 250px;
+                border: 1px solid #919191;
+                border-color: #5773ff;
+            }
         </style>
     </head>
     <body>
+
         <header>
             <aside class="side-bar">
                 <div class="logo">
-
                     <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                 </div>
 
@@ -377,8 +433,6 @@
                         <input type="text" placeholder="Type here to search">
                     </form>
                 </div>
-
-
                 <div class="profile">
                     <div class="login-pro">
                         <i class='bx bx-user'></i>
@@ -417,8 +471,39 @@
 
         <!-- Product section-->
         <section class="py-5">
+            <div class="menu">
+                <ul class="menu-ic">
+                    <li>
+                        <i class='bx bx-home-alt-2'></i>
+
+                        <a href="home.jsp">Home</a>
+                    </li>
+
+                    <li>
+                        <i class='bx bx-location-plus'></i>
+                        <a href="ViewLocation">Location</a>
+                    </li>
+                    <li>
+                        <i class='bx bx-package'></i>
+                        <a href="ViewPackage">Packages</a>
+                    </li>
+                    <li>
+                        <i class='bx bx-bell'></i>
+                        <a href="service.jsp">Service</a>
+                    </li>
+                    <li>
+                        <i class='bx bx-party'></i>
+                        <a href="BookingPartyServlet">Booking Party</a>
+                    </li>
+                    <li>
+                        <i class='bx bx-info-circle'></i>
+                        <a href="about.jsp">About Us</a>
+                    </li>
+                </ul>
+            </div>
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
+
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
                     <div class="col-md-6">
 
@@ -437,7 +522,7 @@
 
                         <button data-model-target="#model" class="btn btn-outline-dark flex-shrink-0" >
                             <i class="bi-cart-fill me-1"></i>
-                            Buy Now
+                            Booking now
                         </button>
 
 
