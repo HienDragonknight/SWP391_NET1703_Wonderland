@@ -335,9 +335,7 @@
                         <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
                     </div>
 
-
                     <div>
-
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
@@ -346,7 +344,6 @@
                             </button>
                         </form>
                     </div>
-
 
 
                 </div>

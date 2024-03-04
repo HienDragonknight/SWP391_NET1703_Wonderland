@@ -480,7 +480,7 @@
                                 if (dto == null) {
                             %>
                             <div class="model-body">
-                                <form action="ready_for_checkout" method="post">
+                                <form action="ready_for_checkout.jsp" method="post">
 
                                     <div class="elem-group">
                                         <div class="full-lined">
@@ -545,7 +545,7 @@
                                     </div>
 
                                     <div id="checkout-class">  
-                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Checkout Now</button>
+                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
                                     </div>
                                 </form>
                             </div>
