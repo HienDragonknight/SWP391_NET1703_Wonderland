@@ -300,119 +300,122 @@
         </style>
     </head
     <body>
-        <div class="container">
-            <header>
-                <aside class="side-bar">
-                    <div class="logo">
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <div class="container">
+        <header>
+            <aside class="side-bar">
+                <div class="logo">
 
-                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
-                    </div>
-
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
-                    </div>
-
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
-                        </div>
-                    </div>
-                </aside>
-            </header>
-            <main class="main">
-                <div class="column">
-                    <div class="menu">
-                        <ul class="menu-ic">
-                            <li>
-                                <i class='bx bx-home-alt-2'></i>
-                                <a href="home.jsp">Home</a>
-                            </li>
-
-                            <li>
-                                <i class='bx bx-location-plus'></i>
-                                <a href="ViewLocation">Location</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-package'></i>
-                                <a href="ViewPackage">Packages</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-bell'></i>
-                                <a href="ViewServiceServlet">Service</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-party'></i>
-                                <a href="BookingPartyServlet">Booking Party</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-info-circle'></i>
-                                <a href="about.jsp">About Us</a>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                 </div>
-                <div class="packages">
-                    <div class="add-ab">
-                        <a href="home.jsp">Home</a><span> &#10095; Packages</span>
+
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
+                </div>
+
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                    if (dto == null) {
+                %>
+                <div class="profile">
+                    <div class="login-pro">
+                        <i class='bx bx-user'></i>
+                        <a href="login.jsp">Login</a>
                     </div>
-                    <h1>Packages</h1></br>
-                    <div class="packages-list">
-                        <%
-                            List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
-                            if (listPackage != null && listPackage.size() > 0) {
-                                for (PackageDTO packages : listPackage) {
-                        %>
-                        <div class="green-container">
-                            <div class="container-packages">
-                                <div class="packages-detail">
-                                    <h2><%= packages.getPackageName()%></h2></br>
-                                    <h3>Price: <%= packages.getUnitPrice()%>$</h3>
-                                    <h3>Description: <%= packages.getDescription()%></h3></br>
-                                    <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
-                                </div>
+
+                    <span> / </span>
+
+                    <div class="sign-pro">
+                        <i class='bx bx-lock-alt'></i>
+                        <a href="#">Sign Up</a>
+                    </div>
+                </div>
+            </aside>
+        </header>
+        <main class="main">
+            <div class="column">
+                <div class="menu">
+                    <ul class="menu-ic">
+                        <li>
+                            <i class='bx bx-home-alt-2'></i>
+                            <a href="home.jsp">Home</a>
+                        </li>
+
+                        <li>
+                            <i class='bx bx-location-plus'></i>
+                            <a href="ViewLocation">Location</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-package'></i>
+                            <a href="ViewPackage">Packages</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-bell'></i>
+                            <a href="ViewServiceServlet">Service</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-party'></i>
+                            <a href="BookingPartyServlet">Booking Party</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-info-circle'></i>
+                            <a href="about.jsp">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="packages">
+                <div class="add-ab">
+                    <a href="home.jsp">Home</a><span> &#10095; Packages</span>
+                </div>
+                <h1>Packages</h1></br>
+                <div class="packages-list">
+                    <%
+                        List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
+                        if (listPackage != null && listPackage.size() > 0) {
+                            for (PackageDTO packages : listPackage) {
+                    %>
+                    <div class="green-container">
+                        <div class="container-packages">
+                            <div class="packages-detail">
+                                <h2><%= packages.getPackageName()%></h2></br>
+                                <h3>Price: <%= packages.getUnitPrice()%>$</h3>
+                                <h3>Description: <%= packages.getDescription()%></h3></br>
+                                <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
                             </div>
                         </div>
-                        <%
-                                }
-                            }
-                        %>
                     </div>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
+            </div>
 
-            </main>
+        </main>
+    </div>
+    <%        } else {
+    %>
+    <div class="user-logined">
+        <div class="logined">
+            <i class='bx bx-user-circle'></i>
+            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
         </div>
-        <%        } else {
-        %>
-        <div class="user-logined">
-            <div class="logined">
-                <i class='bx bx-user-circle'></i>
-                <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
-            </div>
-            <div class="cart-items">
-                <i class='bx bx-cart' ></i>
-                <a href="#">Cart</a>
-            </div>
+        <div class="cart-items">
+            <i class='bx bx-cart' ></i>
+            <a href="#">Cart</a>
         </div>
-    </aside>
+    </div>
+</aside>
 </header>
 <main class="main">
     <div class="column">

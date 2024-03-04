@@ -10,6 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Profile</title>
+
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -57,16 +58,19 @@
         </style>
     </head>
     <body>
-        <h1>Edit Your Info</h1>
-        <form action="EditCustomerProfileServlet" method="POST" id="info">
-            Email <input type="text" name="email" value="${sessionScope.USER_INFO.email}" readonly><br>
-            Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
-            Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
-            Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required><br>
-            <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}" />
-            <input type="submit" name="edit" value="Save">
-        </form>
-    </body>
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <h1>Edit Your Info</h1>
+    <form action="EditCustomerProfileServlet" method="POST" id="info">
+        Email <input type="text" name="email" value="${sessionScope.USER_INFO.email}" readonly><br>
+        Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
+        Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
+        Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required><br>
+        <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}" />
+        <input type="submit" name="edit" value="Save">
+    </form>
+</body>
 </html>
 
 
