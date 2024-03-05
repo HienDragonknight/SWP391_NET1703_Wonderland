@@ -406,11 +406,11 @@
                 align-items: center;
                 gap: 10px;
             }
-            
+
             .header .search-btn {
                 display: none;
             }
-            
+
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -510,7 +510,12 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-                            
+                            int totalUsers = 0; // Counter for total users
+                            if (result != null) {
+                                for (UserDTO dto : result) {
+                                    totalUsers++;
+                                }
+                            }
                         %>
 
                         <div>
@@ -548,7 +553,6 @@
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
                                     </form>
                                 </div>
-
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
@@ -711,11 +715,10 @@
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
-
-            </main>
+                </div>
         </div>
-    </body>
+    </main>
+</div>
+</body>
 </html>

@@ -301,7 +301,7 @@
                 padding-right: 270px;
                 gap: 10px;
             }
-            
+
             .intro-text p {
                 color: #565656;
                 font-size: 15px;
@@ -332,214 +332,93 @@
         </style>
     </head>
     <body>
-        <div class="container">
-            <header>
-                <aside class="side-bar">
-                    <div class="logo">
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <div class="container">
+        <header>
+            <aside class="side-bar">
+                <div class="logo">
 
-                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
-                    </div>
-
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
-                    </div>
-
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="register.jsp">Sign Up</a>
-                        </div>
-                    </div>
-                </aside>
-            </header>
-
-            <main>
-                <div class="column">
-                    <div class="menu">
-                        <ul class="menu-ic">
-                            <li>
-                                <i class='bx bx-home-alt-2'></i>
-
-                                <a href="home.jsp">Home</a>
-                            </li>
-
-                            <li>
-                                <i class='bx bx-location-plus'></i>
-                                <a href="ViewLocation">Location</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-package'></i>
-                                <a href="ViewPackage">Packages</a>
-
-                            </li>
-                            <li>
-                                <i class='bx bx-bell'></i>
-                                <a href="ViewServiceServlet">Service</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-party'></i>
-                                <a href="BookingPartyServlet">Booking Party</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-info-circle'></i>
-                                <a href="about.jsp">About Us</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="column-main">
-                        <div class="add-ab">
-                            <a href="home.jsp">Home</a><span> &#10095; About Us</span>
-                        </div>
-
-                        <h1>About Wonderlands</h1>
-
-                        <div class="column-main-image">
-                            <img src="image/cover1.jpg" alt="cover1"/>
-                        </div>
-                    </div>
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                 </div>
 
-                <div class="intro-wrapper">
-                    <div class="intro-text">
-                        <div class="intro-text-main">
-                            <i class='bx bx-history'></i>
-                            <h3>History begin</h3>
-                        </div>
-                        <p>
-                            EDUCATION + ENTERTAINMENT = “EDUCATION – INTELLIGENCE”
-                        </p>
-                        <p>
-                            Wonderlands was founded in September 2009, and is a pioneer in developing "Education - Wisdom" centers for children aged 0-12 in Vietnam. With the mission: "Creating a safe, healthy, fun, international and community environment for all children to come play, learn and develop according to the Education - Wisdom method", Wonderlands has continuously pioneered and developed the "EDUCATION – INTELLIGENCE" Playground chain system to serve and meet the increasing entertainment needs of children and parents.
-                        </p>
-                        <p>
-                            The system of Wonderlands centers stretches everywhere in Vietnam, in key cities Ho Chi Minh, Binh Duong, Hanoi and other large cities such as Can Tho, Vung Tau, Buon Me Thuot...
-                        </p>
-                        <p>
-                            With expertise, many years of experience, and a deep understanding of children, Wonderlands recognizes that the best way for children to learn knowledge and early life experiences is through fun activities. and interact with the world around them.
-                        </p>
-                        <p>
-                            Wonderlands brings peace of mind to parents and schools by creating a fun, safe and highly communal environment for children.
-                        </p>
-                    </div>
-
-                    <div class="intro-text">
-                        <div class="intro-text-main">
-                            <i class='bx bx-palette' ></i>
-                            <h3>Educational and entertainment value</h3>
-                        </div>
-                        <p>
-                            From knowledge and experience in the field of activities for children, Wonderlands believes that, in the early stages of life, children need to comprehensively develop necessary skills.
-                        </p>
-                        <p>
-                            Wonderlands's mission is through activities and programs to help children perfect the 5 elements necessary for comprehensive development: Intelligence / cognition, Emotions / social relationships, Talents / arts, Physical fitness. Physical/motor, Language/communication.
-                        </p>
-                    </div>
-
-                    <div class="intro-text">
-                        <div class="intro-text-main">
-                            <i class='bx bx-shield' ></i>
-                            <h3>Service quality</h3>
-                        </div>
-                        <div class="intro-text-column">
-                            <img src="https://tiniworld.com/media/wysiwyg/Group_2083.png"/>
-                            <h4>FOCUS ON CUSTOMER EXPERIENCE</h4>
-                            <p>
-                                Wonderlands always prioritizes and puts customer experience first,
-                                especially the experience of children.
-                                The play corners are always designed to be familiar and close to home,
-                                so that children can have the most fun and comfortable time when they come to play Wonderlands again.
-                                In addition, toy items at Wonderlands are always updated with the latest designs,
-                                quickly catching up with market trends.
-                            </p>
-                        </div>
-                        <div class="intro-text-column">
-                            <img src="https://tiniworld.com/media/wysiwyg/Group_2084.png"/>
-                            <h4>SAFETY AND HYGIENE STANDARDS</h4>
-                            <p>
-                                At Wonderlands, parents will always feel secure about the quality of hygiene and safety for their children. Play corners and objects are always cleaned every day, ensuring antibacterial properties to prevent the risk of infection.
-                            </p>
-                        </div>
-                        <div class="intro-text-column">
-                            <img src="https://tiniworld.com/media/wysiwyg/Group_2085.png"/>
-                            <h4>SAFETY AND HYGIENE STANDARDS</h4>
-                            <p>
-                                Staff at Wonderlands are always encouraged to play and talk with children to stimulate their ability to communicate and integrate into the community. In addition, all employees participate in training classes on caring for and understanding children's psychology, to bring smiles to every child who comes to Wonderlands.
-                            </p>
-                        </div>
-                    </div>
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
                 </div>
 
-            </main>
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
-            <footer class="page-footer">
-                <div class="footer-header">
-                    <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
-                </div>
-
-                <div class="footer-content">
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>History begin</li>
-                            <li>Job opportunities</li>
-                            <li>Wonder regulation</li>
-                            <li>Wonder Partner</li>
-                            <li>Wonder Charity Foundation</li>
-                        </ul>
+                    if (dto == null) {
+                %>
+                <div class="profile">
+                    <div class="login-pro">
+                        <i class='bx bx-user'></i>
+                        <a href="login.jsp">Login</a>
                     </div>
 
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-world'></i>
-                                    <span>nkidgroup.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-envelope' ></i>
-                                    <span>cskh@wonderland.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-phone' ></i>
-                                    <span>1900 63 63 28</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-current-location' ></i>
-                                    <span>SWP391</span>
-                                </a>
-                            </li>
-                        </ul>
+                    <span> / </span>
+
+                    <div class="sign-pro">
+                        <i class='bx bx-lock-alt'></i>
+                        <a href="register.jsp">Sign Up</a>
                     </div>
+                </div>
+            </aside>
+        </header>
+
+        <main>
+            <div class="column">
+                <div class="menu">
+                    <ul class="menu-ic">
+                        <li>
+                            <i class='bx bx-home-alt-2'></i>
+
+                            <a href="home.jsp">Home</a>
+                        </li>
+
+                        <li>
+                            <i class='bx bx-location-plus'></i>
+                            <a href="ViewLocation">Location</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-package'></i>
+                            <a href="ViewPackage">Packages</a>
+
+                        </li>
+                        <li>
+                            <i class='bx bx-bell'></i>
+                            <a href="ViewServiceServlet">Service</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-party'></i>
+                            <a href="BookingPartyServlet">Booking Party</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-info-circle'></i>
+                            <a href="about.jsp">About Us</a>
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="copy-right">
-                    <div class="copy-right-content">
-                        <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                <div class="column-main">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a><span> &#10095; About Us</span>
+                    </div>
+
+                    <h1>About Wonderlands</h1>
+
+                    <div class="column-main-image">
+                        <img src="image/cover1.jpg" alt="cover1"/>
                     </div>
                 </div>
+<<<<<<< HEAD
             </footer>
         </div>
         <%
@@ -564,13 +443,149 @@
                     }
                 %>
 
+=======
+>>>>>>> 678b8c1005a30ba99d806911dab6d4a799a412c4
             </div>
-            <div class="cart-items">
-                <i class='bx bx-cart' ></i>
-                <a href="#">Cart</a>
+
+            <div class="intro-wrapper">
+                <div class="intro-text">
+                    <div class="intro-text-main">
+                        <i class='bx bx-history'></i>
+                        <h3>History begin</h3>
+                    </div>
+                    <p>
+                        EDUCATION + ENTERTAINMENT = “EDUCATION – INTELLIGENCE”
+                    </p>
+                    <p>
+                        Wonderlands was founded in September 2009, and is a pioneer in developing "Education - Wisdom" centers for children aged 0-12 in Vietnam. With the mission: "Creating a safe, healthy, fun, international and community environment for all children to come play, learn and develop according to the Education - Wisdom method", Wonderlands has continuously pioneered and developed the "EDUCATION – INTELLIGENCE" Playground chain system to serve and meet the increasing entertainment needs of children and parents.
+                    </p>
+                    <p>
+                        The system of Wonderlands centers stretches everywhere in Vietnam, in key cities Ho Chi Minh, Binh Duong, Hanoi and other large cities such as Can Tho, Vung Tau, Buon Me Thuot...
+                    </p>
+                    <p>
+                        With expertise, many years of experience, and a deep understanding of children, Wonderlands recognizes that the best way for children to learn knowledge and early life experiences is through fun activities. and interact with the world around them.
+                    </p>
+                    <p>
+                        Wonderlands brings peace of mind to parents and schools by creating a fun, safe and highly communal environment for children.
+                    </p>
+                </div>
+
+                <div class="intro-text">
+                    <div class="intro-text-main">
+                        <i class='bx bx-palette' ></i>
+                        <h3>Educational and entertainment value</h3>
+                    </div>
+                    <p>
+                        From knowledge and experience in the field of activities for children, Wonderlands believes that, in the early stages of life, children need to comprehensively develop necessary skills.
+                    </p>
+                    <p>
+                        Wonderlands's mission is through activities and programs to help children perfect the 5 elements necessary for comprehensive development: Intelligence / cognition, Emotions / social relationships, Talents / arts, Physical fitness. Physical/motor, Language/communication.
+                    </p>
+                </div>
+
+                <div class="intro-text">
+                    <div class="intro-text-main">
+                        <i class='bx bx-shield' ></i>
+                        <h3>Service quality</h3>
+                    </div>
+                    <div class="intro-text-column">
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_2083.png"/>
+                        <h4>FOCUS ON CUSTOMER EXPERIENCE</h4>
+                        <p>
+                            Wonderlands always prioritizes and puts customer experience first,
+                            especially the experience of children.
+                            The play corners are always designed to be familiar and close to home,
+                            so that children can have the most fun and comfortable time when they come to play Wonderlands again.
+                            In addition, toy items at Wonderlands are always updated with the latest designs,
+                            quickly catching up with market trends.
+                        </p>
+                    </div>
+                    <div class="intro-text-column">
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_2084.png"/>
+                        <h4>SAFETY AND HYGIENE STANDARDS</h4>
+                        <p>
+                            At Wonderlands, parents will always feel secure about the quality of hygiene and safety for their children. Play corners and objects are always cleaned every day, ensuring antibacterial properties to prevent the risk of infection.
+                        </p>
+                    </div>
+                    <div class="intro-text-column">
+                        <img src="https://tiniworld.com/media/wysiwyg/Group_2085.png"/>
+                        <h4>SAFETY AND HYGIENE STANDARDS</h4>
+                        <p>
+                            Staff at Wonderlands are always encouraged to play and talk with children to stimulate their ability to communicate and integrate into the community. In addition, all employees participate in training classes on caring for and understanding children's psychology, to bring smiles to every child who comes to Wonderlands.
+                        </p>
+                    </div>
+                </div>
             </div>
+
+        </main>
+
+        <footer class="page-footer">
+            <div class="footer-header">
+                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>History begin</li>
+                        <li>Job opportunities</li>
+                        <li>Wonder regulation</li>
+                        <li>Wonder Partner</li>
+                        <li>Wonder Charity Foundation</li>
+                    </ul>
+                </div>
+
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-world'></i>
+                                <span>nkidgroup.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-envelope' ></i>
+                                <span>cskh@wonderland.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-phone' ></i>
+                                <span>1900 63 63 28</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-current-location' ></i>
+                                <span>SWP391</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copy-right">
+                <div class="copy-right-content">
+                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <%
+    } else {
+    %>
+    <div class="user-logined">
+        <div class="logined">
+            <i class='bx bx-user-circle'></i>
+            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
         </div>
-    </aside>
+        <div class="cart-items">
+            <i class='bx bx-cart' ></i>
+            <a href="#">Cart</a>
+        </div>
+    </div>
+</aside>
 </header>
 
 <main>

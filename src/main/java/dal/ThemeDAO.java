@@ -19,7 +19,7 @@ import util.DBUtils;
  */
 public class ThemeDAO {
 
-    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImagePath FROM [Themes]";
+    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
     
     List<ThemeDTO> listTheme;
 
@@ -44,9 +44,9 @@ public class ThemeDAO {
             while (rs.next()) {
                 String themID = rs.getInt("themeID") + "";
                 String themeName = rs.getString("themeName");
-                String themeImagePath = rs.getString("themeImagePath");
+                String themeImagePath = rs.getString("themeImage");
 
-                listTheme.add(new ThemeDTO(themID, themeName));
+                listTheme.add(new ThemeDTO(themID, themeName, themeImagePath));
             }
 
         } catch (Exception e) {

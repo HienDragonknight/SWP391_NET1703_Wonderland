@@ -60,7 +60,6 @@ public class LoginServlet extends HttpServlet {
                 if (result != null) {
                     session.setAttribute("user_loged", result);
                     String role = result.getRoleID();
-
                     if (remember != null && remember.equals("ON")) {
                         cEmail.setMaxAge(60 * 60 * 24 * 7);
                         cPassword.setMaxAge(60 * 60 * 24 * 7);
@@ -92,7 +91,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         processRequest(request, response);
     }
 

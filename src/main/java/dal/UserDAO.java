@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataSource;
 import models.UserDTO;
 import util.DBUtils;
 
@@ -43,7 +44,8 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? ";
+    //            String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -406,6 +408,38 @@ public class UserDAO implements Serializable {
             }
             if (con != null) {
                 con.close();
+            }
+        }
+        return result;
+    }  
+    
+    public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        UserDTO result = null;
+        try {
+            conn = DBUtils.createConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
+                ptm.setString(1, fullname);
+                ptm.setString(2, email);
+                ptm.setString(3, phone);
+                ptm.setString(4, password);
+                ptm.setString(5, emailConfirm);
+                int effectRows = ptm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, fullname, email, password, phone, email, ID, "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
             }
         }
         return result;
