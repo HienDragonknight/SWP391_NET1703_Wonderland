@@ -7,7 +7,9 @@ package controlls.servlet;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +19,12 @@ import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author huY
  */
-@WebServlet(name = "SearchCustServlet", urlPatterns = {"/SearchCustServlet"})
-public class SearchCustServlet extends HttpServlet {
-
+@WebServlet(name = "SearchInHostServlet", urlPatterns = {"/SearchInHostServlet"})
+public class SearchInHostServlet extends HttpServlet {
+    private final String ERROR = "PartyHostServlet";
+    private final String SUCCESS = "PartyHostServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,22 +37,26 @@ public class SearchCustServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        String url = "ViewUserServlet";
+        String url = ERROR;
+        String search = request.getParameter("txtInputValue");
         try {
-            if(!email.trim().isEmpty()) {
+            if (!search.trim().isEmpty()) {
                 UserDAO dao = new UserDAO();
-                dao.searchByEmail(email);
-                 List<UserDTO> dto = dao.getListHost();
-                url = "report.jsp";
-                request.setAttribute("SEARCH_RESULT", dto);
+                dao.searchUserDashboard(search);
+                List<UserDTO> result = dao.getListUser();
+                url = SUCCESS;
+                request.setAttribute("SEARCH_RESULT", result);
             }
-        } catch (Exception e) {
-            log("Error at ViewLocationServlet " + e);
+        } catch (SQLException ex) {
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

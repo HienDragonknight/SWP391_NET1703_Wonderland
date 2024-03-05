@@ -560,7 +560,7 @@
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
-                                    <form action="AdminServlet" method="POST">
+                                    <form action="SearchInHostServlet" method="POST">
                                         <i class='bx bx-search'></i>
                                         <input type="text" name="txtInputValue" value="${param.txtInputValue}" />
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
