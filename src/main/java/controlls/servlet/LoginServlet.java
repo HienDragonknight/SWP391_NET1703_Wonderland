@@ -32,9 +32,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String contextPath = request.getContextPath();
-        System.out.println(contextPath);
-
+        String requestURL = request.getRequestURI();
+        System.out.println(requestURL);
+        
         HttpSession session = request.getSession();
         session.removeAttribute("ERROR_INFO"); // Remove any previous error messages
 
@@ -43,6 +43,7 @@ public class LoginServlet extends HttpServlet {
 
         try {
             if (button.equals("Login")) {
+
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
                 String remember = request.getParameter("RememberMe");

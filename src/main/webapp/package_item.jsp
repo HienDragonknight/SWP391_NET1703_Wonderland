@@ -361,60 +361,10 @@
             {
                 padding: 2%;
             }
-            .container .column {
-                display: grid;
-                grid-template-columns: 1fr 5fr 1fr;
-            }
-            .menu-ic {
-                list-style: none;
-                display: flex;
-                flex-direction: column;
-                padding: 10px 50px;
-            }
-            .py-5 {
-                display: flex;
-                justify-content: flex-start;
-            }
-            header .side-bar .search-bar {
-                position: relative;
-                display: flex;
-                width: 30%;
-                padding: 8px;
-                border-radius: 250px;
-                border: 1px solid #919191;
-                border-color: #5773ff;
-            }
 
-            header .side-bar .search-bar form {
-                display: flex;
-                gap: 6px;
-                width: 100%;
-            }
-
-            header .side-bar .search-bar button {
-                border: none;
-                background-color: #fff;
-            }
-
-            header .side-bar .search-bar input {
-                width: 100%;
-                border: none;
-                outline: none;
-                background-color: transparent;
-                font-size: 18px;
-            }
-
-            header .side-bar .search-bar:hover i{
-                color: #5773ff;
-            }
-            header .side-bar .search-bar {
-                position: relative;
-                display: flex;
-                width: 30%;
-                padding: 5px;
-                border-radius: 250px;
-                border: 1px solid #919191;
-                border-color: #5773ff;
+            #nickname
+            {
+                margin-left: 40%;
             }
         </style>
     </head>
@@ -466,7 +416,6 @@
                         <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
                     </div>
 
-
                     <div>
 
                         <form class="d-flex">
@@ -478,8 +427,7 @@
                         </form>
                     </div>
 
-
-
+                    
                 </div>
                 <%   }
                 %>
@@ -516,7 +464,6 @@
 
                     <a href="home.jsp">Home</a>
                 </li>
-
                 <li>
                     <i class='bx bx-location-plus'></i>
                     <a href="ViewLocation">Location</a>
@@ -544,6 +491,160 @@
 
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
                 <div class="col-md-6">
+                            <%
+                                if (dto == null) {
+                            %>
+                            <div class="model-body">
+                                <form action="ready_for_checkout.jsp" method="post">
+
+                                    <div class="elem-group">
+                                        <div class="full-lined">
+                                            <label>Center</label>
+                                            <select id="center-selection" name="location" required>
+                                                <option value="">Choose your location</option>
+                                                <%
+                                                    for (LocationDTO location : locationList) {
+                                                %>                                          
+
+                                                <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                                <%                                            }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-date">Date</label>
+                                            <input type="date" id="checkin-date" name="checkin-date"  required>
+                                        </div> 
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Time</label>
+                                            <input type="time" id="checkin-time"  name="checkin-time" required>
+                                        </div>
+                                    </div>                                       
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label>Attended children</label>
+                                            <input type="number" id="childrenNums" name="children"  min="0" required>
+                                        </div>
+
+                                        <div class="elem-group inlined">
+                                            <label>Theme</label>
+                                            <select id="theme" name="theme" required>
+                                                <option value="">Choose a Theme</option>
+                                                <%
+                                                    for (ThemeDTO theme : themeList) {
+                                                %>
+                                                <option value="<%= theme.getThemeID()%>"> <%= theme.getThemeName()%> </option>
+                                                <%                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="servce-selection">Bonus Service</label>
+                                            <select id="bonus_service" name="bonus_service" required>
+                                                <option value="">Choose a service</option>
+                                                <%
+                                                    for (BonusServiceDTO bonusService : bonusServiceList) {
+                                                %>
+                                                <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                                <%                                                    }
+                                                %> 
+                                            </select>
+                                        </div>           
+                                    </div>
+
+                                    <div id="checkout-class">  
+                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <%
+                            } else {
+                            %>
+
+                            <div class="model-body">
+                                <form action="add_order" method="post">
+
+                                    <div class="elem-group">
+                                        <div class="full-lined">
+                                            <label>Center</label>
+                                            <select id="center-selection" name="location" required>
+                                                <option value="">Choose your location</option>
+                                                <%
+                                                    for (LocationDTO location : locationList) {
+                                                %>                                          
+
+                                                <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                                <%                                            }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-date">Date</label>
+                                            <input type="date" id="checkin-date" name="checkin-date"  required>
+                                        </div> 
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Time</label>
+                                            <input type="time" id="checkin-time"  name="checkin-time" required>
+                                        </div>
+                                    </div>                                       
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label>Attended children</label>
+                                            <input type="number" id="childrenNums" name="children"  min="0" required>
+                                        </div>
+
+                                        <div class="elem-group inlined">
+                                            <label>Theme</label>
+                                            <select id="theme" name="theme" required>
+                                                <option value="">Choose a Theme</option>
+                                                <%
+                                                    for (ThemeDTO theme : themeList) {
+                                                %>
+                                                <option value="<%= theme.getThemeID()%>"> <%= theme.getThemeName()%> </option>
+                                                <%                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="servce-selection">Bonus Service</label>
+                                            <select id="bonus_service" name="bonus_service" required>
+                                                <option value="">Choose a service</option>
+                                                <%
+                                                    for (BonusServiceDTO bonusService : bonusServiceList) {
+                                                %>
+                                                <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                                <%                                                    }
+                                                %> 
+                                            </select>
+                                        </div>           
+                                    </div>
+
+                                    <div id="checkout-class">  
+                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <%   }
+                            %>
+
+                        </div>
+                        <div id="overlay"></div>   <!--for close package form without clicking x button-->
 
                     <div class="small mb-1">
 
