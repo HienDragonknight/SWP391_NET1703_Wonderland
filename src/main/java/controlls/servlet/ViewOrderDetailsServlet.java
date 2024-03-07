@@ -4,33 +4,29 @@
  */
 package controlls.servlet;
 
-import dal.BonusServiceDAO;
-import dal.LocationDAO;
-import dal.PackageDAO;
-import dal.ThemeDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.BonusServiceDTO;
-import models.LocationDTO;
-import models.PackageDTO;
-import models.ThemeDTO;
+import models.OrderDetailDTO;
 
 /**
  *
- * @author huY
+ * @author Hp
  */
-@WebServlet(name = "BookingPartyServlet", urlPatterns = {"/BookingPartyServlet"})
-public class BookingPartyServlet extends HttpServlet {
-    private final String SUCCESS = "party_booking.jsp";
-    private final String ERROR = "party_booking.jsp";
+@WebServlet(name = "ViewOrderDetailsServlet", urlPatterns = {"/ViewOrderDetailsServlet"})
+public class ViewOrderDetailsServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,37 +39,17 @@ public class BookingPartyServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            //Theme List
-            ThemeDAO themeDAO = new ThemeDAO();
-            themeDAO.printTheme();
-            List<ThemeDTO> theme = themeDAO.getListTheme();
-            request.setAttribute("THEME_LIST", theme);
-            
-            //Location List
-            LocationDAO locationDAO = new LocationDAO();
-            List<LocationDTO> locationList = locationDAO.getListLocation();
-            request.setAttribute("LOCATION_LIST", locationList);
-            
-            //Service List
-            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
-            request.setAttribute("SERVICE_LIST", bonusServiceList);
-            
-            //Packages
-            PackageDAO packageDAO = new PackageDAO();
-            List<PackageDTO> packageList = packageDAO.getListPackage();
-            request.setAttribute("PACKAGE_LIST", packageList);
-            
-            url = SUCCESS;
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ViewOrderDetailsServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ViewOrderDetailsServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -89,8 +65,34 @@ public class BookingPartyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+ String orderDetailId = request.getParameter("orderID");
+        OrderDetailDAO o = new OrderDetailDAO(); // This would be a class representing the details of an order.
+        try {
+            // Assume you have a method 'getOrderDetails' that retrieves order details from the database.
+            // Handle the error appropriately.
+            List<OrderDetailDTO> listOrderDetail  = o.getOrderDetailID(orderDetailId);
+                if (listOrderDetail != null) {
+            request.setAttribute("ORDER_DETAILS", listOrderDetail);
+             RequestDispatcher rd = request.getRequestDispatcher("orderDetail.jsp");
+            rd.forward(request, response);
+        }
+         else {
+            // Handle the case where no details are found, perhaps redirecting to an error page or setting an error message.
+        }
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ViewOrderDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ViewOrderDetailsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
+
+    private OrderDetailDTO getOrderDetails(String orderId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+ 
 
     /**
      * Handles the HTTP <code>POST</code> method.

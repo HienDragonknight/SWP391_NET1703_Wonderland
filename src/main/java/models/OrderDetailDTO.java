@@ -12,9 +12,17 @@ import java.util.Date;
  * @author Le Huu Huy
  */
 public class OrderDetailDTO implements Serializable {
-
+    private  int  orderDetailID;
     private String fullName;
     private String packageName;
+
+    public int getOrderDetailID() {
+        return orderDetailID;
+    }
+
+    public void setOrderDetailID(int orderDetailID) {
+        this.orderDetailID = orderDetailID;
+    }
     private Date dateStart;
     private Date dateOrder;
     private double totalPrice;
@@ -48,6 +56,30 @@ public class OrderDetailDTO implements Serializable {
         this.payment = payment;
     }
 
+    public OrderDetailDTO(int orderDetailID, String fullName, String packageName, Date dateStart, Date dateOrder, double totalPrice, String status, String email, String phone, String serviceName, int amountOfPeople, String themeName, String location, String notes, String payment) {
+        this.orderDetailID = orderDetailID;
+        this.fullName = fullName;
+        this.packageName = packageName;
+        this.dateStart = dateStart;
+        this.dateOrder = dateOrder;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.email = email;
+        this.phone = phone;
+        this.serviceName = serviceName;
+        this.amountOfPeople = amountOfPeople;
+        this.themeName = themeName;
+        this.location = location;
+        this.notes = notes;
+        this.payment = payment;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderDetailDTO{" + "orderDetailID=" + orderDetailID + ", fullName=" + fullName + ", packageName=" + packageName + ", dateStart=" + dateStart + ", dateOrder=" + dateOrder + ", totalPrice=" + totalPrice + ", status=" + status + ", email=" + email + ", phone=" + phone + ", serviceName=" + serviceName + ", amountOfPeople=" + amountOfPeople + ", themeName=" + themeName + ", location=" + location + ", notes=" + notes + ", payment=" + payment + '}';
+    }
+
+    
     public String getFullName() {
         return fullName;
     }

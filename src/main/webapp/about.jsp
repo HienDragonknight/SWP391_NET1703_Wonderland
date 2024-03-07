@@ -395,7 +395,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
+                                <a href="BookingPartyServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -548,7 +548,22 @@
         <div class="user-logined">
             <div class="logined">
                 <i class='bx bx-user-circle'></i>
+                <%
+                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+                %>
                 <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                } else if (dto.getRoleID().equals("1")) {
+                %>
+                <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                } else {
+                %>
+                <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                <%
+                    }
+                %>
+
             </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
@@ -583,7 +598,7 @@
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
-                    <a href="ViewBookingServlet">Booking Party</a>
+                    <a href="BookingPartyServlet">Booking Party</a>
                 </li>
                 <li>
                     <i class='bx bx-info-circle'></i>

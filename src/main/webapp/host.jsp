@@ -1,19 +1,20 @@
 <%-- 
-    Document   : adminOrder
-    Created on : Feb 1, 2024, 10:15:00 AM
-    Author     : Le Huu Huy
+    Document   : host
+    Created on : Feb 27, 2024, 8:09:21 AM
+    Author     : huY
 --%>
 
-<%@page import="models.UserDTO"%>
-<%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
+<%@page import="models.OrderDTO"%>
+<%@page import="models.UserDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Page</title>
+        <title>Party Host</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -173,63 +174,6 @@
                 transition: all 0.3s ease;
             }
 
-            .slide-container {
-                position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 650px;
-                max-height: 100vh;
-                margin: auto;
-            }
-
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-                border-radius: 50px;
-            }
-
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
-            }
-
-            span.next, span.prev {
-                display: none;
-            }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
             .column-about {
                 display: flex;
                 justify-content: center;
@@ -342,6 +286,8 @@
                 margin-top: 24px;
                 width: 100%;
                 color: #363949;
+                max-height: 600px;
+                height: 600px;
             }
 
             .bottom-data>div {
@@ -371,6 +317,7 @@
             .bottom-data .orders{
                 flex-grow: 1;
                 flex-basis: 500px;
+
             }
 
             .bottom-data .orders table{
@@ -387,6 +334,14 @@
 
             .bottom-data .orders table td{
                 padding: 16px 0;
+            }
+
+            .bottom-data .orders table td input {
+                border: none;
+                outline: none;
+                background: #f6f6f9;
+                font-size: 16px;
+                width: 100%;
             }
 
             .bottom-data .orders table tr td:first-child{
@@ -444,89 +399,26 @@
                 cursor: pointer;
             }
 
-            .view-detail {
-                font-size: 16px;
-                text-decoration: underline;
-                color: blue;
-            }
-
-            .modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                transition: 200ms ease-in-out;
-                border: 1px solid black;
-                border-radius: 10px;
-                z-index: 10;
-                background-color: white;
-                width: 500px;
-                max-width: 80%;
-            }
-
-            .modal.active {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            .modal-header {
-                padding: 10px 15px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid black;
-            }
-
-            .modal-header .title {
-                font-size: 1.25rem;
-                font-weight: bold;
-            }
-
-            .modal-header .close-button {
-                cursor: pointer;
-                border: none;
-                outline: none;
-                background: none;
-                font-size: 1.25rem;
-                font-weight: bold;
-            }
-
-            .modal-body {
-                padding: 10px 15px;
-            }
-
-            #overlay {
-                position: fixed;
-                opacity: 0;
-                transition: 200ms ease-in-out;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, .5);
-                pointer-events: none;
-            }
-
-            #overlay.active {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .modal-body ul li {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 10px;
-            }
-
-            .modal-body button {
-                border: none;
-                padding: 20px 50px;
-                border-radius: 10px;
-                font-size: 15px;
-            }
-
             .table-wrapper {
                 overflow-y: auto;
-                height: 450px;
+                height: 500px;
+            }
+
+            .header form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header .search-btn {
+                display: none;
+            }
+
+            .header input {
+                border: none;
+                padding: 5px 20px;
+                outline: none;
             }
 
             @media screen and (max-width: 992px) {
@@ -539,6 +431,22 @@
                     left: -100%;
                 }
             }
+
+            .btn {
+                background-color: transparent;
+                border: 1px solid #0dbaec; /* Màu viền */
+                border-radius: 5px; /* Border radius */
+                color: #0dbaec; /* Màu chữ */
+                text-decoration: none; /* Bỏ gạch chân */
+                padding: 5px 10px; /* Padding */
+                transition: all 0.3s ease; /* Transition */
+            }
+
+            .btn:hover {
+                background-color: #0dbaec; /* Màu khi hover */
+                color: white; /* Màu chữ khi hover */
+            }
+
         </style>
     </head>
     <body>
@@ -559,25 +467,10 @@
                         </form>
                     </div>
 
-                    <%
-                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
-                    %>
-
                     <div class="user-logined">
                         <div class="logined">
                             <i class='bx bx-user-circle'></i>
-                            <%
-                            if (hostDTO.getRoleID().equals("3")) {
-                                    %>
-                                    <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
-                            <%
-                                } else if (hostDTO.getRoleID().equals("2")) {
-%>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                                    <%
-}
-                            %>
-                            
+                            <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -629,6 +522,9 @@
                             </li>
                         </ul>
                     </div>
+                    <%
+                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
+                    %>
 
                     <div class="admin-container">
                         <%
@@ -647,16 +543,8 @@
                         <%
                             }
                         %>
-
                         <%
-                            List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
-
-                            double totalIncome = 0;
-                            if (result != null) {
-                                for (OrderDetailDTO dto : result) {
-                                    totalIncome += dto.getTotalPrice();
-                                }
-                            }
+                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
 
                         %>
 
@@ -670,28 +558,8 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-user'></i>
-                                    <%                                        if (hostDTO.getRoleID().equals("3")) {
-                                    %>
                                     <a href="PartyHostServlet" class="info">
                                         <p>User</p>
-                                    </a>
-                                    <%
-                                    } else if (hostDTO.getRoleID().equals("2")) {
-                                    %>
-                                    <a href="ViewUserServlet" class="info">
-                                        <p>User</p>
-                                    </a>
-                                    <%
-                                        }
-                                    %>
-                                </li>
-                                <li>
-                                    <i class='bx bx-money'></i>
-                                    <a href="ChartServlet" class="info">
-                                        <h3 style="font-size: 20px;">
-                                            <%= totalIncome%>
-                                        </h3>
-                                        <p>Income</p>
                                     </a>
                                 </li>
                                 <li>
@@ -708,153 +576,52 @@
                             <div class="orders">
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
-                                    <h3>Users</h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
+                                    <h3>Orders</h3>
+                                    <!-- Add your search bar if needed -->
                                 </div>
 
-                                <form action="AdminServlet" method="POST">
-                                    <div class="table-wrapper">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>User</th>
-                                                    <th>Date Order</th>
-                                                    <th>Party Name</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>User Name</th>
+                                                <th>Created At</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
+                                                <th>View Details</th>
+                                                <th>Send Result</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <%                    List<OrderDTO> orderList = (List<OrderDTO>) request.getAttribute("ORDER_LIST");
+                                                for (OrderDTO order : orderList) {
+                                            %>
+                                            <tr>
+                                                <td><%= order.getOrderID()%></td>
+                                                <td><%= order.getUserName()%></td>
+                                                <td><%= order.getCreateDate()%></td>
+                                                <td><%= order.getTotalPrice()%></td>
+                                                <td><%= order.getStatus()%></td>
+                                                <td>
+                                                    <a href="ViewOrderDetailsServlet?orderID=<%= order.getOrderDetailID()%>" class="btn btn-primary btn-sm">View Details</a>
+                                                </td>
+                                                <td>
+                                                    <a href="CustomerOrder?orderID=<%= order.getOrderID()%>" class="btn btn-primary btn-sm">Send Confirm</a>
+                                                </td>
 
-                                            <tbody>
-                                                <%
-                                                    int countOrder = 1;
-                                                    if (result != null) {
-                                                        for (OrderDetailDTO dto : result) {
-
-                                                %>
-                                                <tr>
-                                                    <td><%= countOrder++%></td>
-                                                    <td><%= dto.getFullName()%></td>
-                                                    <td><%= dto.getDateOrder()%></td>
-                                                    <td><%= dto.getPackageName()%></td>
-                                                    <td><%= dto.getTotalPrice()%></td>
-                                                    <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
-                                                        <%= dto.getStatus()%>
-                                                    </td>
-                                                    <td>
-                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
-                                                        <div class="modal" id="modal<%= countOrder%>">
-                                                            <div class="modal-header">
-                                                                <div class="title"><%= dto.getFullName()%></div>
-                                                            </div>
-
-                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                                <ul style="list-style: none; width: 100%; text-align: center;">
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
-                                                                    </li>
-                                                                </ul>
-                                                                <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
-                                                                    <%= dto.getStatus()%>
-                                                                </button>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="overlay"></div>
-                                                    </td>
-                                                </tr>
-                                                <%                                                    }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
+                                            </tr>
+                                            <%
+                                                }
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
 
             </main>
         </div>
-
-        <script>
-            const openModalButtons = document.querySelectorAll('[data-modal-target]');
-            const closeModalButtons = document.querySelectorAll('[data-close-button]');
-            const overlay = document.getElementById('overlay');
-
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = document.querySelector(button.dataset.modalTarget);
-                    openModal(modal);
-                });
-            });
-
-            overlay.addEventListener('click', () => {
-                const modals = document.querySelectorAll('.modal.active');
-                modals.forEach(modal => {
-                    closeModal(modal);
-                });
-            });
-
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    closeModal(modal);
-                });
-            });
-
-            function openModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.add('active');
-                overlay.classList.add('active');
-            }
-
-            function closeModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        </script>
-
     </body>
 </html>

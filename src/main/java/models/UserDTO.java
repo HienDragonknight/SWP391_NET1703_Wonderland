@@ -22,6 +22,11 @@ public class UserDTO implements Serializable {
     private String roleID;
     private String reported;
 
+    @Override
+    public String toString() {
+        return "UserDTO{" + "userID=" + userID + ", fullName=" + fullName + ", email=" + email + ", password=" + password + ", phoneNumber=" + phoneNumber + ", avatar=" + avatar + ", roleID=" + roleID + ", reported=" + reported + '}';
+    }
+
     public UserDTO() {
     }
 

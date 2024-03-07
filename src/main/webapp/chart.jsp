@@ -1,19 +1,19 @@
 <%-- 
-    Document   : adminOrder
-    Created on : Feb 1, 2024, 10:15:00 AM
-    Author     : Le Huu Huy
+    Document   : chart
+    Created on : Feb 29, 2024, 3:56:09 PM
+    Author     : huY
 --%>
 
 <%@page import="models.UserDTO"%>
 <%@page import="models.OrderDetailDTO"%>
-<%@page import="models.OrderDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Page</title>
+        <title>JSP Page</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -335,78 +335,8 @@
                 color: #363949;
             }
 
-            .bottom-data {
-                display: flex;
-                flex-wrap: wrap;
-                grid-gap: 24px;
-                margin-top: 24px;
-                width: 100%;
-                color: #363949;
-            }
-
-            .bottom-data>div {
-                border-radius: 20px;
-                background: #f6f6f9;
-                padding: 24px;
-                overflow-x: auto;
-            }
-
-            .bottom-data .header {
-                display: flex;
-                align-items: center;
-                grid-gap: 16px;
-                margin-bottom: 24px;
-            }
-
-            .bottom-data .header h3 {
-                margin-right: auto;
-                font-size: 24px;
-                font-weight: 600;
-            }
-
-            .bottom-data .header bx {
-                cursor: pointer;
-            }
-
-            .bottom-data .orders{
-                flex-grow: 1;
-                flex-basis: 500px;
-            }
-
-            .bottom-data .orders table{
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            .bottom-data .orders table th{
-                padding-bottom: 12px;
-                font-size: 13px;
-                text-align: left;
-                border-bottom: 1px solid #eee;
-            }
-
-            .bottom-data .orders table td{
-                padding: 16px 0;
-            }
-
-            .bottom-data .orders table tr td:first-child{
-                display: flex;
-                align-items: center;
-                grid-gap: 12px;
-                padding-left: 6px;
-            }
-
-            .bottom-data .orders table tbody tr{
-                cursor: pointer;
-                transition: all 0.3s ease;
-            }
-
-            .bottom-data .orders table tbody tr:hover{
-                background: #eee;
-            }
-
-            .bottom-data .orders table tr td .status.completed{
-                background: #388E3C;
+            #sale-revenue {
+                max-height: 650px;
             }
 
             .admin-header {
@@ -443,102 +373,6 @@
                 color: red;
                 cursor: pointer;
             }
-
-            .view-detail {
-                font-size: 16px;
-                text-decoration: underline;
-                color: blue;
-            }
-
-            .modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                transition: 200ms ease-in-out;
-                border: 1px solid black;
-                border-radius: 10px;
-                z-index: 10;
-                background-color: white;
-                width: 500px;
-                max-width: 80%;
-            }
-
-            .modal.active {
-                transform: translate(-50%, -50%) scale(1);
-            }
-
-            .modal-header {
-                padding: 10px 15px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                border-bottom: 1px solid black;
-            }
-
-            .modal-header .title {
-                font-size: 1.25rem;
-                font-weight: bold;
-            }
-
-            .modal-header .close-button {
-                cursor: pointer;
-                border: none;
-                outline: none;
-                background: none;
-                font-size: 1.25rem;
-                font-weight: bold;
-            }
-
-            .modal-body {
-                padding: 10px 15px;
-            }
-
-            #overlay {
-                position: fixed;
-                opacity: 0;
-                transition: 200ms ease-in-out;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background-color: rgba(0, 0, 0, .5);
-                pointer-events: none;
-            }
-
-            #overlay.active {
-                opacity: 1;
-                pointer-events: all;
-            }
-
-            .modal-body ul li {
-                display: flex;
-                gap: 10px;
-                margin-bottom: 10px;
-            }
-
-            .modal-body button {
-                border: none;
-                padding: 20px 50px;
-                border-radius: 10px;
-                font-size: 15px;
-            }
-
-            .table-wrapper {
-                overflow-y: auto;
-                height: 450px;
-            }
-
-            @media screen and (max-width: 992px) {
-                .container main {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .menu {
-                    position: absolute;
-                    left: -100%;
-                }
-            }
         </style>
     </head>
     <body>
@@ -558,7 +392,7 @@
                             <input type="text" placeholder="Type here to search">
                         </form>
                     </div>
-
+                    
                     <%
                         UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
                     %>
@@ -577,7 +411,6 @@
                                     <%
 }
                             %>
-                            
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -647,7 +480,7 @@
                         <%
                             }
                         %>
-
+                        
                         <%
                             List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
@@ -657,7 +490,6 @@
                                     totalIncome += dto.getTotalPrice();
                                 }
                             }
-
                         %>
 
                         <div>
@@ -702,159 +534,35 @@
                                 </li>
                             </ul>
                         </div>
-
-                        <!-- Users Table -->
-                        <div class="bottom-data">
-                            <div class="orders">
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Users</h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
-                                </div>
-
-                                <form action="AdminServlet" method="POST">
-                                    <div class="table-wrapper">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>User</th>
-                                                    <th>Date Order</th>
-                                                    <th>Party Name</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <%
-                                                    int countOrder = 1;
-                                                    if (result != null) {
-                                                        for (OrderDetailDTO dto : result) {
-
-                                                %>
-                                                <tr>
-                                                    <td><%= countOrder++%></td>
-                                                    <td><%= dto.getFullName()%></td>
-                                                    <td><%= dto.getDateOrder()%></td>
-                                                    <td><%= dto.getPackageName()%></td>
-                                                    <td><%= dto.getTotalPrice()%></td>
-                                                    <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
-                                                        <%= dto.getStatus()%>
-                                                    </td>
-                                                    <td>
-                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
-                                                        <div class="modal" id="modal<%= countOrder%>">
-                                                            <div class="modal-header">
-                                                                <div class="title"><%= dto.getFullName()%></div>
-                                                            </div>
-
-                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                                <ul style="list-style: none; width: 100%; text-align: center;">
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
-                                                                    </li>
-                                                                </ul>
-                                                                <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
-                                                                    <%= dto.getStatus()%>
-                                                                </button>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="overlay"></div>
-                                                    </td>
-                                                </tr>
-                                                <%                                                    }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-
+                        <canvas id="sale-revenue"></canvas>
                     </div>
 
             </main>
         </div>
 
-        <script>
-            const openModalButtons = document.querySelectorAll('[data-modal-target]');
-            const closeModalButtons = document.querySelectorAll('[data-close-button]');
-            const overlay = document.getElementById('overlay');
-
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = document.querySelector(button.dataset.modalTarget);
-                    openModal(modal);
-                });
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script type="text/javascript">
+            var chart = document.getElementById("sale-revenue").getContext("2d");
+            var myChart = new Chart(chart, {
+                type: "line",
+                data: {
+                    labels: ["2020", "2021", "2022", "2023", "2024"],
+                    datasets: [{
+                            label: "Revenue",
+                            data: [
+            <%= request.getAttribute("year20")%>,
+            <%= request.getAttribute("year21")%>,
+            <%= request.getAttribute("year22")%>,
+            <%= request.getAttribute("year23")%>,
+            <%= request.getAttribute("year24")%>
+                            ],
+                            backgroundColor: "rgba(0, 156, 255, .5)"
+                        }]
+                },
+                options: {
+                    responsive: true
+                }
             });
-
-            overlay.addEventListener('click', () => {
-                const modals = document.querySelectorAll('.modal.active');
-                modals.forEach(modal => {
-                    closeModal(modal);
-                });
-            });
-
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    closeModal(modal);
-                });
-            });
-
-            function openModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.add('active');
-                overlay.classList.add('active');
-            }
-
-            function closeModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.remove('active');
-                overlay.classList.remove('active');
-            }
         </script>
-
     </body>
 </html>

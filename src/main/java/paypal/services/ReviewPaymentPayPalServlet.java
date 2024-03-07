@@ -4,7 +4,6 @@
  */
 package paypal.services;
 
-import controlls.servlet.*;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.ShippingAddress;
@@ -17,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import paypal.services.PaymentServices;
 
 /**
  *

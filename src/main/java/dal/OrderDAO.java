@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -78,4 +79,134 @@ public class OrderDAO implements Serializable {
             }
         }
     }
+
+public  List<OrderDTO> getNewOrderUserName() throws ClassNotFoundException, SQLException {
+    List<OrderDTO> listOrder = new ArrayList<>();
+    try (Connection con = DBUtils.createConnection()) {
+        if (con != null) {
+            String sql = "SELECT o.*, u.fullName as userName FROM [order] o INNER JOIN users u ON o.userID = u.userID";
+            try (PreparedStatement stm = con.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    String orderID = rs.getString("orderID");
+                    int userID = rs.getInt("userID");
+                    Timestamp createDate = rs.getTimestamp("create_at");
+                    double totalPrice = rs.getDouble("totalPrice");
+                    String status = rs.getString("status");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String fullName = rs.getString("userName"); // Assumed column name from JOIN
+                    String userName = rs.getString("userName"); // Assumed column name from JOIN
+                    // Assume these columns exist, else set default values or handle nullability                    int userID = rs.getInt("userID");
+                    int orderDetaiID = rs.getInt("orderDetailID");
+
+                 //   String orderDetaiID = rs.getString("orderDetaiID ");
+
+                    OrderDTO dto = new OrderDTO(orderID, userID+"", createDate, totalPrice, status, email, phone, fullName, orderDetaiID+"", userName);
+                    listOrder.add(dto);
+                }
+            }
+        }
+    } // try-with-resources will auto close Connection, PreparedStatement, and ResultSet
+      for (OrderDTO orderDTO : listOrder) {
+          System.out.println(orderDTO.toString());
+    }
+        return listOrder;
+      
+}
+
+
+public  OrderDTO getNewOrderUserNamebyID(String id) throws ClassNotFoundException, SQLException {
+    try (Connection con = DBUtils.createConnection()) {
+        if (con != null) {
+            String sql = "SELECT o.*, u.fullName as userName FROM [order] o INNER JOIN users u ON o.userID = u.userID Where orderID ="+id;
+            try (PreparedStatement stm = con.prepareStatement(sql); ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    String orderID = rs.getString("orderID");
+                    int userID = rs.getInt("userID");
+                    Timestamp createDate = rs.getTimestamp("create_at");
+                    double totalPrice = rs.getDouble("totalPrice");
+                    String status = rs.getString("status");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String fullName = rs.getString("userName"); // Assumed column name from JOIN
+                    String userName = rs.getString("userName"); // Assumed column name from JOIN
+                    // Assume these columns exist, else set default values or handle nullability                    int userID = rs.getInt("userID");
+                    int orderDetaiID = rs.getInt("orderDetailID");
+
+                 //   String orderDetaiID = rs.getString("orderDetaiID ");
+
+                    OrderDTO dto = new OrderDTO(orderID, userID+"", createDate, totalPrice, status, email, phone, fullName, orderDetaiID+"", userName);
+                     return dto;
+                }
+            }
+        }
+    } // try-with-resources will auto close Connection, PreparedStatement, and ResultSet
+      for (OrderDTO orderDTO : listOrder) {
+          System.out.println(orderDTO.toString());
+    }
+        return null;
+      
+}
+
+
+    public double getChartInYear(int year) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        double totalPrice = 0.0;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "  SELECT sum(totalprice) as totalPrice from [Order] WHERE year(create_at) = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, year);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    totalPrice = rs.getDouble("totalPrice");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return totalPrice;
+    }
+    
+    public boolean deleteOrder(int orderDetailID) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    PreparedStatement stm = null;
+    boolean result = false;
+
+    try {
+        con = DBUtils.createConnection();
+        if (con != null) {
+            String sql = "DELETE FROM [Order] WHERE orderDetailID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, orderDetailID);
+
+            int rowsAffected = stm.executeUpdate();
+            if (rowsAffected > 0) {
+                result = true;
+            }
+        }
+    } finally {
+        if (stm != null) {
+            stm.close();
+        }
+        if (con != null) {
+            con.close();
+        }
+    }
+
+    return result;
+}
+
 }

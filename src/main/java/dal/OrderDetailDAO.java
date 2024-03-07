@@ -66,10 +66,9 @@ public class OrderDetailDAO implements Serializable {
                     String location = rs.getString("locationDetails");
                     String note = rs.getString("notes");
                     String payment = rs.getString("payment");
-                    
+
                     OrderDetailDTO dto = new OrderDetailDTO(fullName, packageName, dateStart, dateOrder, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
 
-          
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
@@ -89,8 +88,132 @@ public class OrderDetailDAO implements Serializable {
             }
         }
     }
-    
-      public boolean insertOrderDetail(Map<String, String> orderDetailInfo) throws SQLException  {
+
+    public  List<OrderDetailDTO>  getOrderDetailID(String orderDetail) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<>();
+        try {
+            // create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                // create sql string
+                String sql = "SELECT  od.orderDetailID, p.packageName, totalPrice, email, phone, fullname, status, od.dateOrder, od.dateStart ,sv.serviceName,  numberOfPeople, t.themeName, l.locationDetails, notes, payment \n" +
+"                         FROM [Order] o \n" +
+"                         JOIN OrderDetails od ON o.orderDetailID = od.orderDetailID \n" +
+"                         JOIN Packages p ON p.packageID = od.packageID \n" +
+"                         JOIN BonusServices sv ON sv.serviceID = od.serviceID \n" +
+"                         JOIN Themes t ON t.themeID = od.themeID \n" +
+"                         JOIN Location l ON l.locationID = od.locationID\n" +
+"						 Where od.orderDetailID = "+orderDetail;
+                // create statement obj
+                stm = con.prepareStatement(sql);
+                // execute query
+                rs = stm.executeQuery();
+                // process
+                while (rs.next()) {
+                    int orderDetailID = rs.getInt("orderDetailID");
+                    String fullName = rs.getString("fullname");
+                    String packageName = rs.getString("packageName");
+                    Date dateStart = rs.getDate("dateStart");
+                    Date dateOrder = rs.getDate("dateOrder");
+                    double totalPrice = rs.getDouble("totalPrice");
+                    String status = rs.getString("status");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String service = rs.getString("serviceName");
+                    int amount = rs.getInt("numberOfPeople");
+                    String theme = rs.getString("themeName");
+                    String location = rs.getString("locationDetails");
+                    String note = rs.getString("notes");
+                    String payment = rs.getString("payment");
+
+                    OrderDetailDTO dto = new OrderDetailDTO(orderDetailID, fullName, packageName, dateStart, dateOrder, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
+
+                    if (this.listOrder == null) {
+                        this.listOrder = new ArrayList<>();
+                    }
+                   listOrder.add(dto);
+                }
+            }
+        } finally {
+            // close resources in a finally block
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listOrder;
+    }
+
+     public OrderDetailDTO getOrderDetailIDNew(String orderDetail) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<>();
+        try {
+            // create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                // create sql string
+                String sql = "SELECT  od.orderDetailID, p.packageName, totalPrice, email, phone, fullname, status, od.dateOrder, od.dateStart ,sv.serviceName,  numberOfPeople, t.themeName, l.locationDetails, notes, payment \n" +
+"                         FROM [Order] o \n" +
+"                         JOIN OrderDetails od ON o.orderDetailID = od.orderDetailID \n" +
+"                         JOIN Packages p ON p.packageID = od.packageID \n" +
+"                         JOIN BonusServices sv ON sv.serviceID = od.serviceID \n" +
+"                         JOIN Themes t ON t.themeID = od.themeID \n" +
+"                         JOIN Location l ON l.locationID = od.locationID\n" +
+"						 Where od.orderDetailID = "+orderDetail;
+                // create statement obj
+                stm = con.prepareStatement(sql);
+                // execute query
+                rs = stm.executeQuery();
+                // process
+                while (rs.next()) {
+                    int orderDetailID = rs.getInt("orderDetailID");
+                    String fullName = rs.getString("fullname");
+                    String packageName = rs.getString("packageName");
+                    Date dateStart = rs.getDate("dateStart");
+                    Date dateOrder = rs.getDate("dateOrder");
+                    double totalPrice = rs.getDouble("totalPrice");
+                    String status = rs.getString("status");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
+                    String service = rs.getString("serviceName");
+                    int amount = rs.getInt("numberOfPeople");
+                    String theme = rs.getString("themeName");
+                    String location = rs.getString("locationDetails");
+                    String note = rs.getString("notes");
+                    String payment = rs.getString("payment");
+
+                    OrderDetailDTO dto = new OrderDetailDTO(orderDetailID, fullName, packageName, dateStart, dateOrder, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
+
+                
+                   return dto;
+                }
+            }
+        } finally {
+            // close resources in a finally block
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return null;
+    }
+
+    public boolean insertOrderDetail(Map<String, String> orderDetailInfo) throws SQLException {
 
         boolean check = false;
         Connection conn = null;
@@ -125,4 +248,32 @@ public class OrderDetailDAO implements Serializable {
 
         return check;
     }
+    
+    public boolean deleteOrderDetail(int orderDetailID) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    PreparedStatement stm = null;
+    boolean result = false;
+    try {
+        con = DBUtils.createConnection();
+        if (con != null) {
+            String sql = "DELETE FROM [orderDetails] WHERE orderDetailID = ?";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, orderDetailID);
+
+            int rowsAffected = stm.executeUpdate();
+            if (rowsAffected > 0) {
+                result = true;
+            }
+        }
+    } finally {
+        if (stm != null) {
+            stm.close();
+        }
+        if (con != null) {
+            con.close();
+        }
+    }
+
+    return result;
+}
 }

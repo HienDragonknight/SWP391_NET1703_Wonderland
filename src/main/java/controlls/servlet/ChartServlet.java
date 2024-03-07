@@ -4,33 +4,29 @@
  */
 package controlls.servlet;
 
-import dal.BonusServiceDAO;
-import dal.LocationDAO;
-import dal.PackageDAO;
-import dal.ThemeDAO;
+import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import models.BonusServiceDTO;
-import models.LocationDTO;
-import models.PackageDTO;
-import models.ThemeDTO;
+import models.OrderDetailDTO;
 
 /**
  *
  * @author huY
  */
-@WebServlet(name = "BookingPartyServlet", urlPatterns = {"/BookingPartyServlet"})
-public class BookingPartyServlet extends HttpServlet {
-    private final String SUCCESS = "party_booking.jsp";
-    private final String ERROR = "party_booking.jsp";
+@WebServlet(name = "ChartServlet", urlPatterns = {"/ChartServlet"})
+public class ChartServlet extends HttpServlet {
+
+    private final String SUCCESS = "chart.jsp";
+    private final String ERROR = "chart.jsp";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,36 +41,33 @@ public class BookingPartyServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            //Theme List
-            ThemeDAO themeDAO = new ThemeDAO();
-            themeDAO.printTheme();
-            List<ThemeDTO> theme = themeDAO.getListTheme();
-            request.setAttribute("THEME_LIST", theme);
+            OrderDAO dao = new OrderDAO();
+            double year20 = dao.getChartInYear(2020);
+            double year21 = dao.getChartInYear(2021);
+            double year22 = dao.getChartInYear(2022);
+            double year23 = dao.getChartInYear(2023);
+            double year24 = dao.getChartInYear(2024);
+
+            request.setAttribute("year20", year20);
+            request.setAttribute("year21", year21);
+            request.setAttribute("year22", year22);
+            request.setAttribute("year23", year23);
+            request.setAttribute("year24", year24);
             
-            //Location List
-            LocationDAO locationDAO = new LocationDAO();
-            List<LocationDTO> locationList = locationDAO.getListLocation();
-            request.setAttribute("LOCATION_LIST", locationList);
-            
-            //Service List
-            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = bonusServiceDAO.getBonusServiceList();
-            request.setAttribute("SERVICE_LIST", bonusServiceList);
-            
-            //Packages
-            PackageDAO packageDAO = new PackageDAO();
-            List<PackageDTO> packageList = packageDAO.getListPackage();
-            request.setAttribute("PACKAGE_LIST", packageList);
+            OrderDetailDAO daoo = new OrderDetailDAO();
+            daoo.getOrder();
+            List<OrderDetailDTO> order = daoo.getListOrder();
+            request.setAttribute("LIST_ORDER", order);
             
             url = SUCCESS;
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
         } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _ Class: " + ex.getMessage());
+        } catch (SQLException ex) {
             log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
