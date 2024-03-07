@@ -71,6 +71,7 @@
                                     <input type="email" name="txtEmail" class="form-control" id="floatingInput" aria-describedby="emailHelp" placeholder="Enter email" value="<%=cuValue%>" required="required">
                                     <label for="floatingInput">Email address</label>
                                 </div>
+<<<<<<< HEAD
                                 <div class="form-floating mb-4">
                                     <input type="password" name="txtPassword" class="form-control" id="floatingPassword" placeholder="Password" value="<%= cpValue%>" required="required">
                                     <label for="floatingPassword">Password</label>
@@ -87,6 +88,22 @@
                                 <p class="text-center mb-0">Don't have an Account? <a href="./register" style="color: aqua;">  <input type="submit" value="Login" name="action" /> </a></p>
                             </form>
                         </div>
+=======
+<<<<<<< HEAD
+                                        
+                                <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: aqua; border-color: aqua;"><input type="submit" value="Login" name="action" /> </button>
+                              
+                                 <a href="./RegisterServlet" style="color: aqua;">   <p class="text-center mb-0">Don't have an Account?</p>  </a>
+                            </form>
+                        </div>
+=======
+                                <a href="ForgotPasswordServlet" style="color: aqua;">Forgot Password</a>
+                            </div>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4" style="background-color: aqua; border-color: aqua;">Sign In</button>
+                            <p class="text-center mb-0">Don't have an Account? <a href="./register" style="color: aqua;">  <input type="submit" value="Login" name="action" /> </a></p>
+                        </form>
+>>>>>>> cc4cca48262698fc4453181d237f418a42aafd0c
+>>>>>>> 8161068a58925763cf9f4ff198a181732c8c48a4
                     </div>
                 </div>
             </div>
