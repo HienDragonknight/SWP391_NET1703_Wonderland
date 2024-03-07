@@ -95,7 +95,7 @@ public class OrderDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "  SELECT sum(totalprice) as totalPrice from [Order] WHERE year(create_at) = ?";
+                String sql = "SELECT sum(totalprice) as totalPrice from [Order] WHERE month(create_at) = ?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, year);
                 rs = stm.executeQuery();

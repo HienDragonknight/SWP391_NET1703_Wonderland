@@ -42,17 +42,31 @@ public class ChartServlet extends HttpServlet {
         String url = ERROR;
         try {
             OrderDAO dao = new OrderDAO();
-            double year20 = dao.getChartInYear(2020);
-            double year21 = dao.getChartInYear(2021);
-            double year22 = dao.getChartInYear(2022);
-            double year23 = dao.getChartInYear(2023);
-            double year24 = dao.getChartInYear(2024);
+            double month1 = dao.getChartInYear(1);
+            double month2 = dao.getChartInYear(2);
+            double month3 = dao.getChartInYear(3);
+            double month4 = dao.getChartInYear(4);
+            double month5 = dao.getChartInYear(5);
+            double month6 = dao.getChartInYear(6);
+            double month7 = dao.getChartInYear(7);
+            double month8 = dao.getChartInYear(8);
+            double month9 = dao.getChartInYear(9);
+            double month10 = dao.getChartInYear(10);
+            double month11 = dao.getChartInYear(11);
+            double month12 = dao.getChartInYear(12);
 
-            request.setAttribute("year20", year20);
-            request.setAttribute("year21", year21);
-            request.setAttribute("year22", year22);
-            request.setAttribute("year23", year23);
-            request.setAttribute("year24", year24);
+            request.setAttribute("month1", month1);
+            request.setAttribute("month2", month2);
+            request.setAttribute("month3", month3);
+            request.setAttribute("month4", month4);
+            request.setAttribute("month5", month5);
+            request.setAttribute("month6", month6);
+            request.setAttribute("month7", month7);
+            request.setAttribute("month8", month8);
+            request.setAttribute("month9", month9);
+            request.setAttribute("month10", month10);
+            request.setAttribute("month11", month11);
+            request.setAttribute("month12", month12);
             
             OrderDetailDAO daoo = new OrderDetailDAO();
             daoo.getOrder();
