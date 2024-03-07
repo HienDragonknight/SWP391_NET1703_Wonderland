@@ -275,6 +275,34 @@
             {
                 margin-left: 40%;
             }
+
+
+            .decrease, .increase {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #ccc;
+                border-radius: 50%;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            .decrease:hover, .increase:hover {
+                background-color: #999;
+            }
+
+            .qty-value {
+                display: inline-block;
+                width: 50px;
+                margin: 0 5px;
+                text-align: center;
+                user-select: none;
+            }
         </style>
     </head>
     <body>
@@ -360,104 +388,126 @@
         </header>
 
 
+
         <section>
-            <div class="column-content">
+            <div class="column-content">    
                 <div class="add-ab">
                     <a href="home.jsp">Home</a><span> &#10095; Car</span>
                 </div>
 
-                <h1>Car Checkout</h1>
+                <div>
+                    <h1>Car Checkout</h1>
+                </div>
             </div>
 
         </section>
 
-        <div class="cart-container"><form action="https://tiniworld.com/checkout/cart/updatePost/" method="post" id="form-validate" class="form form-cart">
-                <div class="cart main actions">
-                    <button type="submit" name="update_cart_action" data-cart-item-update="" value="update_qty" title="Cập nhật giỏ hàng" class="action update">
-                        <span>Cập nhật giỏ hàng</span>
-                    </button>
-                    <input type="hidden" value="" id="update_cart_action_container" data-cart-item-update="">
-                </div>
-                <input name="form_key" type="hidden" value="mSSKiY9yWec1lqOp">    <div class="cart table-wrapper">
-                    <div id="shopping-cart-table" class="cart items data table">
-                        <div class="cart item product-item">
-                            <a href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html" title="TINIWORLD AEON LONG BIÊN" tabindex="-1" class="product-item-photo">
-                                <span class="product-image-container product-image-container-277" style="width: 95px;">
-                                    <span class="product-image-wrapper" style="padding-bottom: 100%;">
-                                        <img class="product-image-photo" src="https://tiniworld.com/media/catalog/product/cache/8f073051dd604ce655487aae2e2a3fa7/1/_/1_1_1.png" loading="lazy" width="95" height="95" alt="TINIWORLD AEON LONG BIÊN">
-                                    </span>
-                                </span>
-                                <style>.product-image-container-277 {
-                                        width: 95px;
-                                    }
-                                    .product-image-container-277 span.product-image-wrapper {
-                                        padding-bottom: 100%;
-                                    }</style><script type="text/javascript">prodImageContainers = document.querySelectorAll(".product-image-container-277");
-                                        for (var i = 0; i < prodImageContainers.length; i++) {
-                                            prodImageContainers[i].style.width = "95px";
-                                        }
-                                        prodImageContainersWrappers = document.querySelectorAll(
-                                                ".product-image-container-277  span.product-image-wrapper"
-                                                );
-                                        for (var i = 0; i < prodImageContainersWrappers.length; i++) {
-                                            prodImageContainersWrappers[i].style.paddingBottom = "100%";
-                                        }</script>        </a>
 
-                            <div class="product-item-inner">
-                                <strong class="product-item-name">
-                                    <a href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">TINIWORLD AEON LONG BIÊN</a>
-                                </strong>
-                                <div class="product-item-details ">
-                                    <div class="product-item-options">
-                                        <div class="item-options">
+        <section class="h-100 h-custom" style="background-color: #cff4fc;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-lg-8">
+                                        <div class="p-5">
+                                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                                <h1 class="fw-bold mb-0 text-black">Booking Cart</h1>
 
-                                            <label class="label">Trung tâm</label>
-                                            <div class="value">TINIWORLD AEON LONG BIÊN</div>
-                                        </div>
-                                        <div class="item-option">
-                                            <label class="label">Loại vé</label>
-                                            <div class="value">
-                                                Ngày thường (T2 - T6)                                                                    
+                                            </div>
+                                            <hr class="my-4">
+
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img
+                                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
+                                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h6 class="text-muted">Shirt</h6>
+                                                    <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                                                </div>
+
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+
+                                                    <label for="cart-28156-qty">
+
+                                                        <span class="decrease" onclick="decreaseQuantity()">-</span>
+
+                                                        <span id="cart-28156-qty" class="qty-value" data-cart-item-id="tW Aeon Long Biên-normal_fare" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">1</span>
+
+                                                        <span class="increase" onclick="increaseQuantity()">+</span>
+
+                                                    </label>
+
+                                                </div>
+
+
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <h6 class="mb-0">€ 44.00</h6>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="pt-5">
+                                                <h6 class="mb-0"><a href="#!" class="text-body"><i
+                                                            class="fas fa-long-arrow-alt-left me-2"></i>Back to Home Page</a></h6>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="product-item-price">
+                                    <div class="col-lg-4 bg-grey">
+                                        <div class="p-5">
+                                            <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                            <hr class="my-4">
 
-                                    <span class="price-excluding-tax" data-label="Chưa bao gồm thuế">
-                                        <span class="cart-price">
-                                            <span class="price">300.000&nbsp;₫</span>            </span>
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <h5 class="text-uppercase">items 3</h5>
+                                                <h5>€ 132.00</h5>
+                                            </div>
 
-                                    </span>
-                                </div>
-                                <div class="product-item-qty">
-                                    <label for="cart-28146-qty">
-                                        <span class="decrease" id="decrease" onclick="getElementById('cart-28146-qty').stepDown(1)"></span>
-                                        <input id="cart-28146-qty" name="cart[28146][qty]" data-cart-item-id="tW Aeon Long Biên-normal_fare" value="2" type="number" size="4" step="1" min="1" title="Số lượng" class="input-text qty" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">
-                                        <span class="increase" id="increase" onclick="getElementById('cart-28146-qty').stepUp(1)"></span>
-                                    </label>
-                                </div>
-                                <div class="product-item-actions">
-                                    <div class="actions-toolbar">
+                                            <h5 class="text-uppercase mb-3">Shipping</h5>
 
-                                        <div id="gift-options-cart-item-28146" data-bind="scope:'giftOptionsCartItem-28146'" class="gift-options-cart-item">
+                                            <div class="mb-4 pb-2">
+                                                <select class="select">
+                                                    <option value="1">Standard-Delivery- €5.00</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                    <option value="4">Four</option>
+                                                </select>
+                                            </div>
+
+                                            <h5 class="text-uppercase mb-3">Give code</h5>
+
+                                            <div class="mb-5">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between mb-5">
+                                                <h5 class="text-uppercase">Total price</h5>
+                                                <h5>€ 137.00</h5>
+                                            </div>
+
+                                            <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                    data-mdb-ripple-color="dark">Register</button>
 
                                         </div>
-                                        <a class="action action-edit" href="https://tiniworld.com/checkout/cart/configure/id/28146/product_id/277/" title="Sửa thông số sản phẩm">
-                                            <span>Chỉnh sửa</span>
-                                        </a>
-                                        <a href="#" title="Xóa sản phẩm" class="action action-delete" data-post="{&quot;action&quot;:&quot;https:\/\/tiniworld.com\/checkout\/cart\/delete\/&quot;,&quot;data&quot;:{&quot;id&quot;:&quot;28146&quot;,&quot;uenc&quot;:&quot;aHR0cHM6Ly90aW5pd29ybGQuY29tL2NoZWNrb3V0L2NhcnQv&quot;}}">
-                                            <span>
-                                                Xóa    </span>
-                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form></div> 
-
+            </div>
+        </section>
 
 
 
@@ -671,6 +721,26 @@
             // Call the function with the inputPhone argument
             formatPhoneNumber(inputPhone);
 
+
+
+
+            function decreaseQuantity() {
+                let qtyInput = document.querySelector('.qty-value');
+                let currentValue = parseInt(qtyInput.textContent, 10);
+                if (!isNaN(currentValue) && currentValue > 1) {
+                    currentValue--;
+                    qtyInput.textContent = currentValue;
+                }
+            }
+
+            function increaseQuantity() {
+                let qtyInput = document.querySelector('.qty-value');
+                let currentValue = parseInt(qtyInput.textContent, 10);
+                if (!isNaN(currentValue)) {
+                    currentValue++;
+                    qtyInput.textContent = currentValue;
+                }
+            }
 
         </script>
 
