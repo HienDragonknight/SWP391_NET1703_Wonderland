@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Available Packages</title>
+        <title>Profile</title>
         <link rel="icon" href="image/img1.jpg"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/profile.css' rel='stylesheet'>
@@ -371,12 +371,51 @@
                 justify-content: flex-start;
                 gap: 10px;
             }
+            .password-container {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+
+            .password-wrapper {
+                position: relative;
+            }
+
+            input[type="password"] {
+                width: calc(100% - 28px);
+                padding: 10px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .toggle-button {
+                position: absolute;
+                top: 50%;
+                right: 30px;
+                transform: translateY(-50%);
+                border: 100px;
+                background: transparent;
+                cursor: pointer;
+            }
+
         </style>
     </head
     <body>
         <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
     <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
     <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("passwordField");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
     <div class="container">
         <header>
             <aside class="side-bar">
@@ -521,11 +560,24 @@
                     <h3>Edit Profile</h3>
                 </div></br>
                 <div class="info-value">Email: ${sessionScope.USER_INFO.email}</div>
+                <input type="hidden" name="email" value="${sessionScope.USER_INFO.email}"/>
                 Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
                 Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
-                Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required><br>
-                <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}"/></br>
+                <div class="password-container">
+                    Password 
+                    <div class="password-wrapper">
+                        <input type="password" name="password" id="passwordField" value="${sessionScope.USER_INFO.password}" required>
+                        <button type="button" class="toggle-button" onclick="togglePassword()">Show</button>
+                    </div>
+                </div></br>
                 <input type="submit" name="edit" value="Save">
+                <%
+                    String msg = (String) request.getAttribute("MESSAGE");
+                    if (msg == null) {
+                        msg = "";
+                    }
+                %>
+                <%= msg%>
             </form>
         </div>
         <div class="orders-data">
@@ -537,7 +589,7 @@
                     <i class='bx bx-search'></i>
                 </div>
 
-                <form action="AdminServlet" method="POST">
+                <form action="ViewCustomerOrderServlet" method="POST">
                     <div class="table-wrapper">
                         <table>
                             <thead>

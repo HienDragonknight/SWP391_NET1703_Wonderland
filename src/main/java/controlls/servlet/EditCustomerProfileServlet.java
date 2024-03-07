@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.UserDTO;
 
 /**
@@ -30,8 +31,8 @@ public class EditCustomerProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "customer_profile.jsp";
-    private static final String SUCCESS = "login.jsp";
+    private static final String ERROR = "customer.jsp";
+    private static final String SUCCESS = "customer.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,11 +54,14 @@ public class EditCustomerProfileServlet extends HttpServlet {
                 //refresh --> call previous function again (Search)
                 //--> using url rewriting technique
                 url = SUCCESS;
+                HttpSession session = request.getSession();
+                session.setAttribute("USER_INFO", result);
+                request.setAttribute("MESSAGE", "New info have been save!");
             }//delete action is successfull
         } catch (SQLException ex) {
             log(ex.getMessage());
         } finally {
-            response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
 
     }
