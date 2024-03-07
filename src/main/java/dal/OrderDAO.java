@@ -5,6 +5,7 @@
 package dal;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.OrderDTO;
+import models.UserDTO;
 import util.DBUtils;
 
 /**
@@ -50,11 +52,11 @@ public class OrderDAO implements Serializable {
                     double totalPrice = rs.getDouble("total_price");
                     String status = rs.getString("status");
 
-          //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+                    //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
-            //        this.listOrder.add(dto);
+                    //        this.listOrder.add(dto);
                 }
             }
         } finally {
@@ -69,6 +71,38 @@ public class OrderDAO implements Serializable {
                 con.close();
             }
         }
+    }
+
+    public boolean insertOrderWithLogin(UserDTO userLogin) throws SQLException {
+
+        boolean check = false;
+
+        Connection conn = null;
+        CallableStatement ctm = null;
+
+        String insertOrderStatement = "{call InsertOrder(?,?,?,?)}";
+
+        try {
+            conn = DBUtils.createConnection();
+            ctm = conn.prepareCall(insertOrderStatement);
+            ctm.setString(1, userLogin.getUserID());
+            ctm.setString(2, userLogin.getEmail());
+            ctm.setString(3, userLogin.getPhoneNumber());
+            ctm.setString(4, userLogin.getFullName());
+
+            check = ctm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ctm != null) {
+                ctm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
     }
 
 }

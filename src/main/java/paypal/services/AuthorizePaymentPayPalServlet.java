@@ -68,6 +68,8 @@ public class AuthorizePaymentPayPalServlet extends HttpServlet {
 
             // ########################################
             // ########################################
+            
+            
             String packageProduct = request.getParameter("packageProduct");
             String subtotal = request.getParameter("subtotal");
             String shipping = request.getParameter("shipping");

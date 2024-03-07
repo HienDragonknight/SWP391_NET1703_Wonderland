@@ -1,5 +1,6 @@
 
 
+<%@page import="models.UserDTO"%>
 <%@page import="models.ThemeDTO"%>
 <%@page import="models.BonusServiceDTO"%>
 <%@page import="java.util.List"%>
@@ -270,6 +271,10 @@
             }
 
 
+            #nickname
+            {
+                margin-left: 40%;
+            }
         </style>
     </head>
     <body>
@@ -277,6 +282,7 @@
         <header>
             <aside class="side-bar">
                 <div class="logo">
+
                     <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                 </div>
 
@@ -288,6 +294,21 @@
                         <input type="text" placeholder="Type here to search">
                     </form>
                 </div>
+
+                <%
+                    StringBuffer context = request.getRequestURL();
+                    String endpoint = "checkout_car.jsp";
+
+                    int lastIndex = context.lastIndexOf("/");
+                    context.replace(lastIndex + 1, context.length(), endpoint);
+                    String modifiedURL = context.toString();
+
+                %>
+
+                <%                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                    if (dto == null) {
+                %>
 
                 <div class="profile">
                     <div class="login-pro">
@@ -301,15 +322,39 @@
                         <i class='bx bx-lock-alt'></i>
                         <a href="#">Sign Up</a>
                     </div>
+                    <div>
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </a>
+                    </div>
 
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill" >0</span>
-                        </button>
-                    </form>
+                    <%
+                    } else {
+                    %>
+
+
+                    <div class="logined" id="nickname">
+                        <i class='bx bx-user-circle'></i>
+                        <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                    </div>
+
+                    <div>
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </a>
+                    </div>
+
                 </div>
+                <%   }
+                %>
 
             </aside>
         </header>
@@ -324,12 +369,15 @@
                 <h1>Party Booking</h1>
 
 
+
                 <div class="column">
                     <div class="checkout-container">
                         <div class="order-info">
+
                             <div class="order-info-block" >
                                 <span class="order-info-title">Order Information</span>
                             </div>
+
                             <div class="content minicart-items" data-role="content">
                                 <div class="minicart-items-wrapper">
                                     <div class="product">
@@ -339,8 +387,8 @@
                                             </span>
                                         </span>
                                         <div class="product-item-details">
-
                                             <div class="product-item-inner">
+
                                                 <div class="product-item-name-block">
                                                     <strong class="location-name" id="location-name">HCM</strong>
                                                     <div class="product options">
@@ -380,7 +428,7 @@
 
                                 <tr >
 
-                                <span class="label" >Bonus Service</span>
+                                <span class="lable" >Bonus Service</span>
                                 <span class="price-bonus" id="price-bonus">0$</span>
 
 
@@ -404,13 +452,14 @@
                             <div class="customer-info-block" >
                                 <span class="customer-info-title">Customer Information</span>
                             </div>
+                            <%
+                                if (dto == null) {
+                            %>
 
                             <div class="checkout-login" >
                                 <span ">Have an account?</span>
                                 <a class="login action"  href="login.jsp">Login</a>
                             </div>
-
-
                             <div class="customer-info-details" >
 
                                 <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
@@ -434,7 +483,44 @@
                                         <input type="hidden" id="total"  name="total" value=""> 
                                     </div>
                                 </form>
+
                             </div>
+
+                            <%
+                            } else {
+                            %>
+
+                            <div class="customer-info-details" >
+
+                                <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
+                                    <div class="control"">
+                                        <span class="customer-fullname"><%= dto.getFullName()%></span><br>
+                                        <textarea class="input-text" id="order-note" name="note" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
+                                        <button  type="submit" class="button action continue primary">
+                                            <span>Payment</span>
+                                        </button>
+                                        <input class="input-text" type="hidden"  name="fullName" placeholder="Full name" required="" value ="<%= dto.getFullName()%>"><br>
+                                        <input class="input-text" type="hidden" name="email" id="email" placeholder="Email" value="<%= dto.getEmail()%>"><br>
+                                        <input class="input-text" type="hidden" name="phone" id="phone" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="formatPhoneNumber(this)" value="<%= dto.getPhoneNumber()%>" ><br>
+
+                                        <input type="hidden" id="service-id" name="service-id" value="" /><br>
+                                        <input type="hidden" id="package-id" name="package-id" value="" /><br>
+                                        <input type="hidden" id="checkin-time" name="checkin-time" value="" /><br>
+                                        <input type="hidden" id="number-children" name="number-children" value="" /><br>
+                                        <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
+                                        <input type="hidden" id="location-id" name="location-id" value="" /><br>
+                                        <input type="hidden" id="subtotal"  name="subtotal" value=""> 
+                                        <input type="hidden" id="shipping" name="shipping" value=""> 
+                                        <input type="hidden" id="tax"  name="tax" value=""> 
+                                        <input type="hidden" id="total"  name="total" value=""> 
+                                    </div>
+                                </form>
+                            </div>
+
+
+
+                            <%   }
+                            %>
                         </div>
                     </div>
                 </div>
@@ -517,10 +603,9 @@
         }
 
 
-
-
-//{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
-////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
+        updateCartCount();
+        //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
+        ////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
         function updateOrderInfomation()
         {
             var packageInfo = localStorage.getItem("packageInfo");
@@ -530,10 +615,9 @@
             var pricePackageUnit = document.getElementById("price-unit");
 
             locationName.innerHTML = packageData['center'].split('-')[1];
-            numberOfChildren.innerHTML = packageData['childrenNums'];
+            numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
             var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-            pricePackageUnit.innerHTML = pricePackageUnitValue + '$';
-
+            pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
 
             var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
             var priceMultiple = document.getElementById("price-multiple");
@@ -591,8 +675,6 @@
             locationIDInput.value = locationID;
 
         }
-
-        updateCartCount();
         setValueToOrderDetailForm();
 
 
@@ -606,12 +688,6 @@
                 event.preventDefault(); // prevent form submission
             }
         });
-
-
-
-
-
-
 
 
 
@@ -660,7 +736,7 @@
             }
         }
 
-// Call the function with the inputPhone argument
+        // Call the function with the inputPhone argument
         formatPhoneNumber(inputPhone);
 
 

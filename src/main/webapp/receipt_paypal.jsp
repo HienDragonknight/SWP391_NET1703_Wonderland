@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
+
 <html>
     <head>
         <title>Payment Receipt</title>
@@ -23,6 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         <div align="center">
             <h1>Payment Done. Thank you for purchasing our products</h1>
             <table >
+
                 <tr>
                     <td>Merchant</td>
                     <td> ${requestScope.TRANSACTION.description} </td>
@@ -38,8 +36,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <tr>
                     <td>Subtotal</td>
                     <td> ${requestScope.TRANSACTION.amount.details.subtotal} </td>
-                </tr>
-
+                </tr>               
                 <tr>
                     <td>Total</td>
                     <td> ${requestScope.TRANSACTION.amount.total} </td>
@@ -48,10 +45,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <tr></tr><br>
                 <tr></tr>
 
-
             </table>
 
         </form>
     </div>
+
+    <script>
+
+        // Check if localStorage is supported by the browser
+        if (typeof (Storage) !== "undefined") {
+            // Remove item with key "packageInfo"
+            localStorage.removeItem("packageInfo");
+            console.log("Item with key 'packageInfo' removed from localStorage.");
+        } else {
+            console.log("Sorry, your browser does not support web storage...");
+        }
+
+    </script>
 </body>
 </html>
