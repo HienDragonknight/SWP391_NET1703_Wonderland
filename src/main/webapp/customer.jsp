@@ -5,6 +5,8 @@
 --%>
 
 
+<%@page import="models.OrderDetailDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,6 +16,7 @@
         <title>Available Packages</title>
         <link rel="icon" href="image/img1.jpg"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/profile.css' rel='stylesheet'>
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
@@ -242,17 +245,17 @@
                 cursor: pointer;
             }
             #info {
-                max-width: 400px;
-                margin: 50px;
+                max-width: 12000px;
+                margin: 20px 0px 10px 0px;
                 background-color: #f6f6f9;
                 padding: 40px ;
                 border-radius: 20px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin-right: auto;
             }
 
             .profile-content {
-                display: flex;
-                justify-content: flex-start;
+                display: block;
             }
 
             .profile-content input[type="text"],
@@ -277,8 +280,97 @@
             .profile-content input[type="submit"]:hover {
                 background-color: #005dc2;
             }
+            .orders {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .orders-data {
+                display: flex;
+                flex-wrap: wrap;
+                grid-gap: 24px;
+                margin-top: 24px;
+                width: 100%;
+                color: #363949;
+            }
 
+            .orders-data>div {
+                border-radius: 20px;
+                background: #f6f6f9;
+                padding: 24px;
+                overflow-x: auto;
+            }
 
+            .orders-data .header {
+                display: flex;
+                align-items: center;
+                grid-gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .orders-data .header h3 {
+                margin-right: auto;
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .orders-data .header bx {
+                cursor: pointer;
+            }
+
+            .orders-data .orders{
+                flex-grow: 1;
+                flex-basis: 500px;
+            }
+
+            .orders-data .orders table{
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .orders-data .orders table th{
+                padding-bottom: 12px;
+                font-size: 13px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+
+            .orders-data .orders table td{
+                padding: 16px 0;
+            }
+
+            .orders-data .orders table tr td:first-child{
+                display: flex;
+                align-items: center;
+                grid-gap: 12px;
+                padding-left: 6px;
+            }
+
+            .orders-data .orders table tbody tr{
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .orders-data .orders table tbody tr:hover{
+                background: #eee;
+            }
+
+            .orders-data .orders table tr td .status.completed{
+                background: #388E3C;
+            }
+            .profile-container {
+                display: grid;
+                justify-content: normal;
+            }
+
+            .info-value {
+                font-weight: bold;
+                border-radius: 4px;
+                margin-bottom: 15px;
+            }
+            .profile-header {
+                display: flex;
+                justify-content: flex-start;
+                gap: 10px;
+            }
         </style>
     </head
     <body>
@@ -418,19 +510,128 @@
             </ul>
         </div>
     </div>
-    <div class="profile">
+    <div class="profile-container">
         <div class="add-ab">
             <a href="home.jsp">Home</a><span> &#10095; Profile</span>
         </div>
         <div class="profile-content">
             <form action="EditCustomerProfileServlet" method="POST" id="info">
-                Email <input type="text" name="email" value="${sessionScope.USER_INFO.email}" readonly><br>
+                <div class="profile-header">
+                    <i class="gg-profile"></i>
+                    <h3>Edit Profile</h3>
+                </div></br>
+                <div class="info-value">Email: ${sessionScope.USER_INFO.email}</div>
                 Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
                 Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
                 Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required><br>
-                <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}" />
+                <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}"/></br>
                 <input type="submit" name="edit" value="Save">
             </form>
+        </div>
+        <div class="orders-data">
+            <div class="orders">
+                <div class="header">
+                    <i class='bx bx-receipt'></i>
+                    <h3>Users</h3>
+                    <i class='bx bx-filter'></i>
+                    <i class='bx bx-search'></i>
+                </div>
+
+                <form action="AdminServlet" method="POST">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Date Order</th>
+                                    <th>Party Name</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <%
+                                    List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
+                                    int countOrder = 1;
+                                    if (result != null) {
+                                        for (OrderDetailDTO order : result) {
+
+                                %>
+                                <tr>
+                                    <td><%= countOrder++%></td>
+                                    <td><%= order.getFullName()%></td>
+                                    <td><%= order.getDateOrder()%></td>
+                                    <td><%= order.getPackageName()%></td>
+                                    <td><%= order.getTotalPrice()%></td>
+                                    <td style="color: <%= order.getStatus().equals("Success") ? "#72FC3E" : order.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
+                                        <%= order.getStatus()%>
+                                    </td>
+                                    <td>
+                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
+                                        <div class="modal" id="modal<%= countOrder%>">
+                                            <div class="modal-header">
+                                                <div class="title"><%= order.getFullName()%></div>
+                                            </div>
+
+                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                <ul style="list-style: none; width: 100%; text-align: center;">
+                                                    <li>
+                                                        <p style="font-weight: bold">Party Name: </p> <%= order.getPackageName()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Party Start: </p> <%= order.getDateStart()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Service: </p> <%= order.getServiceName()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Theme: </p> <%= order.getThemeName()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Amount Of People: </p> <%= order.getAmountOfPeople()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (order.getEmail() != null && !order.getEmail().isEmpty()) ? "block" : "none"%>;"><%= order.getEmail()%></span>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (order.getPhone() != null && !order.getPhone().isEmpty()) ? "block" : "none"%>;"><%= order.getPhone()%></span>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Note: </p> <%= order.getNotes()%>
+                                                    </li>
+
+                                                    <li>
+                                                        <p style="font-weight: bold">Location: </p> <%= order.getLocation()%>
+                                                    </li>
+                                                </ul>
+                                                <button style="align-self: center; background-color: <%= order.getStatus().equals("Success") ? "#72FC3E" : order.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
+                                                    <%= order.getStatus()%>
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div id="overlay"></div>
+                                    </td>
+                                </tr>
+                                <%                                                    }
+                                    }
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </main>
