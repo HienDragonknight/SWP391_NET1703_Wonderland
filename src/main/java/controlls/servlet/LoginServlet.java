@@ -32,9 +32,9 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String requestURL = request.getRequestURI();
-        System.out.println(requestURL);
-        
+        String contextPath = request.getContextPath();
+        System.out.println(contextPath);
+
         HttpSession session = request.getSession();
         session.removeAttribute("ERROR_INFO"); // Remove any previous error messages
 
@@ -43,7 +43,6 @@ public class LoginServlet extends HttpServlet {
 
         try {
             if (button.equals("Login")) {
-
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
                 String remember = request.getParameter("RememberMe");
@@ -61,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                 if (result != null) {
                     session.setAttribute("user_loged", result);
                     String role = result.getRoleID();
+
                     if (remember != null && remember.equals("ON")) {
                         cEmail.setMaxAge(60 * 60 * 24 * 7);
                         cPassword.setMaxAge(60 * 60 * 24 * 7);
@@ -92,7 +92,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

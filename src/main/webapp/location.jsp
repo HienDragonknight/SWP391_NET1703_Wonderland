@@ -366,6 +366,18 @@
                     left: -100%;
                 }
             }
+            
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+            
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
 </head>
 <body>
@@ -467,7 +479,7 @@
                                     <h2><%= location.getLocationDetails()%></h2>
                                 </div>
                                 <button>
-                                    <a href="#">Booking</a>
+                                    <a href="ViewPackage">Booking</a>
                                 </button>
                             </div>
 
@@ -566,37 +578,7 @@
                         </div>    
                     </div>
 
-<<<<<<< HEAD
-            </main>
-        </div>
-        <%        } else {
-        %>
-        <div class="user-logined">
-            <div class="logined">
-                <i class='bx bx-user-circle'></i>
-                <%
-                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
-                %>
-                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                } else if (dto.getRoleID().equals("1")) {
-                %>
-                <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                } else {
-                %>
-                <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                    }
-                %>
 
-            </div>
-            <div class="cart-items">
-                <i class='bx bx-cart' ></i>
-                <a href="#">Cart</a>
-=======
-                </div>
->>>>>>> 678b8c1005a30ba99d806911dab6d4a799a412c4
             </div>
 
         </main>
@@ -605,8 +587,32 @@
     %>
     <div class="user-logined">
         <div class="logined">
-            <i class='bx bx-user-circle'></i>
-            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+            
+            <%
+                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+            %>
+            <a href="ViewUserServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else if (dto.getRoleID().equals("1")) {
+            %>
+            <a href="customer.jsp">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else {
+            %>
+            <a href="PartyHostServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+                }
+            %>
+
         </div>
         <div class="cart-items">
             <i class='bx bx-cart' ></i>
@@ -681,7 +687,7 @@
                             <h2><%= location.getLocationDetails()%></h2>
                         </div>
                         <button>
-                            <a href="#">Booking</a>
+                            <a href="ViewPackage">Booking</a>
                         </button>
                     </div>
 

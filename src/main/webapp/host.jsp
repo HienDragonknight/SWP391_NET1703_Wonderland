@@ -408,11 +408,11 @@
                 align-items: center;
                 gap: 10px;
             }
-            
+
             .header .search-btn {
                 display: none;
             }
-            
+
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -428,6 +428,18 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -451,8 +463,10 @@
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="PartyHostServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -504,7 +518,7 @@
                             </li>
                         </ul>
                     </div>
-                    
+
                     <%
                         UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
                     %>
@@ -582,8 +596,7 @@
                                             </thead>
 
                                             <tbody class="scrollable">
-                                                <%                                                    
-                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
+                                                <%                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
                                                     if (searchResult == null) {
                                                         int countUser = 1;
                                                         if (result != null) {

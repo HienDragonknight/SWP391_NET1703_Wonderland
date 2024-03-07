@@ -44,8 +44,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? ";
-    //            String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -551,5 +550,36 @@ public class UserDAO implements Serializable {
                 con.close();
             }
         }
+    }
+    
+    public UserDTO updateAccount(String cemail, String image, String name, String email, String password, String phone) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        UserDTO result = null;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                stm = con.prepareStatement("UPDATE users SET avatar = ?, fullname = ?, email = ?, password = ?, phone = ? WHERE email = ?");
+                stm.setString(1, image);
+                stm.setString(2, name);
+                stm.setString(3, email);
+                stm.setString(4, password);
+                stm.setString(5, phone);
+                stm.setString(6, cemail);
+                int effectRows = stm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO("", name, email, password, phone, image, "", "");
+                }
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
     }
 }

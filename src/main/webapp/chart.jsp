@@ -373,6 +373,18 @@
                 color: red;
                 cursor: pointer;
             }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
     </head>
     <body>
@@ -399,18 +411,24 @@
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
                             <%
-                            if (hostDTO.getRoleID().equals("3")) {
-                                    %>
-                                    <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
-                            <%
-                                } else if (hostDTO.getRoleID().equals("2")) {
-%>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                                    <%
-}
+                                if (hostDTO.getRoleID().equals("3")) {
                             %>
+                            <a href="ViewUserServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                            } else if (hostDTO.getRoleID().equals("2")) {
+                            %>
+                            <a href="PartyHostServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                                }
+                            %>
+
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>

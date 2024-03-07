@@ -73,11 +73,12 @@
     <body>
         <div class="container">
             <header>Profile</header>
-            <form action="AdminServlet" method="POST">
+            <form action="UpdateAccServlet" method="POST" enctype="multipart/form-data">
                 <input type="text" name="txtName" value="${sessionScope.USER_INFO.fullName}" placeholder="Full Name"/>
                 <input type="email" name="txtEmail" value="${sessionScope.USER_INFO.email}" placeholder="Email"/>
                 <input type="password" name="txtPassword" value="${sessionScope.USER_INFO.password}" placeholder="Password"/>
                 <input type="text" name="txtPhone" value="${sessionScope.USER_INFO.phoneNumber}" placeholder="Phone"/>
+                <input type="file" name="image">
                 <input type="hidden" name="txtCEmail" value="${sessionScope.USER_INFO.email}" />
                 <input type="submit" value="Update Account" name="action" class="btn"/>
             </form>
