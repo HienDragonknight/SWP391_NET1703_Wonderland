@@ -32,18 +32,17 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String requestURL = request.getRequestURI();
-        System.out.println(requestURL);
-        
+        String contextPath = request.getContextPath();
+        System.out.println(contextPath);
+
         HttpSession session = request.getSession();
-        session.setAttribute("ERROR_INFO", "Incorrect username or password");
+        session.removeAttribute("ERROR_INFO"); // Remove any previous error messages
 
         String url = LOGIN_PAGE;
         String button = request.getParameter("action");
 
         try {
             if (button.equals("Login")) {
-
                 String email = request.getParameter("txtEmail");
                 String password = request.getParameter("txtPassword");
                 String remember = request.getParameter("RememberMe");
@@ -77,6 +76,9 @@ public class LoginServlet extends HttpServlet {
                     response.addCookie(cRemember);
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
+                } else {
+                    // If login fails, set error message
+                    session.setAttribute("ERROR_INFO", "Incorrect username or password");
                 }
             }
         } catch (ClassNotFoundException e) {
@@ -84,7 +86,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } finally {
-            //response.sendRedirect(url);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

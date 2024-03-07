@@ -4,8 +4,10 @@
     Author     : Le Huu Huy
 --%>
 
-<%@page import="java.util.List"%>
+<%@page import="models.UserDTO"%>
 <%@page import="models.OrderDetailDTO"%>
+<%@page import="models.OrderDTO"%>
+<%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -124,6 +126,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -447,6 +450,85 @@
                 color: blue;
             }
 
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                transition: 200ms ease-in-out;
+                border: 1px solid black;
+                border-radius: 10px;
+                z-index: 10;
+                background-color: white;
+                width: 500px;
+                max-width: 80%;
+            }
+
+            .modal.active {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .modal-header {
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+            }
+
+            .modal-header .title {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-header .close-button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-body {
+                padding: 10px 15px;
+            }
+
+            #overlay {
+                position: fixed;
+                opacity: 0;
+                transition: 200ms ease-in-out;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, .5);
+                pointer-events: none;
+            }
+
+            #overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .modal-body ul li {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .modal-body button {
+                border: none;
+                padding: 20px 50px;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            .table-wrapper {
+                overflow-y: auto;
+                height: 450px;
+            }
+
             @media screen and (max-width: 992px) {
                 .container main {
                     grid-template-columns: 3fr 2fr;
@@ -456,6 +538,18 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -477,10 +571,30 @@
                         </form>
                     </div>
 
+                    <%
+                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
+                    %>
+
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <%
+                                if (hostDTO.getRoleID().equals("3")) {
+                            %>
+                            <a href="ViewUserServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                            } else if (hostDTO.getRoleID().equals("2")) {
+                            %>
+                            <a href="PartyHostServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                                }
+                            %>
+
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -512,11 +626,11 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
+                                <a href="BookingPartyServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -534,19 +648,33 @@
                     </div>
 
                     <div class="admin-container">
+                        <%
+                            if (hostDTO.getRoleID().equals("3")) {
+                        %>
+                        <div class="admin-header">
+                            <h1>Party Host Dashboard</h1>
+                        </div>
+                        <%
+                        } else if (hostDTO.getRoleID().equals("2")) {
+                        %>
                         <div class="admin-header">
                             <h1>Admin Dashboard</h1>
                             <a href="manageAccount.jsp">Manage Account</a>
                         </div>
+                        <%
+                            }
+                        %>
+
                         <%
                             List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
                             double totalIncome = 0;
                             if (result != null) {
                                 for (OrderDetailDTO dto : result) {
-                                    totalIncome += dto.getPrice();
+                                    totalIncome += dto.getTotalPrice();
                                 }
                             }
+
                         %>
 
                         <div>
@@ -559,15 +687,26 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-user'></i>
+                                    <%                                        if (hostDTO.getRoleID().equals("3")) {
+                                    %>
+                                    <a href="PartyHostServlet" class="info">
+                                        <p>User</p>
+                                    </a>
+                                    <%
+                                    } else if (hostDTO.getRoleID().equals("2")) {
+                                    %>
                                     <a href="ViewUserServlet" class="info">
                                         <p>User</p>
                                     </a>
+                                    <%
+                                        }
+                                    %>
                                 </li>
                                 <li>
                                     <i class='bx bx-money'></i>
-                                    <a href="ViewUserServlet" class="info">
+                                    <a href="ChartServlet" class="info">
                                         <h3 style="font-size: 20px;">
-                                            <%= totalIncome %>
+                                            <%= totalIncome%>
                                         </h3>
                                         <p>Income</p>
                                     </a>
@@ -592,48 +731,97 @@
                                 </div>
 
                                 <form action="AdminServlet" method="POST">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>No.</th>
-                                                <th>User</th>
-                                                <th>Date Order</th>
-                                                <th>Party Name</th>
-                                                <th>People</th>
-                                                <th>Theme</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
+                                    <div class="table-wrapper">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>User</th>
+                                                    <th>Date Order</th>
+                                                    <th>Party Name</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
 
-                                        <tbody>
-                                            <%
-                                                int countOrder = 1;
-                                                if (result != null) {
-                                                    for (OrderDetailDTO dto : result) {
+                                            <tbody>
+                                                <%
+                                                    int countOrder = 1;
+                                                    if (result != null) {
+                                                        for (OrderDetailDTO dto : result) {
 
+                                                %>
+                                                <tr>
+                                                    <td><%= countOrder++%></td>
+                                                    <td><%= dto.getFullName()%></td>
+                                                    <td><%= dto.getDateOrder()%></td>
+                                                    <td><%= dto.getPackageName()%></td>
+                                                    <td><%= dto.getTotalPrice()%></td>
+                                                    <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
+                                                        <%= dto.getStatus()%>
+                                                    </td>
+                                                    <td>
+                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
+                                                        <div class="modal" id="modal<%= countOrder%>">
+                                                            <div class="modal-header">
+                                                                <div class="title"><%= dto.getFullName()%></div>
+                                                            </div>
 
-                                            %>
-                                            <tr>
-                                                <td><%= countOrder++%></td>
-                                                <td><%= dto.getUserName()%></td>
-                                                <td><%= dto.getDateOrder()%></td>
-                                                <td><%= dto.getPackages()%></td>
-                                                <td><%= dto.getAmountPeople()%></td>
-                                                <td><%= dto.getTheme()%></td>
-                                                <td><%= dto.getPrice()%></td>
-                                                <td><%= dto.getStatus()%></td>
-                                                <td>
-                                                    <a class="view-detail" href="#">
-                                                        View Details
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <%                                                    }
-                                                }
-                                            %>
-                                        </tbody>
-                                    </table>
+                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                                <ul style="list-style: none; width: 100%; text-align: center;">
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone()%></span>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
+                                                                    </li>
+
+                                                                    <li>
+                                                                        <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
+                                                                    </li>
+                                                                </ul>
+                                                                <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
+                                                                    <%= dto.getStatus()%>
+                                                                </button>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div id="overlay"></div>
+                                                    </td>
+                                                </tr>
+                                                <%                                                    }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -643,5 +831,47 @@
 
             </main>
         </div>
+
+        <script>
+            const openModalButtons = document.querySelectorAll('[data-modal-target]');
+            const closeModalButtons = document.querySelectorAll('[data-close-button]');
+            const overlay = document.getElementById('overlay');
+
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = document.querySelector(button.dataset.modalTarget);
+                    openModal(modal);
+                });
+            });
+
+            overlay.addEventListener('click', () => {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    closeModal(modal);
+                });
+            });
+
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+
+            function openModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            function closeModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        </script>
+
     </body>
 </html>

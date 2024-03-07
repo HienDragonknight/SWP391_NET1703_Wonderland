@@ -1,23 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
 import java.io.Serializable;
 
-/**
- *
- * @author phanv
- */
 public class ThemeDTO implements Serializable {
 
     private String themeID;
     private String themeName;
+    private String themeImage; // Thuộc tính ảnh
 
-    public ThemeDTO(String themeID, String themeName) {
+    public ThemeDTO(String themeID, String themeName, String themeImage) {
         this.themeID = themeID;
         this.themeName = themeName;
+        this.themeImage = themeImage;
+    }
+    
+        public ThemeDTO( String themeName, String themeImage) {
+        this.themeID = themeID;
+        this.themeName = themeName;
+        this.themeImage = themeImage;
     }
 
     public String getThemeID() {
@@ -28,16 +28,20 @@ public class ThemeDTO implements Serializable {
         this.themeID = themeID;
     }
 
-    public ThemeDTO(String themeName) {
-        this.themeName = themeName;
-    }
-
     public String getThemeName() {
         return themeName;
     }
 
     public void setThemeName(String themeName) {
         this.themeName = themeName;
+    }
+
+    public String getThemeImage() {
+        return themeImage;
+    }
+
+    public void setThemeImage(String themeImage) {
+        this.themeImage = themeImage;
     }
 
 }

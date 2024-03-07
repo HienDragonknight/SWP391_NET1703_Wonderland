@@ -39,38 +39,41 @@ public class OrderDetailDAO implements Serializable {
             con = DBUtils.createConnection();
             if (con != null) {
                 // create sql string
-                String sql = "SELECT os.orderDetailID, os.dateOrder, os.dateStart, os.numberOfPeople, os.notes, o.totalPrice, u.fullname, bs.serviceName, p.packageName, t.themeName, l.locationDetails, o.status "
-                        + "FROM OrderDetails os "
-                        + "JOIN [Order] o ON o.orderID = os.orderID "
-                        + "JOIN users u ON u.userID = o.userID "
-                        + "JOIN [BonusServices] bs ON bs.serviceID = os.serviceID "
-                        + "JOIN [Packages] p ON p.packageID = os.packageID "
-                        + "JOIN [Themes] t ON t.themeID = os.themeID "
-                        + "JOIN [Location] l ON l.locationID = os.locationID";
+                String sql = "SELECT p.packageName, totalPrice, email, phone, fullname, status, od.dateOrder, od.dateStart ,sv.serviceName,  numberOfPeople, t.themeName, l.locationDetails, notes, payment "
+                        + "FROM [Order] o "
+                        + "JOIN OrderDetails od ON o.orderDetailID = od.orderDetailID "
+                        + "JOIN Packages p ON p.packageID = od.packageID "
+                        + "JOIN BonusServices sv ON sv.serviceID = od.serviceID "
+                        + "JOIN Themes t ON t.themeID = od.themeID "
+                        + "JOIN Location l ON l.locationID = od.locationID";
                 // create statement obj
                 stm = con.prepareStatement(sql);
                 // execute query
                 rs = stm.executeQuery();
                 // process
                 while (rs.next()) {
-                    String orderDetailID = rs.getString("orderDetailID");
-                    String userName = rs.getString("fullname");
+                    String fullName = rs.getString("fullname");
+                    String packageName = rs.getString("packageName");
+                    Date dateStart = rs.getDate("dateStart");
+                    Date dateOrder = rs.getDate("dateOrder");
+                    double totalPrice = rs.getDouble("totalPrice");
+                    String status = rs.getString("status");
+                    String email = rs.getString("email");
+                    String phone = rs.getString("phone");
                     String service = rs.getString("serviceName");
-                    String packages = rs.getString("packageName");
-                    String dateStart = rs.getString("dateStart");
-                    String dateOrder = rs.getString("dateOrder");
-                    String amountPeople = rs.getString("numberOfPeople");
+                    int amount = rs.getInt("numberOfPeople");
                     String theme = rs.getString("themeName");
                     String location = rs.getString("locationDetails");
-                    double price = rs.getDouble("totalPrice");
                     String note = rs.getString("notes");
-                    String status = rs.getString("status");
+                    String payment = rs.getString("payment");
+                    
+                    OrderDetailDTO dto = new OrderDetailDTO(fullName, packageName, dateStart, dateOrder, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
 
-                    //             OrderDetailDTO dto = new OrderDetailDTO(orderDetailID, userName, service, packages, dateStart, dateOrder, amountPeople, theme, location, price, note, status);
+          
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
-                    //          this.listOrder.add(dto);
+                    this.listOrder.add(dto);
                 }
             }
         } finally {

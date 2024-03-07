@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -57,6 +58,15 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("status", "error");
             } else {
                 // All validations passed, proceed with registration
+                
+
+                HttpSession session = request.getSession();
+                session.setAttribute("newFullName", name);
+                session.setAttribute("newEmail", email);
+                session.setAttribute("newPhone", phone);
+                session.setAttribute("newPassword", password);
+
+                response.sendRedirect("UserVerify");
                 UserDAO dao = new UserDAO();
                 boolean result = dao.registerUser(name, email, password, phone);
                 if (result) {

@@ -1,4 +1,4 @@
-
+    
 
 <%@page import="models.UserDTO"%>
 <%@page import="models.ThemeDTO"%>
@@ -262,18 +262,81 @@
                 color: #5773ff;
             }
 
-
-            .checkout-container
-            {
-                display: flex;
-                justify-content: space-evenly;
-
-            }
-
-
             #nickname
             {
                 margin-left: 40%;
+            }
+
+            .column-content {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 350px;
+            }
+
+            .column {
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0px 0px 5px #E9E9E9;
+                padding: 30px;
+                border-radius: 50px;
+            }
+
+            .checkout {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .order-info {
+                display: flex;
+                flex-direction: column;
+                font-size: 20px;
+                gap: 15px;
+            }
+
+            .product-image-wrapper img {
+                width: 250px;
+            }
+
+            .customer-info {
+                display: flex;
+                flex-direction: column;
+                font-size: 20px;
+                gap: 10px;
+            }
+
+            .control {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .control input {
+                width: 350px;
+                font-size: 18px;
+                border-radius: 10px;
+                border: 1px solid #E7E7E7;
+                padding: 5px;
+            }
+
+            .control textarea {
+                font-size: 18px;
+                border-radius: 10px;
+                border: 1px solid #E7E7E7;
+                padding: 5px;
+            }
+
+            .control button {
+                width: 100px;
+                font-size: 18px;
+                border: none;
+                border-radius: 50px;
+                padding: 10px;
+                background-color: #50BFF5;
+                color: white;
+            }
+
+            .control button:hover {
+                background-color: #64B3D9;
+                box-shadow: 0px 0px 5px #E7E7E7;
             }
         </style>
     </head>
@@ -362,16 +425,22 @@
 
         <section>
             <div class="column-content">
-                <div class="add-ab">
-                    <a href="home.jsp">Home</a><span> &#10095; Booking</span>
-                </div>
-
-                <h1>Party Booking</h1>
 
 
 
                 <div class="column">
+
+
                     <div class="checkout-container">
+                        <div class="back-header">
+                            <div class="add-ab">
+                                <a href="home.jsp">Home</a><span> &#10095; Booking</span>
+                            </div>
+
+                            <h1>Party Booking</h1>
+                        </div>
+                    </div>
+                    <div class="checkout">
                         <div class="order-info">
 
                             <div class="order-info-block" >
@@ -383,7 +452,7 @@
                                     <div class="product">
                                         <span class="product-image-container"  style="height: 97px; width: 97px;">
                                             <span class="product-image-wrapper">
-                                                <img src="image/packages/package_1.png" width="160" height="200" alt="TINIWORLD LOTTE TÂY HỒ" title="TINIWORLD LOTTE TÂY HỒ">
+                                                <img src="image/packages/package_1.png" alt="TINIWORLD LOTTE TÂY HỒ" title="TINIWORLD LOTTE TÂY HỒ">
                                             </span>
                                         </span>
                                         <div class="product-item-details">
@@ -463,7 +532,7 @@
                             <div class="customer-info-details" >
 
                                 <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
-                                    <div class="control"">
+                                    <div class="control">
                                         <input class="input-text" type="text"  name="fullName" placeholder="Full name" required="" ><br>
                                         <input class="input-text" type="email" name="email" id="email" placeholder="Email"><br>
                                         <input class="input-text" type="tel" name="phone" id="phone" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="formatPhoneNumber(this)"><br>
@@ -522,225 +591,224 @@
                             <%   }
                             %>
                         </div>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
 
-    <footer class="page-footer">
-        <div class="footer-header">
-            <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
-        </div>
-
-        <div class="footer-content">
-            <div class="footer-content-usp">
-                <ul>
-                    <li>History begin</li>
-                    <li>Job opportunities</li>
-                    <li>Wonder regulation</li>
-                    <li>Wonder Partner</li>
-                    <li>Wonder Charity Foundation</li>
-                </ul>
+        <footer class="page-footer">
+            <div class="footer-header">
+                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
             </div>
 
-            <div class="footer-content-usp">
-                <ul>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-world'></i>
-                            <span>nkidgroup.com</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-envelope' ></i>
-                            <span>cskh@wonderland.com</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-phone' ></i>
-                            <span>1900 63 63 28</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class='bx bx-current-location' ></i>
-                            <span>SWP391</span>
-                        </a>
-                    </li>
-                </ul>
+            <div class="footer-content">
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>History begin</li>
+                        <li>Job opportunities</li>
+                        <li>Wonder regulation</li>
+                        <li>Wonder Partner</li>
+                        <li>Wonder Charity Foundation</li>
+                    </ul>
+                </div>
+
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-world'></i>
+                                <span>nkidgroup.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-envelope' ></i>
+                                <span>cskh@wonderland.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-phone' ></i>
+                                <span>1900 63 63 28</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-current-location' ></i>
+                                <span>SWP391</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="copy-right">
-            <div class="copy-right-content">
-                <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+            <div class="copy-right">
+                <div class="copy-right-content">
+                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
-    <script >
+        <script >
 
-        function updateCartCount()
-        {
-            var packgeInfo = localStorage.getItem("packageInfo");
-
-            if (packgeInfo !== null)
+            function updateCartCount()
             {
-                var localStorageLength = localStorage.length;
-                if (localStorageLength !== 0)
+                var packgeInfo = localStorage.getItem("packageInfo");
+
+                if (packgeInfo !== null)
                 {
-                    document.getElementById("numsOfCart").innerHTML = localStorageLength;
-                } else
-                {
-                    document.getElementById("numsOfCart").innerHTML = 0;
+                    var localStorageLength = localStorage.length;
+                    if (localStorageLength !== 0)
+                    {
+                        document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                    } else
+                    {
+                        document.getElementById("numsOfCart").innerHTML = 0;
+                    }
                 }
             }
-        }
 
 
-        updateCartCount();
-        //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
-        ////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
-        function updateOrderInfomation()
-        {
-            var packageInfo = localStorage.getItem("packageInfo");
-            var packageData = JSON.parse(packageInfo);
-            var locationName = document.getElementById("location-name");
-            var numberOfChildren = document.getElementById("number-of-children");
-            var pricePackageUnit = document.getElementById("price-unit");
+            updateCartCount();
+            //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
+            ////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
+            function updateOrderInfomation()
+            {
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageData = JSON.parse(packageInfo);
+                var locationName = document.getElementById("location-name");
+                var numberOfChildren = document.getElementById("number-of-children");
+                var pricePackageUnit = document.getElementById("price-unit");
 
-            locationName.innerHTML = packageData['center'].split('-')[1];
-            numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
-            var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-            pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
+                locationName.innerHTML = packageData['center'].split('-')[1];
+                numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
+                var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
+                pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
 
-            var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
-            var priceMultiple = document.getElementById("price-multiple");
-            priceMultiple.innerHTML = priceMultipleValue + '$';
+                var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
+                var priceMultiple = document.getElementById("price-multiple");
+                priceMultiple.innerHTML = priceMultipleValue + '$';
 
-            var bonusServiceValue = packageData["bonusService"].split(' ')[1];
-            var bonusService = document.getElementById("price-bonus");
-            bonusService.innerHTML = bonusServiceValue + '$';
+                var bonusServiceValue = packageData["bonusService"].split(' ')[1];
+                var bonusService = document.getElementById("price-bonus");
+                bonusService.innerHTML = bonusServiceValue + '$';
 
-            var totalValue = parseInt(priceMultipleValue) + parseInt(bonusServiceValue);
-            var total = document.getElementById("price-total");
-            total.innerHTML = totalValue + '$';
+                var totalValue = parseInt(priceMultipleValue) + parseInt(bonusServiceValue);
+                var total = document.getElementById("price-total");
+                total.innerHTML = totalValue + '$';
 
-        }
-        updateOrderInfomation();
-
-
-
-        function setValueToOrderDetailForm()
-        {
-            /*
-             {"packageID":"1","packageUnitPrice":"$250.0","center":"4-Wonderland District 4,
-             Ho Chi Minh City","checkinDate":"2024-02-20","checkinTime":"04:04",
-             "childrenNums":"3","theme":"13","bonusService":"12 85.0"}
-             */
-
-            var packageInfo = localStorage.getItem("packageInfo");
-            var packageData = JSON.parse(packageInfo);
-
-            var bonusService = packageData['bonusService'];
-            var serviceID = bonusService.split(' ')[0];
-            var serviceInput = document.getElementById('service-id');
-            serviceInput.value = serviceID;
-
-            var packageID = packageData['packageID'];
-            var packageIDInput = document.getElementById('package-id');
-            packageIDInput.value = packageID;
-
-            var checkinDate = packageData['checkinDate'];
-            var checkinTime = packageData['checkinTime'];
-            var checkinTimeInput = document.getElementById('checkin-time');
-            checkinTimeInput.value = checkinDate + ' ' + checkinTime;
-
-            var numberOfChildren = packageData['childrenNums'];
-            var numberOfChildrenInput = document.getElementById('number-children');
-            numberOfChildrenInput.value = numberOfChildren;
-
-            var themeID = packageData['theme'];
-            var themIDInput = document.getElementById('theme-id');
-            themIDInput.value = themeID;
-
-            var locationID = packageData['center'];
-            locationID = locationID.split('-')[0];
-            var locationIDInput = document.getElementById('location-id');
-            locationIDInput.value = locationID;
-
-        }
-        setValueToOrderDetailForm();
-
-
-
-        document.getElementById('form-to-payment').addEventListener('submit', function (event) {
-            var email = document.getElementById('email').value;
-            var phone = document.getElementById('phone').value;
-
-            if (email.trim() === '' && phone.trim() === '') {
-                alert('Please enter either your email or phone number.');
-                event.preventDefault(); // prevent form submission
             }
-        });
+            updateOrderInfomation();
 
 
 
-        function updatePayPalForm()
-        {
-            // set value for SubTotal
-            var subtotal = document.getElementById("subtotal");
-            var price_multiple = document.getElementById("price-multiple");
-            subtotal.value = price_multiple.innerHTML.split('$')[0];
+            function setValueToOrderDetailForm()
+            {
+                /*
+                 {"packageID":"1","packageUnitPrice":"$250.0","center":"4-Wonderland District 4,
+                 Ho Chi Minh City","checkinDate":"2024-02-20","checkinTime":"04:04",
+                 "childrenNums":"3","theme":"13","bonusService":"12 85.0"}
+                 */
 
-            // set value for Shipping: suppose Shipping value  =  BonusService value
-            var shipping = document.getElementById("shipping");
-            var price_bonus = document.getElementById("price-bonus");
-            shipping.value = price_bonus.innerHTML.split('$')[0];
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageData = JSON.parse(packageInfo);
 
-            // set value for tax
-            var tax = document.getElementById("tax");
-            tax.value = 0;
+                var bonusService = packageData['bonusService'];
+                var serviceID = bonusService.split(' ')[0];
+                var serviceInput = document.getElementById('service-id');
+                serviceInput.value = serviceID;
 
-            // set value for total
-            var total = document.getElementById("total");
-            var price_total = document.getElementById("price-total");
-            total.value = price_total.innerHTML.split('$')[0];
-        }
+                var packageID = packageData['packageID'];
+                var packageIDInput = document.getElementById('package-id');
+                packageIDInput.value = packageID;
 
-        updatePayPalForm();
+                var checkinDate = packageData['checkinDate'];
+                var checkinTime = packageData['checkinTime'];
+                var checkinTimeInput = document.getElementById('checkin-time');
+                checkinTimeInput.value = checkinDate + ' ' + checkinTime;
 
+                var numberOfChildren = packageData['childrenNums'];
+                var numberOfChildrenInput = document.getElementById('number-children');
+                numberOfChildrenInput.value = numberOfChildren;
 
+                var themeID = packageData['theme'];
+                var themIDInput = document.getElementById('theme-id');
+                themIDInput.value = themeID;
 
-        var inputPhone = document.getElementById("phone");
+                var locationID = packageData['center'];
+                locationID = locationID.split('-')[0];
+                var locationIDInput = document.getElementById('location-id');
+                locationIDInput.value = locationID;
 
-        function formatPhoneNumber(inputPhone) {
-            // Remove non-numeric characters from the input
-            var phoneNumber = inputPhone.value.replace(/\D/g, '');
-
-            // Check if the input value is empty or not
-            if (phoneNumber.length > 0) {
-                // Create a regular expression to match the desired phone number format
-                var regex = /^(\d{1})(\d{2})(\d{3})(\d{4})$/;
-
-                // Apply the regular expression to the phone number
-                var formattedPhoneNumber = phoneNumber.replace(regex, '0$2-$3-$4');
-
-                // Update the input value with the formatted phone number
-                inputPhone.value = formattedPhoneNumber;
             }
-        }
-
-        // Call the function with the inputPhone argument
-        formatPhoneNumber(inputPhone);
+            setValueToOrderDetailForm();
 
 
-    </script>
 
-</body>
+            document.getElementById('form-to-payment').addEventListener('submit', function (event) {
+                var email = document.getElementById('email').value;
+                var phone = document.getElementById('phone').value;
+
+                if (email.trim() === '' && phone.trim() === '') {
+                    alert('Please enter either your email or phone number.');
+                    event.preventDefault(); // prevent form submission
+                }
+            });
+
+
+
+            function updatePayPalForm()
+            {
+                // set value for SubTotal
+                var subtotal = document.getElementById("subtotal");
+                var price_multiple = document.getElementById("price-multiple");
+                subtotal.value = price_multiple.innerHTML.split('$')[0];
+
+                // set value for Shipping: suppose Shipping value  =  BonusService value
+                var shipping = document.getElementById("shipping");
+                var price_bonus = document.getElementById("price-bonus");
+                shipping.value = price_bonus.innerHTML.split('$')[0];
+
+                // set value for tax
+                var tax = document.getElementById("tax");
+                tax.value = 0;
+
+                // set value for total
+                var total = document.getElementById("total");
+                var price_total = document.getElementById("price-total");
+                total.value = price_total.innerHTML.split('$')[0];
+            }
+
+            updatePayPalForm();
+
+
+
+            var inputPhone = document.getElementById("phone");
+
+            function formatPhoneNumber(inputPhone) {
+                // Remove non-numeric characters from the input
+                var phoneNumber = inputPhone.value.replace(/\D/g, '');
+
+                // Check if the input value is empty or not
+                if (phoneNumber.length > 0) {
+                    // Create a regular expression to match the desired phone number format
+                    var regex = /^(\d{1})(\d{2})(\d{3})(\d{4})$/;
+
+                    // Apply the regular expression to the phone number
+                    var formattedPhoneNumber = phoneNumber.replace(regex, '0$2-$3-$4');
+
+                    // Update the input value with the formatted phone number
+                    inputPhone.value = formattedPhoneNumber;
+                }
+            }
+
+            // Call the function with the inputPhone argument
+            formatPhoneNumber(inputPhone);
+
+
+        </script>
+    </body>
 </html>

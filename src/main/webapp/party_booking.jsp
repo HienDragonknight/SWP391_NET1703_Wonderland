@@ -4,6 +4,12 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="models.BonusServiceDTO"%>
+<%@page import="models.ThemeDTO"%>
+<%@page import="models.PackageDTO"%>
+<%@page import="models.LocationDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -124,6 +130,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -227,41 +234,6 @@
                 cursor: pointer;
             }
 
-            .intro-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding-left: 100px;
-                padding-right: 100px;
-                margin-top: 30px;
-                gap: 30px;
-                margin-bottom: 20px;
-            }
-
-            .intro-image {
-                width: 50%;
-            }
-
-            .intro-image img {
-                width: 100%;
-                border-radius: 20px;
-            }
-
-            .intro-text {
-                width: 50%;
-            }
-
-            .intro-text p {
-                margin-bottom: 20px;
-            }
-
-            .intro-text button a{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 8px;
-            }
-
             .logout {
                 list-style: none;
                 display: flex;
@@ -284,7 +256,7 @@
                 border-top-right-radius: 50%;
                 font-family: 'Poppins', sans-serif;
             }
-            
+
             footer {
                 height: 100%;
             }
@@ -412,29 +384,114 @@
                 }
             }
 
-            .about {
-                background: #FFF5CB;
-                padding: 50px;
+            .booking-form {
+                margin-top: 30px;
             }
 
-            .about .about-top h2 {
+            .booking-form > div {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                margin-bottom: 40px;
+                margin-bottom: 10px;
             }
 
-            .ups-row {
-                display: flex;
-                justify-content: space-evenly;
+            .booking-form > div h1 {
+                background-color: #FEDC72;
+                padding: 10px 50px;
+                border-radius: 20px;
+                font-weight: 500;
+                color: #005198;
             }
 
-            .ups-row-content {
+            .background-booking > div {
                 display: flex;
                 flex-direction: column;
-                align-items: center;
+                padding: 0px 200px;
+                background: #FFF3CF;
+                border-radius: 10px;
+            }
+
+            .background-booking > div h4 {
+                text-align: center;
+                font-size: 24px;
+                color: #00A0F0;
+            }
+
+            .background-booking > div p {
+                color: #333333;
+            }
+
+            .content-form {
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 20px;
+                margin-bottom: 30px;
+            }
+
+            .content-form form div {
+                display: flex;
                 gap: 20px;
-                margin-bottom: 60px;
+            }
+
+            .content-form form div > div {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin-bottom: 5px;
+            }
+
+            .list-booking select {
+                border: none;
+                background-color: #F3F3F3;
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            .content-form input {
+                border: none;
+                background-color: #F3F3F3;
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            .content-form form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .send-btn {
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .send-btn input {
+                padding: 10px 20px;
+                background-color: #00A0F0;
+                color: #fff;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+
+            .content-form form > div {
+                justify-content: center;
+            }
+
+            label {
+                color: #00A0F0;
+            }
+            
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+            
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -497,7 +554,7 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
@@ -515,7 +572,7 @@
                             <a href="home.jsp">Home</a><span> &#10095; Booking</span>
                         </div>
 
-                        <h1>Party Booking</h1>
+                        <h1 style="margin-bottom: 5px;">Party Booking</h1>
 
                         <div class="slide-container">
                             <div class="slides">
@@ -537,75 +594,135 @@
                                 <div class="dot" attr='3' onclick="switchImage(this)"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="intro-wrapper">
-                            <div class="intro-image">
-                                <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
+                <div class="booking-form">
+                    <div>
+                        <h1>Booking Party</h1> 
+                    </div>
+
+                    <div class="background-booking">
+                        <div>
+                            <div>
+                                <h4 style="margin-top: 20px;">
+                                    Send consulting information
+                                </h4>
                             </div>
-                            <div class="intro-text">
-                                <div>
-                                    <p>
-                                        Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                                    </p>
-                                    <p>
-                                        With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
-                                    </p>
-                                </div>
-                                <button>
-                                    <a href="#">
-                                        <i class='bx bx-cake' ></i>
-                                        <span>Contact to book a party</span>
-                                    </a>
-                                </button>
+
+                            <div>
+                                <p style="text-align: center;">Please leave your information, tiNi staff will contact you within 24 hours.</p>
+                            </div>
+
+                            <div class="content-form">
+                                <form>
+                                    <div>
+                                        <div>
+                                            <h2>
+                                                User information
+                                            </h2>
+
+                                            <div>
+                                                <label>Full Name</label>
+                                                <input type="text" name="" value="" />
+                                            </div>
+
+                                            <div>
+                                                <label>Phone Number</label>
+                                                <input type="text" name="" value="" />
+                                            </div>
+
+                                            <div>
+                                                <label>Email</label>
+                                                <input type="text" name="" value="" />
+                                            </div>
+                                        </div>
+
+                                        <%
+                                            List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
+                                            List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
+                                            List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
+                                            List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
+                                        %>
+
+                                        <div class="list-booking">
+                                            <h2>
+                                                Party Booking Information
+                                            </h2>
+
+                                            <div>
+                                                <label>Location</label>
+                                                <select>
+                                                    <%
+                                                        for (LocationDTO location : locationDTO) {
+                                                    %>
+                                                    <option><%= location.getLocationDetails()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>Date/Time</label>
+                                                <input type="text" name="" value="" />
+                                                <input type="text" name="" value="" /> 
+                                            </div>
+
+                                            <div>
+                                                <label>Amount of Children</label>
+                                                <input type="text" name="" value="" />
+                                            </div>
+
+                                            <div>
+                                                <label>Package</label>
+                                                <select>
+                                                    <%
+                                                        for (PackageDTO packages : packageDTO) {
+                                                    %>
+                                                    <option><%= packages.getPackageName()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>Theme</label>
+                                                <select>
+                                                    <%
+                                                        for (ThemeDTO theme : themeDTO) {
+                                                    %>
+                                                    <option><%= theme.getThemeName()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <label>Service</label>
+                                                <select>
+                                                    <%
+                                                        for (BonusServiceDTO service : serviceDTO) {
+                                                    %>
+                                                    <option><%= service.getServiceName()%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="send-btn">
+                                        <input type="submit" value="Send" name="action" />
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="about">
-                    <div class="about-top">
-                        <h2>WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
-                        <div class="ups-row">
-                            <div class="ups-row-content">
-                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
-                                <div>
-                                    <h3 style="color: #f86080">UNLIMITED FUN</h3>
-                                </div>
-                            </div>
-
-                            <div class="ups-row-content">
-                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
-                                <div>
-                                    <h3 style="color: #f0b000">LOVELY DECORATION</h3>
-                                </div>
-                            </div>
-
-                            <div class="ups-row-content">
-                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
-                                <div>
-                                    <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="ups-row">
-                            <div class="ups-row-content">
-                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
-                                <div>
-                                    <h3 style="color: #20b050">DIVERSE GAMES</h3>
-                                </div>
-                            </div>
-
-                            <div class="ups-row-content">
-                                <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
-                                <div>
-                                    <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </main>
 
             <footer class="page-footer">
@@ -666,8 +783,32 @@
         %>
         <div class="user-logined">
             <div class="logined">
-                <i class='bx bx-user-circle'></i>
-                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+
+                <%
+                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+                %>
+                <a href="ViewUserServlet">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                } else if (dto.getRoleID().equals("1")) {
+                %>
+                <a href="customer.jsp">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                } else {
+                %>
+                <a href="PartyHostServlet">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                    }
+                %>
+
             </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
@@ -698,7 +839,7 @@
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>
-                    <a href="#">Service</a>
+                    <a href="ViewServiceServlet">Service</a>
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
@@ -721,6 +862,12 @@
         </div>
 
         <div class="column-content">
+            <div class="add-ab">
+                <a href="home.jsp">Home</a><span> &#10095; Booking</span>
+            </div>
+
+            <h1 style="margin-bottom: 5px;">Party Booking</h1>
+
             <div class="slide-container">
                 <div class="slides">
                     <img src="image/cover1.jpg" alt="image #1" class="active"/>
@@ -741,75 +888,114 @@
                     <div class="dot" attr='3' onclick="switchImage(this)"></div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="intro-wrapper">
-                <div class="intro-image">
-                    <img src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/Best%20Party.png" alt="Best Party">
+    <div class="booking-form">
+        <div>
+            <h1>Booking Party</h1> 
+        </div>
+
+        <div class="background-booking">
+            <div>
+                <div>
+                    <h4 style="margin-top: 20px;">
+                        Send consulting information
+                    </h4>
                 </div>
-                <div class="intro-text">
-                    <div>
-                        <p>
-                            Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                        </p>
-                        <p>
-                            With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
-                        </p>
-                    </div>
-                    <button>
-                        <a href="#">
-                            <i class='bx bx-cake' ></i>
-                            <span>Contact to book a party</span>
-                        </a>
-                    </button>
+
+                <div>
+                    <p style="text-align: center;">Please leave your information, tiNi staff will contact you within 24 hours.</p>
+                </div>
+
+                <div class="content-form">
+                    <form>
+                        <div>
+
+                            <%
+                                List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
+                                List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
+                                List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
+                                List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
+                            %>
+
+                            <div class="list-booking">
+                                <h2>
+                                    Party Booking Information
+                                </h2>
+
+                                <div>
+                                    <label>Location</label>
+                                    <select>
+                                        <%
+                                            for (LocationDTO location : locationDTO) {
+                                        %>
+                                        <option><%= location.getLocationDetails()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label>Date/Time</label>
+                                    <input type="text" name="" value="" />
+                                </div>
+
+                                <div>
+                                    <label>Amount of Children</label>
+                                    <input type="text" name="" value="" />
+                                </div>
+
+                                <div>
+                                    <label>Package</label>
+                                    <select>
+                                        <%
+                                            for (PackageDTO packages : packageDTO) {
+                                        %>
+                                        <option><%= packages.getPackageName()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label>Theme</label>
+                                    <select>
+                                        <%
+                                            for (ThemeDTO theme : themeDTO) {
+                                        %>
+                                        <option><%= theme.getThemeName()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label>Service</label>
+                                    <select>
+                                        <%
+                                            for (BonusServiceDTO service : serviceDTO) {
+                                        %>
+                                        <option><%= service.getServiceName()%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="send-btn">
+                            <input type="submit" value="Send" name="action" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="about">
-        <div class="about-top">
-            <h2>WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
-            <div class="ups-row">
-                <div class="ups-row-content">
-                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
-                    <div>
-                        <h3 style="color: #f86080">UNLIMITED FUN</h3>
-                    </div>
-                </div>
-
-                <div class="ups-row-content">
-                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
-                    <div>
-                        <h3 style="color: #f0b000">LOVELY DECORATION</h3>
-                    </div>
-                </div>
-
-                <div class="ups-row-content">
-                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
-                    <div>
-                        <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ups-row">
-                <div class="ups-row-content">
-                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
-                    <div>
-                        <h3 style="color: #20b050">DIVERSE GAMES</h3>
-                    </div>
-                </div>
-
-                <div class="ups-row-content">
-                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
-                    <div>
-                        <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </main>
 
 <footer class="page-footer">

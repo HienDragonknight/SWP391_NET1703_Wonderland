@@ -29,7 +29,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "CheckVerificationCode", urlPatterns = {"/check-code"})
 public class CheckVerificationCode extends HttpServlet {
     private static final String LOGIN_PAGE = "/views/login.jsp";
-
+    private final String ERROR = "register.jsp";
+    private final String SUCCESS = "login.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -72,7 +73,7 @@ public class CheckVerificationCode extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         UserMail user = (UserMail) session.getAttribute("authcode");
-
+        String url="";
         String code1 = request.getParameter("num1");
         String code2 = request.getParameter("num2");
         String code3 = request.getParameter("num3");
@@ -89,7 +90,27 @@ public class CheckVerificationCode extends HttpServlet {
             String myPassword = (String) ses.getAttribute("newPassword");
 
             UserDAO u = new UserDAO();
-            boolean result;
+              UserDAO dao = new UserDAO();
+                boolean result;
+            try {
+                result = dao.registerUser(fullname, email, myPassword, phone);
+                 if (result) {
+                    url = SUCCESS;
+                    request.setAttribute("status", "success");
+                     request.getRequestDispatcher(SUCCESS).forward(request, response);
+                } else {
+                    // Handle registration failure
+                    url = ERROR;
+                    request.setAttribute("status", "error");
+                     request.setAttribute("report", "Incorrect Verification code");
+            request.getRequestDispatcher("/views/Result.jsp").forward(request, response);
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(CheckVerificationCode.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(CheckVerificationCode.class.getName()).log(Level.SEVERE, null, ex);
+            }
+               
 //            try {
 //                result = u.registerUser( fullname, email, myPassword, phone,  "avataruser.jpg", 1);
 //         if (result) {
@@ -104,8 +125,7 @@ public class CheckVerificationCode extends HttpServlet {
 
             
         } else {
-            request.setAttribute("report", "Incorrect Verification code");
-            request.getRequestDispatcher("/views/Result.jsp").forward(request, response);
+           
         }
     }
 
