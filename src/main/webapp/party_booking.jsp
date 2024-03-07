@@ -477,7 +477,7 @@
             .content-form form > div {
                 justify-content: center;
             }
-            
+
             label {
                 color: #00A0F0;
             }
