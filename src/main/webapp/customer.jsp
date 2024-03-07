@@ -498,7 +498,7 @@
     <div class="user-logined">
         <div class="logined">
             <i class='bx bx-user-circle'></i>
-            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
+            <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
         </div>
         <div class="cart-items">
             <i class='bx bx-cart' ></i>
@@ -561,15 +561,10 @@
                 </div></br>
                 <div class="info-value">Email: ${sessionScope.USER_INFO.email}</div>
                 <input type="hidden" name="email" value="${sessionScope.USER_INFO.email}"/>
+                <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}"/>
                 Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
                 Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
-                <div class="password-container">
-                    Password 
-                    <div class="password-wrapper">
-                        <input type="password" name="password" id="passwordField" value="${sessionScope.USER_INFO.password}" required>
-                        <button type="button" class="toggle-button" onclick="togglePassword()">Show</button>
-                    </div>
-                </div></br>
+                Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required></br>
                 <input type="submit" name="edit" value="Save">
                 <%
                     String msg = (String) request.getAttribute("MESSAGE");
