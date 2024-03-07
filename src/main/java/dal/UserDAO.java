@@ -21,13 +21,13 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class UserDAO implements Serializable {
-    
+
     List<UserDTO> listUser;
 
     public List<UserDTO> getListUser() {
         return listUser;
     }
-    
+
     List<UserDTO> listHost;
 
     public List<UserDTO> getListHost() {
@@ -410,8 +410,8 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    }  
-    
+    }
+
     public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -497,7 +497,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public void searchHostDashboard(String inputValue) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -551,35 +551,42 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
-    public UserDTO updateAccount(String cemail, String image, String name, String email, String password, String phone) throws SQLException, ClassNotFoundException {
+
+    public boolean updateImage(String cemail, String image) {
         Connection con = null;
         PreparedStatement stm = null;
-        UserDTO result = null;
         try {
-            con = DBUtils.createConnection();
+            con = DBUtils.createConnection(); // Create a database connection
             if (con != null) {
-                stm = con.prepareStatement("UPDATE users SET avatar = ?, fullname = ?, email = ?, password = ?, phone = ? WHERE email = ?");
+                stm = con.prepareStatement("UPDATE users SET avatar = ? WHERE email = ?");
                 stm.setString(1, image);
-                stm.setString(2, name);
-                stm.setString(3, email);
-                stm.setString(4, password);
-                stm.setString(5, phone);
-                stm.setString(6, cemail);
+                stm.setString(2, cemail);
+
                 int effectRows = stm.executeUpdate();
-                //process
+
+                // Check if the update was successful
                 if (effectRows > 0) {
-                    result = new UserDTO("", name, email, password, phone, image, "", "");
+                    return true; // Return true if the update was successful
                 }
             }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Log the exception
+            // Handle the exception, you might want to throw a custom DAOException here
         } finally {
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
+            // Close the database resources in a finally block to ensure they are always closed
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Log the exception
+                // Handle the exception, you might want to throw a custom DAOException here
             }
         }
-        return result;
+        return false; // Return false if the update failed
     }
+
 }

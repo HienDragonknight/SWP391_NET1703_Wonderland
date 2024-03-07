@@ -5,22 +5,29 @@
 package controlls.servlet;
 
 import dal.UserDAO;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author huY
  */
-@WebServlet(name = "UpdateAccServlet", urlPatterns = {"/UpdateAccServlet"})
-public class UpdateAccServlet extends HttpServlet {
+@MultipartConfig
+@WebServlet(name = "UpdateImageServlet", urlPatterns = {"/UpdateImageServlet"})
+public class UpdateImageServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +41,44 @@ public class UpdateAccServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String phone = request.getParameter("txtPhone");
-        String cEmail = request.getParameter("txtCEmail");
-        String url = "profile.jsp";
-        
+        String cemail = request.getParameter("txtCEmail");
+
         try {
-           //2. call DAO
-           //2.1 new DAO
-            UserDAO dao = new UserDAO();
-           //2.2 call method of DAO
-            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
-           //3. process result
-           if (result != null) {
-               //refresh --> call previous function again (Search)
-               //--> using url rewriting technique
-               url = "login.jsp";
-           }//delete action is successfull
-        } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+            Part filePart = request.getPart("image");
+            String image = request.getParameter("image");
+            String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            if (!originalFileName.isEmpty()) {
+                String fileName = originalFileName;
+                String directoryPath = "D:/FPT/SP24/SWP391/Project/SWP391_NET1703_Wonderland/src/main/webapp/image/";
+                File uploadDir = new File(directoryPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                String uploadPath = directoryPath + File.separator + fileName;
+
+                try ( InputStream fileContent = filePart.getInputStream();  FileOutputStream fos = new FileOutputStream(uploadPath);  BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileContent.read(buffer)) != -1) {
+                        bos.write(buffer, 0, bytesRead);
+                    }
+                } // try-with-resources will auto-close streams
+
+                UserDAO dao = new UserDAO();
+                boolean updateSuccess = dao.updateImage(cemail, fileName);
+                if (updateSuccess) {
+                    // Provide success feedback to the user
+                    response.sendRedirect("login.jsp");
+                } else {
+                    // Provide failure feedback to the user
+                    response.sendRedirect("login.jsp");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            response.sendRedirect(url);
+            response.sendRedirect("login.jsp");
         }
     }
 

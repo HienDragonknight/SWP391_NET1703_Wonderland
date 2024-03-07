@@ -260,10 +260,60 @@
                 opacity: 1;
                 pointer-events: all;
             }
+            
+            .page-footer {
+                background-color: #f6f6f9;
+                border-top-left-radius: 50%;
+                border-top-right-radius: 50%;
+                font-family: 'Poppins', sans-serif;
+            }
 
+            footer {
+                height: 100%;
+            }
 
+            .footer-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+                gap: 100px;
+                margin-bottom: -50px;
+            }
 
+            .footer-content-usp ul {
+                list-style: none;
+            }
 
+            .footer-content-usp ul li {
+                margin-bottom: 20px;
+            }
+
+            .footer-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .footer-header h2 {
+                margin-top: 40px;
+            }
+
+            .footer-content-usp a {
+                display: flex;
+                align-items: center;
+            }
+
+            .copy-right {
+                background-color: #fff;
+            }
+
+            .copy-right-content {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
             div.elem-group {
                 margin: 20px 0;
@@ -369,23 +419,23 @@
         </style>
     </head>
     <body>
-        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
-    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
-    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    
     <header>
-        <aside class="side-bar">
-            <div class="logo">
-                <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
-            </div>
+            <aside class="side-bar">
+                <div class="logo">
 
-            <div class="search-bar">
-                <form action="SearchServlet">
-                    <button>
-                        <i class='bx bx-search'></i>
-                    </button>
-                    <input type="text" placeholder="Type here to search">
-                </form>
-            </div>
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                </div>
+
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
+                </div>
+
 
                 <%
                     UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
@@ -405,6 +455,16 @@
                         <i class='bx bx-lock-alt'></i>
                         <a href="#">Sign Up</a>
                     </div>
+                    <div>
+
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                    </div>
 
                     <%
                     } else {
@@ -417,7 +477,6 @@
                     </div>
 
                     <div>
-
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit">
                                 <i class="bi-cart-fill me-1"></i>
@@ -427,23 +486,13 @@
                         </form>
                     </div>
 
-                    
+
                 </div>
                 <%   }
                 %>
 
-                <form class="d-flex">
-                    <button class="btn btn-outline-dark" type="submit">
-                        <i class="bi-cart-fill me-1"></i>
-                        Cart
-                        <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
-                </form>
-            </div>
-
-
-        </aside>
-    </header>
+            </aside>
+        </header>
 
 
     <%
@@ -865,9 +914,58 @@
         </div>
     </section>
     <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-    </footer>
+    <footer class="page-footer">
+            <div class="footer-header">
+                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+            </div>
+
+            <div class="footer-content">
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>History begin</li>
+                        <li>Job opportunities</li>
+                        <li>Wonder regulation</li>
+                        <li>Wonder Partner</li>
+                        <li>Wonder Charity Foundation</li>
+                    </ul>
+                </div>
+
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-world'></i>
+                                <span>nkidgroup.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-envelope' ></i>
+                                <span>cskh@wonderland.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-phone' ></i>
+                                <span>1900 63 63 28</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-current-location' ></i>
+                                <span>SWP391</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copy-right">
+                <div class="copy-right-content">
+                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                </div>
+            </div>
+        </footer>
 
     <script >
 
