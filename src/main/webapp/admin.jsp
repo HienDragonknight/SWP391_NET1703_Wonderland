@@ -406,11 +406,11 @@
                 align-items: center;
                 gap: 10px;
             }
-            
+
             .header .search-btn {
                 display: none;
             }
-            
+
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -426,6 +426,18 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
             }
         </style>
     </head>
@@ -449,8 +461,10 @@
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="ViewUserServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -510,7 +524,12 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-                            
+                            int totalUsers = 0; // Counter for total users
+                            if (result != null) {
+                                for (UserDTO dto : result) {
+                                    totalUsers++;
+                                }
+                            }
                         %>
 
                         <div>
@@ -548,7 +567,6 @@
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
                                     </form>
                                 </div>
-
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
@@ -711,11 +729,9 @@
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
-
-            </main>
+                </div>
         </div>
     </body>
 </html>
+

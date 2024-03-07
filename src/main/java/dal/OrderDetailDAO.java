@@ -213,13 +213,14 @@ public class OrderDetailDAO implements Serializable {
         return null;
     }
 
-    public boolean insertOrderDetail(Map<String, String> orderDetailInfo) throws SQLException {
+
+    public boolean insertOrderDetail(Map<String, String> orderDetailInfo, Map<String, String> orderInfo) throws SQLException {
 
         boolean check = false;
         Connection conn = null;
         CallableStatement ctm = null;
 
-        String insertProcedure = "{call InsertOrderDetail(?,?,?,?,?,?,?,?)}";
+        String insertProcedure = "{call InsertOrderDetail(?,?,?,?,?,?,?,?,?,?,?)}";
 
         try {
             conn = DBUtils.createConnection();
@@ -233,6 +234,9 @@ public class OrderDetailDAO implements Serializable {
             ctm.setString(6, orderDetailInfo.get("locationID"));
             ctm.setString(7, orderDetailInfo.get("note"));
             ctm.setString(8, orderDetailInfo.get("paymentMethod"));
+            ctm.setString(9, orderInfo.get("fullName"));
+            ctm.setString(10, orderInfo.get("phone"));
+            ctm.setString(11, orderInfo.get("email"));
 
             check = ctm.executeUpdate() > 0 ? true : false;
 

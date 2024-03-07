@@ -29,7 +29,7 @@
   .form-check {
     .form-check-label  {
       input:checked {
-        & + {
+        + {
           .input-helper {
             &:before {
               border-radius: 100%;
@@ -72,7 +72,7 @@
         }
 
         .form-check-label {
-          @extend%ellipsor;
+          @extend ellipsor;
         }
       }
       .col-content{
@@ -86,7 +86,7 @@
       .form-check {
         .form-check-label  {
           input:checked {
-            & + {
+            + {
               .input-helper {
                 &:before {
                   border-radius: 100%;

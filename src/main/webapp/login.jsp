@@ -38,16 +38,6 @@
         </style>
     </head>
     <body>
-        <!--        <form action="LoginServlet" method="POST">
-        
-        
-        ${sessionScope.ERROR}
-        Email <input type="text" name="txtEmail"  /><br/>
-        Password <input type="password" name="txtPassword"  /><br/>
-
-        <input type="submit" value="Login" name="action" /> 
-
-    </form>-->
 
         <%
             String errorMessage = (String) session.getAttribute("ERROR_INFO");
@@ -113,6 +103,7 @@
                                     Login with Google   
                                 </a></br>
                                 <a href="./RegisterServlet" style="color: #007bff;">   <p class="text-center mb-0">Don't have an Account? Sign-up.</p>  </a>
+
                             </form>
                         </div>
                     </div>

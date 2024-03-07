@@ -19,9 +19,12 @@ import util.DBUtils;
  */
 public class ThemeDAO {
 
-
+//<<<<<<< HEAD
+//
+//    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
+//
+//=======
     private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
-
     
     List<ThemeDTO> listTheme;
 

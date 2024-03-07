@@ -5,6 +5,7 @@
 package dal;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.OrderDTO;
+import models.UserDTO;
 import util.DBUtils;
 
 /**
@@ -67,6 +69,12 @@ public class OrderDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
+
+                    //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+                    if (this.listOrder == null) {
+                        this.listOrder = new ArrayList<>();
+                    }
+            
         } finally {
             if (rs != null) {
                 rs.close();
@@ -157,7 +165,7 @@ public  OrderDTO getNewOrderUserNamebyID(String id) throws ClassNotFoundExceptio
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "  SELECT sum(totalprice) as totalPrice from [Order] WHERE year(create_at) = ?";
+                String sql = "SELECT sum(totalprice) as totalPrice from [Order] WHERE month(create_at) = ?";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, year);
                 rs = stm.executeQuery();
@@ -209,4 +217,36 @@ public  OrderDTO getNewOrderUserNamebyID(String id) throws ClassNotFoundExceptio
     return result;
 }
 
+
+    public boolean insertOrderWithLogin(UserDTO userLogin) throws SQLException {
+
+        boolean check = false;
+
+        Connection conn = null;
+        CallableStatement ctm = null;
+
+        String insertOrderStatement = "{call InsertOrder(?,?,?,?)}";
+
+        try {
+            conn = DBUtils.createConnection();
+            ctm = conn.prepareCall(insertOrderStatement);
+            ctm.setString(1, userLogin.getUserID());
+            ctm.setString(2, userLogin.getEmail());
+            ctm.setString(3, userLogin.getPhoneNumber());
+            ctm.setString(4, userLogin.getFullName());
+
+            check = ctm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ctm != null) {
+                ctm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
+    }
 }

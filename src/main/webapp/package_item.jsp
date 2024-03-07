@@ -22,6 +22,7 @@
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="cs/style.css" rel="stylesheet" />
         <style>
@@ -259,10 +260,60 @@
                 opacity: 1;
                 pointer-events: all;
             }
+            
+            .page-footer {
+                background-color: #f6f6f9;
+                border-top-left-radius: 50%;
+                border-top-right-radius: 50%;
+                font-family: 'Poppins', sans-serif;
+            }
 
+            footer {
+                height: 100%;
+            }
 
+            .footer-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 50px;
+                gap: 100px;
+                margin-bottom: -50px;
+            }
 
+            .footer-content-usp ul {
+                list-style: none;
+            }
 
+            .footer-content-usp ul li {
+                margin-bottom: 20px;
+            }
+
+            .footer-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .footer-header h2 {
+                margin-top: 40px;
+            }
+
+            .footer-content-usp a {
+                display: flex;
+                align-items: center;
+            }
+
+            .copy-right {
+                background-color: #fff;
+            }
+
+            .copy-right-content {
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
             div.elem-group {
                 margin: 20px 0;
@@ -360,7 +411,7 @@
             {
                 padding: 2%;
             }
-            
+
             #nickname
             {
                 margin-left: 40%;
@@ -368,7 +419,8 @@
         </style>
     </head>
     <body>
-        <header>
+    
+    <header>
             <aside class="side-bar">
                 <div class="logo">
 
@@ -403,18 +455,6 @@
                         <i class='bx bx-lock-alt'></i>
                         <a href="#">Sign Up</a>
                     </div>
-
-                    <%
-                    } else {
-                    %>
-
-
-                    <div class="logined" id="nickname">
-                        <i class='bx bx-user-circle'></i>
-                        <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                    </div>
-
-
                     <div>
 
                         <form class="d-flex">
@@ -426,6 +466,25 @@
                         </form>
                     </div>
 
+                    <%
+                    } else {
+                    %>
+
+
+                    <div class="logined" id="nickname">
+                        <i class='bx bx-user-circle'></i>
+                        <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                    </div>
+
+                    <div>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </form>
+                    </div>
 
 
                 </div>
@@ -436,50 +495,55 @@
         </header>
 
 
-        <%
-            PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKGE_ITEM");
-            List<LocationDTO> locationList = (List< LocationDTO>) request.getAttribute("LOCATION_LIST");
-            List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
-            List<ThemeDTO> themeList = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
+    <%
+        PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKGE_ITEM");
+        List<LocationDTO> locationList = (List< LocationDTO>) request.getAttribute("LOCATION_LIST");
+        List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
+        List<ThemeDTO> themeList = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
 
-            if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
-        %>
+        if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
+    %>
 
-        <!-- Product section-->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
-                    <div class="col-md-6">
+    <!-- Product section-->
+    <section class="py-5">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
 
-                        <div class="small mb-1">
+                    <a href="home.jsp">Home</a>
+                </li>
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="service.jsp">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="BookingPartyServlet">Booking Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+        </div>
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
 
-                        </div>
-                        <h1 class="display-5 fw-bolder"><%= packageDTO.getPackageName()%></h1>
-                        <div class="fs-5 mb-5">
-                            <span class="text-decoration-line-through" id="price-unit-original">$<%= packageDTO.getUnitPrice()%></span>
-                            <span style="color: blue;" id="price-unit-discounted" >$<%= packageDTO.getUnitPrice() * 0.8%></span>
-                            <input type="hidden" id="packageID" value="<%= packageDTO.getPackageID()%>" >
-                        </div>
-
-                        <p class="lead"><%= packageDTO.getDescription() + "\nThis is details"%></p>
-
-
-                        <button data-model-target="#model" class="btn btn-outline-dark flex-shrink-0" >
-                            <i class="bi-cart-fill me-1"></i>
-                            Buy Now
-                        </button>
-
-
-
-                        <div class="model" id="model">
-                            <div class="model-header">
-                                <div class="title">Booking Party</div>
-                                <button data-close-button class="close-button">&times;</button>
-                            </div>
-
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
+                <div class="col-md-6">
+                            <%
+                                if (dto == null) {
+                            %>
                             <div class="model-body">
-
                                 <form action="ready_for_checkout.jsp" method="post">
 
                                     <div class="elem-group">
@@ -549,230 +613,458 @@
                                     </div>
                                 </form>
                             </div>
+
+                            <%
+                            } else {
+                            %>
+
+                            <div class="model-body">
+                                <form action="add_order" method="post">
+
+                                    <div class="elem-group">
+                                        <div class="full-lined">
+                                            <label>Center</label>
+                                            <select id="center-selection" name="location" required>
+                                                <option value="">Choose your location</option>
+                                                <%
+                                                    for (LocationDTO location : locationList) {
+                                                %>                                          
+
+                                                <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                                <%                                            }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-date">Date</label>
+                                            <input type="date" id="checkin-date" name="checkin-date"  required>
+                                        </div> 
+                                        <div class="elem-group inlined">
+                                            <label for="checkin-time">Time</label>
+                                            <input type="time" id="checkin-time"  name="checkin-time" required>
+                                        </div>
+                                    </div>                                       
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label>Attended children</label>
+                                            <input type="number" id="childrenNums" name="children"  min="0" required>
+                                        </div>
+
+                                        <div class="elem-group inlined">
+                                            <label>Theme</label>
+                                            <select id="theme" name="theme" required>
+                                                <option value="">Choose a Theme</option>
+                                                <%
+                                                    for (ThemeDTO theme : themeList) {
+                                                %>
+                                                <option value="<%= theme.getThemeID()%>"> <%= theme.getThemeName()%> </option>
+                                                <%                                                    }
+                                                %>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="elem-group">
+                                        <div class="elem-group inlined">
+                                            <label for="servce-selection">Bonus Service</label>
+                                            <select id="bonus_service" name="bonus_service" required>
+                                                <option value="">Choose a service</option>
+                                                <%
+                                                    for (BonusServiceDTO bonusService : bonusServiceList) {
+                                                %>
+                                                <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                                <%                                                    }
+                                                %> 
+                                            </select>
+                                        </div>           
+                                    </div>
+
+                                    <div id="checkout-class">  
+                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <%   }
+                            %>
+
                         </div>
                         <div id="overlay"></div>   <!--for close package form without clicking x button-->
 
+                    <div class="small mb-1">
 
+                    </div>
+                    <h1 class="display-5 fw-bolder"><%= packageDTO.getPackageName()%></h1>
+                    <div class="fs-5 mb-5">
+                        <span class="text-decoration-line-through" id="price-unit-original">$<%= packageDTO.getUnitPrice()%></span>
+                        <span style="color: blue;" id="price-unit-discounted" >$<%= packageDTO.getUnitPrice() * 0.8%></span>
+                        <input type="hidden" id="packageID" value="<%= packageDTO.getPackageID()%>" >
+                    </div>
+
+                    <p class="lead"><%= packageDTO.getDescription() + "\nThis is details"%></p>
+
+
+                    <button data-model-target="#model" class="btn btn-outline-dark flex-shrink-0" >
+                        <i class="bi-cart-fill me-1"></i>
+                        Booking now
+                    </button>
+
+
+
+                    <div class="model" id="model">
+                        <div class="model-header">
+                            <div class="title">Booking Party</div>
+                            <button data-close-button class="close-button">&times;</button>
+                        </div>
+
+                        <div class="model-body">
+
+                            <form action="ready_for_checkout.jsp" method="post">
+
+                                <div class="elem-group">
+                                    <div class="full-lined">
+                                        <label>Center</label>
+                                        <select id="center-selection" name="location" required>
+                                            <option value="">Choose your location</option>
+                                            <%
+                                                for (LocationDTO location : locationList) {
+                                            %>                                          
+
+                                            <option value="<%= location.getLocationID() + "-" + location.getLocationDetails()%>"> <%= location.getLocationDetails()%> </option>                                           
+                                            <%                                            }
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="elem-group">
+                                    <div class="elem-group inlined">
+                                        <label for="checkin-date">Date</label>
+                                        <input type="date" id="checkin-date" name="checkin-date"  required>
+                                    </div> 
+                                    <div class="elem-group inlined">
+                                        <label for="checkin-time">Time</label>
+                                        <input type="time" id="checkin-time"  name="checkin-time" required>
+                                    </div>
+                                </div>                                       
+
+                                <div class="elem-group">
+                                    <div class="elem-group inlined">
+                                        <label>Attended children</label>
+                                        <input type="number" id="childrenNums" name="children"  min="0" required>
+                                    </div>
+
+                                    <div class="elem-group inlined">
+                                        <label>Theme</label>
+                                        <select id="theme" name="theme" required>
+                                            <option value="">Choose a Theme</option>
+                                            <%
+                                                for (ThemeDTO theme : themeList) {
+                                            %>
+                                            <option value="<%= theme.getThemeID()%>"> <%= theme.getThemeName()%> </option>
+                                            <%                                                    }
+                                            %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="elem-group">
+                                    <div class="elem-group inlined">
+                                        <label for="servce-selection">Bonus Service</label>
+                                        <select id="bonus_service" name="bonus_service" required>
+                                            <option value="">Choose a service</option>
+                                            <%
+                                                for (BonusServiceDTO bonusService : bonusServiceList) {
+                                            %>
+                                            <option value="<%= bonusService.getServiceID() + " " + bonusService.getServicePrice()%>"> <%= bonusService.getServiceName()%> </option>     
+                                            <%                                                    }
+                                            %> 
+                                        </select>
+                                    </div>           
+                                </div>
+
+                                <div id="checkout-class">  
+                                    <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="overlay"></div>   <!--for close package form without clicking x button-->
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <%            }
+    %>
+
+
+
+
+    <!-- Related items section-->
+    <section class="py-5 bg-light">
+        <div class="container px-4 px-lg-5 mt-5">
+            <h2 class="fw-bolder mb-4">Related products</h2>
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">Fancy Product</h5>
+                                <!-- Product price-->
+                                $40.00 - $80.00
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">Special Item</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">$20.00</span>
+                                $18.00
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">Sale Item</h5>
+                                <!-- Product price-->
+                                <span class="text-muted text-decoration-line-through">$50.00</span>
+                                $25.00
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">Popular Item</h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                $40.00
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    <!-- Footer-->
+    <footer class="page-footer">
+            <div class="footer-header">
+                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+            </div>
 
+            <div class="footer-content">
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>History begin</li>
+                        <li>Job opportunities</li>
+                        <li>Wonder regulation</li>
+                        <li>Wonder Partner</li>
+                        <li>Wonder Charity Foundation</li>
+                    </ul>
+                </div>
 
-        <%            }
-        %>
-
-
-
-
-        <!-- Related items section-->
-        <section class="py-5 bg-light">
-            <div class="container px-4 px-lg-5 mt-5">
-                <h2 class="fw-bolder mb-4">Related products</h2>
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Fancy Product</h5>
-                                    <!-- Product price-->
-                                    $40.00 - $80.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Special Item</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$20.00</span>
-                                    $18.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Sale badge-->
-                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Sale Item</h5>
-                                    <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">$50.00</span>
-                                    $25.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">Popular Item</h5>
-                                    <!-- Product reviews-->
-                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                        <div class="bi-star-fill"></div>
-                                    </div>
-                                    $40.00
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-world'></i>
+                                <span>nkidgroup.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-envelope' ></i>
+                                <span>cskh@wonderland.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-phone' ></i>
+                                <span>1900 63 63 28</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-current-location' ></i>
+                                <span>SWP391</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
+
+            <div class="copy-right">
+                <div class="copy-right-content">
+                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                </div>
+            </div>
         </footer>
 
-        <script >
+    <script >
 
-            const openModelButtons = document.querySelectorAll('[data-model-target]');
-            const closeModelButtons = document.querySelectorAll('[data-close-button]');
-            const overlay = document.getElementById('overlay');
+        const openModelButtons = document.querySelectorAll('[data-model-target]');
+        const closeModelButtons = document.querySelectorAll('[data-close-button]');
+        const overlay = document.getElementById('overlay');
 
-            openModelButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const model = document.querySelector(button.dataset.modelTarget);
-                    openModel(model);
-                });
+        openModelButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const model = document.querySelector(button.dataset.modelTarget);
+                openModel(model);
             });
+        });
 
-            overlay.addEventListener('click', () => {
-                const models = document.querySelectorAll('.model.active');
-                models.forEach(model => {
-                    closeModel(model);
-                });
+        overlay.addEventListener('click', () => {
+            const models = document.querySelectorAll('.model.active');
+            models.forEach(model => {
+                closeModel(model);
             });
+        });
 
-            closeModelButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const model = button.closest('.model');
-                    closeModel(model);
-                });
+        closeModelButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const model = button.closest('.model');
+                closeModel(model);
             });
+        });
 
-            function openModel(model) {
-                if (model === null)
-                    return;
-                model.classList.add('active');
-                overlay.classList.add('active');
-            }
+        function openModel(model) {
+            if (model === null)
+                return;
+            model.classList.add('active');
+            overlay.classList.add('active');
+        }
 
-            function closeModel(model) {
-                if (model === null)
-                    return;
-                model.classList.remove('active');
-                overlay.classList.remove('active');
-            }
+        function closeModel(model) {
+            if (model === null)
+                return;
+            model.classList.remove('active');
+            overlay.classList.remove('active');
+        }
 
 
 
-            var currentDateTime = new Date();
-            var year = currentDateTime.getFullYear();
-            var month = (currentDateTime.getMonth() + 1);
-            var date = (currentDateTime.getDate() + 1);
+        var currentDateTime = new Date();
+        var year = currentDateTime.getFullYear();
+        var month = (currentDateTime.getMonth() + 1);
+        var date = (currentDateTime.getDate() + 1);
 
-            if (date < 10) {
-                date = '0' + date;
-            }
-            if (month < 10) {
-                month = '0' + month;
-            }
+        if (date < 10) {
+            date = '0' + date;
+        }
+        if (month < 10) {
+            month = '0' + month;
+        }
 
-            var dateTomorrow = year + "-" + month + "-" + date;
-            var checkinElem = document.querySelector("#checkin-date");
-            var checkoutElem = document.querySelector("#checkout-date");
+        var dateTomorrow = year + "-" + month + "-" + date;
+        var checkinElem = document.querySelector("#checkin-date");
+        var checkoutElem = document.querySelector("#checkout-date");
 
-            checkinElem.setAttribute("min", dateTomorrow);
+        checkinElem.setAttribute("min", dateTomorrow);
 
-            checkinElem.onchange = function () {
-                checkoutElem.setAttribute("min", this.value);
+        checkinElem.onchange = function () {
+            checkoutElem.setAttribute("min", this.value);
+        };
+
+
+        function storePackageInfo() {
+            // get data from form
+
+            var packageID = document.getElementById("packageID").value;
+            var packageUnitPrice = document.getElementById("price-unit-original").textContent;
+            var center = document.getElementById("center-selection").value;
+            var checkinDate = document.getElementById("checkin-date").value;
+            var checkinTime = document.getElementById("checkin-time").value;
+            var childrenNums = document.getElementById("childrenNums").value;
+            var theme = document.getElementById("theme").value;
+            var bonusService = document.getElementById("bonus_service").value;
+
+
+            // create an object to store data
+            var packageInfo = {
+                packageID: packageID,
+                packageUnitPrice: packageUnitPrice,
+                center: center,
+                checkinDate: checkinDate,
+                checkinTime: checkinTime,
+                childrenNums: childrenNums,
+                theme: theme,
+                bonusService: bonusService
+
             };
 
+            // convert the object into JSON string
+            var packageInfoJSON = JSON.stringify(packageInfo);
 
-            function storePackageInfo() {
-                // get data from form
-
-                var packageID = document.getElementById("packageID").value;
-                var packageUnitPrice = document.getElementById("price-unit-original").textContent;
-                var center = document.getElementById("center-selection").value;
-                var checkinDate = document.getElementById("checkin-date").value;
-                var checkinTime = document.getElementById("checkin-time").value;
-                var childrenNums = document.getElementById("childrenNums").value;
-                var theme = document.getElementById("theme").value;
-                var bonusService = document.getElementById("bonus_service").value;
-
-
-                // create an object to store data
-                var packageInfo = {
-                    packageID: packageID,
-                    packageUnitPrice: packageUnitPrice,
-                    center: center,
-                    checkinDate: checkinDate,
-                    checkinTime: checkinTime,
-                    childrenNums: childrenNums,
-                    theme: theme,
-                    bonusService: bonusService
-
-                };
-
-                // convert the object into JSON string
-                var packageInfoJSON = JSON.stringify(packageInfo);
-
-                // store the JSON string into local storage
-                localStorage.setItem("packageInfo", packageInfoJSON);
-            }
+            // store the JSON string into local storage
+            localStorage.setItem("packageInfo", packageInfoJSON);
+        }
 
 
 //            document.addEventListener("click", function ()
@@ -792,20 +1084,20 @@
 
 
 
-            function updateCartCount()
+        function updateCartCount()
+        {
+            var packgeInfo = localStorage.getItem("packageInfo");
+            if (packgeInfo !== null)
             {
-                var packgeInfo = localStorage.getItem("packageInfo");
-                if (packgeInfo !== null)
-                {
-                    var localStorageLength = localStorage.length;
-                    document.getElementById("numsOfCart").innerHTML = localStorageLength;
-                }
+                var localStorageLength = localStorage.length;
+                document.getElementById("numsOfCart").innerHTML = localStorageLength;
             }
+        }
 
-            updateCartCount();
+        updateCartCount();
 
 
-        </script>
+    </script>
 
-    </body>
+</body>
 </html>

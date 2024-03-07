@@ -373,6 +373,18 @@
                 color: red;
                 cursor: pointer;
             }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
     </head>
     <body>
@@ -392,25 +404,31 @@
                             <input type="text" placeholder="Type here to search">
                         </form>
                     </div>
-                    
+
                     <%
                         UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
                     %>
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
                             <%
-                            if (hostDTO.getRoleID().equals("3")) {
-                                    %>
-                                    <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
-                            <%
-                                } else if (hostDTO.getRoleID().equals("2")) {
-%>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                                    <%
-}
+                                if (hostDTO.getRoleID().equals("3")) {
                             %>
+                            <a href="ViewUserServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                            } else if (hostDTO.getRoleID().equals("2")) {
+                            %>
+                            <a href="PartyHostServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                            <%
+                                }
+                            %>
+
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -480,7 +498,7 @@
                         <%
                             }
                         %>
-                        
+
                         <%
                             List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
 
@@ -546,21 +564,37 @@
             var myChart = new Chart(chart, {
                 type: "line",
                 data: {
-                    labels: ["2020", "2021", "2022", "2023", "2024"],
+                    labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
                     datasets: [{
                             label: "Revenue",
                             data: [
-            <%= request.getAttribute("year20")%>,
-            <%= request.getAttribute("year21")%>,
-            <%= request.getAttribute("year22")%>,
-            <%= request.getAttribute("year23")%>,
-            <%= request.getAttribute("year24")%>
+            <%= request.getAttribute("month1")%>,
+            <%= request.getAttribute("month2")%>,
+            <%= request.getAttribute("month3")%>,
+            <%= request.getAttribute("month4")%>,
+            <%= request.getAttribute("month5")%>,
+            <%= request.getAttribute("month6")%>,
+            <%= request.getAttribute("month7")%>,
+            <%= request.getAttribute("month8")%>,
+            <%= request.getAttribute("month9")%>,
+            <%= request.getAttribute("month10")%>,
+            <%= request.getAttribute("month11")%>,
+            <%= request.getAttribute("month12")%>
                             ],
-                            backgroundColor: "rgba(0, 156, 255, .5)"
+                            backgroundColor: "rgba(0, 156, 255, 0.5)",
+                            borderColor: "rgba(0, 156, 255, 1)",
+                            borderWidth: 1
                         }]
                 },
                 options: {
-                    responsive: true
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
                 }
             });
         </script>

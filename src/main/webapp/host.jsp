@@ -447,6 +447,17 @@
                 color: white; /* Màu chữ khi hover */
             }
 
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
     </head>
     <body>
@@ -469,8 +480,10 @@
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="PartyHostServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -522,6 +535,7 @@
                             </li>
                         </ul>
                     </div>
+
                     <%
                         UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
                     %>
@@ -617,6 +631,50 @@
                                         </tbody>
                                     </table>
                                 </div>
+<!--=======
+                                            <tbody class="scrollable">
+                                                <%                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
+                                                    if (searchResult == null) {
+                                                        int countUser = 1;
+                                                        if (result != null) {
+                                                            for (UserDTO dto : result) {
+                                                                String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
+                                                %>
+                                                <tr>
+                                                    <td><%= countUser++%></td>
+                                                    <td><%= dto.getFullName()%></td>
+                                                    <td><%= dto.getPhoneNumber()%></td>
+                                                    <td><%= dto.getEmail()%></td>
+                                                    <td><%= dto.getRoleID()%></td>
+                                                    <td style="display: <%= (dto.getReported() != null && !dto.getReported().isEmpty()) ? "block" : "none"%>;"><%= dto.getReported()%></td>
+                                                    <td><a href="<%= urlReport%>">Report</a></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                } else {
+                                                    int coutUser = 1;
+                                                    for (UserDTO searchR : searchResult) {
+                                                        String urlReport = "AdminServlet?action=Update&email=" + searchR.getEmail();
+                                                %>
+                                                <tr>
+                                                    <td><%= coutUser++%></td>
+                                                    <td><%= searchR.getFullName()%></td>
+                                                    <td><%= searchR.getPhoneNumber()%></td>
+                                                    <td><%= searchR.getEmail()%></td>
+                                                    <td><%= searchR.getRoleID()%></td>
+                                                    <td><%= searchR.getReported()%></td>
+                                                    <td><a href="<%= urlReport%>">Report</a></td>
+                                                </tr>
+                                                <%
+                                                        }
+                                                    }
+                                                %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+>>>>>>> e48aff32085fa6f7ff61e372ac7707e60329f773-->
                             </div>
                         </div>
                     </div>

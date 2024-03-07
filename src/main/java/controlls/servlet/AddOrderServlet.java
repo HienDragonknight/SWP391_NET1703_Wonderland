@@ -4,62 +4,51 @@
  */
 package controlls.servlet;
 
-import dal.UserDAO;
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author bao.kun
  */
-@WebServlet(name = "UpdateAccServlet", urlPatterns = {"/UpdateAccServlet"})
-public class UpdateAccServlet extends HttpServlet {
+@WebServlet(name = "AddOrderServlet", urlPatterns = {"/add_order"})
+public class AddOrderServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "package_item.jsp";
+    private static final String SUCCESS = "ready_for_checkout";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String name = request.getParameter("txtName");
-        String email = request.getParameter("txtEmail");
-        String password = request.getParameter("txtPassword");
-        String phone = request.getParameter("txtPhone");
-        String cEmail = request.getParameter("txtCEmail");
-        String url = "profile.jsp";
-        
+
+        String url = ERROR;
+
         try {
-           //2. call DAO
-           //2.1 new DAO
-            UserDAO dao = new UserDAO();
-           //2.2 call method of DAO
-            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
-           //3. process result
-           if (result != null) {
-               //refresh --> call previous function again (Search)
-               //--> using url rewriting technique
-               url = "login.jsp";
-           }//delete action is successfull
-        } catch (SQLException ex) {
-            log("CreateAccountServlet _ SQL: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            log("CreateAccountServlet _ Naming: " + ex.getMessage());
+            HttpSession session = request.getSession();
+            UserDTO userLogin = (UserDTO) request.getAttribute("USER_INFO");
+
+            OrderDAO orderDao = new OrderDAO();
+
+            boolean check = orderDao.insertOrderWithLogin(userLogin);
+
+            if (check) {
+                url = SUCCESS;
+            }
+
+        } catch (Exception e) {
+            log("Error at AddOrderServlet ");
         } finally {
-            response.sendRedirect(url);
+             request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

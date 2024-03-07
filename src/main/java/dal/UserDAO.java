@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataSource;
 import models.UserDTO;
 import util.DBUtils;
 
@@ -20,13 +21,13 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class UserDAO implements Serializable {
-    
+
     List<UserDTO> listUser;
 
     public List<UserDTO> getListUser() {
         return listUser;
     }
-    
+
     List<UserDTO> listHost;
 
     public List<UserDTO> getListHost() {
@@ -411,6 +412,39 @@ public class UserDAO implements Serializable {
         return result;
     }
 
+
+    public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        UserDTO result = null;
+        try {
+            conn = DBUtils.createConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
+                ptm.setString(1, fullname);
+                ptm.setString(2, email);
+                ptm.setString(3, phone);
+                ptm.setString(4, password);
+                ptm.setString(5, emailConfirm);
+                int effectRows = ptm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, fullname, email, password, phone, email, ID, "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public void searchUserDashboard(String inputValue) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -464,7 +498,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public void searchHostDashboard(String inputValue) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -572,4 +606,43 @@ public class UserDAO implements Serializable {
         }
         return null;
     }
+
+
+    public boolean updateImage(String cemail, String image) {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtils.createConnection(); // Create a database connection
+            if (con != null) {
+                stm = con.prepareStatement("UPDATE users SET avatar = ? WHERE email = ?");
+                stm.setString(1, image);
+                stm.setString(2, cemail);
+
+                int effectRows = stm.executeUpdate();
+
+                // Check if the update was successful
+                if (effectRows > 0) {
+                    return true; // Return true if the update was successful
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Log the exception
+            // Handle the exception, you might want to throw a custom DAOException here
+        } finally {
+            // Close the database resources in a finally block to ensure they are always closed
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Log the exception
+                // Handle the exception, you might want to throw a custom DAOException here
+            }
+        }
+        return false; // Return false if the update failed
+    }
+
 }

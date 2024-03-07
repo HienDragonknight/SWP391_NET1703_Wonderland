@@ -31,7 +31,7 @@
             .container {
                 position: relative;
                 width: 460px;
-                height: 450px;
+                height: 750px;
                 border-radius: 12px;
                 padding: 20px 30px 120px;
                 background: #303f9f;
@@ -73,13 +73,19 @@
     <body>
         <div class="container">
             <header>Profile</header>
-            <form action="AdminServlet" method="POST">
+            <form action="UpdateAccServlet" method="POST">
                 <input type="text" name="txtName" value="${sessionScope.USER_INFO.fullName}" placeholder="Full Name"/>
                 <input type="email" name="txtEmail" value="${sessionScope.USER_INFO.email}" placeholder="Email"/>
                 <input type="password" name="txtPassword" value="${sessionScope.USER_INFO.password}" placeholder="Password"/>
                 <input type="text" name="txtPhone" value="${sessionScope.USER_INFO.phoneNumber}" placeholder="Phone"/>
                 <input type="hidden" name="txtCEmail" value="${sessionScope.USER_INFO.email}" />
                 <input type="submit" value="Update Account" name="action" class="btn"/>
+            </form>
+            
+            <form action="UpdateImageServlet" method="POST" enctype="multipart/form-data">
+                <input type="file" name="image">
+                <input type="hidden" name="txtCEmail" value="${sessionScope.USER_INFO.email}" />
+                <input type="submit" value="Add image" class="btn"/>
             </form>
         </div>
     </body>

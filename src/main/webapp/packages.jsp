@@ -5,13 +5,15 @@
 --%>
 
 
+<%@page import="models.PackageDTO"%>
+<%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Wonderlands</title>
+        <title>Available Packages</title>
         <link rel="icon" href="image/img1.jpg"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -32,6 +34,19 @@
                 text-decoration: none;
                 font-size: 18px;
                 color: #232325;
+            }
+            .add-ab {
+                position: relative;
+                top: -4px;
+                font-size: 13px;
+            }
+
+            .add-ab a {
+                font-size: 13px;
+            }
+
+            .add-ab a:hover {
+                color: #5773ff;
             }
 
             header .side-bar {
@@ -185,73 +200,164 @@
                 }
 
             }
+            packages {
+                display: flex;
+                gap: 15px;
+            }
 
+            .container-packages {
+                background-color: #f0fafc;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                overflow: hidden;
+                padding: 20px 20px 20px 20px;
+                min-height: 260px;
+                max-height: 260px;
+                min-width: 400px;
+                max-width: 400px;
+                position: relative;
+                transition: transform 0.3s;
+            }
+            .container-packages:hover {
+                transform: scale(1.05);
+            }
+
+            .white-container {
+                background-color: #fff;
+                margin-bottom: 10px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                border: 1px solid #3a913a;
+            }
+
+            .packages-list {
+                display: flex;
+                flex-wrap: inherit;
+                gap: 20px;
+                justify-content: space-between;
+            }
+
+            .container-packages .packages-detail #more-detail {
+                position: absolute;
+                bottom: 20px;
+                left: 20px;
+                color: #333;
+                transition: color 0.3s ease;
+            }
+
+            .container-packages:hover .packages-detail #more-detail {
+                color: #fff;
+            }
+            #more-detail {
+                background-color: #76def5;
+                color: #fff;
+                border: 0px solid;
+                border-radius: 10px;
+                padding: 10px 20px;
+                margin: 0px;
+                font-family: 'Arial', sans-serif;
+                font-size: 16px;
+                font-weight: bold;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            #more-detail:hover {
+                background-color: #0cc5f0;
+                color: #fff;
+            }
+
+            .logout {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                padding: 10px 50px;
+            }
+
+            .logout li a{
+                color: red;
+                margin-bottom: 12px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                cursor: pointer;
+            }
+
+            .logout li form {
+                display: flex;
+                gap: 20px;
+                color: red;
+                cursor: pointer
+            }
+
+            .logout li form input {
+                border: none;
+                background-color: #fff;
+                font-size: 17px;
+                color: red;
+                cursor: pointer;
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
     </head
-
-
-    
     <body>
-        <div class="container">
-            <header>
-                <aside class="side-bar">
-                    <div class="logo">
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <div class="container">
+        <header>
+            <aside class="side-bar">
+                <div class="logo">
 
-                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                </div>
+
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
+                </div>
+
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                    if (dto == null) {
+                %>
+                <div class="profile">
+                    <div class="login-pro">
+                        <i class='bx bx-user'></i>
+                        <a href="login.jsp">Login</a>
                     </div>
 
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
+                    <span> / </span>
+
+                    <div class="sign-pro">
+                        <i class='bx bx-lock-alt'></i>
+                        <a href="#">Sign Up</a>
                     </div>
-
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
-                        </div>
-                    </div>
-                    <%
-                    } else {
-                    %>
-                    <div class="user-logined">
-                        <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="#">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-                        <div class="cart-items">
-                            <i class='bx bx-cart' ></i>
-                            <a href="#">Cart</a>
-                        </div>
-                    </div>
-                    <%
-                        }
-                    %>
-                </aside>
-            </header>
-
-
-            <main>
+                </div>
+            </aside>
+        </header>
+        <main class="main">
+            <div class="column">
                 <div class="menu">
                     <ul class="menu-ic">
                         <li>
                             <i class='bx bx-home-alt-2'></i>
-
                             <a href="home.jsp">Home</a>
                         </li>
 
@@ -262,11 +368,10 @@
                         <li>
                             <i class='bx bx-package'></i>
                             <a href="ViewPackage">Packages</a>
-
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
-                            <a href="#">Sale</a>
+                            <a href="ViewServiceServlet">Service</a>
                         </li>
                         <li>
                             <i class='bx bx-party'></i>
@@ -274,54 +379,153 @@
                         </li>
                         <li>
                             <i class='bx bx-info-circle'></i>
-                            <a href="#">About Us</a>
+                            <a href="about.jsp">About Us</a>
                         </li>
                     </ul>
                 </div>
 
-
-                <header>
-                    <div class="nav-link">
-                        <button class="menu-btn" id="menu-open" style="height: 30px">
-                            <i class='bx bx-menu'></i>
-                        </button>
-                        <img src="image/LogoCN.png" width="217" height="90" alt="LogoCN"/>
-                    </div>
-
-                    <div class="search">
-                        <form action="SearchServlet">
-                            <i class='bx bx-search' ></i>
-                            <input type="text" name="txtSearchValue" value="" placeholder="Type here to search"/>
-                        </form>
-                    </div>
-                </header>
-
-
-                <div class="column main">
-                    <div class="breadcrumbs">
-                        <ul class="items">
-                            <li class="item Home">
-                                <a href="/" title="Trang chủ">Trang chủ</a>
-                            </li>
-                            <li class="item Locations fares">
-                                <strong>Địa điểm &amp; giá vé</strong>
-                            </li>
-                        </ul>
-                    </div>
+            </div>
+            <div class="packages">
+                <div class="add-ab">
+                    <a href="home.jsp">Home</a><span> &#10095; Packages</span>
                 </div>
-
-
-                <div class="container-location-products">
-                    <div class="location-product" id="0" onclick="javascript:location.href = 'https://tiniworld.com/tiniworld-aeon-long-bi-n.html'">
-                        <h2 class="location-name">TINIWORLD AEON LONG BIÊN</h2>
-                        <div class="price-box">
-                            <span class="old-price"><span class="price">150.000&nbsp;₫</span> - <span class="price">180.000&nbsp;₫</span></span>
-                            <span class="location-price"><span class="price">142.500&nbsp;₫</span> - <span class="price">171.000&nbsp;₫</span></span>
+                <h1>Packages</h1></br>
+                <div class="packages-list">
+                    <%
+                        List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
+                        if (listPackage != null && listPackage.size() > 0) {
+                            for (PackageDTO packages : listPackage) {
+                    %>
+                    <div class="green-container">
+                        <div class="container-packages">
+                            <div class="packages-detail">
+                                <h2><%= packages.getPackageName()%></h2></br>
+                                <h3>Price: <%= packages.getUnitPrice()%>$</h3>
+                                <h3>Description: <%= packages.getDescription()%></h3></br>
+                                <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
+                            </div>
                         </div>
-                        <a class="btn-book-ticket" href="https://tiniworld.com/tiniworld-aeon-long-bi-n.html">Đặt vé</a>
+                    </div>
+                    <%
+                            }
+                        }
+                    %>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <%        } else {
+    %>
+    <div class="user-logined">
+        <div class="logined">
+            
+            <%
+                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+            %>
+            <a href="ViewUserServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else if (dto.getRoleID().equals("1")) {
+            %>
+            <a href="customer.jsp">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else {
+            %>
+            <a href="PartyHostServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+                }
+            %>
+
+        </div>
+        <div class="cart-items">
+            <i class='bx bx-cart' ></i>
+            <a href="#">Cart</a>
+        </div>
+    </div>
+</aside>
+</header>
+<main class="main">
+    <div class="column">
+        <div class="menu">
+            <ul class="menu-ic">
+                <li>
+                    <i class='bx bx-home-alt-2'></i>
+
+                    <a href="home.jsp">Home</a>
+                </li>
+
+                <li>
+                    <i class='bx bx-location-plus'></i>
+                    <a href="ViewLocation">Location</a>
+                </li>
+                <li>
+                    <i class='bx bx-package'></i>
+                    <a href="ViewPackage">Packages</a>
+
+                </li>
+                <li>
+                    <i class='bx bx-bell'></i>
+                    <a href="ViewServiceServlet">Service</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="ViewBookingServlet">Booking Party</a>
+                </li>
+                <li>
+                    <i class='bx bx-info-circle'></i>
+                    <a href="about.jsp">About Us</a>
+                </li>
+            </ul>
+            <ul class="logout">
+                <li>
+                    <form action="LogoutServlet" method="POST">
+                        <i class='bx bx-log-out-circle'></i>
+                        <input type="submit" value="Logout" name="action" />
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="packages">
+        <div class="add-ab">
+            <a href="home.jsp">Home</a><span> &#10095; Packages</span>
+        </div>
+        <h1>Packages</h1></br>
+        <div class="packages-list">
+            <%
+                List<PackageDTO> listPackage = (List<PackageDTO>) request.getAttribute("LIST_PACKAGE");
+                if (listPackage != null && listPackage.size() > 0) {
+                    for (PackageDTO packages : listPackage) {
+            %>
+            <div class="green-container">
+                <div class="container-packages">
+                    <div class="packages-detail">
+                        <img></<img src="src" alt="alt"/>
+                        <h2><%= packages.getPackageName()%></h2></br>
+                        <h3>Price: <%= packages.getUnitPrice()%>$</h3>
+                        <h3>Description: <%= packages.getDescription()%></h3></br>
+                        <a href="PackageItemServlet?packageID=<%= packages.getPackageID()%>" ><button id="more-detail">More Detail</button></a>
                     </div>
                 </div>
-            </main>
+            </div>
+            <%
+                    }
+                }
+            %>
         </div>
-    </body>
+    </div>
+</main>
+</div>
+<%    }
+%>
+</body>
 </html>

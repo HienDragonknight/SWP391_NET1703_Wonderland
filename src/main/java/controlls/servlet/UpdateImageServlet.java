@@ -4,30 +4,31 @@
  */
 package controlls.servlet;
 
+import dal.UserDAO;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import models.UserDTO;
 
 /**
  *
- * @author Le Huu Huy
+ * @author huY
  */
-@WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
-public class AdminServlet extends HttpServlet {
-    private final String ADMIN_PAGE = "ViewUserServlet";
-    private final String ADMIN_DELETE_CONTROLLER = "DeleteUserServlet";
-    private final String MANAGE_ACCOUNT_CONTROLLER = "ManageAccountServlet";
-    private final String EDIT_ACCOUNT_CONTROLLER = "SearchByEmailServlet";
-    private final String EDIT_HOST_CONTROLLER = "EditHostServlet";
-    private final String SEARCH_CUSTOMER_CONTROLLER = "SearchCustServlet";
-    private final String REPORT_CONTROLLER = "ReportServlet";
-    private final String SEARCH_USER_DASHBOARD = "SearchUserServlet";
-    private final String SEARCH_HOST_DASHBOARD = "SearchHostServlet";
+@MultipartConfig
+@WebServlet(name = "UpdateImageServlet", urlPatterns = {"/UpdateImageServlet"})
+public class UpdateImageServlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,31 +41,44 @@ public class AdminServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ADMIN_PAGE;
-        String button = request.getParameter("action");
+        String cemail = request.getParameter("txtCEmail");
+
         try {
-            if (button == null) {
-                
-            } else if (button.equals("delete")) {
-                url = ADMIN_DELETE_CONTROLLER;
-            } else if (button.equals("Create")) {
-                url = MANAGE_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit")) {
-                url = EDIT_ACCOUNT_CONTROLLER;
-            } else if (button.equals("Edit Host")) {
-                url = EDIT_HOST_CONTROLLER;
-            } else if (button.equals("Update")) {
-                url = SEARCH_CUSTOMER_CONTROLLER;
-            } else if (button.equals("Report")) {
-                url = REPORT_CONTROLLER;
-            } else if (button.equals("Search")) {
-                url = SEARCH_USER_DASHBOARD;
-            } else if (button.equals("Search Host")) {
-                url = SEARCH_HOST_DASHBOARD;
+            Part filePart = request.getPart("image");
+            String image = request.getParameter("image");
+            String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+            if (!originalFileName.isEmpty()) {
+                String fileName = originalFileName;
+                String directoryPath = "D:/FPT/SP24/SWP391/Project/SWP391_NET1703_Wonderland/src/main/webapp/image/";
+                File uploadDir = new File(directoryPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                String uploadPath = directoryPath + File.separator + fileName;
+
+                try ( InputStream fileContent = filePart.getInputStream();  FileOutputStream fos = new FileOutputStream(uploadPath);  BufferedOutputStream bos = new BufferedOutputStream(fos)) {
+
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileContent.read(buffer)) != -1) {
+                        bos.write(buffer, 0, bytesRead);
+                    }
+                } // try-with-resources will auto-close streams
+
+                UserDAO dao = new UserDAO();
+                boolean updateSuccess = dao.updateImage(cemail, fileName);
+                if (updateSuccess) {
+                    // Provide success feedback to the user
+                    response.sendRedirect("login.jsp");
+                } else {
+                    // Provide failure feedback to the user
+                    response.sendRedirect("login.jsp");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            response.sendRedirect("login.jsp");
         }
     }
 

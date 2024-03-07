@@ -301,7 +301,7 @@
                 padding-right: 270px;
                 gap: 10px;
             }
-            
+
             .intro-text p {
                 color: #565656;
                 font-size: 15px;
@@ -329,91 +329,105 @@
                 padding-left: 250px;
                 padding-right: 250px;
             }
+            
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+            
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
     </head>
     <body>
-        <div class="container">
-            <header>
-                <aside class="side-bar">
-                    <div class="logo">
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <div class="container">
+        <header>
+            <aside class="side-bar">
+                <div class="logo">
 
-                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                </div>
+
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
+                </div>
+
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+
+                    if (dto == null) {
+                %>
+                <div class="profile">
+                    <div class="login-pro">
+                        <i class='bx bx-user'></i>
+                        <a href="login.jsp">Login</a>
                     </div>
 
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
+                    <span> / </span>
+
+                    <div class="sign-pro">
+                        <i class='bx bx-lock-alt'></i>
+                        <a href="register.jsp">Sign Up</a>
+                    </div>
+                </div>
+            </aside>
+        </header>
+
+        <main>
+            <div class="column">
+                <div class="menu">
+                    <ul class="menu-ic">
+                        <li>
+                            <i class='bx bx-home-alt-2'></i>
+
+                            <a href="home.jsp">Home</a>
+                        </li>
+
+                        <li>
+                            <i class='bx bx-location-plus'></i>
+                            <a href="ViewLocation">Location</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-package'></i>
+                            <a href="ViewPackage">Packages</a>
+
+                        </li>
+                        <li>
+                            <i class='bx bx-bell'></i>
+                            <a href="ViewServiceServlet">Service</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-party'></i>
+                            <a href="BookingPartyServlet">Booking Party</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-info-circle'></i>
+                            <a href="about.jsp">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="column-main">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a><span> &#10095; About Us</span>
                     </div>
 
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+                    <h1>About Wonderlands</h1>
 
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="register.jsp">Sign Up</a>
-                        </div>
-                    </div>
-                </aside>
-            </header>
-
-            <main>
-                <div class="column">
-                    <div class="menu">
-                        <ul class="menu-ic">
-                            <li>
-                                <i class='bx bx-home-alt-2'></i>
-
-                                <a href="home.jsp">Home</a>
-                            </li>
-
-                            <li>
-                                <i class='bx bx-location-plus'></i>
-                                <a href="ViewLocation">Location</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-package'></i>
-                                <a href="ViewPackage">Packages</a>
-
-                            </li>
-                            <li>
-                                <i class='bx bx-bell'></i>
-                                <a href="ViewServiceServlet">Service</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-party'></i>
-                                <a href="BookingPartyServlet">Booking Party</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-info-circle'></i>
-                                <a href="about.jsp">About Us</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="column-main">
-                        <div class="add-ab">
-                            <a href="home.jsp">Home</a><span> &#10095; About Us</span>
-                        </div>
-
-                        <h1>About Wonderlands</h1>
-
-                        <div class="column-main-image">
-                            <img src="image/cover1.jpg" alt="cover1"/>
-                        </div>
+                    <div class="column-main-image">
+                        <img src="image/cover1.jpg" alt="cover1"/>
                     </div>
                 </div>
 
@@ -487,90 +501,99 @@
                     </div>
                 </div>
 
-            </main>
+        </main>
 
-            <footer class="page-footer">
-                <div class="footer-header">
-                    <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
-                </div>
-
-                <div class="footer-content">
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>History begin</li>
-                            <li>Job opportunities</li>
-                            <li>Wonder regulation</li>
-                            <li>Wonder Partner</li>
-                            <li>Wonder Charity Foundation</li>
-                        </ul>
-                    </div>
-
-                    <div class="footer-content-usp">
-                        <ul>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-world'></i>
-                                    <span>nkidgroup.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-envelope' ></i>
-                                    <span>cskh@wonderland.com</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-phone' ></i>
-                                    <span>1900 63 63 28</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class='bx bx-current-location' ></i>
-                                    <span>SWP391</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="copy-right">
-                    <div class="copy-right-content">
-                        <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
-                    </div>
-                </div>
-            </footer>
-        </div>
-        <%
-        } else {
-        %>
-        <div class="user-logined">
-            <div class="logined">
-                <i class='bx bx-user-circle'></i>
-                <%
-                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
-                %>
-                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                } else if (dto.getRoleID().equals("1")) {
-                %>
-                <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                } else {
-                %>
-                <a href="PartyHostServlet">${sessionScope.USER_INFO.fullName}</a>
-                <%
-                    }
-                %>
-
+        <footer class="page-footer">
+            <div class="footer-header">
+                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
             </div>
-            <div class="cart-items">
-                <i class='bx bx-cart' ></i>
-                <a href="#">Cart</a>
+
+            <div class="footer-content">
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>History begin</li>
+                        <li>Job opportunities</li>
+                        <li>Wonder regulation</li>
+                        <li>Wonder Partner</li>
+                        <li>Wonder Charity Foundation</li>
+                    </ul>
+                </div>
+
+                <div class="footer-content-usp">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-world'></i>
+                                <span>nkidgroup.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-envelope' ></i>
+                                <span>cskh@wonderland.com</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-phone' ></i>
+                                <span>1900 63 63 28</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class='bx bx-current-location' ></i>
+                                <span>SWP391</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="copy-right">
+                <div class="copy-right-content">
+                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <%
+    } else {
+    %>
+    <div class="user-logined">
+        <div class="logined">
+            
+            <%
+                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+            %>
+            <a href="ViewUserServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else if (dto.getRoleID().equals("1")) {
+            %>
+            <a href="customer.jsp">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else {
+            %>
+            <a href="PartyHostServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+                }
+            %>
+
         </div>
-    </aside>
+        <div class="cart-items">
+            <i class='bx bx-cart' ></i>
+            <a href="#">Cart</a>
+        </div>
+    </div>
+</aside>
 </header>
 
 <main>
