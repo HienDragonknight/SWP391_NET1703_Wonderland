@@ -23,7 +23,7 @@ import models.UserDTO;
 public class AddOrderServlet extends HttpServlet {
 
     private static final String ERROR = "package_item.jsp";
-    private static final String SUCCESS = "ready_for_checkout";
+    private static final String SUCCESS = "ready_for_checkout.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,7 +33,7 @@ public class AddOrderServlet extends HttpServlet {
 
         try {
             HttpSession session = request.getSession();
-            UserDTO userLogin = (UserDTO) request.getAttribute("USER_INFO");
+            UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
 
             OrderDAO orderDao = new OrderDAO();
 

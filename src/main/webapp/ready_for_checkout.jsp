@@ -295,9 +295,17 @@
                     </form>
                 </div>
 
-
                 <%
-                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+                    StringBuffer context = request.getRequestURL();
+                    String endpoint = "checkout_car.jsp";
+
+                    int lastIndex = context.lastIndexOf("/");
+                    context.replace(lastIndex + 1, context.length(), endpoint);
+                    String modifiedURL = context.toString();
+
+                %>
+
+                <%                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
                     if (dto == null) {
                 %>
@@ -315,14 +323,13 @@
                         <a href="#">Sign Up</a>
                     </div>
                     <div>
-
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </form>
+                        </a>
                     </div>
 
                     <%
@@ -336,15 +343,14 @@
                     </div>
 
                     <div>
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </form>
+                        </a>
                     </div>
-
 
                 </div>
                 <%   }
@@ -422,8 +428,8 @@
 
                                 <tr >
 
-                                <span class="label" >Bonus Service</span>
-                                <span class="price  -bonus" id="price-bonus">0$</span>
+                                <span class="lable" >Bonus Service</span>
+                                <span class="price-bonus" id="price-bonus">0$</span>
 
 
                                 </tr>  <br>
@@ -609,9 +615,9 @@
             var pricePackageUnit = document.getElementById("price-unit");
 
             locationName.innerHTML = packageData['center'].split('-')[1];
-            numberOfChildren.innerHTML = packageData['childrenNums'];
+            numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
             var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-            pricePackageUnit.innerHTML = pricePackageUnitValue + '$';
+            pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
 
             var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
             var priceMultiple = document.getElementById("price-multiple");

@@ -24,6 +24,8 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="cs/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
@@ -365,6 +367,43 @@
             {
                 margin-left: 40%;
             }
+
+
+
+            .toast-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                animation: fadein 0.5s, fadeout 0.5s 4.5s;
+            }
+
+            @keyframes fadein {
+                from {
+                    bottom: 0;
+                    opacity: 0;
+                }
+                to {
+                    bottom: 30px;
+                    opacity: 1;
+                }
+            }
+
+            @keyframes fadeout {
+                from {
+                    bottom: 30px;
+                    opacity: 1;
+                }
+                to {
+                    bottom: 0;
+                    opacity: 0;
+                }
+            }
+
         </style>
     </head>
     <body>
@@ -384,9 +423,16 @@
                     </form>
                 </div>
 
-
                 <%
-                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+                    StringBuffer context = request.getRequestURL();
+                    String endpoint = "checkout_car.jsp";
+
+                    int lastIndex = context.lastIndexOf("/");
+                    context.replace(lastIndex + 1, context.length(), endpoint);
+                    String modifiedURL = context.toString();
+
+                %>
+                <%UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
                     if (dto == null) {
                 %>
@@ -403,6 +449,16 @@
                         <i class='bx bx-lock-alt'></i>
                         <a href="#">Sign Up</a>
                     </div>
+                    <div>
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
+                        </a>
+                    </div>
+
 
                     <%
                     } else {
@@ -413,19 +469,17 @@
                         <i class='bx bx-user-circle'></i>
                         <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
                     </div>
-
                     <div>
-
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </form>
+                        </a>
                     </div>
 
-                    
+
                 </div>
                 <%   }
                 %>
@@ -443,9 +497,22 @@
             if (packageDTO != null && locationList != null && bonusServiceList != null && themeList != null) {
         %>
 
+
+
+
         <!-- Product section-->
         <section class="py-5">
+
             <div class="container px-4 px-lg-5 my-5">
+
+
+
+
+
+
+
+
+
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
                     <div class="col-md-6">
@@ -480,7 +547,7 @@
                                 if (dto == null) {
                             %>
                             <div class="model-body">
-                                <form action="ready_for_checkout.jsp" method="post">
+                                <form  id="checkin-form" action="ready_for_checkout.jsp" method="post">
 
                                     <div class="elem-group">
                                         <div class="full-lined">
@@ -501,7 +568,7 @@
                                     <div class="elem-group">
                                         <div class="elem-group inlined">
                                             <label for="checkin-date">Date</label>
-                                            <input type="date" id="checkin-date" name="checkin-date"  required>
+                                            <input type="date" id="checkin-date" name="checkin-date" min="yyyy-mm-dd" required>
                                         </div> 
                                         <div class="elem-group inlined">
                                             <label for="checkin-time">Time</label>
@@ -545,7 +612,7 @@
                                     </div>
 
                                     <div id="checkout-class">  
-                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                        <button id="checkout" type="submit" onclick="return storePackageInfo()">Payment</button>
                                     </div>
                                 </form>
                             </div>
@@ -555,7 +622,7 @@
                             %>
 
                             <div class="model-body">
-                                <form action="add_order" method="post">
+                                <form id="checkin-form" action="add_order" method="post">
 
                                     <div class="elem-group">
                                         <div class="full-lined">
@@ -576,7 +643,7 @@
                                     <div class="elem-group">
                                         <div class="elem-group inlined">
                                             <label for="checkin-date">Date</label>
-                                            <input type="date" id="checkin-date" name="checkin-date"  required>
+                                            <input type="date" id="checkin-date" name="checkin-date"  min="yyyy-mm-dd"  required>
                                         </div> 
                                         <div class="elem-group inlined">
                                             <label for="checkin-time">Time</label>
@@ -620,9 +687,10 @@
                                     </div>
 
                                     <div id="checkout-class">  
-                                        <button id="checkout" type="submit" onclick="storePackageInfo()">Payment</button>
+                                        <button id="checkout" type="submit" onclick="return storePackageInfo()">Payment</button>
                                     </div>
                                 </form>
+
                             </div>
 
                             <%   }
@@ -754,7 +822,7 @@
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
         </footer>
 
-        <script >
+        <script>
 
             const openModelButtons = document.querySelectorAll('[data-model-target]');
             const closeModelButtons = document.querySelectorAll('[data-close-button]');
@@ -797,77 +865,43 @@
 
 
 
-            var currentDateTime = new Date();
-            var year = currentDateTime.getFullYear();
-            var month = (currentDateTime.getMonth() + 1);
-            var date = (currentDateTime.getDate() + 1);
-
-            if (date < 10) {
-                date = '0' + date;
-            }
-            if (month < 10) {
-                month = '0' + month;
-            }
-
-            var dateTomorrow = year + "-" + month + "-" + date;
-            var checkinElem = document.querySelector("#checkin-date");
-            var checkoutElem = document.querySelector("#checkout-date");
-
-            checkinElem.setAttribute("min", dateTomorrow);
-
-            checkinElem.onchange = function () {
-                checkoutElem.setAttribute("min", this.value);
-            };
 
 
-            function storePackageInfo() {
-                // get data from form
-
-                var packageID = document.getElementById("packageID").value;
-                var packageUnitPrice = document.getElementById("price-unit-original").textContent;
-                var center = document.getElementById("center-selection").value;
-                var checkinDate = document.getElementById("checkin-date").value;
-                var checkinTime = document.getElementById("checkin-time").value;
-                var childrenNums = document.getElementById("childrenNums").value;
-                var theme = document.getElementById("theme").value;
-                var bonusService = document.getElementById("bonus_service").value;
 
 
-                // create an object to store data
-                var packageInfo = {
-                    packageID: packageID,
-                    packageUnitPrice: packageUnitPrice,
-                    center: center,
-                    checkinDate: checkinDate,
-                    checkinTime: checkinTime,
-                    childrenNums: childrenNums,
-                    theme: theme,
-                    bonusService: bonusService
 
-                };
 
-                // convert the object into JSON string
-                var packageInfoJSON = JSON.stringify(packageInfo);
+            // checking exception of order checkin time
 
-                // store the JSON string into local storage
-                localStorage.setItem("packageInfo", packageInfoJSON);
+
+
+
+
+
+
+
+
+
+
+
+
+            function formatDate()
+            {
+                var currentDate = new Date();
+                var year = currentDate.getFullYear();
+
+                var month = currentDate.getMonth() + 1;
+                month = (month > 10) ? month : "0" + month;
+
+                var date = currentDate.getDate();
+                date = (date > 10) ? date : "0" + date;
+
+                return year + "-" + month + "-" + date;
             }
 
+            document.getElementById('checkin-date').setAttribute('min', formatDate());
 
-//            document.addEventListener("click", function ()
-//            {
-//                var storedFormData = localStorage.getItem("packageInfo");
-//
-//                if (storedFormData !== null)
-//                {
-//                    var packageData = JSON.parse(storedFormData);
-//                    console.log("Form data not found in Local Storage ");
-//
-//                } else
-//                {
-//                    console.log("Form data not found in Local Storage or Local Storage is cleared");
-//                }
-//            });
+
 
 
 
@@ -882,6 +916,84 @@
             }
 
             updateCartCount();
+
+
+
+
+
+
+            function isCheckinDateValid() {
+                var checkinDate = document.getElementById('checkin-date').value;
+                var year = checkinDate.split("-")[0];
+                var month = checkinDate.split("-")[1];
+                var date = checkinDate.split("-")[2];
+
+                // Ensure leading zero padding for month and date
+                month = month.padStart(2, '0');
+                date = date.padStart(2, '0');
+
+                var time = document.getElementById('checkin-time').value;
+                var hour = time.split(":")[0];
+                var minute = time.split(":")[1];
+
+                var dateTimeCheckin = new Date(year, month - 1, date, hour, minute);
+
+                var currentDateTime = new Date();
+                var threeHoursAhead = new Date(currentDateTime.getTime() + (3 * 60 * 60 * 1000));
+
+                if (dateTimeCheckin < threeHoursAhead) {
+                    alert("Sorry! We cannot set your party order due to early time condition, then try again.");
+                    return false; // Prevent form submission
+                }
+
+                return true;
+            }
+
+
+
+
+            function storePackageInfo() {
+                // get data from form
+
+                if (isCheckinDateValid())
+                {
+                    var packageID = document.getElementById("packageID").value;
+                    var packageUnitPrice = document.getElementById("price-unit-original").textContent;
+                    var center = document.getElementById("center-selection").value;
+                    var checkinDate = document.getElementById("checkin-date").value;
+                    var checkinTime = document.getElementById("checkin-time").value;
+                    var childrenNums = document.getElementById("childrenNums").value;
+                    var theme = document.getElementById("theme").value;
+                    var bonusService = document.getElementById("bonus_service").value;
+
+
+                    // create an object to store data
+                    var packageInfo = {
+                        packageID: packageID,
+                        packageUnitPrice: packageUnitPrice,
+                        center: center,
+                        checkinDate: checkinDate,
+                        checkinTime: checkinTime,
+                        childrenNums: childrenNums,
+                        theme: theme,
+                        bonusService: bonusService
+
+                    };
+
+                    // convert the object into JSON string
+                    var packageInfoJSON = JSON.stringify(packageInfo);
+
+                    // store the JSON string into local storage
+                    localStorage.setItem("packageInfo", packageInfoJSON);
+                    return true;
+                }
+                return false;
+
+            }
+
+
+
+
 
 
         </script>
