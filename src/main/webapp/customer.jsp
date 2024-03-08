@@ -408,8 +408,11 @@
     <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
     <script>
         function togglePassword() {
-            var passwordField = document.getElementById("passwordField");
-            if (passwordField.type === "password") {
+            var passwordField = document.getElementById("password");
+            var showPasswordCheckbox = document.getElementById("showPassword");
+
+            // Nếu checkbox được chọn, hiển thị password
+            if (showPasswordCheckbox.checked) {
                 passwordField.type = "text";
             } else {
                 passwordField.type = "password";
@@ -564,8 +567,9 @@
                 <input type="hidden" name="emailConfirm" value="${sessionScope.USER_INFO.email}"/>
                 Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
                 Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
-                Password <input type="password" name="password" value="${sessionScope.USER_INFO.password}" required></br>
-                <input type="submit" name="edit" value="Save">
+                Password <input type="password" name="password" id="password" value="${sessionScope.USER_INFO.password}" required>
+                <input type="checkbox" id="showPassword" onclick="togglePassword()"></br>                
+                <input type="submit" name="edit" value="Save"/>
                 <%
                     String msg = (String) request.getAttribute("MESSAGE");
                     if (msg == null) {
