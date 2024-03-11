@@ -425,11 +425,13 @@
 
                 <%
                     StringBuffer context = request.getRequestURL();
-                    String endpoint = "checkout_car.jsp";
+                    String endpoint = "checkout_cart.jsp";
 
                     int lastIndex = context.lastIndexOf("/");
                     context.replace(lastIndex + 1, context.length(), endpoint);
                     String modifiedURL = context.toString();
+
+                    String contextPath = request.getContextPath();
 
                 %>
                 <%UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
@@ -450,7 +452,7 @@
                         <a href="#">Sign Up</a>
                     </div>
                     <div>
-                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties"data-bind="scope: 'minicart_content'">
                             <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
@@ -470,7 +472,7 @@
                         <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
                     </div>
                     <div>
-                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties"data-bind="scope: 'minicart_content'">
                             <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
@@ -504,14 +506,6 @@
         <section class="py-5">
 
             <div class="container px-4 px-lg-5 my-5">
-
-
-
-
-
-
-
-
 
                 <div class="row gx-4 gx-lg-5 align-items-center">
                     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" style="width: 80%; height: 80%"  src="image/packages/<%= packageDTO.getImage()%>" alt="package image" /></div>
@@ -875,26 +869,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
             function formatDate()
             {
                 var currentDate = new Date();
                 var year = currentDate.getFullYear();
 
                 var month = currentDate.getMonth() + 1;
-                month = (month > 10) ? month : "0" + month;
+                month = (month >= 10) ? month : "0" + month;
 
                 var date = currentDate.getDate();
-                date = (date > 10) ? date : "0" + date;
+                date = (date >= 10) ? date : "0" + date;
 
                 return year + "-" + month + "-" + date;
             }
@@ -908,10 +892,17 @@
             function updateCartCount()
             {
                 var packgeInfo = localStorage.getItem("packageInfo");
+
                 if (packgeInfo !== null)
                 {
                     var localStorageLength = localStorage.length;
-                    document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                    if (localStorageLength !== 0)
+                    {
+                        document.getElementById("numsOfCart").innerHTML = 1;
+                    } else
+                    {
+                        document.getElementById("numsOfCart").innerHTML = 0;
+                    }
                 }
             }
 
@@ -953,47 +944,75 @@
 
 
             function storePackageInfo() {
-                // get data from form
 
-                if (isCheckinDateValid())
+
+                // make sure packageInfo contains only one party
+                var packageInfo = localStorage.getItem("packageInfo");
+                if (packageInfo !== null)
                 {
-                    var packageID = document.getElementById("packageID").value;
-                    var packageUnitPrice = document.getElementById("price-unit-original").textContent;
-                    var center = document.getElementById("center-selection").value;
-                    var checkinDate = document.getElementById("checkin-date").value;
-                    var checkinTime = document.getElementById("checkin-time").value;
-                    var childrenNums = document.getElementById("childrenNums").value;
-                    var theme = document.getElementById("theme").value;
-                    var bonusService = document.getElementById("bonus_service").value;
+                    alert("ALERT! You have to pay for waiting-for-checkout parties before buying more");
+                } else
+                {
+                    // get data from form
+                    if (isCheckinDateValid())
+                    {
+                        var packageID = document.getElementById("packageID").value;
+                        var packageUnitPrice = document.getElementById("price-unit-original").textContent;
+                        var center = document.getElementById("center-selection").value;
+                        var checkinDate = document.getElementById("checkin-date").value;
+                        var checkinTime = document.getElementById("checkin-time").value;
+                        var childrenNums = document.getElementById("childrenNums").value;
+                        var theme = document.getElementById("theme").value;
+                        var bonusService = document.getElementById("bonus_service").value;
 
 
-                    // create an object to store data
-                    var packageInfo = {
-                        packageID: packageID,
-                        packageUnitPrice: packageUnitPrice,
-                        center: center,
-                        checkinDate: checkinDate,
-                        checkinTime: checkinTime,
-                        childrenNums: childrenNums,
-                        theme: theme,
-                        bonusService: bonusService
+                        // create an object to store data
+                        var packageInfo = {
+                            packageID: packageID,
+                            packageUnitPrice: packageUnitPrice,
+                            center: center,
+                            checkinDate: checkinDate,
+                            checkinTime: checkinTime,
+                            childrenNums: childrenNums,
+                            theme: theme,
+                            bonusService: bonusService
 
-                    };
+                        };
 
-                    // convert the object into JSON string
-                    var packageInfoJSON = JSON.stringify(packageInfo);
+                        // convert the object into JSON string
+                        var packageInfoJSON = JSON.stringify(packageInfo);
 
-                    // store the JSON string into local storage
-                    localStorage.setItem("packageInfo", packageInfoJSON);
-                    return true;
+                        // store the JSON string into local storage
+                        localStorage.setItem("packageInfo", packageInfoJSON);
+                        return true;
+                    }
+
                 }
                 return false;
-
             }
 
 
 
+            function  updateHrefCart()
+            {
 
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageJSON = JSON.parse(packageInfo);
+
+                var packageID = packageJSON['packageID'];
+
+                // If packageID exists, update href attribute
+                if (packageID !== null) {
+                    var cartLink = document.getElementById("cartLink");
+                    // Append packageID as a query parameter to the href
+                    cartLink.href = '<%= contextPath%>' + "/going_on_parties?packageID=" + packageID;
+                }
+
+            }
+            updateHrefCart();
+            
+            
+            
 
 
         </script>

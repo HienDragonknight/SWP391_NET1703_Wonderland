@@ -303,6 +303,21 @@
                 text-align: center;
                 user-select: none;
             }
+
+
+            #update-delete
+            {
+                display: flex;
+                justify-content: right;
+                align-content: center;
+            }
+
+            .items-ud
+            {
+                padding: 0 20px;
+                margin: 0 10px;
+
+            }
         </style>
     </head>
     <body>
@@ -325,11 +340,14 @@
 
                 <%
                     StringBuffer context = request.getRequestURL();
-                    String endpoint = "checkout_car.jsp";
+                    String endpoint = "checkout_cart.jsp";
 
                     int lastIndex = context.lastIndexOf("/");
                     context.replace(lastIndex + 1, context.length(), endpoint);
                     String modifiedURL = context.toString();
+
+                    String contextPath = request.getContextPath();
+
 
                 %>
 
@@ -388,7 +406,6 @@
         </header>
 
 
-
         <section>
             <div class="column-content">    
                 <div class="add-ab">
@@ -396,12 +413,16 @@
                 </div>
 
                 <div>
-                    <h1>Car Checkout</h1>
+                    <h1>Cart Checkout</h1>
                 </div>
             </div>
-
         </section>
 
+
+        <%
+            PackageDTO packageDTO = (PackageDTO) request.getAttribute("PACKAGE_ITEM");
+            if (packageDTO != null) {
+        %>
 
         <section class="h-100 h-custom" style="background-color: #cff4fc;">
             <div class="container py-5 h-100">
@@ -410,94 +431,73 @@
                         <div class="card card-registration card-registration-2" style="border-radius: 15px;">
                             <div class="card-body p-0">
                                 <div class="row g-0">
+
                                     <div class="col-lg-8">
                                         <div class="p-5">
                                             <div class="d-flex justify-content-between align-items-center mb-5">
-                                                <h1 class="fw-bold mb-0 text-black">Booking Cart</h1>
+                                                <h1 class="fw-bold mb-0 text-black">Your Party</h1>
 
                                             </div>
                                             <hr class="my-4">
 
                                             <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div id="update-delete">
+                                                    <button class="items-ud" id="editButton" title="Sửa thông số sản phẩm" onclick="updateWaitingOrder()">Update</button>
+
+                                                    <button class="items-ud" title="Xóa sản phẩm" onclick="deleteProduct()">Delete</button>
+
+                                                </div>
                                                 <div class="col-md-2 col-lg-2 col-xl-2">
                                                     <img
-                                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
+                                                        src="image/packages/package_1.png"
                                                         class="img-fluid rounded-3" alt="Cotton T-shirt">
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
-                                                    <h6 class="text-muted">Shirt</h6>
-                                                    <h6 class="text-black mb-0">Cotton T-shirt</h6>
+                                                    <h6 class="location-id" id="location-id" >Location</h6>
+                                                    <h6 class="package-id" id="package-id" value="<%= packageDTO.getUnitPrice()%>"><%= packageDTO.getPackageName()%></h6>
+                                                </div>
+
+                                                <div class="col-md-3 col-lg-3 col-xl-3" id="unit-num">
+
+                                                    <label for="number-children">
+                                                        <span class="decrease" onclick="decreaseQuantity()">-</span>
+                                                        <span id="number-children" class="qty-value" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="number-children">1</span>
+                                                        <span class="increase" onclick="increaseQuantity()">+</span>
+                                                    </label>
                                                 </div>
 
                                                 <div class="col-md-3 col-lg-3 col-xl-3">
-
-                                                    <label for="cart-28156-qty">
-
-                                                        <span class="decrease" onclick="decreaseQuantity()">-</span>
-
-                                                        <span id="cart-28156-qty" class="qty-value" data-cart-item-id="tW Aeon Long Biên-normal_fare" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">1</span>
-
-                                                        <span class="increase" onclick="increaseQuantity()">+</span>
-
-                                                    </label>
-
-                                                </div>
-
-
-                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                    <h6 class="mb-0">€ 44.00</h6>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
+                                                    <div class="actions-toolbar">
+                                                        <span><%= packageDTO.getUnitPrice()%> $</span>
+                                                    </div>
                                                 </div>
                                             </div>
+
 
 
                                             <div class="pt-5">
                                                 <h6 class="mb-0"><a href="#!" class="text-body"><i
                                                             class="fas fa-long-arrow-alt-left me-2"></i>Back to Home Page</a></h6>
                                             </div>
+
+
                                         </div>
                                     </div>
+
+
                                     <div class="col-lg-4 bg-grey">
                                         <div class="p-5">
                                             <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                                            <hr class="my-4">
-
-                                            <div class="d-flex justify-content-between mb-4">
-                                                <h5 class="text-uppercase">items 3</h5>
-                                                <h5>€ 132.00</h5>
-                                            </div>
-
-                                            <h5 class="text-uppercase mb-3">Shipping</h5>
-
-                                            <div class="mb-4 pb-2">
-                                                <select class="select">
-                                                    <option value="1">Standard-Delivery- €5.00</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                    <option value="4">Four</option>
-                                                </select>
-                                            </div>
-
-                                            <h5 class="text-uppercase mb-3">Give code</h5>
-
-                                            <div class="mb-5">
-                                                <div class="form-outline">
-                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                                                    <label class="form-label" for="form3Examplea2">Enter your code</label>
-                                                </div>
-                                            </div>
 
                                             <hr class="my-4">
-
                                             <div class="d-flex justify-content-between mb-5">
-                                                <h5 class="text-uppercase">Total price</h5>
-                                                <h5>€ 137.00</h5>
+                                                <h5 class="text-uppercase">Subtotal</h5>
+                                                <h5 id="subtotal-price" >0$</h5>
                                             </div>
 
-                                            <button type="button" class="btn btn-dark btn-block btn-lg"
-                                                    data-mdb-ripple-color="dark">Register</button>
+                                            <a href="ready_for_checkout.jsp" > <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                                                       data-mdb-ripple-color="dark">Check out</button>
+                                            </a>
 
                                         </div>
                                     </div>
@@ -508,6 +508,9 @@
                 </div>
             </div>
         </section>
+
+        <%
+            }%>
 
 
 
@@ -567,6 +570,7 @@
 
         <script >
 
+
             function updateCartCount()
             {
                 var packgeInfo = localStorage.getItem("packageInfo");
@@ -576,7 +580,7 @@
                     var localStorageLength = localStorage.length;
                     if (localStorageLength !== 0)
                     {
-                        document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                        document.getElementById("numsOfCart").innerHTML = 1;
                     } else
                     {
                         document.getElementById("numsOfCart").innerHTML = 0;
@@ -584,142 +588,7 @@
                 }
             }
 
-
             updateCartCount();
-            //{"packageID":"1","packageUnitPrice":"$250.0","center":"2-Wonderland District 2, Ho Chi Minh City",
-            ////"checkinDate":"2024-02-20","checkinTime":"22:02","childrenNums":"2","theme":"7","bonusService":"10 40.0"}
-            function updateOrderInfomation()
-            {
-                var packageInfo = localStorage.getItem("packageInfo");
-                var packageData = JSON.parse(packageInfo);
-                var locationName = document.getElementById("location-name");
-                var numberOfChildren = document.getElementById("number-of-children");
-                var pricePackageUnit = document.getElementById("price-unit");
-
-                locationName.innerHTML = packageData['center'].split('-')[1];
-                numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
-                var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-                pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
-
-                var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
-                var priceMultiple = document.getElementById("price-multiple");
-                priceMultiple.innerHTML = priceMultipleValue + '$';
-
-                var bonusServiceValue = packageData["bonusService"].split(' ')[1];
-                var bonusService = document.getElementById("price-bonus");
-                bonusService.innerHTML = bonusServiceValue + '$';
-
-                var totalValue = parseInt(priceMultipleValue) + parseInt(bonusServiceValue);
-                var total = document.getElementById("price-total");
-                total.innerHTML = totalValue + '$';
-
-            }
-            updateOrderInfomation();
-
-
-
-            function setValueToOrderDetailForm()
-            {
-                /*
-                 {"packageID":"1","packageUnitPrice":"$250.0","center":"4-Wonderland District 4,
-                 Ho Chi Minh City","checkinDate":"2024-02-20","checkinTime":"04:04",
-                 "childrenNums":"3","theme":"13","bonusService":"12 85.0"}
-                 */
-
-                var packageInfo = localStorage.getItem("packageInfo");
-                var packageData = JSON.parse(packageInfo);
-
-                var bonusService = packageData['bonusService'];
-                var serviceID = bonusService.split(' ')[0];
-                var serviceInput = document.getElementById('service-id');
-                serviceInput.value = serviceID;
-
-                var packageID = packageData['packageID'];
-                var packageIDInput = document.getElementById('package-id');
-                packageIDInput.value = packageID;
-
-                var checkinDate = packageData['checkinDate'];
-                var checkinTime = packageData['checkinTime'];
-                var checkinTimeInput = document.getElementById('checkin-time');
-                checkinTimeInput.value = checkinDate + ' ' + checkinTime;
-
-                var numberOfChildren = packageData['childrenNums'];
-                var numberOfChildrenInput = document.getElementById('number-children');
-                numberOfChildrenInput.value = numberOfChildren;
-
-                var themeID = packageData['theme'];
-                var themIDInput = document.getElementById('theme-id');
-                themIDInput.value = themeID;
-
-                var locationID = packageData['center'];
-                locationID = locationID.split('-')[0];
-                var locationIDInput = document.getElementById('location-id');
-                locationIDInput.value = locationID;
-
-            }
-            setValueToOrderDetailForm();
-
-
-
-            document.getElementById('form-to-payment').addEventListener('submit', function (event) {
-                var email = document.getElementById('email').value;
-                var phone = document.getElementById('phone').value;
-
-                if (email.trim() === '' && phone.trim() === '') {
-                    alert('Please enter either your email or phone number.');
-                    event.preventDefault(); // prevent form submission
-                }
-            });
-
-
-
-            function updatePayPalForm()
-            {
-                // set value for SubTotal
-                var subtotal = document.getElementById("subtotal");
-                var price_multiple = document.getElementById("price-multiple");
-                subtotal.value = price_multiple.innerHTML.split('$')[0];
-
-                // set value for Shipping: suppose Shipping value  =  BonusService value
-                var shipping = document.getElementById("shipping");
-                var price_bonus = document.getElementById("price-bonus");
-                shipping.value = price_bonus.innerHTML.split('$')[0];
-
-                // set value for tax
-                var tax = document.getElementById("tax");
-                tax.value = 0;
-
-                // set value for total
-                var total = document.getElementById("total");
-                var price_total = document.getElementById("price-total");
-                total.value = price_total.innerHTML.split('$')[0];
-            }
-
-            updatePayPalForm();
-
-
-
-            var inputPhone = document.getElementById("phone");
-
-            function formatPhoneNumber(inputPhone) {
-                // Remove non-numeric characters from the input
-                var phoneNumber = inputPhone.value.replace(/\D/g, '');
-
-                // Check if the input value is empty or not
-                if (phoneNumber.length > 0) {
-                    // Create a regular expression to match the desired phone number format
-                    var regex = /^(\d{1})(\d{2})(\d{3})(\d{4})$/;
-
-                    // Apply the regular expression to the phone number
-                    var formattedPhoneNumber = phoneNumber.replace(regex, '0$2-$3-$4');
-
-                    // Update the input value with the formatted phone number
-                    inputPhone.value = formattedPhoneNumber;
-                }
-            }
-
-            // Call the function with the inputPhone argument
-            formatPhoneNumber(inputPhone);
 
 
 
@@ -741,6 +610,119 @@
                     qtyInput.textContent = currentValue;
                 }
             }
+
+
+            function setInfoPartyFromLocalStorage()
+            {
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageData = JSON.parse(packageInfo);
+
+                var numberOfChildren = packageData['childrenNums'];
+                var numberOfChildrenInput = document.getElementById('number-children');
+                numberOfChildren = numberOfChildrenInput.value;
+                numberOfChildrenInput.innerHTML = packageData.childrenNums;
+
+
+                var locationID = packageData['center'];
+                locationID = locationID.split('-')[0];
+                var locationIDInput = document.getElementById('location-id');
+                locationID = locationIDInput.value;
+                var locationName = document.getElementById("location-name");
+            }
+            setInfoPartyFromLocalStorage();
+
+
+
+            function  updateLocation()
+            {
+
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageData = JSON.parse(packageInfo);
+
+                var locationID = packageData['center'];
+                locationName = locationID.split('-')[1];
+                var locationIDInput = document.getElementById('location-id');
+                locationIDInput.innerHTML = locationName;
+            }
+
+            updateLocation();
+
+
+            function addParameter() {
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageJSON = JSON.parse(packageInfo);
+
+                var packageID = packageJSON['packageID'];
+
+                // If packageID exists, add it as a parameter to the href
+                if (packageID !== null) {
+                    var editLink = document.getElementById("editLink");
+                    editLink.href += "?packageID=" + packageID;
+                }
+            }
+
+
+            function setSubTotal()
+            {
+                var packageValue = document.getElementById('package-id');
+                packageValue = packageValue.getAttribute("value");
+
+
+                var numOfChildren = document.getElementById('number-children');
+                numOfChildren = numOfChildren.innerHTML;
+
+
+                var subtotal = document.getElementById('subtotal-price');
+                subtotal.innerHTML = packageValue * numOfChildren + '$';
+            }
+            setSubTotal();
+
+
+
+
+
+            function updateWaitingOrder()
+            {
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageJSON = JSON.parse(packageInfo);
+
+                var childrenNums = packageJSON['childrenNums'];
+
+                // If packageID exists, add it as a parameter to the href
+                if (packageJSON !== null) {
+                    var numberOfChildren = document.getElementById('number-children');
+                    packageJSON.childrenNums = numberOfChildren.innerHTML;
+                    var updatedPackageInfo = JSON.stringify(packageJSON);
+
+                    localStorage.setItem("packageInfo", updatedPackageInfo);
+                    setSubTotal();
+                }
+            }
+
+
+            function deleteProduct()
+            {
+                localStorage.removeItem("packageInfo");
+                updateCartCount();
+
+
+                var rowDiv1 = document.querySelector('.row.mb-4.d-flex.justify-content-between.align-items-center');
+                if (rowDiv1) {
+                    rowDiv1.remove();
+                }
+
+                var rowDiv2 = document.querySelector('.col-lg-4 bg-grey');
+                if (rowDiv2) {
+                    rowDiv2.remove();
+                }
+
+                var rowDiv3 = document.querySelector('.pt-5');
+                if (rowDiv3) {
+                    rowDiv3.remove();
+                }
+            }
+
+
 
         </script>
 

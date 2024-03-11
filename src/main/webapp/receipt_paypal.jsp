@@ -204,7 +204,7 @@
                 justify-content: center;
                 align-items: center;
             }
-            
+
             .payment-success{
                 padding: 85px 0px;
             }
@@ -298,14 +298,8 @@
                         <td>Payer</td>
                         <td> ${requestScope.PAYER.firstName} ${requestScope.PAYER.lastName} </td>
                     </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td> ${requestScope.TRANSACTION.description} </td>
-                    </tr>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td> ${requestScope.TRANSACTION.amount.details.subtotal} </td>
-                    </tr>               
+
+
                     <tr>
                         <td>Total</td>
                         <td> ${requestScope.TRANSACTION.amount.total} </td>

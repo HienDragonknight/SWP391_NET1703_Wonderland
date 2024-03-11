@@ -4,7 +4,7 @@
  */
 package controlls.servlet;
 
-import dal.HostDAO;
+import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,52 +13,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.PackageDTO;
 import models.UserDTO;
 
 /**
  *
- * @author phanv
+ * @author bao.kun
  */
-@WebServlet(name = "EditHostProfileServlet", urlPatterns = {"/EditHostProfileServlet"})
-public class ReviewPaymentPayPalServlet extends HttpServlet {
+@WebServlet(name = "DeleteOrderByCusotmerServlet", urlPatterns = {"/going_on_parties"})
+public class DeleteOrderByCusotmerServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private static final String ERROR = "host_profile.jsp";
-    private static final String SUCCESS = "host_profile.jsp";
+    private static final String SUCCESS = "checkout_cart.jsp";
+    private static final String ERROR = "checkout_cart.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
         String url = ERROR;
-        String message = "";
-        HostDAO hostDao = new HostDAO();
+
         try {
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-            String avatar = request.getParameter("avatar");
-            UserDTO user = new UserDTO("", fullname, "", "", phone, avatar, "", "");
-            boolean checkEdit = hostDao.editHostProfile(user);
-            if (checkEdit){
+
+            String packageID = request.getParameter("packageID");
+
+            // get package 
+            PackageDAO packageDAO = new PackageDAO();
+            PackageDTO packageDTO = packageDAO.getPackageByID(packageID);
+
+            if (packageDTO != null) {
                 url = SUCCESS;
+                request.setAttribute("PACKAGE_ITEM", packageDTO);
             }
-        } catch (Exception ex) {
-            log("Error at EditHostProfileServlet:" + ex);
+
+        } catch (Exception e) {
         } finally {
-            request.setAttribute("message", message);
-            if (url.equals(SUCCESS)) {
-                response.sendRedirect(url);
-            } else {
-                request.getRequestDispatcher(url).forward(request, response);
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -20,7 +20,6 @@ import com.paypal.base.rest.PayPalRESTException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PaymentServices {
 
     private static final String CLIENT_ID = "AYJg27UKpdkYMjOipKNQr-BnMnOH_cmEEubaxO38pU45b0oFBPq5yMea7pew9M7Hm95mWLV3Bw3Evb1y";
@@ -53,7 +52,6 @@ public class PaymentServices {
         return Payment.get(apiContext, paymentID);
     }
 
-    
     private Payer getPayerInfomation() {
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
@@ -62,7 +60,7 @@ public class PaymentServices {
         payerInfo.setFirstName("John")
                 .setLastName("Bao")
                 .setEmail("sb-koxdo29488218@personal.example.com");
-            // password: 4?{*HHEg
+        // password: 4?{*HHEg
 
         payer.setPayerInfo(payerInfo);
 
@@ -130,7 +128,7 @@ public class PaymentServices {
     public Payment executePayment(String paymentId, String payerID) throws PayPalRESTException {
         PaymentExecution paymentExecution = new PaymentExecution();
         paymentExecution.setPayerId(payerID);
-        
+
         Payment payment = new Payment().setId(paymentId);
 
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);
