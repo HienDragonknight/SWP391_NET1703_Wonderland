@@ -4,6 +4,10 @@
     Author     : huY
 --%>
 
+<%@page import="models.ThemeDTO"%>
+<%@page import="models.BonusServiceDTO"%>
+<%@page import="models.LocationDTO"%>
+<%@page import="models.PackageDTO"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="models.OrderDTO"%>
@@ -621,67 +625,123 @@
                     <div class="container">
 
 
+
+
+                        <%      //      OrderDetailDTO orderDetail = (OrderDetailDTO) request.getAttribute("ORDER_DETAIL");
+                            List<PackageDTO> packageList = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
+                            List<LocationDTO> locationList = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
+                            List<BonusServiceDTO> bonusServiceList = (List<BonusServiceDTO>) request.getAttribute("BONUS_SERVICE_LIST");
+                            List<ThemeDTO> themeList = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
+                        %>
                         <%            List<OrderDetailDTO> listOrderDetail = (List<OrderDetailDTO>) request.getAttribute("ORDER_DETAILS");
                             OrderDetailDTO orderDetail = listOrderDetail.get(0);
                             if (orderDetail != null) {
+                            System.out.println(orderDetail.toString());
                         %>
 
-               
+
                         <div class="order-details-section">
                             <h2>Order Details</h2>
 
-                            <table class="order-table">
-                                <tr>
-                                    <th class="max18">Order Detail ID</th>
-                                    <td><%= orderDetail.getOrderDetailID()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Package Name</th>
-                                    <td><%= orderDetail.getPackageName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Total Price</th>
-                                    <td><%= orderDetail.getTotalPrice()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Status</th>
-                                    <td><%= orderDetail.getStatus()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Date Start</th>
-                                    <td><%= orderDetail.getDateStart()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Service</th>
-                                    <td><%= orderDetail.getServiceName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Number of People</th>
-                                    <td><%= orderDetail.getAmountOfPeople()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Theme Name</th>
-                                    <td><%= orderDetail.getThemeName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Location Details</th>
-                                    <td><%= orderDetail.getLocation()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Notes</th>
-                                    <td><%= orderDetail.getNotes()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Payment</th>
-                                    <td><%= orderDetail.getPayment()%></td>
-                                </tr>
-                            </table>
+                            <form action="./UpdateBookingServlet" method="post"> <!-- Thay đổi action để phù hợp với URL xử lý form của bạn -->
+                                <table class="order-table">
+                                    <tr>
+                                        <th class="max18">Order Detail ID</th>
+                                        <td><input type="text" name="orderDetailID" value="<%= orderDetail.getOrderDetailID()%>" readonly></td> <!-- Giữ nguyên, không cần thay đổi -->
+                                    </tr>
+                                    <tr>
+                                        <th class="max18">Package Name</th>
+                                        <td>
+                                            <select name="packageName">
+                                                <% for (PackageDTO packageItem : packageList) {%>
+                                                <option value="<%= packageItem.getPackageID()%>" 
+                                                        <% if (orderDetail.getPackageName().equals(packageItem.getPackageName())) { %> selected <% }%>>
+                                                    <%= packageItem.getPackageName()%>
+                                                </option>
+                                                <% } %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="max18">Service</th>
+                                        <td>
+                                            <select name="serviceName">
+                                                <% for (BonusServiceDTO serviceItem : bonusServiceList) {%>
+                                                <option value="<%= serviceItem.getServiceID()%>" 
+                                                        <% if (orderDetail.getServiceName().equals(serviceItem.getServiceName())) { %> selected <% }%>>
+                                                    <%= serviceItem.getServiceName()%>
+                                                </option>
+                                                <% } %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="max18">Theme Name</th>
+                                        <td>
+                                            <select name="themeName">
+                                                <% for (ThemeDTO themeItem : themeList) {%>
+                                                <option value="<%= themeItem.getThemeID()%>" 
+                                                        <% if (orderDetail.getThemeName().equals(themeItem.getThemeName())) { %> selected <% }%>>
+                                                    <%= themeItem.getThemeName()%>
+                                                </option>
+                                                <% }%>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <th class="max18">Status</th>
+                                        <td>
+                                            <select name="status">
+                                                <option value="<%= orderDetail.getStatus()%>" selected><%= orderDetail.getStatus()%></option>
+                                                <!-- Thêm các lựa chọn khác tại đây -->
+                                                <option value="Pending">Pending</option>
+                                                <option value="Confirmed">Confirmed</option>
+                                                <option value="Cancelled">Cancelled</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                   
 
-                            <a href="CancelBookingServlet?orderDetailID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Cancel</a>
+                                    <tr>
+                                        <th class="max18">Location: </th>
+                                         <td>
+                                        <select name="location">
+                                            <% for (LocationDTO locationItem : locationList) {%>
+                                            <option value="<%= locationItem.getLocationID()%>"
+                                                    <% if (orderDetail.getLocation().equalsIgnoreCase(locationItem.getLocationDetails())) { %> selected <% }%>>
+                                                <%= locationItem.getLocationDetails()%>
+                                            </option>
+                                            <% }%>
+                                        </select>
+                                    </td>
+                                    </tr>
+                                    
+                                                     <tr>
+                                        <th class="max18">Date Start</th>
+                                        <td><input type="date" name="dateStart" value="<%= orderDetail.getDateStart()%>"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <th class="max18">Number of People</th>
+                                        <td><input required="" type="number" name="amountOfPeople" value="<%= orderDetail.getAmountOfPeople()%>"></td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <th class="max18">Notes</th>
+                                        <td><textarea  required="" name="notes"><%= orderDetail.getNotes()%></textarea></td>
+                                    </tr>
+                                    <tr>
+                                        <th class="max18">Payment</th>
+                                        <td><input  required="" type="text" name="payment" value="<%= orderDetail.getPayment()%>"></td>
+                                    </tr>
+                                  
+                                </table>
+                                   <input type="submit" name="submit" value="Submit">
+                            </form>
 
 
-                            <a href="UpdateBookingServlet?orderID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Update</a>
-
+                         
                             <% } else { %>
                             <p>Order details are not available.</p>
                             <% }%>

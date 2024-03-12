@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -67,7 +68,10 @@ public class AddBonusServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id = 1;
+        request.setAttribute("idValue", id);
+        RequestDispatcher rd = request.getRequestDispatcher("create_service_theme.jsp");
+            rd.forward(request, response);
     }
 
     /**

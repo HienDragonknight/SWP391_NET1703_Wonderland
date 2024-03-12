@@ -33,6 +33,9 @@ public class BonusServiceDTO implements Serializable {
         this.image = image;
     }
 
+    public BonusServiceDTO() {
+    }
+
     public String getServiceID() {
         return serviceID;
     }

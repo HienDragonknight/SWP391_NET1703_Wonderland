@@ -280,4 +280,38 @@ public class OrderDetailDAO implements Serializable {
 
     return result;
 }
+    
+        public int updateOrderDetail(int orderDetailID, int serviceID, int packageID, String dateStart, 
+                                  int numberOfPeople, int themeID, int locationID, String notes, String payment) throws ClassNotFoundException {
+        // SQL query to update order detail
+        String sql = "UPDATE OrderDetails SET serviceID = ?, packageID = ?, dateStart = ?, " +
+                "numberOfPeople = ?, themeID = ?, locationID = ?, notes = ?, payment = ? WHERE orderDetailID = ?";
+
+        // Try-with-resources to automatically close resources
+        try (
+            // Establishing database connection
+            Connection conn = DBUtils.createConnection();
+            // Creating prepared statement
+            PreparedStatement stmt = conn.prepareStatement(sql);
+        ) {
+            // Setting parameters
+            stmt.setInt(1, serviceID);
+            stmt.setInt(2, packageID);
+            stmt.setString(3, dateStart);
+            stmt.setInt(4, numberOfPeople);
+            stmt.setInt(5, themeID);
+            stmt.setInt(6, locationID);
+            stmt.setString(7, notes);
+            stmt.setString(8, payment);
+            stmt.setInt(9, orderDetailID);
+
+            // Executing update query
+            int rowsAffected = stmt.executeUpdate();
+            
+            return rowsAffected; // Return number of rows affected
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0; // Return 0 if update fails
+        }
+    }
 }

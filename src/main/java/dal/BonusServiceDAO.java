@@ -59,4 +59,43 @@ public class BonusServiceDAO {
         }
         return listTheme;
     }
+    
+    private final String DELETE_BONUS_SERVICE = "DELETE FROM BonusServices WHERE serviceID = ?";
+    private final String UPDATE_BONUS_SERVICE = "UPDATE BonusServices SET serviceName = ?, servicePrice = ?, descriptions = ?, [image] = ? WHERE serviceID = ?";
+
+    // Phương thức xóa dịch vụ bổ sung
+    public boolean deleteBonusService(String serviceID) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+     
+            conn = DBUtils.createConnection();
+            ptm = conn.prepareStatement(DELETE_BONUS_SERVICE);
+            ptm.setString(1, serviceID);
+
+            int rowsAffected = ptm.executeUpdate();
+            return rowsAffected > 0;
+        
+    }
+
+    // Phương thức cập nhật dịch vụ bổ sung
+    public boolean updateBonusService(BonusServiceDTO bonusService) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+
+        try {
+            conn = DBUtils.createConnection();
+            ptm = conn.prepareStatement(UPDATE_BONUS_SERVICE);
+            ptm.setString(1, bonusService.getServiceName());
+            ptm.setDouble(2, bonusService.getServicePrice());
+            ptm.setString(3, bonusService.getDescriptions());
+            ptm.setString(4, bonusService.getImage());
+            ptm.setString(5, bonusService.getServiceID());
+
+            int rowsAffected = ptm.executeUpdate();
+            return rowsAffected > 0;
+        } finally {
+            conn.close();
+        }
+    }
 }

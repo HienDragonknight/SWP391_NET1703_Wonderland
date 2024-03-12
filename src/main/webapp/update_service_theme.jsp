@@ -4,6 +4,7 @@
     Author     : huY
 --%>
 
+<%@page import="models.BonusServiceDTO"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="models.OrderDTO"%>
@@ -18,6 +19,8 @@
         <title>Party Host</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
@@ -532,6 +535,141 @@
                 width : 18%
             }
         </style>
+        <style>
+            /* CSS cho các form */
+            .form-container {
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .form-container label {
+                font-weight: 600;
+                color: #333;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-container input[type="text"],
+            .form-container input[type="number"],
+            .form-container textarea {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-container input[readonly],
+            .form-container textarea[readonly] {
+                background-color: #e9ecef;
+                color: #495057;
+                cursor: not-allowed;
+            }
+
+            .form-container input[type="text"]:focus,
+            .form-container input[type="number"]:focus,
+            .form-container textarea:focus {
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+            .form-container .btn {
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .form-container .btn:hover {
+                background-color: #0056b3;
+            }
+
+            .form-container textarea {
+                height: 100px;
+            }
+
+            .form-container p {
+                text-align: center;
+            }
+
+            /* CSS cho form được chọn */
+            .selected {
+                display: block;
+            }
+
+            .hidden {
+                display: none;
+            }
+            /* Paste your CSS here */
+            body {
+                background-color: #00c0ff24;
+            }
+
+            #h1 {
+                padding: 30px 2px 0px 113px;
+                font-size: 34px;
+            }
+
+            .top37 {
+                margin-top: 37px;
+            }
+
+            .buttonA {
+                background-color: #f8d569;
+                border: solid #e2b907;
+                color: white;
+                font-size: 18px;
+                font-weight: 600;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .inputA {
+                border: solid white;
+                border-radius: 14px;
+                width: 100%;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .imgFile {
+                padding: 40px;
+                vertical-align: middle;
+                border-style: none;
+                width: 100%;
+                background-color: white;
+                margin-bottom: 120px
+            }
+
+            #hinhAnh {
+                margin-bottom: 31px;
+                padding: 20px;
+                background-color: white;
+            }
+
+            #loaiSanPham,
+            #status {
+                appearance: auto;
+                border: solid white;
+                border-radius: 14px;
+                width: 100%;
+                height: 60px;
+                margin-bottom: 40px;
+            }
+
+            .row{
+                display:
+                    flex;
+            }
+
+        </style>
     </head>
     <body>
         <div class="container">
@@ -591,8 +729,10 @@
                     %>
                     <%
                         List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                        BonusServiceDTO b = (BonusServiceDTO) request.getAttribute("bonusServiceDTO");
 
                     %>
+
 
                     <div>
                         <ul class="insights">
@@ -617,76 +757,74 @@
                         </ul>
                     </div>
 
-                    <!-- Users Table -->
-                    <div class="container">
+                    <%                        int report = 2;
+                        if (session.getAttribute("report") != null) {
+                            report = (int) session.getAttribute("report");
+                        }
+                    %>
 
+                    <!-- Form Container -->
+                    <p class="report" value="<%=report%>"></p>
 
-                        <%            List<OrderDetailDTO> listOrderDetail = (List<OrderDetailDTO>) request.getAttribute("ORDER_DETAILS");
-                            OrderDetailDTO orderDetail = listOrderDetail.get(0);
-                            if (orderDetail != null) {
-                        %>
+                    <div class="form-container hidden" id="bonusServiceForm">
+                        <!-- Form Manage Bonus Service -->
+                        <form action="UpdateBonusService" method="POST" enctype="multipart/form-data">
+                            <h1 id="h1">Update service</h1>
+                    <!--        <p class="report" value="<%=report%>"></p>-->
+                            <!--        <div class=" alert hide ">
+                                        <span class="fas fa-exclamation-circle"></span>
+                                        <span class="msg">Warning: !</span>
+                                        <div class="close-btn">
+                                            <span class="fas fa-times"></span>
+                                        </div>
+                                    </div>-->
+                            <div class="container padding-top-60 mb-3">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="file" class="inputA top37" id="image" name="image" accept="image/*" required>
+                                        <div>
+                                            <img class="imgFile" src="<%= b.getImage()%>" alt="" id="previewImage">                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" class="inputA" id="serviceName" name="serviceName" value="<%=b.getServiceName()%>" required>
 
-               
-                        <div class="order-details-section">
-                            <h2>Order Details</h2>
+                                        </div>
+                                        <div class="form-group">
+                                            <input value="<%=b.getServicePrice()%>"  type="number" class="inputA" id="servicePrice" name="servicePrice" placeholder="Service Price" step="0.01" min="0" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea class="inputA" id="descriptions" name="descriptions" rows="3" placeholder="Description" required><%=b.getDescriptions()%></textarea>
+                                        </div>
 
-                            <table class="order-table">
-                                <tr>
-                                    <th class="max18">Order Detail ID</th>
-                                    <td><%= orderDetail.getOrderDetailID()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Package Name</th>
-                                    <td><%= orderDetail.getPackageName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Total Price</th>
-                                    <td><%= orderDetail.getTotalPrice()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Status</th>
-                                    <td><%= orderDetail.getStatus()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Date Start</th>
-                                    <td><%= orderDetail.getDateStart()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Service</th>
-                                    <td><%= orderDetail.getServiceName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Number of People</th>
-                                    <td><%= orderDetail.getAmountOfPeople()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Theme Name</th>
-                                    <td><%= orderDetail.getThemeName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Location Details</th>
-                                    <td><%= orderDetail.getLocation()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Notes</th>
-                                    <td><%= orderDetail.getNotes()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Payment</th>
-                                    <td><%= orderDetail.getPayment()%></td>
-                                </tr>
-                            </table>
-
-                            <a href="CancelBookingServlet?orderDetailID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Cancel</a>
-
-
-                            <a href="UpdateBookingServlet?orderID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Update</a>
-
-                            <% } else { %>
-                            <p>Order details are not available.</p>
-                            <% }%>
-                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="buttonA">Update Service</button>
+                        </form>
                     </div>
+
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var reportValue = document.querySelector('.report').getAttribute('value');
+
+                        // Nếu giá trị là 0, hiển thị form bonusService
+                        if (reportValue === '2') {
+                            document.getElementById('bonusServiceForm').classList.remove('hidden');
+                        }
+                    });
+                </script>
+                <%session.removeAttribute("report");%>
+                <!-- JavaScript để chỉ hiển thị một trong hai form -->
+
+
+                <!-- Bootstrap JS, Popper.js, and jQuery -->
+                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
             </main>
         </div>

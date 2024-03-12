@@ -1,4 +1,4 @@
-    
+
 
 <%@page import="models.UserDTO"%>
 <%@page import="models.ThemeDTO"%>
@@ -262,81 +262,46 @@
                 color: #5773ff;
             }
 
+
+            .checkout-container
+            {
+                display: flex;
+                justify-content: space-evenly;
+
+            }
+
+
             #nickname
             {
                 margin-left: 40%;
             }
 
-            .column-content {
-                display: flex;
-                flex-direction: column;
-                padding: 20px 350px;
+
+            .decrease, .increase {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                line-height: 24px;
+                text-align: center;
+                font-size: 16px;
+                font-weight: bold;
+                color: #fff;
+                background-color: #ccc;
+                border-radius: 50%;
+                cursor: pointer;
+                user-select: none;
             }
 
-            .column {
-                display: flex;
-                flex-direction: column;
-                box-shadow: 0px 0px 5px #E9E9E9;
-                padding: 30px;
-                border-radius: 50px;
+            .decrease:hover, .increase:hover {
+                background-color: #999;
             }
 
-            .checkout {
-                display: flex;
-                justify-content: space-between;
-            }
-
-            .order-info {
-                display: flex;
-                flex-direction: column;
-                font-size: 20px;
-                gap: 15px;
-            }
-
-            .product-image-wrapper img {
-                width: 250px;
-            }
-
-            .customer-info {
-                display: flex;
-                flex-direction: column;
-                font-size: 20px;
-                gap: 10px;
-            }
-
-            .control {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .control input {
-                width: 350px;
-                font-size: 18px;
-                border-radius: 10px;
-                border: 1px solid #E7E7E7;
-                padding: 5px;
-            }
-
-            .control textarea {
-                font-size: 18px;
-                border-radius: 10px;
-                border: 1px solid #E7E7E7;
-                padding: 5px;
-            }
-
-            .control button {
-                width: 100px;
-                font-size: 18px;
-                border: none;
-                border-radius: 50px;
-                padding: 10px;
-                background-color: #50BFF5;
-                color: white;
-            }
-
-            .control button:hover {
-                background-color: #64B3D9;
-                box-shadow: 0px 0px 5px #E7E7E7;
+            .qty-value {
+                display: inline-block;
+                width: 50px;
+                margin: 0 5px;
+                text-align: center;
+                user-select: none;
             }
         </style>
     </head>
@@ -423,179 +388,127 @@
         </header>
 
 
+
         <section>
-            <div class="column-content">
+            <div class="column-content">    
+                <div class="add-ab">
+                    <a href="home.jsp">Home</a><span> &#10095; Car</span>
+                </div>
+
+                <div>
+                    <h1>Car Checkout</h1>
+                </div>
+            </div>
+
+        </section>
 
 
+        <section class="h-100 h-custom" style="background-color: #cff4fc;">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-lg-8">
+                                        <div class="p-5">
+                                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                                <h1 class="fw-bold mb-0 text-black">Booking Cart</h1>
 
-                <div class="column">
+                                            </div>
+                                            <hr class="my-4">
 
-
-                    <div class="checkout-container">
-                        <div class="back-header">
-                            <div class="add-ab">
-                                <a href="home.jsp">Home</a><span> &#10095; Booking</span>
-                            </div>
-
-                            <h1>Party Booking</h1>
-                        </div>
-                    </div>
-                    <div class="checkout">
-                        <div class="order-info">
-
-                            <div class="order-info-block" >
-                                <span class="order-info-title">Order Information</span>
-                            </div>
-
-                            <div class="content minicart-items" data-role="content">
-                                <div class="minicart-items-wrapper">
-                                    <div class="product">
-                                        <span class="product-image-container"  style="height: 97px; width: 97px;">
-                                            <span class="product-image-wrapper">
-                                                <img src="image/packages/package_1.png" alt="TINIWORLD LOTTE TÂY HỒ" title="TINIWORLD LOTTE TÂY HỒ">
-                                            </span>
-                                        </span>
-                                        <div class="product-item-details">
-                                            <div class="product-item-inner">
-
-                                                <div class="product-item-name-block">
-                                                    <strong class="location-name" id="location-name">HCM</strong>
-                                                    <div class="product options">
-                                                        <div class="content">
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="details-qty">
-                                                        <span class="number-of-children" id="number-of-children">0</span>
-                                                    </div>
+                                            <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                <div class="col-md-2 col-lg-2 col-xl-2">
+                                                    <img
+                                                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
+                                                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                                                </div>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+                                                    <h6 class="text-muted">Shirt</h6>
+                                                    <h6 class="text-black mb-0">Cotton T-shirt</h6>
                                                 </div>
 
-                                                <div class="package-unit">
-                                                    <span class="package-unit-value">
-                                                        <span class="price-unit" id="price-unit">0$</span>
-                                                    </span>
+                                                <div class="col-md-3 col-lg-3 col-xl-3">
+
+                                                    <label for="cart-28156-qty">
+
+                                                        <span class="decrease" onclick="decreaseQuantity()">-</span>
+
+                                                        <span id="cart-28156-qty" class="qty-value" data-cart-item-id="tW Aeon Long Biên-normal_fare" data-validate="{required:true,'validate-greater-than-zero':true}" data-role="cart-item-qty">1</span>
+
+                                                        <span class="increase" onclick="increaseQuantity()">+</span>
+
+                                                    </label>
+
+                                                </div>
+
+
+                                                <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                    <h6 class="mb-0">€ 44.00</h6>
+                                                </div>
+                                                <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                    <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
                                                 </div>
                                             </div>
+
+
+                                            <div class="pt-5">
+                                                <h6 class="mb-0"><a href="#!" class="text-body"><i
+                                                            class="fas fa-long-arrow-alt-left me-2"></i>Back to Home Page</a></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 bg-grey">
+                                        <div class="p-5">
+                                            <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <h5 class="text-uppercase">items 3</h5>
+                                                <h5>€ 132.00</h5>
+                                            </div>
+
+                                            <h5 class="text-uppercase mb-3">Shipping</h5>
+
+                                            <div class="mb-4 pb-2">
+                                                <select class="select">
+                                                    <option value="1">Standard-Delivery- €5.00</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                    <option value="4">Four</option>
+                                                </select>
+                                            </div>
+
+                                            <h5 class="text-uppercase mb-3">Give code</h5>
+
+                                            <div class="mb-5">
+                                                <div class="form-outline">
+                                                    <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                                                    <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                                </div>
+                                            </div>
+
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between mb-5">
+                                                <h5 class="text-uppercase">Total price</h5>
+                                                <h5>€ 137.00</h5>
+                                            </div>
+
+                                            <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                    data-mdb-ripple-color="dark">Register</button>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-                            <div class="block-summary-content">
-                                <tbody>
-                                    <tr>
-
-                                <span class="lable">Subtotal</span>
-                                <span class="price-multiple" id="price-multiple">0$</span>
-
-                                </tr> 
-
-                                <br>
-
-                                <tr >
-
-                                <span class="lable" >Bonus Service</span>
-                                <span class="price-bonus" id="price-bonus">0$</span>
-
-
-                                </tr>  <br>
-
-                                <tr>
-
-                                <strong>Total</strong>
-                                <strong><span class="price-total" id="price-total">0$</span></strong>
-
-                                </tr>
-                                </tbody>
-
-                            </div>
-
                         </div>
-
-
-
-                        <div class="customer-info">
-                            <div class="customer-info-block" >
-                                <span class="customer-info-title">Customer Information</span>
-                            </div>
-                            <%
-                                if (dto == null) {
-                            %>
-
-                            <div class="checkout-login" >
-                                <span ">Have an account?</span>
-                                <a class="login action"  href="login.jsp">Login</a>
-                            </div>
-                            <div class="customer-info-details" >
-
-                                <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
-                                    <div class="control">
-                                        <input class="input-text" type="text"  name="fullName" placeholder="Full name" required="" ><br>
-                                        <input class="input-text" type="email" name="email" id="email" placeholder="Email"><br>
-                                        <input class="input-text" type="tel" name="phone" id="phone" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="formatPhoneNumber(this)"><br>
-                                        <textarea class="input-text" id="order-note" name="note" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
-                                        <button  type="submit" class="button action continue primary">
-                                            <span>Payment</span>
-                                        </button>
-                                        <input type="hidden" id="service-id" name="service-id" value="" /><br>
-                                        <input type="hidden" id="package-id" name="package-id" value="" /><br>
-                                        <input type="hidden" id="checkin-time" name="checkin-time" value="" /><br>
-                                        <input type="hidden" id="number-children" name="number-children" value="" /><br>
-                                        <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
-                                        <input type="hidden" id="location-id" name="location-id" value="" /><br>
-                                        <input type="hidden" id="subtotal"  name="subtotal" value=""> 
-                                        <input type="hidden" id="shipping"  name="shipping" value=""> 
-                                        <input type="hidden" id="tax"  name="tax" value=""> 
-                                        <input type="hidden" id="total"  name="total" value=""> 
-                                    </div>
-                                </form>
-
-                            </div>
-
-                            <%
-                            } else {
-                            %>
-
-                            <div class="customer-info-details" >
-
-                                <form action="authorize_payment_paypal" method="POST" id="form-to-payment">
-                                    <div class="control"">
-                                        <span class="customer-fullname"><%= dto.getFullName()%></span><br>
-                                        <textarea class="input-text" id="order-note" name="note" rows="5" maxlength="200" placeholder="Note (optional)" style=""></textarea><br>
-                                        <button  type="submit" class="button action continue primary">
-                                            <span>Payment</span>
-                                        </button>
-                                        <input class="input-text" type="hidden"  name="fullName" placeholder="Full name" required="" value ="<%= dto.getFullName()%>"><br>
-                                        <input class="input-text" type="hidden" name="email" id="email" placeholder="Email" value="<%= dto.getEmail()%>"><br>
-                                        <input class="input-text" type="hidden" name="phone" id="phone" placeholder="Phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" oninput="formatPhoneNumber(this)" value="<%= dto.getPhoneNumber()%>" ><br>
-
-                                        <input type="hidden" id="service-id" name="service-id" value="" /><br>
-                                        <input type="hidden" id="package-id" name="package-id" value="" /><br>
-                                        <input type="hidden" id="checkin-time" name="checkin-time" value="" /><br>
-                                        <input type="hidden" id="number-children" name="number-children" value="" /><br>
-                                        <input type="hidden" id="theme-id" name="theme-id" value="" /><br>
-                                        <input type="hidden" id="location-id" name="location-id" value="" /><br>
-                                        <input type="hidden" id="subtotal"  name="subtotal" value=""> 
-                                        <input type="hidden" id="shipping" name="shipping" value=""> 
-                                        <input type="hidden" id="tax"  name="tax" value=""> 
-                                        <input type="hidden" id="total"  name="total" value=""> 
-                                    </div>
-                                </form>
-                            </div>
-
-
-
-                            <%   }
-                            %>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </section>
+
 
 
         <footer class="page-footer">
@@ -809,6 +722,27 @@
             formatPhoneNumber(inputPhone);
 
 
+
+
+            function decreaseQuantity() {
+                let qtyInput = document.querySelector('.qty-value');
+                let currentValue = parseInt(qtyInput.textContent, 10);
+                if (!isNaN(currentValue) && currentValue > 1) {
+                    currentValue--;
+                    qtyInput.textContent = currentValue;
+                }
+            }
+
+            function increaseQuantity() {
+                let qtyInput = document.querySelector('.qty-value');
+                let currentValue = parseInt(qtyInput.textContent, 10);
+                if (!isNaN(currentValue)) {
+                    currentValue++;
+                    qtyInput.textContent = currentValue;
+                }
+            }
+
         </script>
+
     </body>
 </html>

@@ -8,26 +8,21 @@ import dal.BonusServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.BonusServiceDTO;
-import models.UserDTO;
 
 /**
  *
- * @author huY
+ * @author Hp
  */
-@WebServlet(name = "ViewServiceServlet", urlPatterns = {"/ViewServiceServlet"})
-public class ViewServiceServlet extends HttpServlet {
-    private final String ERROR = "service.jsp";
-    private final String SUCCESS = "service.jsp";
-    private final String SUCCESS1 = "view-bonus-service.jsp";
+@WebServlet(name = "DeleteBonusServiceSevlet", urlPatterns = {"/DeleteBonusServiceSevlet"})
+public class DeleteBonusServiceSevlet extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,23 +35,17 @@ public class ViewServiceServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-         HttpSession ses = request.getSession();
-            UserDTO user = (UserDTO) ses.getAttribute("USER_INFO");
-        try {
-            BonusServiceDAO dao = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = dao.getBonusServiceList();
-    
-            url = SUCCESS;
-                       if (Integer.parseInt(user.getRoleID())==3) {
-                  url = SUCCESS1;
-            }
-            request.setAttribute("SERVICE_LIST", bonusServiceList);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet DeleteBonusServiceSevlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet DeleteBonusServiceSevlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -69,24 +58,33 @@ public class ViewServiceServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String serviceID = request.getParameter("serviceID");
+        
+        try {
+            BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
+            boolean success = bonusServiceDAO.deleteBonusService(serviceID);
+            
+            if (success) {
+                response.sendRedirect("ViewServiceServlet"); // Chuyển hướng đến trang thành công sau khi xóa
+            } else {
+              //  response.sendRedirect("error.jsp"); // Chuyển hướng đến trang lỗi nếu xóa không thành công
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp"); // Chuyển hướng đến trang lỗi nếu xảy ra lỗi SQL
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DeleteBonusServiceSevlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        doGet(request, response);
     }
 
     /**

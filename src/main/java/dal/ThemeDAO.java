@@ -19,6 +19,7 @@ import util.DBUtils;
  */
 public class ThemeDAO {
 
+
 //<<<<<<< HEAD
 //
 //    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
@@ -26,6 +27,7 @@ public class ThemeDAO {
 //=======
     private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
     
+
     List<ThemeDTO> listTheme;
 
     public List<ThemeDTO> getListTheme() {
@@ -68,7 +70,7 @@ public class ThemeDAO {
         }
         return listTheme;
     }
-    
+
     public void printTheme() throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;

@@ -4,6 +4,7 @@
     Author     : huY
 --%>
 
+<%@page import="models.BonusServiceDTO"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="models.OrderDTO"%>
@@ -617,76 +618,65 @@
                         </ul>
                     </div>
 
-                    <!-- Users Table -->
-                    <div class="container">
+                    <div class="container mt-3">
+                        <!-- Create button -->
 
+                        <!-- Table -->
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Service ID</th>
+                                    <th scope="col">Service Name</th>
+                                    <th scope="col">Service Price</th>
+                                    <th scope="col">Descriptions</th>
+                                    <th scope="col">Image</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%                 List<BonusServiceDTO> result1 = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
 
-                        <%            List<OrderDetailDTO> listOrderDetail = (List<OrderDetailDTO>) request.getAttribute("ORDER_DETAILS");
-                            OrderDetailDTO orderDetail = listOrderDetail.get(0);
-                            if (orderDetail != null) {
-                        %>
+                                    if (result1 != null) {
+                                        int count = 0;
+                                        for (BonusServiceDTO serviceDTO : result1) {
+                                            // Start a new row for every 4th service
 
-               
-                        <div class="order-details-section">
-                            <h2>Order Details</h2>
+                                %>
 
-                            <table class="order-table">
+                                <!-- Repeat this block for each service -->
                                 <tr>
-                                    <th class="max18">Order Detail ID</th>
-                                    <td><%= orderDetail.getOrderDetailID()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Package Name</th>
-                                    <td><%= orderDetail.getPackageName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Total Price</th>
-                                    <td><%= orderDetail.getTotalPrice()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Status</th>
-                                    <td><%= orderDetail.getStatus()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Date Start</th>
-                                    <td><%= orderDetail.getDateStart()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Service</th>
-                                    <td><%= orderDetail.getServiceName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Number of People</th>
-                                    <td><%= orderDetail.getAmountOfPeople()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Theme Name</th>
-                                    <td><%= orderDetail.getThemeName()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Location Details</th>
-                                    <td><%= orderDetail.getLocation()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Notes</th>
-                                    <td><%= orderDetail.getNotes()%></td>
-                                </tr>
-                                <tr>
-                                    <th class="max18">Payment</th>
-                                    <td><%= orderDetail.getPayment()%></td>
-                                </tr>
-                            </table>
+                                    <td><%= serviceDTO.getServiceID()%></td>
+                                    <td> <%= serviceDTO.getServiceName()%></td>
+                                    <td>$<%= serviceDTO.getServicePrice()%></td>
+                                    <td> <%= serviceDTO.getDescriptions()%></td>
+                                    <td> <%= serviceDTO.getImage()%></td>
+                                    <td>
+                                        <a href="UpdateBonusService?serviceID=<%=  serviceDTO.getServiceID()%>" class="btn btn-warning btn-sm">Update</a>
+                                        <form action="DeleteBonusServiceSevlet" onsubmit="return confirm('Are you sure you want to delete this Service?');">
+                                            <input type="hidden" name="serviceID" value="<%=  serviceDTO.getServiceID()%>">  
+                                            <button type="submit" class="btn btn-outline-danger m-2">Delete</button>
+                                        </form>
 
-                            <a href="CancelBookingServlet?orderDetailID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Cancel</a>
+                                    </td>
+                                </tr>
+                                <%
+                                        }
+                                    }
+                                %>
+                                <!-- ... other service rows ... -->
+                            </tbody>
+                        </table>
+                        <form action="./AddBonusServiceServlet">
+                        <button class="btn btn-primary mb-3">Create</button>
+                        </form>
 
-
-                            <a href="UpdateBookingServlet?orderID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Update</a>
-
-                            <% } else { %>
-                            <p>Order details are not available.</p>
-                            <% }%>
-                        </div>
                     </div>
+
+                    <!-- Bootstrap JS, Popper.js, and jQuery -->
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
             </main>
         </div>

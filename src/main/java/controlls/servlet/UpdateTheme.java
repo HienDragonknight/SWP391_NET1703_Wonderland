@@ -4,30 +4,21 @@
  */
 package controlls.servlet;
 
-import dal.BonusServiceDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.BonusServiceDTO;
-import models.UserDTO;
 
 /**
  *
- * @author huY
+ * @author Hp
  */
-@WebServlet(name = "ViewServiceServlet", urlPatterns = {"/ViewServiceServlet"})
-public class ViewServiceServlet extends HttpServlet {
-    private final String ERROR = "service.jsp";
-    private final String SUCCESS = "service.jsp";
-    private final String SUCCESS1 = "view-bonus-service.jsp";
+@WebServlet(name = "UpdateTheme", urlPatterns = {"/UpdateTheme"})
+public class UpdateTheme extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,23 +31,17 @@ public class ViewServiceServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-         HttpSession ses = request.getSession();
-            UserDTO user = (UserDTO) ses.getAttribute("USER_INFO");
-        try {
-            BonusServiceDAO dao = new BonusServiceDAO();
-            List<BonusServiceDTO> bonusServiceList = dao.getBonusServiceList();
-    
-            url = SUCCESS;
-                       if (Integer.parseInt(user.getRoleID())==3) {
-                  url = SUCCESS1;
-            }
-            request.setAttribute("SERVICE_LIST", bonusServiceList);
-        } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
-        } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdateTheme</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdateTheme at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
