@@ -11,7 +11,12 @@ import java.util.Date;
  *
  * @author phanv
  */
-public class OrderDTO implements Serializable {
+public class OrderDTO  {
+
+    @Override
+    public String toString() {
+        return "OrderDTO{" + "orderID=" + orderID + ", userID=" + userID + ", createDate=" + createDate + ", totalPrice=" + totalPrice + ", status=" + status + ", email=" + email + ", phoneNumber=" + phoneNumber + ", fullName=" + fullName + ", orderDetailID=" + orderDetailID + ", userName=" + userName + '}';
+    }
 
     private String orderID;
     private String userID;
@@ -22,6 +27,7 @@ public class OrderDTO implements Serializable {
     private String phoneNumber;
     private String fullName;
     private String orderDetailID;
+    private String userName;
 
     public OrderDTO(String orderID, String userID, Date createDate, double totalPrice, String status, String email, String phoneNumber, String fullName, String orderDetailID) {
         this.orderID = orderID;
@@ -35,6 +41,19 @@ public class OrderDTO implements Serializable {
         this.orderDetailID = orderDetailID;
     }
 
+    public OrderDTO(String orderID, String userID, Date createDate, double totalPrice, String status, String email, String phoneNumber, String fullName, String orderDetailID, String userName) {
+        this.orderID = orderID;
+        this.userID = userID;
+        this.createDate = createDate;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.fullName = fullName;
+        this.orderDetailID = orderDetailID;
+        this.userName = userName;
+    }
+
     public OrderDTO() {
         this.orderID = "";
         this.userID = "";
@@ -45,6 +64,14 @@ public class OrderDTO implements Serializable {
         this.phoneNumber = "";
         this.fullName = "";
         this.orderDetailID = "";
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getOrderDetailID() {

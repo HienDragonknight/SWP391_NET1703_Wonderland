@@ -129,6 +129,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -365,225 +366,260 @@
                     left: -100%;
                 }
             }
+            
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+            
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
         </style>
-    </head>
+</head>
+<body>
+    <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
+    <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
+    <div class="container">
+        <header>
+            <aside class="side-bar">
+                <div class="logo">
 
+                    <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                </div>
 
+                <div class="search-bar">
+                    <form action="SearchServlet">
+                        <button>
+                            <i class='bx bx-search'></i>
+                        </button>
+                        <input type="text" placeholder="Type here to search">
+                    </form>
+                </div>
 
+                <%
+                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
-    <body>
-        <div class="container">
-            <header>
-                <aside class="side-bar">
-                    <div class="logo">
-
-                        <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
+                    if (dto == null) {
+                %>
+                <div class="profile">
+                    <div class="login-pro">
+                        <i class='bx bx-user'></i>
+                        <a href="login.jsp">Login</a>
                     </div>
 
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
+                    <span> / </span>
+
+                    <div class="sign-pro">
+                        <i class='bx bx-lock-alt'></i>
+                        <a href="#">Sign Up</a>
+                    </div>
+                </div>
+            </aside>
+        </header>
+
+        <main>
+            <div class="column">
+                <div class="menu">
+                    <ul class="menu-ic">
+                        <li>
+                            <i class='bx bx-home-alt-2'></i>
+
+                            <a href="home.jsp">Home</a>
+                        </li>
+
+                        <li>
+                            <i class='bx bx-location-plus'></i>
+                            <a href="ViewLocation">Location</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-package'></i>
+                            <a href="ViewPackage">Packages</a>
+
+                        </li>
+                        <li>
+                            <i class='bx bx-bell'></i>
+                            <a href="ViewServiceServlet">Service</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-party'></i>
+                            <a href="BookingPartyServlet">Booking Party</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-info-circle'></i>
+                            <a href="about.jsp">About Us</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="location">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a><span> &#10095; Location</span>
                     </div>
 
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
-                        if (dto == null) {
-                    %>
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
+                    <h1>Location <span>&amp;</span> Price</h1>
+
+                    <div class="pagination-container">
+                        <%
+                            List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
+
+                            if (listLocation != null && listLocation.size() > 0) {
+
+                                for (LocationDTO location : listLocation) {
+                        %>
+
+                        <div class="list">
+                            <div class="container-location-products">
+                                <div class="location-product">
+                                    <h2><%= location.getLocationDetails()%></h2>
+                                </div>
+                                <button>
+                                    <a href="ViewPackage">Booking</a>
+                                </button>
+                            </div>
+
                         </div>
 
-                        <span> / </span>
 
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
-                        </div>
-                    </div>
-                </aside>
-            </header>
 
-            <main>
-                <div class="column">
-                    <div class="menu">
-                        <ul class="menu-ic">
-                            <li>
-                                <i class='bx bx-home-alt-2'></i>
 
-                                <a href="home.jsp">Home</a>
-                            </li>
 
-                            <li>
-                                <i class='bx bx-location-plus'></i>
-                                <a href="ViewLocation">Location</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-package'></i>
-                                <a href="ViewPackage">Packages</a>
 
-                            </li>
-                            <li>
-                                <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-info-circle'></i>
-                                <a href="about.jsp">About Us</a>
-                            </li>
+
+                        <%
+                                }
+
+                            }
+
+
+                        %>
+
+                        <ul class="listPage">
                         </ul>
                     </div>
 
-                    <div class="location">
-                        <div class="add-ab">
-                            <a href="home.jsp">Home</a><span> &#10095; Location</span>
+                    <div class="map-wrapper">
+                        <div class="location-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251637.49974770905!2d105.61890389777197!3d9.779946371442254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08802e41c6519%3A0xb89484264970426c!2stiNiWorld!5e0!3m2!1svi!2s!4v1707787334630!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
 
-
-                        <h1>Location <span>&amp;</span> Price</h1>
-
-                        <div class="pagination-container">
-                            <%
-                                List<LocationDTO> listLocation = (List<LocationDTO>) request.getAttribute("LIST_LOCATION");
-
-                                if (listLocation != null && listLocation.size() > 0) {
-
-                                    for (LocationDTO location : listLocation) {
-                            %>
-
-                            <div class="list">
-                                <div class="container-location-products">
-                                    <div class="location-product">
-                                        <h2><%= location.getLocationDetails()%></h2>
-                                    </div>
-                                    <button>
-                                        <a href="#">Booking</a>
-                                    </button>
-                                </div>
-
+                        <div class="map-information">
+                            <div>
+                                <img src="https://tiniworld.com/media/wysiwyg/Group_912_1__2.png"/>
                             </div>
 
+                            <div class="map-content">
+                                <h1 style="font-weight: 400">
+                                    WONDER SYSTEM
+                                </h1>
 
+                                <p style="font-weight: 100">
+                                    The central system stretches from North to South, with impressive talking numbers!
+                                </p>
 
+                                <div class="map-info-location">
+                                    <div class="info-location">
+                                        <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                        42
+                                        </font>
 
+                                        <div>
+                                            <font style="font-size: 18px;">
+                                            CENTER
+                                            </font>
+                                            <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group.png" alt="LogoCN"/>
 
+                                        </div>
+                                    </div>
 
+                                    <div class="info-location">
+                                        <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                        35
+                                        </font>
 
-                            <%
-                                    }
+                                        <div>
+                                            <font style="font-size: 18px;">
+                                            CENTER
+                                            </font>
+                                            <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_1_.png" alt="LogoCN"/>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                }
+                                <div class="map-info-location">
+                                    <div class="info-location">
+                                        <font style="font-size: 50px; font-weight: 500; color: #045FB4">
+                                        2000
+                                        </font>
 
+                                        <div>
+                                            <font style="font-size: 18px;">
+                                            SALE POINT
+                                            </font>
+                                            <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_2_.png" alt="LogoCN"/>
+                                        </div>
+                                    </div>
 
-                            %>
-
-                            <ul class="listPage">
-                            </ul>
-                        </div>
-
-                        <div class="map-wrapper">
-                            <div class="location-map">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251637.49974770905!2d105.61890389777197!3d9.779946371442254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a08802e41c6519%3A0xb89484264970426c!2stiNiWorld!5e0!3m2!1svi!2s!4v1707787334630!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    <div class="info-location">
+                                        <font style="font-size: 40px; font-weight: 500; color: #045FB4">
+                                        > 12,000,000
+                                        <p style="font-size: 18px; color: #1b2d5a; text-align: center;">
+                                            CUSTOMERS/YEAR
+                                        </p>
+                                        </font>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="map-information">
-                                <div>
-                                    <img src="https://tiniworld.com/media/wysiwyg/Group_912_1__2.png"/>
-                                </div>
-
-                                <div class="map-content">
-                                    <h1 style="font-weight: 400">
-                                        WONDER SYSTEM
-                                    </h1>
-
-                                    <p style="font-weight: 100">
-                                        The central system stretches from North to South, with impressive talking numbers!
-                                    </p>
-
-                                    <div class="map-info-location">
-                                        <div class="info-location">
-                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
-                                            42
-                                            </font>
-
-                                            <div>
-                                                <font style="font-size: 18px;">
-                                                CENTER
-                                                </font>
-                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group.png" alt="LogoCN"/>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="info-location">
-                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
-                                            35
-                                            </font>
-
-                                            <div>
-                                                <font style="font-size: 18px;">
-                                                CENTER
-                                                </font>
-                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_1_.png" alt="LogoCN"/>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="map-info-location">
-                                        <div class="info-location">
-                                            <font style="font-size: 50px; font-weight: 500; color: #045FB4">
-                                            2000
-                                            </font>
-
-                                            <div>
-                                                <font style="font-size: 18px;">
-                                                SALE POINT
-                                                </font>
-                                                <img style="width: 100%;" src="https://tiniworld.com/media/wysiwyg/Group_2_.png" alt="LogoCN"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="info-location">
-                                            <font style="font-size: 40px; font-weight: 500; color: #045FB4">
-                                            > 12,000,000
-                                            <p style="font-size: 18px; color: #1b2d5a; text-align: center;">
-                                                CUSTOMERS/YEAR
-                                            </p>
-                                            </font>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>    
-                        </div>
-
+                        </div>    
                     </div>
-                </div>
 
-            </main>
-        </div>
-        <%        } else {
-        %>
-        <div class="user-logined">
-            <div class="logined">
-                <i class='bx bx-user-circle'></i>
-                <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+
             </div>
-            <div class="cart-items">
-                <i class='bx bx-cart' ></i>
-                <a href="#">Cart</a>
-            </div>
+
+        </main>
+    </div>
+    <%        } else {
+    %>
+    <div class="user-logined">
+        <div class="logined">
+            
+            <%
+                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+            %>
+            <a href="ViewUserServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else if (dto.getRoleID().equals("1")) {
+            %>
+            <a href="customer.jsp">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+            } else {
+            %>
+            <a href="PartyHostServlet">
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                ${sessionScope.USER_INFO.fullName}
+            </a>
+            <%
+                }
+            %>
+
         </div>
-    </aside>
+        <div class="cart-items">
+            <i class='bx bx-cart' ></i>
+            <a href="#">Cart</a>
+        </div>
+    </div>
+</aside>
 </header>
 
 <main>
@@ -607,11 +643,11 @@
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>
-                    <a href="#">Service</a>
+                    <a href="ViewServiceServlet">Service</a>
                 </li>
                 <li>
                     <i class='bx bx-party'></i>
-                    <a href="ViewBookingServlet">Booking Party</a>
+                    <a href="BookingPartyServlet">Booking Party</a>
                 </li>
                 <li>
                     <i class='bx bx-info-circle'></i>
@@ -651,7 +687,7 @@
                             <h2><%= location.getLocationDetails()%></h2>
                         </div>
                         <button>
-                            <a href="#">Booking</a>
+                            <a href="ViewPackage">Booking</a>
                         </button>
                     </div>
 
@@ -809,5 +845,7 @@
     </div>
 </footer>
 <script src="js/pagination.js"></script>
+=======
+>>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
 </body>
 </html>

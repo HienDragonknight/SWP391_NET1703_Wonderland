@@ -20,6 +20,7 @@ import com.paypal.base.rest.PayPalRESTException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PaymentServices {
 
     private static final String CLIENT_ID = "AYJg27UKpdkYMjOipKNQr-BnMnOH_cmEEubaxO38pU45b0oFBPq5yMea7pew9M7Hm95mWLV3Bw3Evb1y";
@@ -52,6 +53,7 @@ public class PaymentServices {
         return Payment.get(apiContext, paymentID);
     }
 
+    
     private Payer getPayerInfomation() {
         Payer payer = new Payer();
         payer.setPaymentMethod("paypal");
@@ -70,12 +72,10 @@ public class PaymentServices {
     private RedirectUrls getRedirectURLs() {
         RedirectUrls redirectUrls = new RedirectUrls();
 
-        
         // create 2 redirect URL
         redirectUrls.setCancelUrl("http://localhost:6969/SWP391_NET1703_Wonderland/cancel_paypal.html");            // this url is used when user cancels the payment
         redirectUrls.setReturnUrl("http://localhost:6969/SWP391_NET1703_Wonderland/review_payment_paypal");    // this url is used when user accepts to continue the payment
 
-        
         return redirectUrls;
     }
 

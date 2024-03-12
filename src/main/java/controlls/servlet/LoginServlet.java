@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
         System.out.println(contextPath);
 
         HttpSession session = request.getSession();
-        session.setAttribute("ERROR_INFO", "Incorrect username or password");
+        session.removeAttribute("ERROR_INFO"); // Remove any previous error messages
 
         String url = LOGIN_PAGE;
         String button = request.getParameter("action");
@@ -60,6 +60,7 @@ public class LoginServlet extends HttpServlet {
                 if (result != null) {
                     session.setAttribute("user_loged", result);
                     String role = result.getRoleID();
+
                     if (remember != null && remember.equals("ON")) {
                         cEmail.setMaxAge(60 * 60 * 24 * 7);
                         cPassword.setMaxAge(60 * 60 * 24 * 7);
@@ -75,6 +76,9 @@ public class LoginServlet extends HttpServlet {
                     response.addCookie(cRemember);
                     url = HOME_PAGE;
                     session.setAttribute("USER_INFO", result);
+                } else {
+                    // If login fails, set error message
+                    session.setAttribute("ERROR_INFO", "Incorrect username or password");
                 }
             }
         } catch (ClassNotFoundException e) {
@@ -82,7 +86,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } finally {
-            //response.sendRedirect(url);
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

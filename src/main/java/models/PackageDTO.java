@@ -24,6 +24,7 @@ public class PackageDTO implements Serializable {
 
     public PackageDTO(String packageID, String packageName, double unitPrice, String image, String video, String description, String size) {
         this.packageID = packageID;
+
         this.packageName = packageName;
         this.unitPrice = unitPrice;
         this.image = image;
