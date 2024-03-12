@@ -562,6 +562,7 @@
             .logined img {
                 width: 30px;
                 border-radius: 50%;
+                height: 30px;
             }
             
             .logined a {
