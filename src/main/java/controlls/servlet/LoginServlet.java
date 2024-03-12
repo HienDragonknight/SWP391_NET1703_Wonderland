@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.UserDTO;
+import util.HashPassword;
 
 /**
  *
@@ -32,9 +33,6 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String contextPath = request.getContextPath();
-        System.out.println(contextPath);
-
         HttpSession session = request.getSession();
         session.removeAttribute("ERROR_INFO"); // Remove any previous error messages
 
@@ -47,6 +45,9 @@ public class LoginServlet extends HttpServlet {
                 String password = request.getParameter("txtPassword");
                 String remember = request.getParameter("RememberMe");
 
+                // Hash the password
+                String hashedPassword = HashPassword.toSHA1(password);
+
                 Cookie cEmail = new Cookie("cEmail", email);
                 Cookie cPassword = new Cookie("cPassword", password);
                 Cookie cRemember = new Cookie("cRemember", remember);
@@ -56,7 +57,7 @@ public class LoginServlet extends HttpServlet {
                 }
 
                 UserDAO dao = new UserDAO();
-                UserDTO result = dao.checkLogin(email, password);
+                UserDTO result = dao.checkLogin(email, hashedPassword); // Check with hashed password
                 if (result != null) {
                     session.setAttribute("user_loged", result);
                     String role = result.getRoleID();
@@ -82,9 +83,9 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         } catch (ClassNotFoundException e) {
-            log("CreateAccountServlet _ Class: " + e.getMessage());
+            log("LoginServlet - Class: " + e.getMessage());
         } catch (SQLException e) {
-            log("CreateAccountServlet _ SQL: " + e.getMessage());
+            log("LoginServlet - SQL: " + e.getMessage());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
