@@ -704,38 +704,9 @@
                                                     <td><%= dto.getTotalPrice()%></td>        
                                                     <td><%= dto.getStatus()%></td>   
                                                     <td>
-                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
-                                                        <div class="modal" id="modal<%= countOrder%>">
-
-                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                                <table>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Party Name</th>
-                                                                            <th>Date Start</th>
-                                                                            <th>Amount</th>
-                                                                            <th>Service</th>
-                                                                            <th>Customer</th>
-                                                                            <th>Location</th>
-                                                                            <th>Status</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div>
-                                                                    <a data-close-button="ViewOrderServlet">Close</a>
-                                                                    <a>Update</a>
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="overlay"></div>
+                                                        <button style="font-size: 16px; cursor: pointer;">
+                                                            Update
+                                                        </button>
                                                     </td>
                                                     <td>
                                                         <%
@@ -766,45 +737,6 @@
         </div>
 
         <script>
-            const openModalButtons = document.querySelectorAll('[data-modal-target]');
-            const closeModalButtons = document.querySelectorAll('[data-close-button]');
-            const overlay = document.getElementById('overlay');
-
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = document.querySelector(button.dataset.modalTarget);
-                    openModal(modal);
-                });
-            });
-
-            overlay.addEventListener('click', () => {
-                const modals = document.querySelectorAll('.modal.active');
-                modals.forEach(modal => {
-                    closeModal(modal);
-                });
-            });
-
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    closeModal(modal);
-                });
-            });
-
-            function openModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.add('active');
-                overlay.classList.add('active');
-            }
-
-            function closeModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-
             function confirmCancel(dateStartStr) {
                 var dateStart = new Date(dateStartStr);
                 var now = new Date();
