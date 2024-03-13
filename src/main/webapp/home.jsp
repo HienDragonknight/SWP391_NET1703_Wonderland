@@ -571,6 +571,38 @@
                 justify-content: center;
                 gap: 5px;
             }
+
+            /* Notification Styles */
+            .notification-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999; /* Ensure the notification is on top of other elements */
+            }
+
+            .notification {
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+                position: relative;
+            }
+
+            .close {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .close:hover {
+                color: #f44336;
+            }
+
         </style>
     </head>
     <body>
@@ -1240,6 +1272,52 @@
 </footer>
 
 </div>
+<%
+    }
+%>
+
+<!-- Notification Container -->
+<div id="notificationContainer" class="notification-container"></div>
+
+<%
+    // Check if the user has just logged in successfully
+    boolean isLoggedIn = session.getAttribute("USER_INFO") != null;
+
+    // Check if the user is a customer
+    boolean isCustomer = isLoggedIn && dto.getRoleID().equals("1");
+
+    // Check if the user is an admin
+    boolean isAdmin = isLoggedIn && dto.getRoleID().equals("2");
+
+    // Check if the alert needs to be displayed
+    boolean showAlert = isLoggedIn && (isCustomer || isAdmin);
+
+    if (showAlert) {
+%>
+<script>
+    // Function to display the notification
+    function displayNotification() {
+        var notificationContainer = document.getElementById('notificationContainer');
+        var notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.innerHTML = '<span class="close" onclick="closeNotification()"></span><p>Login successful!</p>';
+        notificationContainer.appendChild(notification);
+
+        // Remove the notification after 5 seconds
+        setTimeout(function () {
+            notificationContainer.removeChild(notification);
+        }, 3000);
+    }
+
+    // Function to close the notification
+    function closeNotification() {
+        var notificationContainer = document.getElementById('notificationContainer');
+        notificationContainer.innerHTML = '';
+    }
+
+    // Call the function to display the notification
+    displayNotification();
+</script>
 <%
     }
 %>

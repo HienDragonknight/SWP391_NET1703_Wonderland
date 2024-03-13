@@ -153,35 +153,33 @@ public class OrderDAO implements Serializable {
         return check;
     }
 
-    public List<OrderDetailDTO> getOnOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException {
+    public List<OrderDetailDTO> getOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException {
 
         Connection conn = null;
-        CallableStatement ctm = null;
+        PreparedStatement ptm = null;
         ResultSet rs = null;
         List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
 
         try {
             conn = DBUtils.createConnection();
-            String getOnGoingOrder = "{ ? = call GetOrderList(?, ?) }";
+            String getOnGoingOrder = "  SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
 
-            ctm = conn.prepareCall(getOnGoingOrder);
-            ctm.registerOutParameter(1, Types.REF_CURSOR);
-            ctm.setString(2, userIDInput);
-            ctm.setString(3, statusInput);
-            ctm.execute(); // Execute the CallableStatement
+            ptm = conn.prepareStatement(getOnGoingOrder);
+            //      ctm.registerOutParameter(1, Types.);
+            ptm.setString(1, userIDInput);
+            ptm.setString(2, statusInput);
+            rs = ptm.executeQuery(); // Execute the CallableStatement
 
             // Retrieve the result set
-            rs = ctm.getResultSet();
-
             while (rs.next()) {
                 String packageName = rs.getString("packageName");
                 Date dateStart = rs.getDate("dateStart");
-                Date createdAt = rs.getTimestamp("create_at");
-                int numberOfPeople = rs.getInt("numberOfPeople");
+                Date createAt = rs.getTimestamp("create_at");
+
                 String locationDetails = rs.getString("locationDetails");
                 double totalPrice = rs.getDouble("totalPrice");
                 String status = rs.getString("status");
-                listOrder.add(new OrderDetailDTO(packageName, dateStart, createdAt, numberOfPeople, locationDetails, totalPrice, status));
+                listOrder.add(new OrderDetailDTO(packageName, dateStart, createAt, locationDetails, totalPrice, status));
             }
 
         } catch (SQLException e) {
@@ -192,8 +190,8 @@ public class OrderDAO implements Serializable {
                 if (rs != null) {
                     rs.close();
                 }
-                if (ctm != null) {
-                    ctm.close();
+                if (ptm != null) {
+                    ptm.close();
                 }
                 if (conn != null) {
                     conn.close();

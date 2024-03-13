@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
@@ -426,7 +427,7 @@
                 width: 400px; /* Adjust the width as per your requirement */
                 height: 200px; /* Maintains the aspect ratio */
             }
-            
+
             .modal {
                 position: fixed;
                 top: 50%;
@@ -501,18 +502,42 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
-            
+
+            .modal-body>div {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
             .modal-body a {
                 margin-top: 20px;
                 border: 1px solid #CAFFFF;
                 padding: 10px 15px;
                 background-color: #CAFFFF;
             }
-            
+
             .table-wrapper {
                 overflow-y: auto;
                 height: 450px;
             }
+
+            #notificationContainer {
+                display: none;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: red;
+                color: white;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #666;
+            }
+
+            #notificationContainer button {
+                margin-left: 20px;
+                cursor: pointer;
+            }
+
 
         </style>
     </head>
@@ -651,10 +676,9 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Your Package</th>
-                                                    <th>Date Start</th>
-                                                    <th>Create At</th>    
-                                                    <th>Children</th>    
                                                     <th>Location</th>    
+                                                    <th>Date Start</th>
+                                                    <th>Create At</th>                                                  
                                                     <th>Total Price</th>      
                                                     <th>Status</th>    
 
@@ -666,15 +690,19 @@
                                                     List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
                                                     if (listOrder != null) {
                                                         int countOrder = 1;
-
                                                         for (OrderDetailDTO dto : listOrder) {
 
                                                 %>
                                                 <tr>
                                                     <td><%= countOrder++%></td>
-                                                    <td><%= dto.getDateStart() %></td>
-                                                    <td><%= dto.getTotalPrice()%></td>
-                                                    <td><%= dto.getStatus()%></td>
+                                                    <td><%= dto.getPackageName()%></td>
+                                                    <td><%= dto.getLocaltionDetails()%></td>        
+                                                    <td>
+                                                        <input type="date" name="" value="<%= dto.getDateStart()%>" />
+                                                    </td>
+                                                    <td><%= dto.getDateOrder()%></td>        
+                                                    <td><%= dto.getTotalPrice()%></td>        
+                                                    <td><%= dto.getStatus()%></td>   
                                                     <td>
                                                         <a data-modal-target="#modal<%= countOrder%>">View Details</a>
                                                         <div class="modal" id="modal<%= countOrder%>">
@@ -698,14 +726,24 @@
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                                <a data-close-button="ViewOrderServlet">Close</a>
+                                                                <div>
+                                                                    <a data-close-button="ViewOrderServlet">Close</a>
+                                                                    <a>Update</a>
+                                                                </div>
+
                                                             </div>
 
                                                         </div>
 
                                                         <div id="overlay"></div>
                                                     </td>
-                                                    <td>Cancel</td>
+                                                    <td>
+                                                        <%
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                                            String formattedDate = sdf.format(dto.getDateStart());
+                                                        %>
+                                                        <a onclick="confirmCancel('<%= formattedDate%>'); return false;">Cancel</a>
+                                                    </td>
                                                 </tr>
                                                 <%
                                                         }
@@ -719,6 +757,12 @@
                         </div>
                     </div>
                 </div>
+                <!-- Notification Container -->
+                <div id="notificationContainer" style="display:none; position:fixed; top:20px; right:20px; background-color:red; color: white; padding:15px; border-radius:5px; box-shadow:0 0 5px #666;">
+                    <span id="notificationMessage">This order starts in less than 2 days.</span>
+                    <span id="countdownTimer" style="margin-left: 10px; display: none"></span>
+                </div>
+
         </div>
 
         <script>
@@ -759,6 +803,40 @@
                     return;
                 modal.classList.remove('active');
                 overlay.classList.remove('active');
+            }
+
+            function confirmCancel(dateStartStr) {
+                var dateStart = new Date(dateStartStr);
+                var now = new Date();
+                var timeDiff = dateStart.getTime() - now.getTime();
+                var dayDiff = timeDiff / (1000 * 3600 * 24);
+
+                if (dayDiff < 2) {
+                    var notificationContainer = document.getElementById('notificationContainer');
+                    var countdownTimer = document.getElementById('countdownTimer');
+                    var notificationMessage = document.getElementById('notificationMessage');
+
+                    // Show the custom notification
+                    notificationContainer.style.display = 'block';
+                    notificationMessage.innerHTML = 'This order starts in less than 2 days.';
+
+                    // Set timer for 5 seconds
+                    var secondsLeft = 3;
+                    countdownTimer.innerHTML = secondsLeft;
+                    var countdownInterval = setInterval(function () {
+                        secondsLeft--;
+                        countdownTimer.innerHTML = secondsLeft;
+                        if (secondsLeft <= 0) {
+                            clearInterval(countdownInterval);
+                            closeNotification();
+                        }
+                    }, 1000);
+                }
+            }
+
+// Function to close the notification
+            function closeNotification() {
+                document.getElementById('notificationContainer').style.display = 'none';
             }
         </script>
     </div>
