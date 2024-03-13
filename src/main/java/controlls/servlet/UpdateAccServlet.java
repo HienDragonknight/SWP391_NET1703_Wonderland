@@ -5,11 +5,7 @@
 package controlls.servlet;
 
 import dal.UserDAO;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -17,8 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import models.UserDTO;
+import util.HashPassword;
 
 /**
  *
@@ -44,44 +40,26 @@ public class UpdateAccServlet extends HttpServlet {
         String password = request.getParameter("txtPassword");
         String phone = request.getParameter("txtPhone");
         String cEmail = request.getParameter("txtCEmail");
-
-        //Retrieve the file part from the request
-        Part filePart = request.getPart("txtImage");
-        String imageFileName = filePart.getSubmittedFileName();
-
-        // Define the upload path
-        String directoryPath = "C:/Project SWP391/SWP391_NET1703_Wonderland/src/main/webapp/image/";
-        File uploadDir = new File(directoryPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs(); // Use mkdirs() to create parent directories if they don't exist
-        }
-        String uploadPath = directoryPath + imageFileName;
-
         String url = "profile.jsp";
-
-        try ( InputStream fileContent = filePart.getInputStream();  FileOutputStream fos = new FileOutputStream(uploadPath);  BufferedOutputStream bos = new BufferedOutputStream(fos)) {
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = fileContent.read(buffer)) != -1) {
-                bos.write(buffer, 0, bytesRead);
-            }
-
-            // Call DAO to update user account
+        
+        try {
+            String hashPassword = HashPassword.toSHA1(password);
+           //2. call DAO
+           //2.1 new DAO
             UserDAO dao = new UserDAO();
-            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
-
-            if (result != null) {
-                // If update is successful, redirect to login page
-                url = "login.jsp";
-            }
+           //2.2 call method of DAO
+            UserDTO result = dao.updateAccount(name, phone, email, hashPassword, cEmail);
+           //3. process result
+           if (result != null) {
+               //refresh --> call previous function again (Search)
+               //--> using url rewriting technique
+               url = "login.jsp";
+           }//delete action is successfull
         } catch (SQLException ex) {
-            // Log SQL exceptions
-            log("UpdateAccountServlet _ SQL: " + ex.getMessage());
+            log("CreateAccountServlet _ SQL: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            // Log class not found exceptions
-            log("UpdateAccountServlet _ ClassNotFoundException: " + ex.getMessage());
+            log("CreateAccountServlet _ Naming: " + ex.getMessage());
         } finally {
-            // Redirect to the appropriate URL
             response.sendRedirect(url);
         }
     }

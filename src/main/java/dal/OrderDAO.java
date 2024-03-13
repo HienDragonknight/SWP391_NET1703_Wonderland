@@ -5,14 +5,21 @@
 package dal;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.OrderDTO;
+import models.OrderDetailDTO;
+import models.UserDTO;
 import util.DBUtils;
 
 /**
@@ -66,6 +73,12 @@ public class OrderDAO implements Serializable {
                     //5.2 done
                 }//end traverse rs
             }//end connection is available
+
+            //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+            if (this.listOrder == null) {
+                this.listOrder = new ArrayList<>();
+            }
+
         } finally {
             if (rs != null) {
                 rs.close();
@@ -78,4 +91,176 @@ public class OrderDAO implements Serializable {
             }
         }
     }
+
+    public double getChartInYear(int year) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        double totalPrice = 0.0;
+        try {
+            con = DBUtils.createConnection();
+            if (con != null) {
+                String sql = "SELECT sum(totalprice) as totalPrice from [Order] WHERE month(create_at) = ?";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, year);
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    totalPrice = rs.getDouble("totalPrice");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return totalPrice;
+    }
+
+    public boolean insertOrderWithLogin(UserDTO userLogin) throws SQLException {
+
+        boolean check = false;
+
+        Connection conn = null;
+        CallableStatement ctm = null;
+
+        String insertOrderStatement = "{call InsertOrder(?,?,?,?)}";
+
+        try {
+            conn = DBUtils.createConnection();
+            ctm = conn.prepareCall(insertOrderStatement);
+            ctm.setString(1, userLogin.getUserID());
+            ctm.setString(2, userLogin.getEmail());
+            ctm.setString(3, userLogin.getPhoneNumber());
+            ctm.setString(4, userLogin.getFullName());
+
+            check = ctm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ctm != null) {
+                ctm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
+    }
+
+    public List<OrderDetailDTO> getOnGoingOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException, ParseException {
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
+
+        try {
+            conn = DBUtils.createConnection();
+            String getOnGoingOrder = "  SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
+
+            ptm = conn.prepareStatement(getOnGoingOrder);
+            //      ctm.registerOutParameter(1, Types.);
+            ptm.setString(1, userIDInput);
+            ptm.setString(2, statusInput);
+            rs = ptm.executeQuery(); // Execute the CallableStatement
+
+            // Retrieve the result set
+            while (rs.next()) {
+                String packageName = rs.getString("packageName");
+                Date dateStart = rs.getDate("dateStart");
+
+                Timestamp createAt = rs.getTimestamp("create_at");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String formattedDate = sdf.format(createAt);
+                Date createDate = sdf.parse(formattedDate);
+                
+                String locationDetails = rs.getString("locationDetails");
+                double totalPrice = rs.getDouble("totalPrice");
+                String status = rs.getString("status");
+                listOrder.add(new OrderDetailDTO(packageName, dateStart, createAt, locationDetails, totalPrice, status));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ptm != null) {
+                    ptm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOrder;
+    }
+
+    public List<OrderDetailDTO> getCancelledOrderList(String userID, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<OrderDetailDTO> getCompletedOrderList(String userIDInput, String statusInput) throws ClassNotFoundException {
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
+
+        try {
+            conn = DBUtils.createConnection();
+            String getOnGoingOrder = "  SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
+
+            ptm = conn.prepareStatement(getOnGoingOrder);
+            //      ctm.registerOutParameter(1, Types.);
+            ptm.setString(1, userIDInput);
+            ptm.setString(2, statusInput);
+            rs = ptm.executeQuery(); // Execute the CallableStatement
+
+            // Retrieve the result set
+            while (rs.next()) {
+                String packageName = rs.getString("packageName");
+                Date dateStart = rs.getDate("dateStart");
+                Date createAt = rs.getTimestamp("create_at");
+
+                String locationDetails = rs.getString("locationDetails");
+                double totalPrice = rs.getDouble("totalPrice");
+                String status = rs.getString("status");
+                listOrder.add(new OrderDetailDTO(packageName, dateStart, createAt, locationDetails, totalPrice, status));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ptm != null) {
+                    ptm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOrder;
+    }
+
 }

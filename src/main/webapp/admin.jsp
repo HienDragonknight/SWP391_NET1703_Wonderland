@@ -125,6 +125,7 @@
                 display: flex;
                 justify-items: center;
                 align-items: center;
+                gap: 8px;
             }
 
             header .side-bar .user-logined i {
@@ -405,11 +406,11 @@
                 align-items: center;
                 gap: 10px;
             }
-            
+
             .header .search-btn {
                 display: none;
             }
-            
+
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -425,6 +426,93 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                transition: 200ms ease-in-out;
+                border: 1px solid black;
+                border-radius: 10px;
+                z-index: 10;
+                background-color: white;
+                width: 300px;
+                max-width: 80%;
+                height: 100px;
+            }
+
+            .modal.active {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .modal-header {
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+            }
+
+            .modal-header .title {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-header .close-button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-body {
+                padding: 20px 25px;
+            }
+
+            #overlay {
+                position: fixed;
+                opacity: 0;
+                transition: 200ms ease-in-out;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, .5);
+                pointer-events: none;
+            }
+
+            #overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .modal-body ul li {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .modal-body button {
+                border: none;
+                padding: 20px 50px;
+                border-radius: 10px;
+                font-size: 15px;
             }
         </style>
     </head>
@@ -448,8 +536,10 @@
 
                     <div class="user-logined">
                         <div class="logined">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
+                            <a href="ViewUserServlet">
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
@@ -481,11 +571,11 @@
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
-                                <a href="#">Service</a>
+                                <a href="ViewServiceServlet">Service</a>
                             </li>
                             <li>
                                 <i class='bx bx-party'></i>
-                                <a href="ViewBookingServlet">Booking Party</a>
+                                <a href="BookingPartyServlet">Booking Party</a>
                             </li>
                             <li>
                                 <i class='bx bx-info-circle'></i>
@@ -509,7 +599,12 @@
                         </div>
                         <%
                             List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-                            
+                            int totalUsers = 0; // Counter for total users
+                            if (result != null) {
+                                for (UserDTO dto : result) {
+                                    totalUsers++;
+                                }
+                            }
                         %>
 
                         <div>
@@ -542,11 +637,11 @@
                                     <i class='bx bx-receipt'></i>
                                     <h3>Users</h3>
                                     <form action="AdminServlet" method="POST">
+                                        <i class='bx bx-search'></i>
                                         <input type="text" name="txtInputValue" value="${param.txtInputValue}" />
                                         <input class="search-btn" type="submit" value="Search" name="action"/>
                                     </form>
                                 </div>
-
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
@@ -615,6 +710,7 @@
                                     <i class='bx bx-receipt'></i>
                                     <h3>Party Host</h3>
                                     <form action="AdminServlet" method="POST">
+                                        <i class='bx bx-search'></i>
                                         <input type="text" name="txtHostValue" value="${param.txtHostValue}" />
                                         <input class="search-btn" type="submit" value="Search Host" name="action"/>
                                     </form>
@@ -664,7 +760,23 @@
                                                         <a href="<%= urlEditing%>">Edit</a>
                                                     </td>
                                                     <td>
-                                                        <a class="delete" href="<%= urlRewriting%>">Delete</a>
+                                                        <a data-modal-target="#modal<%= countHost %>">Delete</a>
+                                                        <div class="modal" id="modal<%= countHost %>">
+
+                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                                <ul style="list-style: none; width: 100%; text-align: center;">
+                                                                    <li>
+                                                                        Do you want to delete <%= host.getFullName()%> ?
+                                                                    </li>
+                                                                    <a href="<%= urlRewriting %>">Yes</a>
+                                                                    <a data-close-button="ViewUserServlet">No</a>
+                                                                </ul>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div id="overlay"></div>
                                                     </td>
                                                 </tr>
                                                 <%
@@ -708,11 +820,49 @@
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
-
-            </main>
+                </div>
         </div>
+
+        <script>
+            const openModalButtons = document.querySelectorAll('[data-modal-target]');
+            const closeModalButtons = document.querySelectorAll('[data-close-button]');
+            const overlay = document.getElementById('overlay');
+
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = document.querySelector(button.dataset.modalTarget);
+                    openModal(modal);
+                });
+            });
+
+            overlay.addEventListener('click', () => {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    closeModal(modal);
+                });
+            });
+
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+
+            function openModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            function closeModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        </script>
     </body>
 </html>

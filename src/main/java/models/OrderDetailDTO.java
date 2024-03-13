@@ -27,6 +27,7 @@ public class OrderDetailDTO implements Serializable {
     private String location;
     private String notes;
     private String payment;
+    private String localtionDetails;
 
     public OrderDetailDTO() {
     }
@@ -46,6 +47,23 @@ public class OrderDetailDTO implements Serializable {
         this.location = location;
         this.notes = notes;
         this.payment = payment;
+    }
+
+    public String getLocaltionDetails() {
+        return localtionDetails;
+    }
+
+    public void setLocaltionDetails(String localtionDetails) {
+        this.localtionDetails = localtionDetails;
+    }
+
+    public OrderDetailDTO(String packageName, Date dateStart, Date dateOrder, String localtionDetails, double totalPrice, String status) {
+        this.packageName = packageName;
+        this.dateStart = dateStart;
+        this.dateOrder = dateOrder;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.localtionDetails = localtionDetails;
     }
 
     public String getFullName() {
@@ -159,7 +177,5 @@ public class OrderDetailDTO implements Serializable {
     public void setPayment(String payment) {
         this.payment = payment;
     }
-    
-    
-    
+
 }

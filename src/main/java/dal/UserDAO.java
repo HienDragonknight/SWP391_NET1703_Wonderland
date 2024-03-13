@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import javax.activation.DataSource;
 import models.UserDTO;
 import util.DBUtils;
 
@@ -20,6 +21,18 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class UserDAO implements Serializable {
+
+    List<UserDTO> listUser;
+
+    public List<UserDTO> getListUser() {
+        return listUser;
+    }
+
+    List<UserDTO> listHost;
+
+    public List<UserDTO> getListHost() {
+        return listHost;
+    }
 
     String ID = "";
 
@@ -31,19 +44,20 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND fullname NOT IN ( SELECT fullname FROM users WHERE reported = 'ban')";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    String userID = rs.getString("userID");
+                    int userID = rs.getInt("userID");
+                    ID += userID;
                     String fullName = rs.getString("fullName");
                     String phoneNum = rs.getString("phone");
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
                     String reported = rs.getString("reported");
-                    result = new UserDTO(roleID, fullName, email, password, phoneNum, avatar, roleID, reported);
+                    result = new UserDTO(ID, fullName, email, password, phoneNum, avatar, roleID, reported);
                 }
             }
         } finally {
@@ -58,12 +72,6 @@ public class UserDAO implements Serializable {
             }
         }
         return result;
-    }
-
-    List<UserDTO> listUser;
-
-    public List<UserDTO> getListUser() {
-        return listUser;
     }
 
     public void getUser() throws SQLException, ClassNotFoundException {
@@ -85,7 +93,8 @@ public class UserDAO implements Serializable {
                 while (rs.next()) {
                     //5.1 map data
                     //5.1.1 get data from rs
-                    String userID = rs.getString("userID");
+                    int userID = rs.getInt("userID");
+                    ID += userID;
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
                     String password = rs.getString("password");
@@ -116,12 +125,6 @@ public class UserDAO implements Serializable {
         }
     }
 
-    List<UserDTO> listHost;
-
-    public List<UserDTO> getListHost() {
-        return listHost;
-    }
-
     public void getHost() throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -139,6 +142,8 @@ public class UserDAO implements Serializable {
                 rs = stm.executeQuery();
                 //5. process
                 while (rs.next()) {
+                    //5.1 map data
+                    //5.1.1 get data from rs
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullname");
                     String email = rs.getString("email");
@@ -407,6 +412,38 @@ public class UserDAO implements Serializable {
         return result;
     }
 
+    public UserDTO editCustomerProfile(String email, String fullname, String phone, String password, String emailConfirm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        UserDTO result = null;
+        try {
+            conn = DBUtils.createConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement("UPDATE users SET fullname=?, email=?, phone=?, password=? WHERE email=?");
+                ptm.setString(1, fullname);
+                ptm.setString(2, email);
+                ptm.setString(3, phone);
+                ptm.setString(4, password);
+                ptm.setString(5, emailConfirm);
+                int effectRows = ptm.executeUpdate();
+                //process
+                if (effectRows > 0) {
+                    result = new UserDTO(ID, fullname, email, password, phone, email, ID, "");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return result;
+    }
+
     public void searchUserDashboard(String inputValue) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -460,7 +497,7 @@ public class UserDAO implements Serializable {
             }
         }
     }
-    
+
     public void searchHostDashboard(String inputValue) throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -514,4 +551,42 @@ public class UserDAO implements Serializable {
             }
         }
     }
+
+    public boolean updateImage(String cemail, String image) {
+        Connection con = null;
+        PreparedStatement stm = null;
+        try {
+            con = DBUtils.createConnection(); // Create a database connection
+            if (con != null) {
+                stm = con.prepareStatement("UPDATE users SET avatar = ? WHERE email = ?");
+                stm.setString(1, image);
+                stm.setString(2, cemail);
+
+                int effectRows = stm.executeUpdate();
+
+                // Check if the update was successful
+                if (effectRows > 0) {
+                    return true; // Return true if the update was successful
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace(); // Log the exception
+            // Handle the exception, you might want to throw a custom DAOException here
+        } finally {
+            // Close the database resources in a finally block to ensure they are always closed
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace(); // Log the exception
+                // Handle the exception, you might want to throw a custom DAOException here
+            }
+        }
+        return false; // Return false if the update failed
+    }
+
 }

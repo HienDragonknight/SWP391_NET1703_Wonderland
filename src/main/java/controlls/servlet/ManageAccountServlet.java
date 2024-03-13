@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.HashPassword;
 
 /**
  *
@@ -48,8 +49,9 @@ public class ManageAccountServlet extends HttpServlet {
                 url = ERROR;
                 request.setAttribute("status", "error");
             } else {
+                String hashPassword = HashPassword.toSHA1(password);
                 UserDAO dao = new UserDAO();
-                boolean result = dao.manageAccount(name, email, password, phone);
+                boolean result = dao.manageAccount(name, email, hashPassword, phone);
                 if (result) {
                     url = SUCCESS;
                     request.setAttribute("status", "success");

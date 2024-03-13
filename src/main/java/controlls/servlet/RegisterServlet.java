@@ -80,7 +80,6 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("newEmail", email);
                 session.setAttribute("newPhone", phone);
                 session.setAttribute("newPassword", passwordHashed);
-
                 UserDAO dao = new UserDAO();
                 boolean result = dao.registerUser(name, email, passwordHashed, phone);
                 if (result) {

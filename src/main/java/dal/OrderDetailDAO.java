@@ -5,6 +5,7 @@
 package dal;
 
 import java.io.Serializable;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import models.OrderDetailDTO;
 import util.DBUtils;
 
@@ -86,5 +88,44 @@ public class OrderDetailDAO implements Serializable {
                 con.close();
             }
         }
+    }
+
+    public boolean insertOrderDetail(Map<String, String> orderDetailInfo, Map<String, String> orderInfo) throws SQLException {
+
+        boolean check = false;
+        Connection conn = null;
+        CallableStatement ctm = null;
+
+        String insertProcedure = "{call InsertOrderDetail(?,?,?,?,?,?,?,?,?,?,?)}";
+
+        try {
+            conn = DBUtils.createConnection();
+            ctm = conn.prepareCall(insertProcedure);
+
+            ctm.setString(1, orderDetailInfo.get("serviceID"));
+            ctm.setString(2, orderDetailInfo.get("packgeID"));
+            ctm.setString(3, orderDetailInfo.get("checkinTime"));
+            ctm.setString(4, orderDetailInfo.get("numOfChildren"));
+            ctm.setString(5, orderDetailInfo.get("themeID"));
+            ctm.setString(6, orderDetailInfo.get("locationID"));
+            ctm.setString(7, orderDetailInfo.get("note"));
+            ctm.setString(8, orderDetailInfo.get("paymentMethod"));
+            ctm.setString(9, orderInfo.get("fullName"));
+            ctm.setString(10, orderInfo.get("phone"));
+            ctm.setString(11, orderInfo.get("email"));
+
+            check = ctm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ctm != null) {
+                ctm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+
+        return check;
     }
 }

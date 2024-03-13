@@ -19,8 +19,6 @@ public class LocationDTO implements Serializable {
         this.locationDetails = locationDetails;
     }
 
-
-    
     public LocationDTO() {
     }
 
@@ -44,7 +42,5 @@ public class LocationDTO implements Serializable {
         this.locationID = locationID;
         this.locationDetails = locationDetails;
     }
-
-  
 
 }
