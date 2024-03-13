@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.UserDTO;
+import util.HashPassword;
 
 /**
  *
@@ -42,11 +43,12 @@ public class UpdateAccServlet extends HttpServlet {
         String url = "profile.jsp";
         
         try {
+            String hashPassword = HashPassword.toSHA1(password);
            //2. call DAO
            //2.1 new DAO
             UserDAO dao = new UserDAO();
            //2.2 call method of DAO
-            UserDTO result = dao.updateAccount(name, phone, email, password, cEmail);
+            UserDTO result = dao.updateAccount(name, phone, email, hashPassword, cEmail);
            //3. process result
            if (result != null) {
                //refresh --> call previous function again (Search)

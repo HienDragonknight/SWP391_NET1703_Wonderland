@@ -12,6 +12,17 @@
         <title>Register Page</title>
     </head>
     <body>
+        <%
+            String errorMessage = (String) session.getAttribute("ERROR_NAME");
+            if (errorMessage != null && !errorMessage.isEmpty()) {
+        %>
+        <div class="alert alert-danger" role="alert">
+            <%= errorMessage%>
+        </div>
+        <%
+                session.removeAttribute("ERROR_NAME");
+            }
+        %>
         <form action="RegisterServlet" method="POST">
             Full name<input type="text" name="txtName" value="" /><br/>
             Email <input type="email" name="txtEmail" value="" /><br/>

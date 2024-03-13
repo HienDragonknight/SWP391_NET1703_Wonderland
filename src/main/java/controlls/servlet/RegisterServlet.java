@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import util.HashPassword;
 
 /**
  *
@@ -51,6 +52,21 @@ public class RegisterServlet extends HttpServlet {
                 // Handle the case where any of the parameters are null or empty
                 url = ERROR;
                 request.setAttribute("status", "error");
+            } else if (name.trim().length() < 6) {
+                // Name should be at least 6 characters long
+                url = ERROR;
+                request.setAttribute("ERROR_NAME", "Wrong format: name, password >= 6, phone must be 10");
+                request.setAttribute("status", "error");
+            } else if (password.trim().length() < 6) {
+                // Password should be at least 6 characters long
+                url = ERROR;
+                request.setAttribute("ERROR_PASSWORD", "Password should be at least 6 characters");
+                request.setAttribute("status", "error");
+            } else if (phone.trim().length() != 10) {
+                // Phone number should be exactly 10 digits long
+                url = ERROR;
+                request.setAttribute("ERROR_PHONE", "Phone number should be exactly 10 digits");
+                request.setAttribute("status", "error");
             } else if (!confirm.trim().equals(password.trim())) {
                 // Password and confirm password do not match
                 url = ERROR;
@@ -58,17 +74,16 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("status", "error");
             } else {
                 // All validations passed, proceed with registration
-                
-
+                String passwordHashed = HashPassword.toSHA1(password);
                 HttpSession session = request.getSession();
                 session.setAttribute("newFullName", name);
                 session.setAttribute("newEmail", email);
                 session.setAttribute("newPhone", phone);
-                session.setAttribute("newPassword", password);
+                session.setAttribute("newPassword", passwordHashed);
 
-                response.sendRedirect("UserVerify");
+                
                 UserDAO dao = new UserDAO();
-                boolean result = dao.registerUser(name, email, password, phone);
+                boolean result = dao.registerUser(name, email, passwordHashed, phone);
                 if (result) {
                     url = SUCCESS;
                     request.setAttribute("status", "success");

@@ -460,8 +460,9 @@
                 border-radius: 10px;
                 z-index: 10;
                 background-color: white;
-                width: 500px;
+                width: 100%;
                 max-width: 80%;
+                max-height: 200px;
             }
 
             .modal.active {
@@ -522,6 +523,13 @@
                 padding: 20px 50px;
                 border-radius: 10px;
                 font-size: 15px;
+            }
+            
+            .modal-body a {
+                margin-top: 20px;
+                border: 1px solid #CAFFFF;
+                padding: 10px 15px;
+                background-color: #CAFFFF;
             }
 
             .table-wrapper {
@@ -763,52 +771,33 @@
                                                     <td>
                                                         <a data-modal-target="#modal<%= countOrder%>">View Details</a>
                                                         <div class="modal" id="modal<%= countOrder%>">
-                                                            <div class="modal-header">
-                                                                <div class="title"><%= dto.getFullName()%></div>
-                                                            </div>
 
                                                             <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                                <ul style="list-style: none; width: 100%; text-align: center;">
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Name: </p> <%= dto.getPackageName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Party Start: </p> <%= dto.getDateStart()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Service: </p> <%= dto.getServiceName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Theme: </p> <%= dto.getThemeName()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Amount Of People: </p> <%= dto.getAmountOfPeople()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Email: </p> <span style="display: <%= (dto.getEmail() != null && !dto.getEmail().isEmpty()) ? "block" : "none"%>;"><%= dto.getEmail()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold;">Phone: </p> <span style="display: <%= (dto.getPhone() != null && !dto.getPhone().isEmpty()) ? "block" : "none"%>;"><%= dto.getPhone()%></span>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Note: </p> <%= dto.getNotes()%>
-                                                                    </li>
-
-                                                                    <li>
-                                                                        <p style="font-weight: bold">Location: </p> <%= dto.getLocation()%>
-                                                                    </li>
-                                                                </ul>
-                                                                <button style="align-self: center; background-color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>;">
-                                                                    <%= dto.getStatus()%>
-                                                                </button>
-
+                                                                <table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Party Name</th>
+                                                                            <th>Date Start</th>
+                                                                            <th>Amount</th>
+                                                                            <th>Service</th>
+                                                                            <th>Customer</th>
+                                                                            <th>Location</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td><%= dto.getPackageName()%></td>
+                                                                            <td><%= dto.getDateStart()%></td>
+                                                                            <td><%= dto.getAmountOfPeople()%></td>
+                                                                            <td><%= dto.getServiceName()%></td>
+                                                                            <td><%= dto.getEmail() %></td>
+                                                                            <td><%= dto.getLocation()%></td>
+                                                                            <td><%= dto.getStatus()%></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <a data-close-button="ViewOrderServlet">Close</a>
                                                             </div>
 
                                                         </div>
