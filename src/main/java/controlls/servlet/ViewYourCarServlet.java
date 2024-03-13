@@ -7,23 +7,25 @@ package controlls.servlet;
 import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.OrderDTO;
 import models.UserDTO;
 
 /**
  *
  * @author bao.kun
  */
-@WebServlet(name = "AddOrderServlet", urlPatterns = {"/add_order"})
-public class AddOrderServlet extends HttpServlet {
+@WebServlet(name = "ViewYourCarServlet", urlPatterns = {"/view_your_party_servlet"})
+public class ViewYourCarServlet extends HttpServlet {
 
-    private static final String ERROR = "package_item.jsp";
-    private static final String SUCCESS = "ready_for_checkout.jsp";
+    private static final String ERROR = "your_party.jsp";
+    private static final String SUCCESS = "your_party.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -34,19 +36,35 @@ public class AddOrderServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
-             System.out.println(userLogin.getUserID());
             OrderDAO orderDao = new OrderDAO();
 
-            boolean check = orderDao.insertOrderWithLogin(userLogin);
+            String status = request.getParameter("status");
+            List<OrderDTO> listOrder = null;
 
-            if (check) {
+            if (status.equalsIgnoreCase("going")) {
+                status = "Success";
+                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
+            }
+            if (status.equalsIgnoreCase("cancelled")) {
+                status = "Checkout yet";
+                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
+
+            }
+            if (status.equalsIgnoreCase("completed")) {
+                status = "Success";
+                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
+
+            }
+
+            if (listOrder != null) {
+                request.setAttribute("ORDER_LIST", listOrder);
                 url = SUCCESS;
             }
 
         } catch (Exception e) {
-            log("Error at AddOrderServlet ");
+            log("Error at ViewYourCartServlet");
         } finally {
-             request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
 
     }

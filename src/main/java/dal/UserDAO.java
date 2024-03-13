@@ -57,7 +57,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
                     String reported = rs.getString("reported");
-                    result = new UserDTO(roleID, fullName, email, password, phoneNum, avatar, roleID, reported);
+                    result = new UserDTO(ID, fullName, email, password, phoneNum, avatar, roleID, reported);
                 }
             }
         } finally {

@@ -35,6 +35,14 @@ public class OrderDTO implements Serializable {
         this.orderDetailID = orderDetailID;
     }
 
+    public OrderDTO(String userID, Date createDate, double totalPrice, String status) {
+        this.userID = userID;
+        this.createDate = createDate;
+        this.totalPrice = totalPrice;
+        this.status = status;
+    }
+    
+
     public OrderDTO() {
         this.orderID = "";
         this.userID = "";
