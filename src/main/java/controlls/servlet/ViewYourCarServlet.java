@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controlls.servlet;
 
 import dal.OrderDAO;
@@ -15,12 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import models.OrderDTO;
+import models.OrderDetailDTO;
 import models.UserDTO;
 
-/**
- *
- * @author bao.kun
- */
 @WebServlet(name = "ViewYourCarServlet", urlPatterns = {"/view_your_party_servlet"})
 public class ViewYourCarServlet extends HttpServlet {
 
@@ -39,22 +32,21 @@ public class ViewYourCarServlet extends HttpServlet {
             OrderDAO orderDao = new OrderDAO();
 
             String status = request.getParameter("status");
-            List<OrderDTO> listOrder = null;
+            List<OrderDetailDTO> listOrder = null;
 
             if (status.equalsIgnoreCase("going")) {
                 status = "Success";
-                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
+
             }
             if (status.equalsIgnoreCase("cancelled")) {
                 status = "Checkout yet";
-                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
 
             }
             if (status.equalsIgnoreCase("completed")) {
                 status = "Success";
-                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
-
             }
+
+            listOrder = orderDao.getOnOrderList(userLogin.getUserID(), status);
 
             if (listOrder != null) {
                 request.setAttribute("ORDER_LIST", listOrder);

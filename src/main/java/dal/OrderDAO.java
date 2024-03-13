@@ -10,11 +10,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import models.OrderDTO;
+import models.OrderDetailDTO;
 import models.UserDTO;
 import util.DBUtils;
 
@@ -151,45 +153,56 @@ public class OrderDAO implements Serializable {
         return check;
     }
 
-    public List<OrderDTO> getOnGoingOrderList(String userID, String status) throws SQLException, ClassNotFoundException {
+    public List<OrderDetailDTO> getOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException {
+
         Connection conn = null;
         CallableStatement ctm = null;
         ResultSet rs = null;
-        List<OrderDTO> listOrder = new ArrayList<>();
+        List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
 
         try {
             conn = DBUtils.createConnection();
-            String getOnGoingOrder = "{call GetOnGoingOrder(?, ?)}"; // corrected syntax for calling stored procedure
+            String getOnGoingOrder = "{ ? = call GetOrderList(?, ?) }";
 
             ctm = conn.prepareCall(getOnGoingOrder);
-            ctm.setString(1, userID);
-            ctm.setString(2, status);
+            ctm.registerOutParameter(1, Types.REF_CURSOR);
+            ctm.setString(2, userIDInput);
+            ctm.setString(3, statusInput);
+            ctm.execute(); // Execute the CallableStatement
 
-            rs = ctm.executeQuery();
+            // Retrieve the result set
+            rs = ctm.getResultSet();
+
+            while (rs.next()) {
+                String packageName = rs.getString("packageName");
+                Date dateStart = rs.getDate("dateStart");
+                Date createdAt = rs.getTimestamp("create_at");
+                int numberOfPeople = rs.getInt("numberOfPeople");
+                String locationDetails = rs.getString("locationDetails");
+                double totalPrice = rs.getDouble("totalPrice");
+                String status = rs.getString("status");
+                listOrder.add(new OrderDetailDTO(packageName, dateStart, createdAt, numberOfPeople, locationDetails, totalPrice, status));
+            }
 
         } catch (SQLException e) {
-            // Handle exceptions
             e.printStackTrace();
         } finally {
-            // Close resources
-            if (rs != null) {
-                rs.close();
-            }
-            if (ctm != null) {
-                ctm.close();
-            }
-            if (conn != null) {
-                conn.close();
+            // Close resources in the finally block
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ctm != null) {
+                    ctm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         return listOrder;
     }
 
-    public List<OrderDTO> getCompletedOrderList(String userID, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public List<OrderDTO> getCancelledOrderList(String userID, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
