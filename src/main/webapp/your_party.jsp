@@ -4,6 +4,7 @@
     Author     : Le Huu Huy
 --%>
 
+<%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="models.UserDTO"%>
@@ -649,24 +650,29 @@
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>Booking Date</th>
-                                                    <th>Total Price</th>
-                                                    <th>Status</th>                                                
+                                                    <th>Your Package</th>
+                                                    <th>Date Start</th>
+                                                    <th>Create At</th>    
+                                                    <th>Children</th>    
+                                                    <th>Location</th>    
+                                                    <th>Total Price</th>      
+                                                    <th>Status</th>    
+
                                                 </tr>
                                             </thead>
 
                                             <tbody class="scrollable">
                                                 <%
-                                                    List<OrderDTO> listOrder = (List<OrderDTO>) request.getAttribute("ORDER_LIST");
+                                                    List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
                                                     if (listOrder != null) {
                                                         int countOrder = 1;
 
-                                                        for (OrderDTO dto : listOrder) {
+                                                        for (OrderDetailDTO dto : listOrder) {
 
                                                 %>
                                                 <tr>
                                                     <td><%= countOrder++%></td>
-                                                    <td><%= dto.getCreateDate()%></td>
+                                                    <td><%= dto.getDateStart() %></td>
                                                     <td><%= dto.getTotalPrice()%></td>
                                                     <td><%= dto.getStatus()%></td>
                                                     <td>
