@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.sql.Types;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -153,7 +155,65 @@ public class OrderDAO implements Serializable {
         return check;
     }
 
-    public List<OrderDetailDTO> getOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException {
+    public List<OrderDetailDTO> getOnGoingOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException, ParseException {
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
+
+        try {
+            conn = DBUtils.createConnection();
+            String getOnGoingOrder = "  SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
+
+            ptm = conn.prepareStatement(getOnGoingOrder);
+            //      ctm.registerOutParameter(1, Types.);
+            ptm.setString(1, userIDInput);
+            ptm.setString(2, statusInput);
+            rs = ptm.executeQuery(); // Execute the CallableStatement
+
+            // Retrieve the result set
+            while (rs.next()) {
+                String packageName = rs.getString("packageName");
+                Date dateStart = rs.getDate("dateStart");
+
+                Timestamp createAt = rs.getTimestamp("create_at");
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                String formattedDate = sdf.format(createAt);
+                Date createDate = sdf.parse(formattedDate);
+                
+                String locationDetails = rs.getString("locationDetails");
+                double totalPrice = rs.getDouble("totalPrice");
+                String status = rs.getString("status");
+                listOrder.add(new OrderDetailDTO(packageName, dateStart, createAt, locationDetails, totalPrice, status));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ptm != null) {
+                    ptm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOrder;
+    }
+
+    public List<OrderDetailDTO> getCancelledOrderList(String userID, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<OrderDetailDTO> getCompletedOrderList(String userIDInput, String statusInput) throws ClassNotFoundException {
 
         Connection conn = null;
         PreparedStatement ptm = null;
