@@ -909,14 +909,14 @@
                 if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
             %>
             <a href="ViewUserServlet">
-                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
                 ${sessionScope.USER_INFO.fullName}
             </a>
             <%
             } else if (dto.getRoleID().equals("1")) {
             %>
             <a href="customer_profile.jsp">
-                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                <img src="image/${sessionScope.USER_INFO.avatar}"/>
                 ${sessionScope.USER_INFO.fullName}
             </a>
             <%
@@ -924,7 +924,7 @@
             %>
             <div class="logined">
                 <a href="ViewUserServlet">
-                    <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
                     ${sessionScope.USER_INFO.fullName}
                 </a>
             </div>

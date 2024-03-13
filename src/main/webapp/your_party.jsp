@@ -425,6 +425,93 @@
                 width: 400px; /* Adjust the width as per your requirement */
                 height: 200px; /* Maintains the aspect ratio */
             }
+            
+            .modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                transition: 200ms ease-in-out;
+                border: 1px solid black;
+                border-radius: 10px;
+                z-index: 10;
+                background-color: white;
+                width: 100%;
+                max-width: 80%;
+                max-height: 200px;
+            }
+
+            .modal.active {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            .modal-header {
+                padding: 10px 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid black;
+            }
+
+            .modal-header .title {
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-header .close-button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.25rem;
+                font-weight: bold;
+            }
+
+            .modal-body {
+                padding: 10px 15px;
+            }
+
+            #overlay {
+                position: fixed;
+                opacity: 0;
+                transition: 200ms ease-in-out;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(0, 0, 0, .5);
+                pointer-events: none;
+            }
+
+            #overlay.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .modal-body ul li {
+                display: flex;
+                gap: 10px;
+                margin-bottom: 10px;
+            }
+
+            .modal-body button {
+                border: none;
+                padding: 20px 50px;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+            
+            .modal-body a {
+                margin-top: 20px;
+                border: 1px solid #CAFFFF;
+                padding: 10px 15px;
+                background-color: #CAFFFF;
+            }
+            
+            .table-wrapper {
+                overflow-y: auto;
+                height: 450px;
+            }
 
         </style>
     </head>
@@ -450,7 +537,7 @@
                     <div class="user-logined">
                         <div class="logined">
                             <a href="ViewUserServlet">
-                                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
                                 ${sessionScope.USER_INFO.fullName}
                             </a>
                         </div>
@@ -467,11 +554,44 @@
 
             <main>
                 <div class="column">
-                    <div class="logined">
+                    <div class="menu">
+                        <ul class="menu-ic">
+                            <li>
+                                <i class='bx bx-home-alt-2'></i>
 
-                        <img src="image/packages/${sessionScope.USER_INFO.avatar}" class="avatar-image"/>
-                        <p>${sessionScope.USER_INFO.fullName}</p>
+                                <a href="home.jsp">Home</a>
+                            </li>
 
+                            <li>
+                                <i class='bx bx-location-plus'></i>
+                                <a href="ViewLocation">Location</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-package'></i>
+                                <a href="ViewPackage">Packages</a>
+
+                            </li>
+                            <li>
+                                <i class='bx bx-bell'></i>
+                                <a href="ViewServiceServlet">Service</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-party'></i>
+                                <a href="BookingPartyServlet">Booking Party</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-info-circle'></i>
+                                <a href="about.jsp">About Us</a>
+                            </li>
+                        </ul>
+                        <ul class="logout">
+                            <li>
+                                <form action="LogoutServlet" method="POST">
+                                    <i class='bx bx-log-out-circle'></i>
+                                    <input type="submit" value="Logout" name="action" />
+                                </form>
+                            </li>
+                        </ul>
                     </div>  
 
                     <div class="admin-container">
@@ -513,8 +633,8 @@
                             </ul>
                         </div>
 
-                        
-                        
+
+
                         <!-- Users Table -->
                         <div class="bottom-data">
                             <div class="orders">
@@ -548,7 +668,38 @@
                                                     <td><%= countOrder++%></td>
                                                     <td><%= dto.getCreateDate()%></td>
                                                     <td><%= dto.getTotalPrice()%></td>
-                                                    <td><%= dto.getStatus()%></td>                                                                                
+                                                    <td><%= dto.getStatus()%></td>
+                                                    <td>
+                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
+                                                        <div class="modal" id="modal<%= countOrder%>">
+
+                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+                                                                <table>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Party Name</th>
+                                                                            <th>Date Start</th>
+                                                                            <th>Amount</th>
+                                                                            <th>Service</th>
+                                                                            <th>Customer</th>
+                                                                            <th>Location</th>
+                                                                            <th>Status</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <a data-close-button="ViewOrderServlet">Close</a>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div id="overlay"></div>
+                                                    </td>
+                                                    <td>Cancel</td>
                                                 </tr>
                                                 <%
                                                         }
@@ -563,7 +714,47 @@
                     </div>
                 </div>
         </div>
-    </main>
-</div>
+
+        <script>
+            const openModalButtons = document.querySelectorAll('[data-modal-target]');
+            const closeModalButtons = document.querySelectorAll('[data-close-button]');
+            const overlay = document.getElementById('overlay');
+
+            openModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = document.querySelector(button.dataset.modalTarget);
+                    openModal(modal);
+                });
+            });
+
+            overlay.addEventListener('click', () => {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    closeModal(modal);
+                });
+            });
+
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+
+            function openModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.add('active');
+                overlay.classList.add('active');
+            }
+
+            function closeModal(modal) {
+                if (modal === null)
+                    return;
+                modal.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        </script>
+    </div>
 </body>
 </html>
