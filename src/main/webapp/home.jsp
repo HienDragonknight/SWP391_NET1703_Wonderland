@@ -529,7 +529,6 @@
                         <ul class="menu-ic">
                             <li>
                                 <i class='bx bx-home-alt-2'></i>
-
                                 <a href="home.jsp">Home</a>
                             </li>
 
