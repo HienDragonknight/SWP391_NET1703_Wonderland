@@ -9,6 +9,8 @@ import com.paypal.base.rest.PayPalRESTException;
 import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +35,9 @@ public class AuthorizePaymentPayPalServlet extends HttpServlet {
 
             String serviceID = request.getParameter("service-id");
             String packgeID = request.getParameter("package-id");
+
             String checkinTime = request.getParameter("checkin-time");
+
             String numOfChildren = request.getParameter("number-children");
             String themeID = request.getParameter("theme-id");
             String locationID = request.getParameter("location-id");

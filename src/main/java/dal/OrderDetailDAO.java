@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +31,7 @@ public class OrderDetailDAO implements Serializable {
         return listOrder;
     }
 
-    public void getOrder() throws SQLException, ClassNotFoundException {
+    public void getOrder() throws SQLException, ClassNotFoundException, ParseException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -54,8 +56,15 @@ public class OrderDetailDAO implements Serializable {
                 while (rs.next()) {
                     String fullName = rs.getString("fullname");
                     String packageName = rs.getString("packageName");
+
                     Date dateStart = rs.getDate("dateStart");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateString = dateFormat.format(dateStart);
+
                     Date dateOrder = rs.getDate("dateOrder");
+                    SimpleDateFormat dateOrderFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    String dateOrderString = dateOrderFormat.format(dateOrder);
+
                     double totalPrice = rs.getDouble("totalPrice");
                     String status = rs.getString("status");
                     String email = rs.getString("email");
@@ -66,10 +75,9 @@ public class OrderDetailDAO implements Serializable {
                     String location = rs.getString("locationDetails");
                     String note = rs.getString("notes");
                     String payment = rs.getString("payment");
-                    
-                    OrderDetailDTO dto = new OrderDetailDTO(fullName, packageName, dateStart, dateOrder, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
 
-          
+                    OrderDetailDTO dto = new OrderDetailDTO(fullName, packageName, dateString, dateOrderString, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
+
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
@@ -90,6 +98,7 @@ public class OrderDetailDAO implements Serializable {
         }
     }
 
+    // reference from ExecutingPaymentPaypal
     public boolean insertOrderDetail(Map<String, String> orderDetailInfo, Map<String, String> orderInfo) throws SQLException {
 
         boolean check = false;

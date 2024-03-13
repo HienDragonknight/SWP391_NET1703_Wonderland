@@ -35,7 +35,7 @@ public class ViewYourCarServlet extends HttpServlet {
             List<OrderDetailDTO> listOrder = null;
 
             if (status.equalsIgnoreCase("going")) {
-                status = "Success";
+                status = "Paid";
                 listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
 
             }

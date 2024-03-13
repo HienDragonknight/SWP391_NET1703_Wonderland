@@ -685,6 +685,7 @@
                                                     <th>Your Package</th>
                                                     <th>Location</th>    
                                                     <th>Date Start</th>
+                                                    <th>Time Start</th>
                                                     <th>Create At</th>                                                  
                                                     <th>Total Price</th>      
                                                     <th>Status</th>    
@@ -692,7 +693,6 @@
                                             </thead>
                                             <%
                                                 for (OrderDetailDTO dto : listOrder) {
-
                                             %>
                                             <tbody class="scrollable">
 
@@ -701,8 +701,11 @@
                                                     <td><%= dto.getPackageName()%></td>
                                                     <td><%= dto.getLocaltionDetails()%></td>        
                                                     <td>
-                                                        <input type="date" name="" value="<%= dto.getDateStart()%>" />
+                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" min="yyyy-mm-dd" />
                                                     </td>
+
+                                                    <td>  <input type="time" id="checkin-time"  name="checkin-time"  value="<%= dto.getTimeStart()%>"> </td>
+
                                                     <td><%= dto.getDateOrder()%></td>        
                                                     <td><%= dto.getTotalPrice()%></td>        
                                                     <td><%= dto.getStatus()%></td>   
@@ -783,6 +786,51 @@
             function closeNotification() {
                 document.getElementById('notificationContainer').style.display = 'none';
             }
+
+
+
+
+
+            function isCheckinDateValid() {
+                var checkinDate = document.getElementById('checkin-date').value;
+                var year = checkinDate.split("-")[0];
+                var month = checkinDate.split("-")[1];
+                var date = checkinDate.split("-")[2];
+
+                // Ensure leading zero padding for month and date
+                month = month.padStart(2, '0');
+                date = date.padStart(2, '0');
+
+                var time = document.getElementById('checkin-time').value;
+                var hour = time.split(":")[0];
+                var minute = time.split(":")[1];
+
+                var dateTimeCheckin = new Date(year, month - 1, date, hour, minute);
+
+                var currentDateTime = new Date();
+                var threeHoursAhead = new Date(currentDateTime.getTime() + (3 * 60 * 60 * 1000));
+
+                if (dateTimeCheckin < threeHoursAhead) {
+                    alert("Sorry! We cannot set your party order due to early time condition, then try again.");
+                    return false; // Prevent form submission
+                }
+
+                return true;
+            }
+
+            isCheckinDateValid();
+
+
+            function formatDate()
+            {
+                return dateBoundary = document.getElementById('checkin-date').value;
+            }
+
+            document.getElementById('checkin-date').setAttribute('min', formatDate());
+
+
+
+
         </script>
     </div>
 </body>

@@ -15,8 +15,9 @@ public class OrderDetailDTO implements Serializable {
 
     private String fullName;
     private String packageName;
-    private Date dateStart;
-    private Date dateOrder;
+    private String dateStart;
+    private String timeStart;
+    private String dateOrder;
     private double totalPrice;
     private String status;
     private String email;
@@ -32,7 +33,7 @@ public class OrderDetailDTO implements Serializable {
     public OrderDetailDTO() {
     }
 
-    public OrderDetailDTO(String fullName, String packageName, Date dateStart, Date dateOrder, double totalPrice, String status, String email, String phone, String serviceName, int amountOfPeople, String themeName, String location, String notes, String payment) {
+    public OrderDetailDTO(String fullName, String packageName, String dateStart, String dateOrder, double totalPrice, String status, String email, String phone, String serviceName, int amountOfPeople, String themeName, String location, String notes, String payment) {
         this.fullName = fullName;
         this.packageName = packageName;
         this.dateStart = dateStart;
@@ -57,13 +58,22 @@ public class OrderDetailDTO implements Serializable {
         this.localtionDetails = localtionDetails;
     }
 
-    public OrderDetailDTO(String packageName, Date dateStart, Date dateOrder, String localtionDetails, double totalPrice, String status) {
+    public OrderDetailDTO(String packageName, String dateStart, String timeStart, String dateOrder, String localtionDetails, double totalPrice, String status) {
         this.packageName = packageName;
         this.dateStart = dateStart;
         this.dateOrder = dateOrder;
         this.totalPrice = totalPrice;
         this.status = status;
         this.localtionDetails = localtionDetails;
+        this.timeStart = timeStart;
+    }
+
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
     }
 
     public String getFullName() {
@@ -82,19 +92,19 @@ public class OrderDetailDTO implements Serializable {
         this.packageName = packageName;
     }
 
-    public Date getDateStart() {
+    public String getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(String dateStart) {
         this.dateStart = dateStart;
     }
 
-    public Date getDateOrder() {
+    public String getDateOrder() {
         return dateOrder;
     }
 
-    public void setDateOrder(Date dateOrder) {
+    public void setDateOrder(String dateOrder) {
         this.dateOrder = dateOrder;
     }
 

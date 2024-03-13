@@ -41,6 +41,7 @@ public class EditCustomerProfileServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String emailConfirm = request.getParameter("emailConfirm");
+              
         String url = ERROR;
         try {
             //2. call DAO

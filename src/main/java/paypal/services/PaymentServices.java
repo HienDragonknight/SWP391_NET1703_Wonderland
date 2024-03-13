@@ -22,8 +22,8 @@ import java.util.List;
 
 public class PaymentServices {
 
-    private static final String CLIENT_ID = "AYJg27UKpdkYMjOipKNQr-BnMnOH_cmEEubaxO38pU45b0oFBPq5yMea7pew9M7Hm95mWLV3Bw3Evb1y";
-    private static final String CLIENT_SECRET = "EDVbYlLO8X4L3HcN4V9PBGoaBTC9y6Brn2_a_6uIt6yxk-pMz1RcfUnfm74DBX_juk3gqyHU29gL6X_r";
+    private static final String CLIENT_ID = "AdLxAlRCAlaf3NjoYbowKOCHvfSteY2fwhTIOzkKFPEHVYv5YbRNsx1LYPCcL3nuV0ELgd7n3F__KgID";
+    private static final String CLIENT_SECRET = "EB8Ha5y0CN3mHNNTUvuxu-uwRhAFnSVkCT2hWOiCsg87AV8RPX1IsBGZZtmQB52AnGJ0uoEBZexg5Ckk";
     private static final String MODE = "sandbox";
 
     // this method using for send payment details for Payer for verification
@@ -42,7 +42,7 @@ public class PaymentServices {
         APIContext apiContext = new APIContext(CLIENT_ID, CLIENT_SECRET, MODE);    // create APIContext object to connect PayPal Server
         Payment approvedPayment = requestPayment.create(apiContext);
 
-        System.out.println(approvedPayment);
+        System.out.println("Approved link " + approvedPayment);
 
         return getApprovalLink(approvedPayment);
     }
@@ -61,6 +61,10 @@ public class PaymentServices {
                 .setLastName("Bao")
                 .setEmail("sb-koxdo29488218@personal.example.com");
         // password: 4?{*HHEg
+        
+        
+        //email: sb-dfbor29491488@business.example.com
+        // password: A7ssl^^0
 
         payer.setPayerInfo(payerInfo);
 

@@ -54,7 +54,7 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
 
                 // ############## WONDERLAND ##############  
                 // ########################################
-                HttpSession session = request.getSession();
+                HttpSession session = request.getSession();   // from AuthorizePayment
                 Map<String, String> orderDetailInfo = (Map<String, String>) session.getAttribute("ORDER_DETAIL_INFO");
                 Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
 
