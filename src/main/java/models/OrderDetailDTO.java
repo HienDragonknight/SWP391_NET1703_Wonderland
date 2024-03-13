@@ -57,13 +57,12 @@ public class OrderDetailDTO implements Serializable {
         this.localtionDetails = localtionDetails;
     }
 
-    public OrderDetailDTO(String packageName, Date dateStart, Date dateOrder, int amountOfPeople, String localtionDetails, double totalPrice, String status) {
+    public OrderDetailDTO(String packageName, Date dateStart, Date dateOrder, String localtionDetails, double totalPrice, String status) {
         this.packageName = packageName;
         this.dateStart = dateStart;
         this.dateOrder = dateOrder;
         this.totalPrice = totalPrice;
         this.status = status;
-        this.amountOfPeople = amountOfPeople;
         this.localtionDetails = localtionDetails;
     }
 

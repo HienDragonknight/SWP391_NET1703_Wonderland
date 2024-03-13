@@ -46,7 +46,7 @@ public class ViewYourCarServlet extends HttpServlet {
                 status = "Success";
             }
 
-            listOrder = orderDao.getOnOrderList(userLogin.getUserID(), status);
+            listOrder = orderDao.getOrderList(userLogin.getUserID(), status);
 
             if (listOrder != null) {
                 request.setAttribute("ORDER_LIST", listOrder);

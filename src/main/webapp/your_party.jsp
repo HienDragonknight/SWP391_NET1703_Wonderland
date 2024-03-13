@@ -531,10 +531,9 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>Your Package</th>
-                                                    <th>Date Start</th>
-                                                    <th>Create At</th>    
-                                                    <th>Children</th>    
                                                     <th>Location</th>    
+                                                    <th>Date Start</th>
+                                                    <th>Create At</th>                                                  
                                                     <th>Total Price</th>      
                                                     <th>Status</th>    
 
@@ -546,17 +545,15 @@
                                                     List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
                                                     if (listOrder != null) {
                                                         int countOrder = 1;
-
                                                         for (OrderDetailDTO dto : listOrder) {
 
                                                 %>
                                                 <tr>
                                                     <td><%= countOrder++%></td>
                                                     <td><%= dto.getPackageName()%></td>
+                                                    <td><%= dto.getLocaltionDetails()%></td>        
                                                     <td><%= dto.getDateStart()%></td>
                                                     <td><%= dto.getDateOrder()%></td>        
-                                                    <td><%= dto.getAmountOfPeople()%></td>        
-                                                    <td><%= dto.getLocaltionDetails()%></td>        
                                                     <td><%= dto.getTotalPrice()%></td>        
                                                     <td><%= dto.getStatus()%></td>         
                                                 </tr>
