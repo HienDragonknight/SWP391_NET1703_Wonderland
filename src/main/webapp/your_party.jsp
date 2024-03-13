@@ -725,7 +725,8 @@
 
                                                 %>
 
-                                            <div>
+                                            <div style="text-align: center">
+                                                <i class='bx bx-notification-off'></i>
                                                 <p>There is no party</p>
                                             </div>
 
