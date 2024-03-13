@@ -19,8 +19,8 @@ import util.DBUtils;
  */
 public class ThemeDAO {
 
-    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImage FROM [Themes]";
-    
+    private final String GET_THEME_LIST = "SELECT themeID, themeName, themeImagePath FROM [Themes]";
+
     List<ThemeDTO> listTheme;
 
     public List<ThemeDTO> getListTheme() {
@@ -44,7 +44,7 @@ public class ThemeDAO {
             while (rs.next()) {
                 String themID = rs.getInt("themeID") + "";
                 String themeName = rs.getString("themeName");
-                String themeImagePath = rs.getString("themeImage");
+                String themeImagePath = rs.getString("themeImagePath");
 
                 listTheme.add(new ThemeDTO(themID, themeName, themeImagePath));
             }
@@ -63,7 +63,7 @@ public class ThemeDAO {
         }
         return listTheme;
     }
-    
+
     public void printTheme() throws ClassNotFoundException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;

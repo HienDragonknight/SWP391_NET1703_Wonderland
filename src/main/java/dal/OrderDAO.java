@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -69,11 +70,11 @@ public class OrderDAO implements Serializable {
                 }//end traverse rs
             }//end connection is available
 
-                    //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
-                    if (this.listOrder == null) {
-                        this.listOrder = new ArrayList<>();
-                    }
-            
+            //          OrderDTO dto = new OrderDTO(orderID, fullName, createDate, totalPrice, status);
+            if (this.listOrder == null) {
+                this.listOrder = new ArrayList<>();
+            }
+
         } finally {
             if (rs != null) {
                 rs.close();
@@ -86,7 +87,7 @@ public class OrderDAO implements Serializable {
             }
         }
     }
-    
+
     public double getChartInYear(int year) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -114,10 +115,10 @@ public class OrderDAO implements Serializable {
                 con.close();
             }
         }
-        
+
         return totalPrice;
     }
-    
+
     public boolean insertOrderWithLogin(UserDTO userLogin) throws SQLException {
 
         boolean check = false;
@@ -148,5 +149,47 @@ public class OrderDAO implements Serializable {
         }
 
         return check;
+    }
+
+    public List<OrderDTO> getOnGoingOrderList(String userID, String status) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        CallableStatement ctm = null;
+        ResultSet rs = null;
+        List<OrderDTO> listOrder = new ArrayList<>();
+
+        try {
+            conn = DBUtils.createConnection();
+            String getOnGoingOrder = "{call GetOnGoingOrder(?, ?)}"; // corrected syntax for calling stored procedure
+
+            ctm = conn.prepareCall(getOnGoingOrder);
+            ctm.setString(1, userID);
+            ctm.setString(2, status);
+
+            rs = ctm.executeQuery();
+
+        } catch (SQLException e) {
+            // Handle exceptions
+            e.printStackTrace();
+        } finally {
+            // Close resources
+            if (rs != null) {
+                rs.close();
+            }
+            if (ctm != null) {
+                ctm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listOrder;
+    }
+
+    public List<OrderDTO> getCompletedOrderList(String userID, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<OrderDTO> getCancelledOrderList(String userID, String status) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

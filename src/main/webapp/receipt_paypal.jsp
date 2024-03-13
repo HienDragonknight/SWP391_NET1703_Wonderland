@@ -204,7 +204,7 @@
                 justify-content: center;
                 align-items: center;
             }
-            
+
             .payment-success{
                 padding: 85px 0px;
             }
@@ -219,69 +219,18 @@
                         <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                     </div>
 
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
+                  
+
+                    <div class="user-logined">
+                        <div class="logined">
+                            <a href="ViewUserServlet">
+                                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
+                        </div>
+                       
                     </div>
 
-
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                        if (dto == null) {
-                    %>
-
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
-                        </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
-                        </div>
-                        <div>
-
-                            <form class="d-flex">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-                        </div>
-
-                        <%
-                        } else {
-                        %>
-
-
-                        <div class="logined" id="nickname">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-
-                        <div>
-                            <form class="d-flex">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-                        </div>
-
-
-                    </div>
-                    <%   }
-                    %>
 
                 </aside>
             </header>
@@ -298,14 +247,8 @@
                         <td>Payer</td>
                         <td> ${requestScope.PAYER.firstName} ${requestScope.PAYER.lastName} </td>
                     </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td> ${requestScope.TRANSACTION.description} </td>
-                    </tr>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td> ${requestScope.TRANSACTION.amount.details.subtotal} </td>
-                    </tr>               
+
+
                     <tr>
                         <td>Total</td>
                         <td> ${requestScope.TRANSACTION.amount.total} </td>

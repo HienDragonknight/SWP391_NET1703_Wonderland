@@ -4,61 +4,69 @@
  */
 package controlls.servlet;
 
-import dal.HostDAO;
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.OrderDTO;
 import models.UserDTO;
 
 /**
  *
- * @author phanv
+ * @author bao.kun
  */
-@WebServlet(name = "EditHostProfileServlet", urlPatterns = {"/EditHostProfileServlet"})
-public class ReviewPaymentPayPalServlet extends HttpServlet {
+@WebServlet(name = "ViewYourCarServlet", urlPatterns = {"/view_your_party_servlet"})
+public class ViewYourCarServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private static final String ERROR = "host_profile.jsp";
-    private static final String SUCCESS = "host_profile.jsp";
+    private static final String ERROR = "your_party.jsp";
+    private static final String SUCCESS = "your_party.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
         String url = ERROR;
-        String message = "";
-        HostDAO hostDao = new HostDAO();
+
         try {
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-            String avatar = request.getParameter("avatar");
-            UserDTO user = new UserDTO("", fullname, "", "", phone, avatar, "", "");
-            boolean checkEdit = hostDao.editHostProfile(user);
-            if (checkEdit){
+            HttpSession session = request.getSession();
+            UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
+            OrderDAO orderDao = new OrderDAO();
+
+            String status = request.getParameter("status");
+            List<OrderDTO> listOrder = null;
+
+            if (status.equalsIgnoreCase("going")) {
+                status = "Success";
+                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
+            }
+            if (status.equalsIgnoreCase("cancelled")) {
+                status = "Checkout yet";
+                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
+
+            }
+            if (status.equalsIgnoreCase("completed")) {
+                status = "Success";
+                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
+
+            }
+
+            if (listOrder != null) {
+                request.setAttribute("ORDER_LIST", listOrder);
                 url = SUCCESS;
             }
-        } catch (Exception ex) {
-            log("Error at EditHostProfileServlet:" + ex);
+
+        } catch (Exception e) {
+            log("Error at ViewYourCartServlet");
         } finally {
-            request.setAttribute("message", message);
-            if (url.equals(SUCCESS)) {
-                response.sendRedirect(url);
-            } else {
-                request.getRequestDispatcher(url).forward(request, response);
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

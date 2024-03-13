@@ -366,12 +366,12 @@
                     left: -100%;
                 }
             }
-            
+
             .logined img {
                 width: 30px;
                 border-radius: 50%;
             }
-            
+
             .logined a {
                 display: flex;
                 align-items: center;
@@ -379,9 +379,9 @@
                 gap: 5px;
             }
         </style>
-</head>
-<body>
-    <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
+    </head>
+    <body>
+        <!--Use the below code snippet to provide real time updates to the live chat plugin without the need of copying and paste each time to your website when changes are made via PBX-->
     <call-us-selector phonesystem-url="https://1111.3cx.cloud" party="wonderland"></call-us-selector>
     <script defer src="https://downloads-global.3cx.com/downloads/livechatandtalk/v1/callus.js" id="tcx-callus-js" charset="utf-8"></script>
     <div class="container">
@@ -439,7 +439,6 @@
                         <li>
                             <i class='bx bx-package'></i>
                             <a href="ViewPackage">Packages</a>
-
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
@@ -484,12 +483,6 @@
                             </div>
 
                         </div>
-
-
-
-
-
-
 
                         <%
                                 }
@@ -579,7 +572,7 @@
                     </div>
 
 
-            </div>
+                </div>
 
         </main>
     </div>
@@ -587,7 +580,7 @@
     %>
     <div class="user-logined">
         <div class="logined">
-            
+
             <%
                 if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
             %>
@@ -652,6 +645,10 @@
                 <li>
                     <i class='bx bx-info-circle'></i>
                     <a href="about.jsp">About Us</a>
+                </li>
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="your_party.jsp">Your Party</a>
                 </li>
             </ul>
             <ul class="logout">
@@ -845,7 +842,5 @@
     </div>
 </footer>
 <script src="js/pagination.js"></script>
-=======
->>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
 </body>
 </html>

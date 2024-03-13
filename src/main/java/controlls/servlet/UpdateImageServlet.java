@@ -38,6 +38,7 @@ public class UpdateImageServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -49,7 +50,11 @@ public class UpdateImageServlet extends HttpServlet {
             String originalFileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
             if (!originalFileName.isEmpty()) {
                 String fileName = originalFileName;
+                
                 String directoryPath = "D:/FPT/SP24/SWP391/Project/SWP391_NET1703_Wonderland/src/main/webapp/image/";
+                
+                
+                
                 File uploadDir = new File(directoryPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();

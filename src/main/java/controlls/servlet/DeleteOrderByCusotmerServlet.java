@@ -4,7 +4,7 @@
  */
 package controlls.servlet;
 
-import dal.OrderDAO;
+import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,42 +13,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.PackageDTO;
 import models.UserDTO;
 
 /**
  *
  * @author bao.kun
  */
-@WebServlet(name = "AddOrderServlet", urlPatterns = {"/add_order"})
-public class AddOrderServlet extends HttpServlet {
+@WebServlet(name = "DeleteOrderByCusotmerServlet", urlPatterns = {"/going_on_parties"})
+public class DeleteOrderByCusotmerServlet extends HttpServlet {
 
-    private static final String ERROR = "package_item.jsp";
-    private static final String SUCCESS = "ready_for_checkout.jsp";
+    private static final String SUCCESS = "checkout_cart.jsp";
+    private static final String ERROR = "checkout_cart.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
 
         String url = ERROR;
 
         try {
-            HttpSession session = request.getSession();
-            UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
-             System.out.println(userLogin.getUserID());
-            OrderDAO orderDao = new OrderDAO();
 
-            boolean check = orderDao.insertOrderWithLogin(userLogin);
+            String packageID = request.getParameter("packageID");
 
-            if (check) {
+            // get package 
+            PackageDAO packageDAO = new PackageDAO();
+            PackageDTO packageDTO = packageDAO.getPackageByID(packageID);
+
+            if (packageDTO != null) {
                 url = SUCCESS;
+                request.setAttribute("PACKAGE_ITEM", packageDTO);
             }
 
         } catch (Exception e) {
-            log("Error at AddOrderServlet ");
         } finally {
-             request.getRequestDispatcher(url).forward(request, response);
+            request.getRequestDispatcher(url).forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,4 +1,4 @@
-
+    
 
 <%@page import="models.UserDTO"%>
 <%@page import="models.ThemeDTO"%>
@@ -280,35 +280,35 @@
                 padding: 30px;
                 border-radius: 50px;
             }
-            
+
             .checkout {
                 display: flex;
                 justify-content: space-between;
             }
-            
+
             .order-info {
                 display: flex;
                 flex-direction: column;
                 font-size: 20px;
                 gap: 15px;
             }
-            
+
             .product-image-wrapper img {
                 width: 250px;
             }
-            
+
             .customer-info {
                 display: flex;
                 flex-direction: column;
                 font-size: 20px;
                 gap: 10px;
             }
-            
+
             .control {
                 display: flex;
                 flex-direction: column;
             }
-            
+
             .control input {
                 width: 350px;
                 font-size: 18px;
@@ -316,14 +316,14 @@
                 border: 1px solid #E7E7E7;
                 padding: 5px;
             }
-            
+
             .control textarea {
                 font-size: 18px;
                 border-radius: 10px;
                 border: 1px solid #E7E7E7;
                 padding: 5px;
             }
-            
+
             .control button {
                 width: 100px;
                 font-size: 18px;
@@ -333,7 +333,7 @@
                 background-color: #50BFF5;
                 color: white;
             }
-            
+
             .control button:hover {
                 background-color: #64B3D9;
                 box-shadow: 0px 0px 5px #E7E7E7;
@@ -358,9 +358,20 @@
                     </form>
                 </div>
 
-
                 <%
-                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
+                    StringBuffer context = request.getRequestURL();
+                    String endpoint = "checkout_cart.jsp";
+
+                    int lastIndex = context.lastIndexOf("/");
+                    context.replace(lastIndex + 1, context.length(), endpoint);
+                    String modifiedURL = context.toString();
+
+                    String contextPath = request.getContextPath();
+
+
+                %>
+
+                <%                    UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
 
                     if (dto == null) {
                 %>
@@ -378,14 +389,13 @@
                         <a href="#">Sign Up</a>
                     </div>
                     <div>
-
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties" data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </form>
+                        </a>
                     </div>
 
                     <%
@@ -399,15 +409,14 @@
                     </div>
 
                     <div>
-                        <form class="d-flex">
-                            <button class="btn btn-outline-dark" type="submit">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties"data-bind="scope: 'minicart_content'">
+                            <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
                                 <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
-                        </form>
+                        </a>
                     </div>
-
 
                 </div>
                 <%   }
@@ -491,8 +500,8 @@
 
                                 <tr >
 
-                                <span class="label" >Bonus Service</span>
-                                <span class="price  -bonus" id="price-bonus">0$</span>
+                                <span class="lable" >Bonus Service</span>
+                                <span class="price-bonus" id="price-bonus">0$</span>
 
 
                                 </tr>  <br>
@@ -657,7 +666,7 @@
                     var localStorageLength = localStorage.length;
                     if (localStorageLength !== 0)
                     {
-                        document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                        document.getElementById("numsOfCart").innerHTML = 1;
                     } else
                     {
                         document.getElementById("numsOfCart").innerHTML = 0;
@@ -678,9 +687,10 @@
                 var pricePackageUnit = document.getElementById("price-unit");
 
                 locationName.innerHTML = packageData['center'].split('-')[1];
-                numberOfChildren.innerHTML = packageData['childrenNums'];
+
+                numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
                 var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
-                pricePackageUnit.innerHTML = pricePackageUnitValue + '$';
+                pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
 
                 var priceMultipleValue = parseFloat(pricePackageUnitValue) * packageData['childrenNums'];
                 var priceMultiple = document.getElementById("price-multiple");
@@ -803,7 +813,32 @@
             formatPhoneNumber(inputPhone);
 
 
-        </script>
 
+
+
+
+
+            function  updateHrefCart()
+            {
+
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageJSON = JSON.parse(packageInfo);
+
+                var packageID = packageJSON['packageID'];
+
+                // If packageID exists, update href attribute
+                if (packageID !== null) {
+                    var cartLink = document.getElementById("cartLink");
+                    // Append packageID as a query parameter to the href
+                    cartLink.href = '<%= contextPath%>' + "/going_on_parties?packageID=" + packageID;
+                }
+
+            }
+            updateHrefCart();
+            
+            
+            
+           
+        </script>
     </body>
 </html>

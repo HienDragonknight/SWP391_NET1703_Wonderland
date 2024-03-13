@@ -4,9 +4,12 @@
  */
 package paypal.services;
 
+import controlls.servlet.*;
 import com.paypal.base.rest.PayPalRESTException;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -47,14 +50,10 @@ public class AuthorizePaymentPayPalServlet extends HttpServlet {
             orderDetailInfo.put("note", note);
             orderDetailInfo.put("paymentMethod", paymentMethod);
 
-            
-            
-              
-            
             String fullName = request.getParameter("fullName");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
-           
+
             Map<String, String> orderInfo = new HashMap<>();
             orderInfo.put("fullName", fullName);
             orderInfo.put("phone", phone);
@@ -65,8 +64,6 @@ public class AuthorizePaymentPayPalServlet extends HttpServlet {
 
             // ########################################
             // ########################################
-            
-            
             String packageProduct = request.getParameter("packageProduct");
             String subtotal = request.getParameter("subtotal");
             String shipping = request.getParameter("shipping");
