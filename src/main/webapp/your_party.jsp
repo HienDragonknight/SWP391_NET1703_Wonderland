@@ -519,6 +519,12 @@
                         <!-- Users Table -->
                         <div class="bottom-data">
                             <div class="orders">
+
+                                <%
+                                    List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
+                                    if (listOrder != null) {
+                                        int countOrder = 1;
+                                %>
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
                                     <h3>Party</h3>
@@ -527,6 +533,7 @@
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
+
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
@@ -536,19 +543,15 @@
                                                     <th>Create At</th>                                                  
                                                     <th>Total Price</th>      
                                                     <th>Status</th>    
-
                                                 </tr>
                                             </thead>
+                                            <%
+                                                for (OrderDetailDTO dto : listOrder) {
 
+                                            %>
                                             <tbody class="scrollable">
-                                                <%
-                                                    List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
-                                                    if (listOrder != null) {
-                                                        int countOrder = 1;
-                                                        for (OrderDetailDTO dto : listOrder) {
 
-                                                %>
-                                                <tr>
+                                                <tr>    
                                                     <td><%= countOrder++%></td>
                                                     <td><%= dto.getPackageName()%></td>
                                                     <td><%= dto.getLocaltionDetails()%></td>        
@@ -558,9 +561,19 @@
                                                     <td><%= dto.getStatus()%></td>         
                                                 </tr>
                                                 <%
-                                                        }
                                                     }
+                                                } else {
+
                                                 %>
+
+                                            <div>
+                                                <p>There is no party</p>
+                                            </div>
+
+
+                                            <%}
+
+                                            %>
                                             </tbody>
                                         </table>
                                     </div>

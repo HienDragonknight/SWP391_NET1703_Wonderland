@@ -36,17 +36,19 @@ public class ViewYourCarServlet extends HttpServlet {
 
             if (status.equalsIgnoreCase("going")) {
                 status = "Success";
+                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
 
             }
             if (status.equalsIgnoreCase("cancelled")) {
                 status = "Checkout yet";
+                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
 
             }
             if (status.equalsIgnoreCase("completed")) {
                 status = "Success";
+                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
             }
-
-            listOrder = orderDao.getOrderList(userLogin.getUserID(), status);
+            
 
             if (listOrder != null) {
                 request.setAttribute("ORDER_LIST", listOrder);
