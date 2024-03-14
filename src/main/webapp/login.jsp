@@ -83,7 +83,7 @@
                                     <input type="email" name="txtEmail" class="form-control" id="floatingInput" aria-describedby="emailHelp" placeholder="Enter email" value="<%=cuValue%>" required="required">
                                     <label for="floatingInput">Email address</label>
                                 </div>
-<<<<<<< HEAD
+
                                 <div class="form-floating mb-4">
                                     <input type="password" name="txtPassword" class="form-control" id="floatingPassword" placeholder="Password" value="<%= cpValue%>" required="required">
                                     <label for="floatingPassword">Password</label>

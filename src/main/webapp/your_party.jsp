@@ -1,19 +1,20 @@
 <%-- 
-    Document   : adminOrder
-    Created on : Feb 1, 2024, 10:15:00 AM
+    Document   : admin
+    Created on : Jan 24, 2024, 3:01:36 PM
     Author     : Le Huu Huy
 --%>
 
-<%@page import="models.UserDTO"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="models.OrderDetailDTO"%>
 <%@page import="models.OrderDTO"%>
 <%@page import="java.util.List"%>
+<%@page import="models.UserDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Page</title>
+        <title>Admin</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
         <style>
@@ -173,63 +174,6 @@
                 transition: all 0.3s ease;
             }
 
-            .slide-container {
-                position: relative;
-                width: 100%;
-                max-width: 100vw;
-                height: 650px;
-                max-height: 100vh;
-                margin: auto;
-            }
-
-            .slide-container .slides {
-                width: 100%;
-                height: 100%;
-                position: relative;
-                overflow: hidden;
-            }
-
-            .slide-container .slides img{
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-                border-radius: 50px;
-            }
-
-            .slide-container .slides img:not(.active) {
-                top: 0;
-                left: -100%;
-            }
-
-            span.next, span.prev {
-                display: none;
-            }
-
-            .dotsContainer {
-                position: absolute;
-                bottom: 5px;
-                z-index: 3;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 10px;
-            }
-
-            .dotsContainer .active {
-                background-color: #5773ff;
-            }
-
-            .dotsContainer .dot {
-                width: 15px;
-                height: 15px;
-                margin: 0px 2px;
-                border: 3px solid #bbb;
-                border-radius: 50%;
-                display: inline-block;
-                transition: background-color 0.6s ease;
-                cursor: pointer;
-            }
-
             .column-about {
                 display: flex;
                 justify-content: center;
@@ -371,6 +315,7 @@
             .bottom-data .orders{
                 flex-grow: 1;
                 flex-basis: 500px;
+
             }
 
             .bottom-data .orders table{
@@ -387,6 +332,14 @@
 
             .bottom-data .orders table td{
                 padding: 16px 0;
+            }
+
+            .bottom-data .orders table td input {
+                border: none;
+                outline: none;
+                background: #f6f6f9;
+                font-size: 16px;
+                width: 100%;
             }
 
             .bottom-data .orders table tr td:first-child{
@@ -409,25 +362,6 @@
                 background: #388E3C;
             }
 
-            .admin-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                flex-wrap: wrap;
-            }
-
-            .admin-header a {
-                height: 36px;
-                padding: 0 16px;
-                border-radius: 36px;
-                background: #1976D2;
-                color: #f6f6f9;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                grid-gap: 10px;
-                font-weight: 500;
-            }
 
             .logout li form {
                 display: flex;
@@ -444,10 +378,54 @@
                 cursor: pointer;
             }
 
-            .view-detail {
-                font-size: 16px;
-                text-decoration: underline;
-                color: blue;
+            .table-wrapper {
+                overflow-y: auto;
+                height: 180px;
+            }
+
+            .header form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header .search-btn {
+                display: none;
+            }
+
+            .header input {
+                border: none;
+                padding: 5px 20px;
+                outline: none;
+            }
+
+            @media screen and (max-width: 992px) {
+                .container main {
+                    grid-template-columns: 3fr 2fr;
+                }
+
+                .menu {
+                    position: absolute;
+                    left: -100%;
+                }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .avatar-image {
+                width: 400px; /* Adjust the width as per your requirement */
+                height: 200px; /* Maintains the aspect ratio */
             }
 
             .modal {
@@ -524,7 +502,13 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
-            
+
+            .modal-body>div {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+            }
+
             .modal-body a {
                 margin-top: 20px;
                 border: 1px solid #CAFFFF;
@@ -537,28 +521,24 @@
                 height: 450px;
             }
 
-            @media screen and (max-width: 992px) {
-                .container main {
-                    grid-template-columns: 3fr 2fr;
-                }
-
-                .menu {
-                    position: absolute;
-                    left: -100%;
-                }
+            #notificationContainer {
+                display: none;
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: red;
+                color: white;
+                padding: 15px;
+                border-radius: 5px;
+                box-shadow: 0 0 5px #666;
             }
 
-            .logined img {
-                width: 30px;
-                border-radius: 50%;
+            #notificationContainer button {
+                margin-left: 20px;
+                cursor: pointer;
             }
 
-            .logined a {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
-            }
+
         </style>
     </head>
     <body>
@@ -579,36 +559,21 @@
                         </form>
                     </div>
 
-                    <%
-                        UserDTO hostDTO = (UserDTO) session.getAttribute("USER_INFO");
-                    %>
 
                     <div class="user-logined">
                         <div class="logined">
-                            <%
-                                if (hostDTO.getRoleID().equals("3")) {
-                            %>
                             <a href="ViewUserServlet">
                                 <img src="image/${sessionScope.USER_INFO.avatar}"/>
                                 ${sessionScope.USER_INFO.fullName}
                             </a>
-                            <%
-                            } else if (hostDTO.getRoleID().equals("2")) {
-                            %>
-                            <a href="PartyHostServlet">
-                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                                ${sessionScope.USER_INFO.fullName}
-                            </a>
-                            <%
-                                }
-                            %>
-
                         </div>
                         <div class="cart-items">
                             <i class='bx bx-cart' ></i>
                             <a href="#">Cart</a>
                         </div>
                     </div>
+
+
                 </aside>
             </header>
 
@@ -653,214 +618,173 @@
                                 </form>
                             </li>
                         </ul>
-                    </div>
+                    </div>  
 
                     <div class="admin-container">
-                        <%
-                            if (hostDTO.getRoleID().equals("3")) {
-                        %>
-                        <div class="admin-header">
-                            <h1>Party Host Dashboard</h1>
+                        <div class="add-ab">
+                            <a href="home.jsp">Home</a><span> &#10095; Your Party</span>
                         </div>
+                        <h1>Your Party</h1>
                         <%
-                        } else if (hostDTO.getRoleID().equals("2")) {
-                        %>
-                        <div class="admin-header">
-                            <h1>Admin Dashboard</h1>
-                            <a href="manageAccount.jsp">Manage Account</a>
-                        </div>
-                        <%
-                            }
-                        %>
-
-                        <%
-                            List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
-
-                            double totalIncome = 0;
+                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                            int totalUsers = 0; // Counter for total users
                             if (result != null) {
-                                for (OrderDetailDTO dto : result) {
-                                    totalIncome += dto.getTotalPrice();
+                                for (UserDTO dto : result) {
+                                    totalUsers++;
                                 }
                             }
-
                         %>
 
                         <div>
                             <ul class="insights">
-                                <li>
-                                    <i class='bx bx-box'></i>
-                                    <a href="ViewOrderServlet" class="info">
-                                        <p>Order</p>
-                                    </a>
-                                </li>
+
                                 <li>
                                     <i class='bx bx-user'></i>
-                                    <%                                        if (hostDTO.getRoleID().equals("3")) {
-                                    %>
-                                    <a href="PartyHostServlet" class="info">
-                                        <p>User</p>
-                                    </a>
-                                    <%
-                                    } else if (hostDTO.getRoleID().equals("2")) {
-                                    %>
-                                    <a href="ViewUserServlet" class="info">
-                                        <p>User</p>
-                                    </a>
-                                    <%
-                                        }
-                                    %>
-                                </li>
-                                <li>
-                                    <i class='bx bx-money'></i>
-                                    <a href="ChartServlet" class="info">
-                                        <h3 style="font-size: 20px;">
-                                            <%= totalIncome%>
-                                        </h3>
-                                        <p>Income</p>
+                                    <a href="view_your_party_servlet?status=going" class="info">
+                                        <p>On Going</p>
                                     </a>
                                 </li>
                                 <li>
                                     <i class='bx bx-face'></i>
-                                    <a href="profile.jsp" class="info">
-                                        <p>Profile</p>
+                                    <a href="view_your_party_servlet?status=completed" class="info">
+                                        <p>Completed</p>
+                                    </a>
+                                </li>
+                                <li>
+                                    <i class='bx bx-face'></i>
+                                    <a href="view_your_party_servlet?status=cancelled" class="info">
+                                        <p>Cancelled</p>
                                     </a>
                                 </li>
                             </ul>
                         </div>
 
+
+
                         <!-- Users Table -->
                         <div class="bottom-data">
                             <div class="orders">
+
+                                <%
+                                    List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
+                                    if (listOrder != null) {
+                                        int countOrder = 1;
+                                %>
                                 <div class="header">
                                     <i class='bx bx-receipt'></i>
-                                    <h3>Users</h3>
-                                    <i class='bx bx-filter'></i>
-                                    <i class='bx bx-search'></i>
-                                </div>
+                                    <h3>Party</h3>
 
+                                </div>
                                 <form action="AdminServlet" method="POST">
                                     <div class="table-wrapper">
                                         <table>
+
                                             <thead>
                                                 <tr>
                                                     <th>No.</th>
-                                                    <th>User</th>
-                                                    <th>Date Order</th>
-                                                    <th>Party Name</th>
-                                                    <th>Price</th>
-                                                    <th>Status</th>
+                                                    <th>Your Package</th>
+                                                    <th>Location</th>    
+                                                    <th>Date Start</th>
+                                                    <th>Create At</th>                                                  
+                                                    <th>Total Price</th>      
+                                                    <th>Status</th>    
                                                 </tr>
                                             </thead>
+                                            <%
+                                                for (OrderDetailDTO dto : listOrder) {
 
-                                            <tbody>
-                                                <%
-                                                    int countOrder = 1;
-                                                    if (result != null) {
-                                                        for (OrderDetailDTO dto : result) {
+                                            %>
+                                            <tbody class="scrollable">
 
-                                                %>
-                                                <tr>
+                                                <tr>    
                                                     <td><%= countOrder++%></td>
-                                                    <td><%= dto.getFullName()%></td>
-                                                    <td><%= dto.getDateOrder()%></td>
                                                     <td><%= dto.getPackageName()%></td>
-                                                    <td><%= dto.getTotalPrice()%></td>
-                                                    <td style="color: <%= dto.getStatus().equals("Success") ? "#72FC3E" : dto.getStatus().equals("In-progress") ? "blue" : "defaultColor"%>">
-                                                        <%= dto.getStatus()%>
+                                                    <td><%= dto.getLocaltionDetails()%></td>        
+                                                    <td>
+                                                        <input type="date" name="" value="<%= dto.getDateStart()%>" />
+                                                    </td>
+                                                    <td><%= dto.getDateOrder()%></td>        
+                                                    <td><%= dto.getTotalPrice()%></td>        
+                                                    <td><%= dto.getStatus()%></td>   
+                                                    <td>
+                                                        <button style="font-size: 16px; cursor: pointer;">
+                                                            Update
+                                                        </button>
                                                     </td>
                                                     <td>
-                                                        <a data-modal-target="#modal<%= countOrder%>">View Details</a>
-                                                        <div class="modal" id="modal<%= countOrder%>">
-
-                                                            <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
-                                                                <table>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>Party Name</th>
-                                                                            <th>Date Start</th>
-                                                                            <th>Amount</th>
-                                                                            <th>Service</th>
-                                                                            <th>Customer</th>
-                                                                            <th>Location</th>
-                                                                            <th>Status</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td><%= dto.getPackageName()%></td>
-                                                                            <td><%= dto.getDateStart()%></td>
-                                                                            <td><%= dto.getAmountOfPeople()%></td>
-                                                                            <td><%= dto.getServiceName()%></td>
-                                                                            <td><%= dto.getEmail() %></td>
-                                                                            <td><%= dto.getLocation()%></td>
-                                                                            <td><%= dto.getStatus()%></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <a data-close-button="ViewOrderServlet">Close</a>
-                                                            </div>
-
-                                                        </div>
-
-                                                        <div id="overlay"></div>
+                                                        <%
+                                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                                            String formattedDate = sdf.format(dto.getDateStart());
+                                                        %>
+                                                        <a onclick="confirmCancel('<%= formattedDate%>'); return false;">Cancel</a>
                                                     </td>
                                                 </tr>
-                                                <%                                                    }
+                                                <%
                                                     }
+                                                } else {
+
                                                 %>
+
+                                            <div style="text-align: center">
+                                                <i class='bx bx-notification-off'></i>
+                                                <p>There is no party</p>
+                                            </div>
+
+
+                                            <%}
+
+                                            %>
                                             </tbody>
                                         </table>
                                     </div>
                                 </form>
                             </div>
                         </div>
-
-
                     </div>
+                </div>
+                <!-- Notification Container -->
+                <div id="notificationContainer" style="display:none; position:fixed; top:20px; right:20px; background-color:red; color: white; padding:15px; border-radius:5px; box-shadow:0 0 5px #666;">
+                    <span id="notificationMessage">This order starts in less than 2 days.</span>
+                    <span id="countdownTimer" style="margin-left: 10px; display: none"></span>
+                </div>
 
-            </main>
         </div>
 
         <script>
-            const openModalButtons = document.querySelectorAll('[data-modal-target]');
-            const closeModalButtons = document.querySelectorAll('[data-close-button]');
-            const overlay = document.getElementById('overlay');
+            function confirmCancel(dateStartStr) {
+                var dateStart = new Date(dateStartStr);
+                var now = new Date();
+                var timeDiff = dateStart.getTime() - now.getTime();
+                var dayDiff = timeDiff / (1000 * 3600 * 24);
 
-            openModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = document.querySelector(button.dataset.modalTarget);
-                    openModal(modal);
-                });
-            });
+                if (dayDiff < 2) {
+                    var notificationContainer = document.getElementById('notificationContainer');
+                    var countdownTimer = document.getElementById('countdownTimer');
+                    var notificationMessage = document.getElementById('notificationMessage');
 
-            overlay.addEventListener('click', () => {
-                const modals = document.querySelectorAll('.modal.active');
-                modals.forEach(modal => {
-                    closeModal(modal);
-                });
-            });
+                    // Show the custom notification
+                    notificationContainer.style.display = 'block';
+                    notificationMessage.innerHTML = 'This order starts in less than 2 days.';
 
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const modal = button.closest('.modal');
-                    closeModal(modal);
-                });
-            });
-
-            function openModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.add('active');
-                overlay.classList.add('active');
+                    // Set timer for 5 seconds
+                    var secondsLeft = 3;
+                    countdownTimer.innerHTML = secondsLeft;
+                    var countdownInterval = setInterval(function () {
+                        secondsLeft--;
+                        countdownTimer.innerHTML = secondsLeft;
+                        if (secondsLeft <= 0) {
+                            clearInterval(countdownInterval);
+                            closeNotification();
+                        }
+                    }, 1000);
+                }
             }
 
-            function closeModal(modal) {
-                if (modal === null)
-                    return;
-                modal.classList.remove('active');
-                overlay.classList.remove('active');
+// Function to close the notification
+            function closeNotification() {
+                document.getElementById('notificationContainer').style.display = 'none';
             }
         </script>
-
-    </body>
+    </div>
+</body>
 </html>

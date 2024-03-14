@@ -360,11 +360,14 @@
 
                 <%
                     StringBuffer context = request.getRequestURL();
-                    String endpoint = "checkout_car.jsp";
+                    String endpoint = "checkout_cart.jsp";
 
                     int lastIndex = context.lastIndexOf("/");
                     context.replace(lastIndex + 1, context.length(), endpoint);
                     String modifiedURL = context.toString();
+
+                    String contextPath = request.getContextPath();
+
 
                 %>
 
@@ -386,7 +389,7 @@
                         <a href="#">Sign Up</a>
                     </div>
                     <div>
-                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties" data-bind="scope: 'minicart_content'">
                             <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
@@ -406,7 +409,7 @@
                     </div>
 
                     <div>
-                        <a class="action showcart" href="<%= modifiedURL%>" data-bind="scope: 'minicart_content'">
+                        <a id="cartLink" class="action showcart" href="/going_on_parties"data-bind="scope: 'minicart_content'">
                             <button class="btn btn-outline-dark">
                                 <i class="bi-cart-fill me-1"></i>
                                 Cart
@@ -663,7 +666,7 @@
                     var localStorageLength = localStorage.length;
                     if (localStorageLength !== 0)
                     {
-                        document.getElementById("numsOfCart").innerHTML = localStorageLength;
+                        document.getElementById("numsOfCart").innerHTML = 1;
                     } else
                     {
                         document.getElementById("numsOfCart").innerHTML = 0;
@@ -684,6 +687,7 @@
                 var pricePackageUnit = document.getElementById("price-unit");
 
                 locationName.innerHTML = packageData['center'].split('-')[1];
+
                 numberOfChildren.innerHTML = "<span class=\"label\">Children </span>" + packageData['childrenNums'];
                 var pricePackageUnitValue = packageData['packageUnitPrice'].split('$')[1];
                 pricePackageUnit.innerHTML = "  <span class=\"lable\" >Unit Price </span>" + pricePackageUnitValue + '$';
@@ -809,6 +813,32 @@
             formatPhoneNumber(inputPhone);
 
 
+
+
+
+
+
+            function  updateHrefCart()
+            {
+
+                var packageInfo = localStorage.getItem("packageInfo");
+                var packageJSON = JSON.parse(packageInfo);
+
+                var packageID = packageJSON['packageID'];
+
+                // If packageID exists, update href attribute
+                if (packageID !== null) {
+                    var cartLink = document.getElementById("cartLink");
+                    // Append packageID as a query parameter to the href
+                    cartLink.href = '<%= contextPath%>' + "/going_on_parties?packageID=" + packageID;
+                }
+
+            }
+            updateHrefCart();
+            
+            
+            
+           
         </script>
     </body>
 </html>

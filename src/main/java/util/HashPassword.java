@@ -7,10 +7,7 @@ package util;
 import java.security.MessageDigest;
 import java.util.Base64;
 
-/**
- *
- * @author 84335
- */
+
 public class HashPassword {
 
     public static String toSHA1(String str) {

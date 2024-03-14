@@ -558,18 +558,51 @@
                 align-items: center;
                 gap: 5px;
             }
-            
+
             .logined img {
                 width: 30px;
                 border-radius: 50%;
+                height: 30px;
             }
-            
+
             .logined a {
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 gap: 5px;
             }
+
+            /* Notification Styles */
+            .notification-container {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 9999; /* Ensure the notification is on top of other elements */
+            }
+
+            .notification {
+                background-color: #4CAF50;
+                color: white;
+                padding: 15px;
+                margin-bottom: 15px;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+                position: relative;
+            }
+
+            .close {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .close:hover {
+                color: #f44336;
+            }
+
         </style>
     </head>
     <body>
@@ -597,7 +630,6 @@
 
                 <%
                     UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
                     if (dto == null) {
                 %>
                 <div class="profile">
@@ -646,6 +678,7 @@
                             <i class='bx bx-info-circle'></i>
                             <a href="about.jsp">About Us</a>
                         </li>
+
                     </ul>
                 </div>
 
@@ -657,12 +690,10 @@
                             <img src="image/cover3.jpg" alt="image #3"/>
                             <img src="image/cover4.png" alt="image #4"/>
                         </div>
-
                         <div class="buttons">
                             <span class="next">&#10095;</span>
                             <span class="prev">&#10094;</span>
                         </div>
-
                         <div class="dotsContainer">
                             <div class="dot active" attr='0' onclick="switchImage(this)"></div>
                             <div class="dot" attr='1' onclick="switchImage(this)"></div>
@@ -904,7 +935,7 @@
     } else {
     %>
     <div class="user-logined">
-        <div class="logined">
+         <div class="logined">
             
             <%
                 if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
@@ -970,6 +1001,12 @@
                     <i class='bx bx-info-circle'></i>
                     <a href="about.jsp">About Us</a>
                 </li>
+
+                <li>
+                    <i class='bx bx-party'></i>
+                    <a href="view_your_party_servlet?status=going">Your Party</a>
+                </li>
+
             </ul>
             <ul class="logout">
                 <li>

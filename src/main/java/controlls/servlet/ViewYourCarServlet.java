@@ -1,47 +1,66 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+package controlls.servlet;
 
+import dal.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import models.OrderDTO;
+import models.OrderDetailDTO;
+import models.UserDTO;
 
-/**
- *
- * @author Hp
- */
-@WebServlet(urlPatterns = {"/update_service"})
-public class update_service extends HttpServlet {
+@WebServlet(name = "ViewYourCarServlet", urlPatterns = {"/view_your_party_servlet"})
+public class ViewYourCarServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "your_party.jsp";
+    private static final String SUCCESS = "your_party.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet update_service</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet update_service at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+
+        String url = ERROR;
+
+        try {
+            HttpSession session = request.getSession();
+            UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
+            OrderDAO orderDao = new OrderDAO();
+
+            String status = request.getParameter("status");
+            List<OrderDetailDTO> listOrder = null;
+
+            if (status.equalsIgnoreCase("going")) {
+                status = "Success";
+                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
+
+            }
+            if (status.equalsIgnoreCase("cancelled")) {
+                status = "Checkout yet";
+                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
+
+            }
+            if (status.equalsIgnoreCase("completed")) {
+                status = "Success";
+                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
+            }
+            
+
+            if (listOrder != null) {
+                request.setAttribute("ORDER_LIST", listOrder);
+                url = SUCCESS;
+            }
+
+        } catch (Exception e) {
+            log("Error at ViewYourCartServlet");
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

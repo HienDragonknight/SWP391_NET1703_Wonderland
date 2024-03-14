@@ -230,6 +230,79 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 justify-content: center;
                 align-items: center;
             }
+
+            .table-wrapper {
+                overflow-y: auto;
+                height: 180px;
+            }
+
+            .header form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .header .search-btn {
+                display: none;
+            }
+
+            .header input {
+                border: none;
+                padding: 5px 20px;
+                outline: none;
+            }
+
+            @media screen and (max-width: 992px) {
+                .container main {
+                    grid-template-columns: 3fr 2fr;
+                }
+
+                .menu {
+                    position: absolute;
+                    left: -100%;
+                }
+            }
+
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+            }
+
+            .logined a {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+            }
+
+            .avatar-image {
+                width: 400px; /* Adjust the width as per your requirement */
+                height: 200px; /* Maintains the aspect ratio */
+            }
+
+            header .side-bar .user-logined .logined,
+            header .side-bar .user-logined .cart-items{
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                gap: 8px;
+            }
+
+            header .side-bar .user-logined i {
+                cursor: pointer;
+            }
+
+            header .side-bar .user-logined .logined:hover i,
+            header .side-bar .user-logined .logined:hover a {
+                color: #5773ff;
+            }
+
+            header .side-bar .user-logined .cart-items:hover i,
+            header .side-bar .user-logined .cart-items:hover a {
+                color: #5773ff;
+            }
+
         </style>
     </head>
     <body>
@@ -251,59 +324,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                     </div>
 
 
-                    <%
-                        UserDTO dto = (UserDTO) session.getAttribute("USER_INFO");
-
-                        if (dto == null) {
-                    %>
-
-                    <div class="profile">
-                        <div class="login-pro">
-                            <i class='bx bx-user'></i>
-                            <a href="login.jsp">Login</a>
+                    <div class="user-logined">
+                        <div class="logined">
+                            <a href="ViewUserServlet">
+                                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                                ${sessionScope.USER_INFO.fullName}
+                            </a>
                         </div>
-
-                        <span> / </span>
-
-                        <div class="sign-pro">
-                            <i class='bx bx-lock-alt'></i>
-                            <a href="#">Sign Up</a>
+                        <div class="cart-items">
+                            <i class='bx bx-cart' ></i>
+                            <a href="#">Cart</a>
                         </div>
-                        <div>
-
-                            <form class="d-flex">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-                        </div>
-
-                        <%
-                        } else {
-                        %>
-
-
-                        <div class="logined" id="nickname">
-                            <i class='bx bx-user-circle'></i>
-                            <a href="ViewUserServlet">${sessionScope.USER_INFO.fullName}</a>
-                        </div>
-
-                        <div>
-                            <form class="d-flex">
-                                <button class="btn btn-outline-dark" type="submit">
-                                    <i class="bi-cart-fill me-1"></i>
-                                    Cart
-                                    <span id="numsOfCart" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                                </button>
-                            </form>
-                        </div>
-
-
                     </div>
-                    <%   }
-                    %>
+
 
                 </aside>
             </header>

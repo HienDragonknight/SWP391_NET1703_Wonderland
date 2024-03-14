@@ -747,5 +747,34 @@
 
             </main>
         </div>
+                        <script>
+    // Function to validate the DateStart field
+    function validateDateStart() {
+        var dateStartInput = document.getElementsByName("dateStart")[0]; // Assuming only one input with name "dateStart"
+        var dateStartValue = dateStartInput.value;
+
+        // Get today's date
+        var today = new Date();
+        today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0 for comparison
+
+        // Convert the value of dateStart to a Date object
+        var dateStart = new Date(dateStartValue);
+
+        // Check if dateStart is equal to or before today's date
+        if (dateStart > today) {
+            alert("Date Start must be equal to or before today's date.");
+            dateStartInput.value = ""; // Clear the value of the input field
+            return false; // Prevent form submission
+        }
+        return true; // DateStart is valid
+    }
+
+    // Attach the validateDateStart function to the form submission event
+    window.onload = function () {
+        var form = document.querySelector('form'); // Assuming only one form in the page
+        form.onsubmit = validateDateStart;
+    };
+</script>
+
     </body>
 </html>

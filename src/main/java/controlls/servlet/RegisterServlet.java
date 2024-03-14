@@ -74,7 +74,6 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("status", "error");
             } else {
                 // All validations passed, proceed with registration
-
                 String passwordHashed = HashPassword.toSHA1(password);
                 HttpSession session = request.getSession();
                 session.setAttribute("newFullName", name);
@@ -83,7 +82,7 @@ public class RegisterServlet extends HttpServlet {
                 session.setAttribute("newPassword", password);
                 response.sendRedirect("UserVerify");
                 session.setAttribute("newPassword", passwordHashed);
-
+                
                 UserDAO dao = new UserDAO();
                 boolean result = dao.registerUser(name, email, passwordHashed, phone);
                 if (result) {

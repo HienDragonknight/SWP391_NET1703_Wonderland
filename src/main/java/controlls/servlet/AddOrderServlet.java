@@ -34,7 +34,7 @@ public class AddOrderServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
-
+            
             OrderDAO orderDao = new OrderDAO();
 
             boolean check = orderDao.insertOrderWithLogin(userLogin);

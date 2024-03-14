@@ -44,7 +44,7 @@ public class UserDAO implements Serializable {
         try {
             con = DBUtils.createConnection();
             if (con != null) {
-                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND reported IS NULL";
+                String sql = "SELECT * FROM users WHERE email = ? AND password = ? AND fullname NOT IN ( SELECT fullname FROM users WHERE reported = 'ban')";
                 stm = con.prepareStatement(sql);
                 stm.setString(1, email);
                 stm.setString(2, password);
@@ -57,7 +57,7 @@ public class UserDAO implements Serializable {
                     String avatar = rs.getString("avatar");
                     String roleID = rs.getString("roleID");
                     String reported = rs.getString("reported");
-                    result = new UserDTO(roleID, fullName, email, password, phoneNum, avatar, roleID, reported);
+                    result = new UserDTO(ID, fullName, email, password, phoneNum, avatar, roleID, reported);
                 }
             }
         } finally {

@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import models.UserDTO;
 
 /**
  *
@@ -50,24 +51,23 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
             Payment payment = paymentServices.executePayment(paymentID, payerID);
 
             if (payment != null) {
+
                 // ############## WONDERLAND ##############  
                 // ########################################
                 HttpSession session = request.getSession();
                 Map<String, String> orderDetailInfo = (Map<String, String>) session.getAttribute("ORDER_DETAIL_INFO");
                 Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
+
+                
                 
                 OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                 boolean checkInserOrderDetail = false;
+
                 try {
-                    checkInserOrderDetail = orderDetailDAO.insertOrderDetail(orderDetailInfo,orderInfo);
+                    checkInserOrderDetail = orderDetailDAO.insertOrderDetail(orderDetailInfo, orderInfo);
                 } catch (SQLException ex) {
                     ex.getMessage();
                 }
-
-                //Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
-             //   OrderDAO orderDAO = new OrderDAO();
-                //  boolean checkInsertOrder = orderDAO.insertOrder(orderInfo);
-
                 if (checkInserOrderDetail) {
                     PayerInfo payerInfo = payment.getPayer().getPayerInfo();
                     Transaction transaction = payment.getTransactions().get(0);

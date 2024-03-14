@@ -4,12 +4,12 @@
  */
 package paypal.services;
 
+import controlls.servlet.*;
 import com.paypal.api.payments.PayerInfo;
 import com.paypal.api.payments.Payment;
 import com.paypal.api.payments.ShippingAddress;
 import com.paypal.api.payments.Transaction;
 import com.paypal.base.rest.PayPalRESTException;
-import dal.HostDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,53 +17,43 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.UserDTO;
+import paypal.services.PaymentServices;
 
 /**
  *
- * @author phanv
+ * @author bao.kun
  */
-@WebServlet(name = "EditHostProfileServlet", urlPatterns = {"/EditHostProfileServlet"})
+@WebServlet(name = "ReviewPaymentPayPalServlet", urlPatterns = {"/review_payment_paypal"})
 public class ReviewPaymentPayPalServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    private static final String ERROR = "host_profile.jsp";
-    private static final String SUCCESS = "host_profile.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        String message = "";
-        HostDAO hostDao = new HostDAO();
+
+        String paymentID = request.getParameter("paymentId");
+        String payerID = request.getParameter("PayerID");
+
         try {
-            String fullname = request.getParameter("fullname");
-            String phone = request.getParameter("phone");
-            String avatar = request.getParameter("avatar");
-            UserDTO user = new UserDTO("", fullname, "", "", phone, avatar, "", "");
-            boolean checkEdit = hostDao.editHostProfile(user);
-            if (checkEdit){
-                url = SUCCESS;
-            }
-        } catch (Exception ex) {
-            log("Error at EditHostProfileServlet:" + ex);
-        } finally {
-            request.setAttribute("message", message);
-            if (url.equals(SUCCESS)) {
-                response.sendRedirect(url);
-            } else {
-                request.getRequestDispatcher(url).forward(request, response);
-            }
+            PaymentServices paymentServices = new PaymentServices();
+            Payment payment = paymentServices.getPaymentDetails(paymentID);
+
+            PayerInfo payerInfo = payment.getPayer().getPayerInfo();
+            Transaction transaction = payment.getTransactions().get(0);
+            ShippingAddress shippingAddress = transaction.getItemList().getShippingAddress();
+
+            request.setAttribute("PAYER", payerInfo);
+            request.setAttribute("TRANSACTION", transaction);
+            request.setAttribute("SHIPPING_ADDRESS", shippingAddress);
+
+            String url = "review_payment_paypal.jsp?paymentId=" + paymentID + "&PayerID=" + payerID;
+            request.getRequestDispatcher(url).forward(request, response);
+
+        } catch (PayPalRESTException e) {
+            e.printStackTrace();
+            request.setAttribute("ERROR_MESSAGE", "Could not get payment details");
+            request.getRequestDispatcher("error_paypal.html").forward(request, response);
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -426,6 +426,7 @@
                 background-color: #fff;
                 border-radius: 20px;
                 margin-bottom: 30px;
+                text-align: center;
             }
 
             .content-form form div {
@@ -481,12 +482,12 @@
             label {
                 color: #00A0F0;
             }
-            
+
             .logined img {
                 width: 30px;
                 border-radius: 50%;
             }
-            
+
             .logined a {
                 display: flex;
                 align-items: center;
@@ -615,110 +616,7 @@
                             </div>
 
                             <div class="content-form">
-                                <form>
-                                    <div>
-                                        <div>
-                                            <h2>
-                                                User information
-                                            </h2>
-
-                                            <div>
-                                                <label>Full Name</label>
-                                                <input type="text" name="" value="" />
-                                            </div>
-
-                                            <div>
-                                                <label>Phone Number</label>
-                                                <input type="text" name="" value="" />
-                                            </div>
-
-                                            <div>
-                                                <label>Email</label>
-                                                <input type="text" name="" value="" />
-                                            </div>
-                                        </div>
-
-                                        <%
-                                            List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
-                                            List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
-                                            List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
-                                            List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
-                                        %>
-
-                                        <div class="list-booking">
-                                            <h2>
-                                                Party Booking Information
-                                            </h2>
-
-                                            <div>
-                                                <label>Location</label>
-                                                <select>
-                                                    <%
-                                                        for (LocationDTO location : locationDTO) {
-                                                    %>
-                                                    <option><%= location.getLocationDetails()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label>Date/Time</label>
-                                                <input type="text" name="" value="" />
-                                                <input type="text" name="" value="" /> 
-                                            </div>
-
-                                            <div>
-                                                <label>Amount of Children</label>
-                                                <input type="text" name="" value="" />
-                                            </div>
-
-                                            <div>
-                                                <label>Package</label>
-                                                <select>
-                                                    <%
-                                                        for (PackageDTO packages : packageDTO) {
-                                                    %>
-                                                    <option><%= packages.getPackageName()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label>Theme</label>
-                                                <select>
-                                                    <%
-                                                        for (ThemeDTO theme : themeDTO) {
-                                                    %>
-                                                    <option><%= theme.getThemeName()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <label>Service</label>
-                                                <select>
-                                                    <%
-                                                        for (BonusServiceDTO service : serviceDTO) {
-                                                    %>
-                                                    <option><%= service.getServiceName()%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="send-btn">
-                                        <input type="submit" value="Send" name="action" />
-                                    </div>
-                                </form>
+                                <a style="text-align: center;" href="ViewPackage">Click here to view packages</a>
                             </div>
                         </div>
                     </div>
@@ -909,89 +807,7 @@
                 </div>
 
                 <div class="content-form">
-                    <form>
-                        <div>
-
-                            <%
-                                List<ThemeDTO> themeDTO = (List<ThemeDTO>) request.getAttribute("THEME_LIST");
-                                List<LocationDTO> locationDTO = (List<LocationDTO>) request.getAttribute("LOCATION_LIST");
-                                List<BonusServiceDTO> serviceDTO = (List<BonusServiceDTO>) request.getAttribute("SERVICE_LIST");
-                                List<PackageDTO> packageDTO = (List<PackageDTO>) request.getAttribute("PACKAGE_LIST");
-                            %>
-
-                            <div class="list-booking">
-                                <h2>
-                                    Party Booking Information
-                                </h2>
-
-                                <div>
-                                    <label>Location</label>
-                                    <select>
-                                        <%
-                                            for (LocationDTO location : locationDTO) {
-                                        %>
-                                        <option><%= location.getLocationDetails()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label>Date/Time</label>
-                                    <input type="text" name="" value="" />
-                                </div>
-
-                                <div>
-                                    <label>Amount of Children</label>
-                                    <input type="text" name="" value="" />
-                                </div>
-
-                                <div>
-                                    <label>Package</label>
-                                    <select>
-                                        <%
-                                            for (PackageDTO packages : packageDTO) {
-                                        %>
-                                        <option><%= packages.getPackageName()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label>Theme</label>
-                                    <select>
-                                        <%
-                                            for (ThemeDTO theme : themeDTO) {
-                                        %>
-                                        <option><%= theme.getThemeName()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label>Service</label>
-                                    <select>
-                                        <%
-                                            for (BonusServiceDTO service : serviceDTO) {
-                                        %>
-                                        <option><%= service.getServiceName()%></option>
-                                        <%
-                                            }
-                                        %>
-                                    </select>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="send-btn">
-                            <input type="submit" value="Send" name="action" />
-                        </div>
-                    </form>
+                    <a style="text-align: center;" href="ViewPackage">Click here to view packages</a>
                 </div>
             </div>
         </div>
