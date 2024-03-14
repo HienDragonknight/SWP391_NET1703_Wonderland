@@ -714,7 +714,7 @@
                                 <h3>Party</h3>
 
                             </div>
-                            <form action="update_delete_action_paid_order" method="POST">
+                            <form action="update_delete_action_paid_order" method="POST" id="main-form">
                                 <div class="table-wrapper">
 
                                     <table>
@@ -767,9 +767,9 @@
                                                     <%
                                                         if (status != null && status.equals("going")) {
                                                     %>
-                                                    <input type="submit" name="action" value="Update"  class="button-update-order" style="width: 90px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                  
+                                                    <input type="submit" name="action" value="Update"  onclick="updateCheckinDateTime()"  class="button-update-order" style="width: 90px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                  
 
-                                                    <input type="submit" nam="action" value="Delete" class="button-update-order" style="width: 90px; cursor: pointer; background-color: red; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                   
+                                                    <input type="submit" name="action" value="Delete" onclick="return deleteOrder()" class="button-update-order" style="width: 90px; cursor: pointer; background-color: red; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                   
                                                     <%
                                                         }
                                                     %>
@@ -879,6 +879,8 @@
                 return true;
             }
 
+
+
             isCheckinDateValid();
 
 
@@ -895,6 +897,55 @@
                 document.getElementById("checkin-date").min = inputDate;
             }
             setMinDate();
+
+
+
+            function getDifferentDateTime()
+            {
+                var checkinDate = document.getElementById('checkin-date');
+                var checkinTime = document.getElementById('checkin-time');
+                var checkinDateTime = checkinDate.value + "T" + checkinTime.value;
+
+
+                var realDateTime = new Date();
+                var year = realDateTime.getFullYear();
+                var month = (realDateTime.getMonth() + 1).toString().padStart(2, '0');
+                var day = realDateTime.getDate().toString().padStart(2, '0');              // Add leading zero if single digit;
+                var hours = realDateTime.getHours().toString().padStart(2, '0');
+                var minutes = realDateTime.getMinutes().toString().padStart(2, '0');
+                var realDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+
+
+                var checkinDateTimeFommatted = new Date(checkinDateTime);
+                var realDateTimeFomatted = new Date(realDateTime);
+
+                var timeDifference = checkinDateTimeFommatted.getTime() - realDateTimeFomatted.getTime();
+                var hoursDifference = timeDifference / (1000 * 60 * 60);
+                return hoursDifference;
+            }
+
+            function deleteOrder()
+            {
+                var hoursDifference = getDifferentDateTime();
+                if (hoursDifference >= 48)
+                {
+                    var confirmation = confirm("Are your you want to delete this order ?");
+                    if (confirmation)
+                    {
+                        document.getElementById("main-form").submit();
+                    }
+                } else
+                {
+
+                    alert("Your party is coming up. You cannot cancel");
+                    return  false;
+
+                }
+
+
+            }
+
+
 
 
 
