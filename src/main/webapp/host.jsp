@@ -406,11 +406,11 @@
                 align-items: center;
                 gap: 10px;
             }
-            
+
             .header .search-btn {
                 display: none;
             }
-            
+
             .header input {
                 border: none;
                 padding: 5px 20px;
@@ -426,6 +426,21 @@
                     position: absolute;
                     left: -100%;
                 }
+            }
+            .reply-button {
+                background-color: #007bff;
+                color: #ffffff;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 16px;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .reply-button:hover {
+                background-color: #0056b3;
             }
         </style>
     </head>
@@ -491,6 +506,9 @@
                             <li>
                                 <i class='bx bx-info-circle'></i>
                                 <a href="about.jsp">About Us</a>
+                            </li>
+                            <li>
+                                <a href="https://1111.3cx.cloud/webclient/#/login" class="reply-button">Reply chat</a>
                             </li>
                         </ul>
                         <ul class="logout">
@@ -564,8 +582,7 @@
                                             </thead>
 
                                             <tbody class="scrollable">
-                                                <%                                                    
-                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
+                                                <%                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
                                                     if (searchResult == null) {
                                                         int countUser = 1;
                                                         if (result != null) {
