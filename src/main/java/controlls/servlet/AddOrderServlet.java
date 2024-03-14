@@ -37,10 +37,11 @@ public class AddOrderServlet extends HttpServlet {
 
             OrderDAO orderDao = new OrderDAO();
 
-            boolean check = orderDao.insertOrderWithLogin(userLogin);
+            int orderInsertID = orderDao.insertOrderWithLogin(userLogin);
 
-            if (check) {
+            if (orderInsertID > 0) {
                 url = SUCCESS;
+                session.setAttribute("ORDER_INSERTED_ID", orderInsertID);
             }
 
         } catch (Exception e) {

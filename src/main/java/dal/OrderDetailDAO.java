@@ -25,18 +25,18 @@ import util.DBUtils;
  * @author Le Huu Huy
  */
 public class OrderDetailDAO implements Serializable {
-
+    
     List<OrderDetailDTO> listOrder;
-
+    
     public List<OrderDetailDTO> getListOrder() {
         return listOrder;
     }
-
+    
     public void getOrder() throws SQLException, ClassNotFoundException, ParseException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        
         try {
             // create connection
             con = DBUtils.createConnection();
@@ -57,15 +57,15 @@ public class OrderDetailDAO implements Serializable {
                 while (rs.next()) {
                     String fullName = rs.getString("fullname");
                     String packageName = rs.getString("packageName");
-
+                    
                     Date dateStart = rs.getDate("dateStart");
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String dateString = dateFormat.format(dateStart);
-
+                    
                     Date dateOrder = rs.getDate("dateOrder");
                     SimpleDateFormat dateOrderFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String dateOrderString = dateOrderFormat.format(dateOrder);
-
+                    
                     double totalPrice = rs.getDouble("totalPrice");
                     String status = rs.getString("status");
                     String email = rs.getString("email");
@@ -76,9 +76,9 @@ public class OrderDetailDAO implements Serializable {
                     String location = rs.getString("locationDetails");
                     String note = rs.getString("notes");
                     String payment = rs.getString("payment");
-
+                    
                     OrderDetailDTO dto = new OrderDetailDTO(fullName, packageName, dateString, dateOrderString, totalPrice, status, email, phone, service, amount, theme, location, note, payment);
-
+                    
                     if (this.listOrder == null) {
                         this.listOrder = new ArrayList<>();
                     }
@@ -101,17 +101,17 @@ public class OrderDetailDAO implements Serializable {
 
     // reference from ExecutingPaymentPaypal
     public boolean insertOrderDetail(Map<String, String> orderDetailInfo, Map<String, String> orderInfo) throws SQLException {
-
+        
         boolean check = false;
         Connection conn = null;
         CallableStatement ctm = null;
-
-        String insertProcedure = "{call InsertOrderDetail(?,?,?,?,?,?,?,?,?,?,?)}";
-
+        
+        String insertProcedure = "{call InsertOrderDetail(?,?,?,?,?,?,?,?,?,?,?,?)}";
+        
         try {
             conn = DBUtils.createConnection();
             ctm = conn.prepareCall(insertProcedure);
-
+            
             ctm.setString(1, orderDetailInfo.get("serviceID"));
             ctm.setString(2, orderDetailInfo.get("packgeID"));
             ctm.setString(3, orderDetailInfo.get("checkinTime"));
@@ -123,9 +123,10 @@ public class OrderDetailDAO implements Serializable {
             ctm.setString(9, orderInfo.get("fullName"));
             ctm.setString(10, orderInfo.get("phone"));
             ctm.setString(11, orderInfo.get("email"));
-
+            ctm.setString(12, orderInfo.get("orderInsertedID"));
+            
             check = ctm.executeUpdate() > 0 ? true : false;
-
+            
         } catch (Exception e) {
         } finally {
             if (ctm != null) {
@@ -135,16 +136,16 @@ public class OrderDetailDAO implements Serializable {
                 conn.close();
             }
         }
-
+        
         return check;
     }
-
+    
     public boolean updateDateTimeStart(String dateStart, String timeStart, String orderDetailID) throws ClassNotFoundException, SQLException {
-
+        
         Connection con = null;
         PreparedStatement stm = null;
         boolean check = false;
-
+        
         try {
             //create connection
             con = DBUtils.createConnection();
@@ -167,6 +168,6 @@ public class OrderDetailDAO implements Serializable {
             }
         }
         return check;
-
+        
     }
 }

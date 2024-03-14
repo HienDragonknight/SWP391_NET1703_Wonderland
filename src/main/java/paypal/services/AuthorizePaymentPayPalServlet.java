@@ -57,11 +57,13 @@ public class AuthorizePaymentPayPalServlet extends HttpServlet {
             String fullName = request.getParameter("fullName");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
+            String orderInsertID = session.getAttribute("ORDER_INSERTED_ID") + "";
 
             Map<String, String> orderInfo = new HashMap<>();
             orderInfo.put("fullName", fullName);
             orderInfo.put("phone", phone);
             orderInfo.put("email", email);
+            orderInfo.put("orderInsertedID", orderInsertID);
 
             session.setAttribute("ORDER_DETAIL_INFO", orderDetailInfo);
             session.setAttribute("ORDER_INFO", orderInfo);

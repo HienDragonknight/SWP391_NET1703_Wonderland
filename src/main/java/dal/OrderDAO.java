@@ -125,14 +125,11 @@ public class OrderDAO implements Serializable {
         return totalPrice;
     }
 
-    public boolean insertOrderWithLogin(UserDTO userLogin) throws SQLException {
-
-        boolean check = false;
-
+    public int insertOrderWithLogin(UserDTO userLogin) throws SQLException, ClassNotFoundException {
+        int orderID = 0;
         Connection conn = null;
         CallableStatement ctm = null;
-
-        String insertOrderStatement = "{call InsertOrder(?,?,?,?)}";
+        String insertOrderStatement = "{call InsertOrder(?,?,?,?,?)}"; // Added the fifth parameter for output
 
         try {
             conn = DBUtils.createConnection();
@@ -142,10 +139,21 @@ public class OrderDAO implements Serializable {
             ctm.setString(3, userLogin.getPhoneNumber());
             ctm.setString(4, userLogin.getFullName());
 
-            check = ctm.executeUpdate() > 0 ? true : false;
+            // Register the output parameter for the return value
+            ctm.registerOutParameter(5, java.sql.Types.INTEGER);
 
-        } catch (Exception e) {
+            // Execute the stored procedure
+            ctm.execute();
+
+            // Retrieve the value of the output parameter
+            orderID = ctm.getInt(5);
+
+            // Check if the procedure executed successfully
+        } catch (SQLException e) {
+            // Handle SQL exceptions
+            e.printStackTrace();
         } finally {
+            // Close resources
             if (ctm != null) {
                 ctm.close();
             }
@@ -154,7 +162,7 @@ public class OrderDAO implements Serializable {
             }
         }
 
-        return check;
+        return orderID;
     }
 
     public List<OrderDetailDTO> getOnGoingOrderList(String userIDInput, String statusInput) throws SQLException, ClassNotFoundException, ParseException {

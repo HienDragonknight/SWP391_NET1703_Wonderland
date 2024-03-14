@@ -594,7 +594,7 @@
             </header>
 
 
-            <main>
+         
                 <div class="column">
                     <div class="menu">
                         <ul class="menu-ic">
@@ -712,16 +712,16 @@
                                             <tbody class="scrollable">
 
                                                 <tr>    
-                                                    <td><%= countOrder++ %></td>
+                                                    <td><%= countOrder++%></td>
                                                     <td><%= dto.getPackageName()%></td>
-                                                    <td><%= dto.getLocaltionDetails()%></td>        
+                                                    <td style="width: 330px;" ><%= dto.getLocaltionDetails()%></td>        
                                                     <td>
                                                         <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
                                                         <% String status = request.getParameter("status");
                                                             if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
-                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" style="width: 150px;" disabled />
+                                                        <input type="date" id="checkin-date" name="checkin-date" value="<%= dto.getDateStart()%>" style="width: 150px;" disabled />
                                                         <% } else {%>
-                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" onchange="setMinDate()" style="width: 150px;" />
+                                                        <input type="date" id="checkin-date"  name="checkin-date" value="<%= dto.getDateStart()%>"  style="width: 150px;" />
                                                         <% } %>
                                                     </td>
 
@@ -784,7 +784,6 @@
                     <span id="notificationMessage">This order starts in less than 2 days.</span>
                     <span id="countdownTimer" style="margin-left: 10px; display: none"></span>
                 </div>
-
         </div>
 
         <script>
@@ -868,6 +867,7 @@
                 var inputDate = document.getElementById("checkin-date").value;
                 document.getElementById("checkin-date").min = inputDate;
             }
+            setMinDate();
 
         </script>
     </div>
