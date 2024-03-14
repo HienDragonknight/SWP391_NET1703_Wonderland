@@ -310,7 +310,7 @@
                 justify-content: center;
                 gap: 5px;
             }
-            
+
             .page-footer {
                 background-color: #f6f6f9;
                 border-top-left-radius: 50%;
@@ -425,6 +425,10 @@
                             <a href="ViewPackage">Packages</a>
                         </li>
                         <li>
+                            <i class='bx bx-popsicle'></i>
+                            <a href="ViewThemeServlet">Theme</a>
+                        </li>
+                        <li>
                             <i class='bx bx-bell'></i>
                             <a href="ViewServiceServlet">Service</a>
                         </li>
@@ -474,7 +478,7 @@
     %>
     <div class="user-logined">
         <div class="logined">
-            
+
             <%
                 if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
             %>
@@ -526,6 +530,10 @@
                     <i class='bx bx-package'></i>
                     <a href="ViewPackage">Packages</a>
 
+                </li>
+                <li>
+                    <i class='bx bx-popsicle'></i>
+                    <a href="ViewThemeServlet">Theme</a>
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>

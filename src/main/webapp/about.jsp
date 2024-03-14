@@ -329,12 +329,12 @@
                 padding-left: 250px;
                 padding-right: 250px;
             }
-            
+
             .logined img {
                 width: 30px;
                 border-radius: 50%;
             }
-            
+
             .logined a {
                 display: flex;
                 align-items: center;
@@ -403,6 +403,10 @@
                             <i class='bx bx-package'></i>
                             <a href="ViewPackage">Packages</a>
 
+                        </li>
+                        <li>
+                            <i class='bx bx-popsicle'></i>
+                            <a href="ViewThemeServlet">Theme</a>
                         </li>
                         <li>
                             <i class='bx bx-bell'></i>
@@ -561,7 +565,7 @@
     %>
     <div class="user-logined">
         <div class="logined">
-            
+
             <%
                 if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
             %>
@@ -614,6 +618,10 @@
                     <i class='bx bx-package'></i>
                     <a href="ViewPackage">Packages</a>
 
+                </li>
+                <li>
+                    <i class='bx bx-popsicle'></i>
+                    <a href="ViewThemeServlet">Theme</a>
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>

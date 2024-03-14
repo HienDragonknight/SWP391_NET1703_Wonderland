@@ -497,6 +497,10 @@
 
                             </li>
                             <li>
+                                <i class='bx bx-popsicle'></i>
+                                <a href="ViewThemeServlet">Theme</a>
+                            </li>
+                            <li>
                                 <i class='bx bx-bell'></i>
                                 <a href="ViewServiceServlet">Service</a>
                             </li>

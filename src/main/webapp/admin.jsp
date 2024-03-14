@@ -570,6 +570,10 @@
 
                             </li>
                             <li>
+                                <i class='bx bx-popsicle'></i>
+                                <a href="ViewThemeServlet">Theme</a>
+                            </li>
+                            <li>
                                 <i class='bx bx-bell'></i>
                                 <a href="ViewServiceServlet">Service</a>
                             </li>
@@ -760,15 +764,15 @@
                                                         <a href="<%= urlEditing%>">Edit</a>
                                                     </td>
                                                     <td>
-                                                        <a data-modal-target="#modal<%= countHost %>">Delete</a>
-                                                        <div class="modal" id="modal<%= countHost %>">
+                                                        <a data-modal-target="#modal<%= countHost%>">Delete</a>
+                                                        <div class="modal" id="modal<%= countHost%>">
 
                                                             <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
                                                                 <ul style="list-style: none; width: 100%; text-align: center;">
                                                                     <li>
                                                                         Do you want to delete <%= host.getFullName()%> ?
                                                                     </li>
-                                                                    <a href="<%= urlRewriting %>">Yes</a>
+                                                                    <a href="<%= urlRewriting%>">Yes</a>
                                                                     <a data-close-button="ViewUserServlet">No</a>
                                                                 </ul>
 

@@ -667,6 +667,10 @@
                             <a href="ViewPackage">Packages</a>
                         </li>
                         <li>
+                            <i class='bx bx-popsicle'></i>
+                            <a href="ViewThemeServlet">Theme</a>
+                        </li>
+                        <li>
                             <i class='bx bx-bell'></i>
                             <a href="ViewServiceServlet">Service</a>
                         </li>
@@ -706,269 +710,269 @@
                         <div class="intro-image">
                             <img src="image/Birthday.png" alt="Best Party">
                         </div>
-                            <div>
-                                <p>
-                                    Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
-                                </p>
-                                <p>
-                                    With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
-                                </p>
-                            </div>
-                            <button>
-                                <a href="#">
-                                    <i class='bx bx-cake' ></i>
-                                    <span>Contact to book a party</span>
-                                </a>
-                            </button>
+                        <div>
+                            <p>
+                                Is a meaningful and special birthday to mark an important milestone for little angels always something parents wonder about?
+                            </p>
+                            <p>
+                                With a variety of birthday party packages, Wonderlands promises to bring little angels a party full of surprises and memorable moments.
+                            </p>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="about">
-                <div class="about-top">
-                    <h2 style="color: #005198;">WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
-                    <div class="ups-row">
-                        <div class="ups-row-content">
-                            <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
-                            <div>
-                                <h3 style="color: #f86080">UNLIMITED FUN</h3>
-                            </div>
-                        </div>
-
-                        <div class="ups-row-content">
-                            <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
-                            <div>
-                                <h3 style="color: #f0b000">LOVELY DECORATION</h3>
-                            </div>
-                        </div>
-
-                        <div class="ups-row-content">
-                            <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
-                            <div>
-                                <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="ups-row">
-                        <div class="ups-row-content">
-                            <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
-                            <div>
-                                <h3 style="color: #20b050">DIVERSE GAMES</h3>
-                            </div>
-                        </div>
-
-                        <div class="ups-row-content">
-                            <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
-                            <div>
-                                <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="service">
-                <div class="service-container">
-                    <div class="service-heading">
-                        <h1 style="color: #005198;">SPECIAL SERVICE</h1>
-                    </div>
-
-                    <div class="special-title">
-                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/color-wheel%201.png"/>
-                        <span style="color: #005198; font-weight: bold">Full decoration according to theme</span>
-                    </div>
-
-                    <div class="special-image">
-                        <img src="https://tiniworld.com/media/wysiwyg/birthday/birthday_slide-3.png"/>
-                    </div>
-
-                    <div class="theme">
-                        <h4 style="color: #ffa000; text-align: center">HOT decoration theme</h4>
-
-                        <div class="theme-container">
-                            <div class="service-theme">
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(2).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(3).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(4).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(5).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(6).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(7).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(8).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(9).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(10).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(11).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(12).png"/>
-                                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(15).png"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="service-other">
-                        <div class="special-title">
-                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png"/>
-                            <span style="color: #005198; font-weight: bold">Other services</span>
-                        </div>
-
-                        <div class="services-others-contents">
-                            <div class="services-other-list">
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(1).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Smash Pinata candy</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(2).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Bubble clown</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(4).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Giant bubble</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(6).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">English MC</font>
-                                </div>
-                            </div>
-                            <br/>
-                            <br/>
-                            <div class="services-other-list">
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(8).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Artistic face painting</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(3).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Magic magic</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(5).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Lovely cake</font>
-                                </div>
-                                <div class="services-other-item">
-                                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png"/>
-                                    <br>
-                                    <font style="font-size: 19px; color: #00c2f3">Gift for baby</font>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="service-desc">
-                            <font>Please contact Wonder staff for advice on special services</font>
-                        </div>
-
-                        <div class="service-btn">
-                            <button>
-                                <a href="#">
-                                    <i style="color: #FFAC85" class='bx bx-cake' ></i>
-                                    <font style="color: #fff">CONTACT FOR CONSULATION</font>
-                                </a>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer class="page-footer">
-            <div class="footer-header">
-                <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
-            </div>
-
-            <div class="footer-content">
-                <div class="footer-content-usp">
-                    <ul>
-                        <li>History begin</li>
-                        <li>Job opportunities</li>
-                        <li>Wonder regulation</li>
-                        <li>Wonder Partner</li>
-                        <li>Wonder Charity Foundation</li>
-                    </ul>
-                </div>
-
-                <div class="footer-content-usp">
-                    <ul>
-                        <li>
+                        <button>
                             <a href="#">
-                                <i class='bx bx-world'></i>
-                                <span>nkidgroup.com</span>
+                                <i class='bx bx-cake' ></i>
+                                <span>Contact to book a party</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-envelope' ></i>
-                                <span>cskh@wonderland.com</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-phone' ></i>
-                                <span>1900 63 63 28</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class='bx bx-current-location' ></i>
-                                <span>SWP391</span>
-                            </a>
-                        </li>
-                    </ul>
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <div class="copy-right">
-                <div class="copy-right-content">
-                    <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
-                </div>
-            </div>
-        </footer>
     </div>
-    <%
-    } else {
-    %>
-    <div class="user-logined">
-        <div class="logined">
 
-            <%
-                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
-            %>
+    <div class="about">
+        <div class="about-top">
+            <h2 style="color: #005198;">WHY CHOOSE TO BOOK A PARTY AT WONDER?</h2>
+            <div class="ups-row">
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo1.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #f86080">UNLIMITED FUN</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo2.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #f0b000">LOVELY DECORATION</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo3.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #20b050">FUN PARTY PROGRAM</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ups-row">
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo4.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #20b050">DIVERSE GAMES</h3>
+                    </div>
+                </div>
+
+                <div class="ups-row-content">
+                    <img class="usp-content-item-icon" src="https://tiniworld.com/static/version1699082497/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/usp-photo5.png" alt="usp-1">
+                    <div>
+                        <h3 style="color: #00a0f0">ATTRACTIVE DIVERSE MENU</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="service">
+        <div class="service-container">
+            <div class="service-heading">
+                <h1 style="color: #005198;">SPECIAL SERVICE</h1>
+            </div>
+
+            <div class="special-title">
+                <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/color-wheel%201.png"/>
+                <span style="color: #005198; font-weight: bold">Full decoration according to theme</span>
+            </div>
+
+            <div class="special-image">
+                <img src="https://tiniworld.com/media/wysiwyg/birthday/birthday_slide-3.png"/>
+            </div>
+
+            <div class="theme">
+                <h4 style="color: #ffa000; text-align: center">HOT decoration theme</h4>
+
+                <div class="theme-container">
+                    <div class="service-theme">
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(2).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(3).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(4).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(5).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(6).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(7).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(8).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(9).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(10).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(11).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(12).png"/>
+                        <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/services%20(15).png"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-other">
+                <div class="special-title">
+                    <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/party%201.png"/>
+                    <span style="color: #005198; font-weight: bold">Other services</span>
+                </div>
+
+                <div class="services-others-contents">
+                    <div class="services-other-list">
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(1).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Smash Pinata candy</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(2).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Bubble clown</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(4).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Giant bubble</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(6).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">English MC</font>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <div class="services-other-list">
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(8).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Artistic face painting</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(3).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Magic magic</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(5).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Lovely cake</font>
+                        </div>
+                        <div class="services-other-item">
+                            <img src="https://tiniworld.com/static/version1706722373/frontend/Magenest/tiniworld/vi_VN/Magenest_Custom/images/other-services%20(7).png"/>
+                            <br>
+                            <font style="font-size: 19px; color: #00c2f3">Gift for baby</font>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-desc">
+                    <font>Please contact Wonder staff for advice on special services</font>
+                </div>
+
+                <div class="service-btn">
+                    <button>
+                        <a href="#">
+                            <i style="color: #FFAC85" class='bx bx-cake' ></i>
+                            <font style="color: #fff">CONTACT FOR CONSULATION</font>
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="page-footer">
+    <div class="footer-header">
+        <h2>NEW CHILDREN'S TRADING AND SERVICES JOINT STOCK COMPANY</h2>
+    </div>
+
+    <div class="footer-content">
+        <div class="footer-content-usp">
+            <ul>
+                <li>History begin</li>
+                <li>Job opportunities</li>
+                <li>Wonder regulation</li>
+                <li>Wonder Partner</li>
+                <li>Wonder Charity Foundation</li>
+            </ul>
+        </div>
+
+        <div class="footer-content-usp">
+            <ul>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-world'></i>
+                        <span>nkidgroup.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-envelope' ></i>
+                        <span>cskh@wonderland.com</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-phone' ></i>
+                        <span>1900 63 63 28</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-current-location' ></i>
+                        <span>SWP391</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="copy-right">
+        <div class="copy-right-content">
+            <font>Copyright © 2016 N KID CORPORATION - Wonderland amusement park</font>
+        </div>
+    </div>
+</footer>
+</div>
+<%
+} else {
+%>
+<div class="user-logined">
+    <div class="logined">
+
+        <%
+            if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+        %>
+        <a href="ViewUserServlet">
+            <img src="image/${sessionScope.USER_INFO.avatar}"/>
+            ${sessionScope.USER_INFO.fullName}
+        </a>
+        <%
+        } else if (dto.getRoleID().equals("1")) {
+        %>
+        <a href="customer_profile.jsp">
+            <img src="image/${sessionScope.USER_INFO.avatar}"/>
+            ${sessionScope.USER_INFO.fullName}
+        </a>
+        <%
+        } else {
+        %>
+        <div class="logined">
             <a href="ViewUserServlet">
                 <img src="image/${sessionScope.USER_INFO.avatar}"/>
                 ${sessionScope.USER_INFO.fullName}
             </a>
-            <%
-            } else if (dto.getRoleID().equals("1")) {
-            %>
-            <a href="customer_profile.jsp">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-            } else {
-            %>
-            <div class="logined">
-                <a href="ViewUserServlet">
-                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                    ${sessionScope.USER_INFO.fullName}
-                </a>
-            </div>
-            <%
-                }
-            %>
+        </div>
+        <%
+            }
+        %>
 
-        </div>
-        <div class="cart-items">
-            <i class='bx bx-cart' ></i>
-            <a href="#">Cart</a>
-        </div>
     </div>
+    <div class="cart-items">
+        <i class='bx bx-cart' ></i>
+        <a href="#">Cart</a>
+    </div>
+</div>
 </aside>
 </header>
 
@@ -989,6 +993,10 @@
                 <li>
                     <i class='bx bx-package'></i>
                     <a href="ViewPackage">Packages</a>
+                </li>
+                <li>
+                    <i class='bx bx-popsicle'></i>
+                    <a href="ViewThemeServlet">Theme</a>
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>

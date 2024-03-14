@@ -364,12 +364,12 @@
                     left: -100%;
                 }
             }
-            
+
             .logined img {
                 width: 30px;
                 border-radius: 50%;
             }
-            
+
             .logined a {
                 display: flex;
                 align-items: center;
@@ -434,6 +434,10 @@
                             <li>
                                 <i class='bx bx-package'></i>
                                 <a href="ViewPackage">Packages</a>
+                            </li>
+                            <li>
+                                <i class='bx bx-popsicle'></i>
+                                <a href="ViewThemeServlet">Theme</a>
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
@@ -555,33 +559,33 @@
         %>
         <div class="user-logined">
             <div class="logined">
-            
-            <%
-                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
-            %>
-            <a href="ViewUserServlet">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-            } else if (dto.getRoleID().equals("1")) {
-            %>
-            <a href="customer.jsp">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-            } else {
-            %>
-            <a href="PartyHostServlet">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-                }
-            %>
 
-        </div>
+                <%
+                    if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
+                %>
+                <a href="ViewUserServlet">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                } else if (dto.getRoleID().equals("1")) {
+                %>
+                <a href="customer.jsp">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                } else {
+                %>
+                <a href="PartyHostServlet">
+                    <img src="image/${sessionScope.USER_INFO.avatar}"/>
+                    ${sessionScope.USER_INFO.fullName}
+                </a>
+                <%
+                    }
+                %>
+
+            </div>
             <div class="cart-items">
                 <i class='bx bx-cart' ></i>
                 <a href="#">Cart</a>
@@ -608,6 +612,10 @@
                     <i class='bx bx-package'></i>
                     <a href="ViewPackage">Packages</a>
 
+                </li>
+                <li>
+                    <i class='bx bx-popsicle'></i>
+                    <a href="ViewThemeServlet">Theme</a>
                 </li>
                 <li>
                     <i class='bx bx-bell'></i>
@@ -673,9 +681,9 @@
                 %>
             </div>
             <%
-                                    }
-                                }
-                            } %>
+                        }
+                    }
+                } %>
         </div>
     </div>    
 </main>

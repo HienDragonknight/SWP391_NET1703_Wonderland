@@ -524,7 +524,7 @@
                 border-radius: 10px;
                 font-size: 15px;
             }
-            
+
             .modal-body a {
                 margin-top: 20px;
                 border: 1px solid #CAFFFF;
@@ -631,6 +631,10 @@
                                 <i class='bx bx-package'></i>
                                 <a href="ViewPackage">Packages</a>
 
+                            </li>
+                            <li>
+                                <i class='bx bx-popsicle'></i>
+                                <a href="ViewThemeServlet">Theme</a>
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
@@ -791,7 +795,7 @@
                                                                             <td><%= dto.getDateStart()%></td>
                                                                             <td><%= dto.getAmountOfPeople()%></td>
                                                                             <td><%= dto.getServiceName()%></td>
-                                                                            <td><%= dto.getEmail() %></td>
+                                                                            <td><%= dto.getEmail()%></td>
                                                                             <td><%= dto.getLocation()%></td>
                                                                             <td><%= dto.getStatus()%></td>
                                                                         </tr>

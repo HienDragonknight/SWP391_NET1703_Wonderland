@@ -190,7 +190,7 @@
     </head
 
 
-    
+
     <body>
         <div class="container">
             <header>
@@ -265,6 +265,10 @@
 
                         </li>
                         <li>
+                            <i class='bx bx-popsicle'></i>
+                            <a href="ViewThemeServlet">Theme</a>
+                        </li>
+                        <li>
                             <i class='bx bx-bell'></i>
                             <a href="#">Sale</a>
                         </li>
@@ -281,23 +285,23 @@
 
 
                 <header>
-                 <h1>Add Party</h1>
-       <form action="./AddThemesServlet" method="POST" enctype="multipart/form-data">
-    Theme Name: <input type="text" name="themeName" required="">
-    <br>
-    Theme Image: <input type="file" name="themeImage" required="">
-    <br>
-    <input type="submit" name="create" value="Create">
-    <% String message = (String) request.getAttribute("message"); %>
-</form>
+                    <h1>Add Party</h1>
+                    <form action="./AddThemesServlet" method="POST" enctype="multipart/form-data">
+                        Theme Name: <input type="text" name="themeName" required="">
+                        <br>
+                        Theme Image: <input type="file" name="themeImage" required="">
+                        <br>
+                        <input type="submit" name="create" value="Create">
+                        <% String message = (String) request.getAttribute("message");%>
+                    </form>
 
                 </header>
 
 
-             
 
 
-      
+
+
             </main>
         </div>
     </body>
