@@ -38,17 +38,6 @@
         </style>
     </head>
     <body>
-        <!--        <form action="LoginServlet" method="POST">
-        
-        
-        ${sessionScope.ERROR}
-        Email <input type="text" name="txtEmail"  /><br/>
-        Password <input type="password" name="txtPassword"  /><br/>
-
-        <input type="submit" value="Login" name="action" /> 
-
-    </form>-->
-
         <%
             String errorMessage = (String) session.getAttribute("ERROR_INFO");
             if (errorMessage != null && !errorMessage.isEmpty()) {
