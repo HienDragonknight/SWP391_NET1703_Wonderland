@@ -14,6 +14,8 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -164,8 +166,7 @@ public class OrderDAO implements Serializable {
 
         try {
             conn = DBUtils.createConnection();
-            String getOnGoingOrder = "  SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
-
+            String getOnGoingOrder = "SELECT D.orderDetailID, A.packageName , CONVERT(VARCHAR(16), B.dateStart, 120) AS dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
             ptm = conn.prepareStatement(getOnGoingOrder);
             //      ctm.registerOutParameter(1, Types.);
             ptm.setString(1, userIDInput);
@@ -176,21 +177,25 @@ public class OrderDAO implements Serializable {
             while (rs.next()) {
                 String packageName = rs.getString("packageName");
 
-                Date dateStart = rs.getDate("dateStart");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-                String dateString = dateFormat.format(dateStart);
-                String dateStartFommated = dateString.split(" ")[0];
-                String timeStartFommated = dateString.split(" ")[1];
+                String dateStart = rs.getString("dateStart");
+                Date startDate = dateFormat.parse(dateStart);
+                String dateString = dateFormat.format(startDate);
+                String dateStartFormatted = dateString.split(" ")[0];
+                String timeStartFormatted = dateString.split(" ")[1];
 
-                Date createAt = rs.getTimestamp("create_at");
-                SimpleDateFormat dateOrderFormat = new SimpleDateFormat("yyyy-MM-dd");
-                String creatAtString = dateOrderFormat.format(createAt);
+                String createAtTimestamp = rs.getString("create_at");
+                Date createAtDate = dateFormat.parse(createAtTimestamp);
+                String createAtString = dateFormat.format(createAtDate);
+
+                String orderDetailID = rs.getInt("orderDetailID") + "";
 
                 String locationDetails = rs.getString("locationDetails");
                 double totalPrice = rs.getDouble("totalPrice");
                 String status = rs.getString("status");
-                listOrder.add(new OrderDetailDTO(packageName, dateStartFommated, timeStartFommated, creatAtString, locationDetails, totalPrice, status));
+
+                listOrder.add(new OrderDetailDTO(packageName, dateStartFormatted, timeStartFormatted, createAtString, locationDetails, totalPrice, status, orderDetailID));
             }
 
         } catch (SQLException e) {
@@ -214,8 +219,65 @@ public class OrderDAO implements Serializable {
         return listOrder;
     }
 
-    public List<OrderDetailDTO> getCancelledOrderList(String userID, String status) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<OrderDetailDTO> getCancelledOrderList(String userIDInput, String statusInput) throws ClassNotFoundException, ParseException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<OrderDetailDTO> listOrder = new ArrayList<OrderDetailDTO>();
+
+        try {
+            conn = DBUtils.createConnection();
+            String getOnGoingOrder = "SELECT D.orderDetailID, A.packageName , CONVERT(VARCHAR(16), B.dateStart, 120) AS dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
+            ptm = conn.prepareStatement(getOnGoingOrder);
+            //      ctm.registerOutParameter(1, Types.);
+            ptm.setString(1, userIDInput);
+            ptm.setString(2, statusInput);
+            rs = ptm.executeQuery(); // Execute the CallableStatement
+
+            // Retrieve the result set
+            while (rs.next()) {
+                String packageName = rs.getString("packageName");
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+                String dateStart = rs.getString("dateStart");
+                Date startDate = dateFormat.parse(dateStart);
+                String dateString = dateFormat.format(startDate);
+                String dateStartFormatted = dateString.split(" ")[0];
+                String timeStartFormatted = dateString.split(" ")[1];
+
+                String createAtTimestamp = rs.getString("create_at");
+                Date createAtDate = dateFormat.parse(createAtTimestamp);
+                String createAtString = dateFormat.format(createAtDate);
+
+                String orderDetailID = rs.getInt("orderDetailID") + "";
+
+                String locationDetails = rs.getString("locationDetails");
+                double totalPrice = rs.getDouble("totalPrice");
+                String status = rs.getString("status");
+
+                listOrder.add(new OrderDetailDTO(packageName, dateStartFormatted, timeStartFormatted, createAtString, locationDetails, totalPrice, status, orderDetailID));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close resources in the finally block
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ptm != null) {
+                    ptm.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listOrder;
     }
 
     public List<OrderDetailDTO> getCompletedOrderList(String userIDInput, String statusInput) throws ClassNotFoundException, ParseException {
@@ -227,8 +289,7 @@ public class OrderDAO implements Serializable {
 
         try {
             conn = DBUtils.createConnection();
-            String getOnGoingOrder = "SELECT A.packageName , B.dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
-
+            String getOnGoingOrder = "SELECT D.orderDetailID, A.packageName , CONVERT(VARCHAR(16), B.dateStart, 120) AS dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
             ptm = conn.prepareStatement(getOnGoingOrder);
             //      ctm.registerOutParameter(1, Types.);
             ptm.setString(1, userIDInput);
@@ -239,23 +300,25 @@ public class OrderDAO implements Serializable {
             while (rs.next()) {
                 String packageName = rs.getString("packageName");
 
-                Date dateStart = rs.getDate("dateStart");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                String dateString = dateFormat.format(dateStart);
-                String dateStartFommated = dateString.split(" ")[0];
-                String timeStartFommated = dateString.split(" ")[1];
 
-                Date createAt = rs.getTimestamp("create_at");
-                SimpleDateFormat dateOrderFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                String creatAtString = dateOrderFormat.format(createAt);
+                String dateStart = rs.getString("dateStart");
+                Date startDate = dateFormat.parse(dateStart);
+                String dateString = dateFormat.format(startDate);
+                String dateStartFormatted = dateString.split(" ")[0];
+                String timeStartFormatted = dateString.split(" ")[1];
 
-                
-                
+                String createAtTimestamp = rs.getString("create_at");
+                Date createAtDate = dateFormat.parse(createAtTimestamp);
+                String createAtString = dateFormat.format(createAtDate);
+
+                String orderDetailID = rs.getInt("orderDetailID") + "";
+
                 String locationDetails = rs.getString("locationDetails");
                 double totalPrice = rs.getDouble("totalPrice");
                 String status = rs.getString("status");
-                
-                listOrder.add(new OrderDetailDTO(packageName, dateStartFommated, timeStartFommated, creatAtString, locationDetails, totalPrice, status));
+
+                listOrder.add(new OrderDetailDTO(packageName, dateStartFormatted, timeStartFormatted, createAtString, locationDetails, totalPrice, status, orderDetailID));
             }
 
         } catch (SQLException e) {

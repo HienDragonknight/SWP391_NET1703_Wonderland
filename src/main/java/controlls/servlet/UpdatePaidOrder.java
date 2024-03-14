@@ -1,24 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
 package controlls.servlet;
 
-import dal.OrderDAO;
+import dal.OrderDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import models.OrderDTO;
-import models.OrderDetailDTO;
-import models.UserDTO;
 
-@WebServlet(name = "ViewYourCarServlet", urlPatterns = {"/view_your_party_servlet"})
-public class ViewYourCarServlet extends HttpServlet {
+/**
+ *
+ * @author bao.kun
+ */
+@WebServlet(name = "UpdatePaidOrder", urlPatterns = {"/update_order_after_checkout"})
+public class UpdatePaidOrder extends HttpServlet {
 
-    private static final String ERROR = "your_party.jsp";
-    private static final String SUCCESS = "your_party.jsp";
+    private static final String ERROR = "view_your_party_servlet?status=going";
+    private static final String SUCCESS = "view_your_party_servlet?status=going";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -27,36 +30,25 @@ public class ViewYourCarServlet extends HttpServlet {
         String url = ERROR;
 
         try {
-            HttpSession session = request.getSession();
-            UserDTO userLogin = (UserDTO) session.getAttribute("USER_INFO");
-            OrderDAO orderDao = new OrderDAO();
 
-            String status = request.getParameter("status");
-            List<OrderDetailDTO> listOrder = null;
+            String dateStart = request.getParameter("checkin-date");
+            String timeStart = request.getParameter("checkin-time");
+            String orderDetailID = request.getParameter("order-Id");
 
-            if (status.equalsIgnoreCase("going")) {
-                status = "Paid";
-                listOrder = orderDao.getOnGoingOrderList(userLogin.getUserID(), status);
+            OrderDetailDAO oderDetailDao = new OrderDetailDAO();
 
-            }
-            if (status.equalsIgnoreCase("cancelled")) {
-                status = "Cancelled";
-                listOrder = orderDao.getCancelledOrderList(userLogin.getUserID(), status);
+            boolean check = oderDetailDao.updateDateTimeStart(dateStart, timeStart, orderDetailID);
 
-            }
-            if (status.equalsIgnoreCase("success")) {
-                status = "Success";
-                listOrder = orderDao.getCompletedOrderList(userLogin.getUserID(), status);
-            }
-            
-
-            if (listOrder != null) {
-                request.setAttribute("ORDER_LIST", listOrder);
+            if (check) {
                 url = SUCCESS;
+                request.setAttribute("UPDATE_STATUS", "Update successfully");
+            } else {
+                url = ERROR;
+                request.setAttribute("UPDATE_STATUS", "Update failed");
             }
 
         } catch (Exception e) {
-            log("Error at ViewYourCartServlet");
+            log("Error at UpdatePaidOrder");
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -58,8 +58,7 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
                 Map<String, String> orderDetailInfo = (Map<String, String>) session.getAttribute("ORDER_DETAIL_INFO");
                 Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
 
-                
-                
+               
                 OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                 boolean checkInserOrderDetail = false;
 

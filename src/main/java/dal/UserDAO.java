@@ -231,37 +231,37 @@ public class UserDAO implements Serializable {
     }
 
     public UserDTO updateHost(String name, String phone, String email) throws ClassNotFoundException, SQLException {
-        Connection con = null;
-        PreparedStatement stm = null;
-//        boolean result = false;
-        UserDTO result = null;
-        try {
-            //create connection
-            con = DBUtils.createConnection();
-            if (con != null) {
-                //create sql string
-                String sql = "UPDATE users SET fullname = ?, phone = ? WHERE email = ?";
-                //create statement obj
-                stm = con.prepareStatement(sql);
-                stm.setString(1, name);
-                stm.setString(2, phone);
-                stm.setString(3, email);
-                //execute query
-                int effectRows = stm.executeUpdate();
-                //process
-                if (effectRows > 0) {
-                    result = new UserDTO(ID, name, email, phone, phone, name, ID, phone);
+            Connection con = null;
+            PreparedStatement stm = null;
+    //        boolean result = false;
+            UserDTO result = null;
+            try {
+                //create connection
+                con = DBUtils.createConnection();
+                if (con != null) {
+                    //create sql string
+                    String sql = "UPDATE users SET fullname = ?, phone = ? WHERE email = ?";
+                    //create statement obj
+                    stm = con.prepareStatement(sql);
+                    stm.setString(1, name);
+                    stm.setString(2, phone);
+                    stm.setString(3, email);
+                    //execute query
+                    int effectRows = stm.executeUpdate();
+                    //process
+                    if (effectRows > 0) {
+                        result = new UserDTO(ID, name, email, phone, phone, name, ID, phone);
+                    }
+                }//end connection is available
+            } finally {
+                if (stm != null) {
+                    stm.close();
                 }
-            }//end connection is available
-        } finally {
-            if (stm != null) {
-                stm.close();
+                if (con != null) {
+                    con.close();
+                }
             }
-            if (con != null) {
-                con.close();
-            }
-        }
-        return result;
+            return result;
     }
 
     public boolean registerUser(String fullName, String email, String password, String phone) throws ClassNotFoundException, SQLException {

@@ -380,7 +380,7 @@
 
             .table-wrapper {
                 overflow-y: auto;
-                height: 180px;
+                height: 200px;
             }
 
             .header form {
@@ -539,6 +539,22 @@
             }
 
 
+            #button-update-order
+            {
+                font-size: 20px;
+                cursor: pointer;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                text-align: center;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                transition: all 0.3s ease 0s;
+                box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19);
+            }
         </style>
     </head>
     <body>
@@ -595,7 +611,6 @@
                             <li>
                                 <i class='bx bx-package'></i>
                                 <a href="ViewPackage">Packages</a>
-
                             </li>
                             <li>
                                 <i class='bx bx-bell'></i>
@@ -646,7 +661,7 @@
                                 </li>
                                 <li>
                                     <i class='bx bx-face'></i>
-                                    <a href="view_your_party_servlet?status=completed" class="info">
+                                    <a href="view_your_party_servlet?status=success" class="info">
                                         <p>Completed</p>
                                     </a>
                                 </li>
@@ -667,7 +682,7 @@
 
                                 <%
                                     List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
-                                    if (listOrder != null) {
+                                    if (listOrder.size() != 0) {
                                         int countOrder = 1;
                                 %>
                                 <div class="header">
@@ -675,7 +690,7 @@
                                     <h3>Party</h3>
 
                                 </div>
-                                <form action="AdminServlet" method="POST">
+                                <form action="update_order_after_checkout" method="POST">
                                     <div class="table-wrapper">
                                         <table>
 
@@ -697,36 +712,51 @@
                                             <tbody class="scrollable">
 
                                                 <tr>    
-                                                    <td><%= countOrder++%></td>
+                                                    <td><%= countOrder++ %></td>
                                                     <td><%= dto.getPackageName()%></td>
                                                     <td><%= dto.getLocaltionDetails()%></td>        
                                                     <td>
-                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" min="yyyy-mm-dd" />
+                                                        <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
+                                                        <% String status = request.getParameter("status");
+                                                            if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
+                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" style="width: 150px;" disabled />
+                                                        <% } else {%>
+                                                        <input type="date" name="checkin-date" value="<%= dto.getDateStart()%>" onchange="setMinDate()" style="width: 150px;" />
+                                                        <% } %>
                                                     </td>
 
-                                                    <td>  <input type="time" id="checkin-time"  name="checkin-time"  value="<%= dto.getTimeStart()%>"> </td>
-
+                                                    <td>
+                                                        <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
+                                                        <% if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
+                                                        <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" disabled />
+                                                        <% } else {%>
+                                                        <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" />
+                                                        <% }%>
+                                                    </td>
                                                     <td><%= dto.getDateOrder()%></td>        
                                                     <td><%= dto.getTotalPrice()%></td>        
                                                     <td><%= dto.getStatus()%></td>   
                                                     <td>
-                                                        <button style="font-size: 16px; cursor: pointer;">
-                                                            Update
-                                                        </button>
+                                                        <%
+
+                                                            if (status != null && status.equals("going")) {
+                                                        %>
+                                                        <button id="button-update-order"> Update </button>
+
+                                                        <%
+                                                            }
+                                                        %>
                                                     </td>
                                                     <td>
-                                                        <%
-                                                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                                                            String formattedDate = sdf.format(dto.getDateStart());
-                                                        %>
-                                                        <a onclick="confirmCancel('<%= formattedDate%>'); return false;">Cancel</a>
-                                                    </td>
-                                                </tr>
-                                                <%
-                                                    }
-                                                } else {
 
-                                                %>
+                                                    </td>
+                                            <input type="hidden"  name="order-Id"> 
+                                            </tr>
+                                            <%
+                                                }
+                                            } else {
+
+                                            %>
 
                                             <div style="text-align: center">
                                                 <i class='bx bx-notification-off'></i>
@@ -735,8 +765,12 @@
 
 
                                             <%}
-
+                                                String updateMessage = (String) request.getAttribute("UPDATE_STATUS");
+                                                if (updateMessage == null)
+                                                    updateMessage = "";
                                             %>
+
+                                            <%= updateMessage%>
                                             </tbody>
                                         </table>
                                     </div>
@@ -783,7 +817,7 @@
                 }
             }
 
-// Function to close the notification
+            // Function to close the notification
             function closeNotification() {
                 document.getElementById('notificationContainer').style.display = 'none';
             }
@@ -830,7 +864,10 @@
             document.getElementById('checkin-date').setAttribute('min', formatDate());
 
 
-
+            function setMinDate() {
+                var inputDate = document.getElementById("checkin-date").value;
+                document.getElementById("checkin-date").min = inputDate;
+            }
 
         </script>
     </div>

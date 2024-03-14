@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import models.OrderDetailDTO;
+import models.UserDTO;
 import util.DBUtils;
 
 /**
@@ -136,5 +137,36 @@ public class OrderDetailDAO implements Serializable {
         }
 
         return check;
+    }
+
+    public boolean updateDateTimeStart(String dateStart, String timeStart, String orderDetailID) throws ClassNotFoundException, SQLException {
+
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean check = false;
+
+        try {
+            //create connection
+            con = DBUtils.createConnection();
+            if (con != null) {
+                //create sql string
+                String sql = "UPDATE [[OrderDetails]] SET dateStart = ? WHERE orderDetailID = ?";
+                //create statement obj
+                stm = con.prepareStatement(sql);
+                stm.setString(1, dateStart + " " + timeStart);
+                stm.setString(2, orderDetailID);
+                //execute query
+                check = stm.executeUpdate() > 0 ? true : false;
+            }//end connection is available
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return check;
+
     }
 }
