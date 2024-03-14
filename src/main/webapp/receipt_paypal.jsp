@@ -207,6 +207,20 @@
 
             .payment-success{
                 padding: 85px 0px;
+                margin-bottom: 100px;
+            }
+            
+            .logined a{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            .logined img {
+                width: 30px;
+                border-radius: 50%;
+                height: 30px;
             }
         </style>
     </head>
@@ -224,7 +238,7 @@
                     <div class="user-logined">
                         <div class="logined">
                             <a href="ViewUserServlet">
-                                <img src="image/packages/${sessionScope.USER_INFO.avatar}"/>
+                                <img src="image/${sessionScope.USER_INFO.avatar}"/>
                                 ${sessionScope.USER_INFO.fullName}
                             </a>
                         </div>
