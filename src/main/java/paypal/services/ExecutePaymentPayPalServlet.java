@@ -31,25 +31,25 @@ import models.UserDTO;
  */
 @WebServlet(name = "ExecutePaymentPayPalServlet", urlPatterns = {"/execute_payment_paypal"})
 public class ExecutePaymentPayPalServlet extends HttpServlet {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     public ExecutePaymentPayPalServlet() {
         super();
     }
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
         String paymentID = request.getParameter("paymentId");
         String payerID = request.getParameter("PayerID");
-
+        
         try {
-
+            
             PaymentServices paymentServices = new PaymentServices();
             Payment payment = paymentServices.executePayment(paymentID, payerID);
-
+            
             if (payment != null) {
 
                 // ############## WONDERLAND ##############  
@@ -57,11 +57,10 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
                 HttpSession session = request.getSession();   // from AuthorizePayment
                 Map<String, String> orderDetailInfo = (Map<String, String>) session.getAttribute("ORDER_DETAIL_INFO");
                 Map<String, String> orderInfo = (Map<String, String>) session.getAttribute("ORDER_INFO");
-
-               
+                
                 OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
                 boolean checkInserOrderDetail = false;
-
+                
                 try {
                     checkInserOrderDetail = orderDetailDAO.insertOrderDetail(orderDetailInfo, orderInfo);
                 } catch (SQLException ex) {
@@ -70,23 +69,25 @@ public class ExecutePaymentPayPalServlet extends HttpServlet {
                 if (checkInserOrderDetail) {
                     PayerInfo payerInfo = payment.getPayer().getPayerInfo();
                     Transaction transaction = payment.getTransactions().get(0);
-
+                    
                     request.setAttribute("PAYER", payerInfo);
                     request.setAttribute("TRANSACTION", transaction);
-
+                    
+                    session.removeAttribute("ORDER_INSERTED_ID");           // refresh order_inserted
+                    
                     request.getRequestDispatcher("receipt_paypal.jsp").forward(request, response);
                 }
 
                 // ########################################
                 // ########################################
             }
-
+            
         } catch (PayPalRESTException e) {
             e.getStackTrace();
             request.setAttribute("ERROR_MESSAGE", "Could not execute payment");
             request.getRequestDispatcher("error_paypal.jsp").forward(request, response);
         }
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

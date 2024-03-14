@@ -174,7 +174,7 @@ public class OrderDAO implements Serializable {
 
         try {
             conn = DBUtils.createConnection();
-            String getOnGoingOrder = "SELECT D.orderDetailID, A.packageName , CONVERT(VARCHAR(16), B.dateStart, 120) AS dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
+            String getOnGoingOrder = "SELECT D.orderID, D.orderDetailID, A.packageName , CONVERT(VARCHAR(16), B.dateStart, 120) AS dateStart, D.create_at , C.locationDetails, D.totalPrice, D.[status] FROM Packages A INNER JOIN OrderDetails B ON B.packageID = A.packageID INNER JOIN Location C ON C.locationID = B.locationID INNER JOIN [Order] D ON D.orderDetailID = B.orderDetailID WHERE D.userID = ? AND D.[status] = ?";
             ptm = conn.prepareStatement(getOnGoingOrder);
             //      ctm.registerOutParameter(1, Types.);
             ptm.setString(1, userIDInput);
@@ -183,6 +183,9 @@ public class OrderDAO implements Serializable {
 
             // Retrieve the result set
             while (rs.next()) {
+
+                String orderID = rs.getString("orderID");
+
                 String packageName = rs.getString("packageName");
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -203,7 +206,7 @@ public class OrderDAO implements Serializable {
                 double totalPrice = rs.getDouble("totalPrice");
                 String status = rs.getString("status");
 
-                listOrder.add(new OrderDetailDTO(packageName, dateStartFormatted, timeStartFormatted, createAtString, locationDetails, totalPrice, status, orderDetailID));
+                listOrder.add(new OrderDetailDTO(orderID, packageName, dateStartFormatted, timeStartFormatted, createAtString, locationDetails, totalPrice, status, orderDetailID));
             }
 
         } catch (SQLException e) {
@@ -348,6 +351,62 @@ public class OrderDAO implements Serializable {
             }
         }
         return listOrder;
+    }
+
+    public boolean deletePaidOrder(String orderID) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        boolean check = false;
+        String query = "UPDATE [Order] SET status = ? WHERE orderID = ?";
+
+        try {
+            conn = DBUtils.createConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setString(1, "Cancelled");
+            ptm.setString(2, orderID);
+
+            check = ptm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updatePaidOrder(String orderDetailsID, String checkinDateTime) throws SQLException {
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        boolean check = false;
+        String query = "UPDATE [OrderDetails] SET dateStart = ? WHERE orderDetailID = ?";
+
+        try {
+            conn = DBUtils.createConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setString(1, checkinDateTime);
+            ptm.setString(2, orderDetailsID);
+
+            check = ptm.executeUpdate() > 0 ? true : false;
+
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 
 }

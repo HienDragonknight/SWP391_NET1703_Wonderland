@@ -30,6 +30,7 @@ public class OrderDetailDTO implements Serializable {
     private String payment;
     private String localtionDetails;
     private String orderDetailId;
+    private String orderId;
 
     public OrderDetailDTO() {
     }
@@ -78,6 +79,22 @@ public class OrderDetailDTO implements Serializable {
         this.localtionDetails = localtionDetails;
         this.timeStart = timeStart;
         this.orderDetailId = orderDetailId;
+    }
+
+    public OrderDetailDTO(String orderID, String packageName, String dateStart, String timeStart, String dateOrder, String localtionDetails, double totalPrice, String status, String orderDetailId) {
+        this.packageName = packageName;
+        this.dateStart = dateStart;
+        this.dateOrder = dateOrder;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.localtionDetails = localtionDetails;
+        this.timeStart = timeStart;
+        this.orderDetailId = orderDetailId;
+        this.orderId = orderID;
+    }
+
+    public String getOrderId() {
+        return orderId;
     }
 
     public String getTimeStart() {

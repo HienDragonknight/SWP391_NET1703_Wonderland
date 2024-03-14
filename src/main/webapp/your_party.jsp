@@ -539,7 +539,7 @@
             }
 
 
-            #button-update-order
+            .button-update-order
             {
                 font-size: 20px;
                 cursor: pointer;
@@ -554,7 +554,16 @@
                 margin: 4px 2px;
                 transition: all 0.3s ease 0s;
                 box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19);
+                margin: 5%;
+
             }
+
+
+            .order-counter {
+                margin-top: 65%;
+            }
+
+
         </style>
     </head>
     <body>
@@ -594,196 +603,214 @@
             </header>
 
 
-         
-                <div class="column">
-                    <div class="menu">
-                        <ul class="menu-ic">
-                            <li>
-                                <i class='bx bx-home-alt-2'></i>
 
-                                <a href="home.jsp">Home</a>
-                            </li>
+            <div class="column">
+                <div class="menu">
+                    <ul class="menu-ic">
+                        <li>
+                            <i class='bx bx-home-alt-2'></i>
 
-                            <li>
-                                <i class='bx bx-location-plus'></i>
-                                <a href="ViewLocation">Location</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-package'></i>
-                                <a href="ViewPackage">Packages</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-bell'></i>
-                                <a href="ViewServiceServlet">Service</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-party'></i>
-                                <a href="BookingPartyServlet">Booking Party</a>
-                            </li>
-                            <li>
-                                <i class='bx bx-info-circle'></i>
-                                <a href="about.jsp">About Us</a>
-                            </li>
-                        </ul>
-                        <ul class="logout">
-                            <li>
-                                <form action="LogoutServlet" method="POST">
-                                    <i class='bx bx-log-out-circle'></i>
-                                    <input type="submit" value="Logout" name="action" />
-                                </form>
-                            </li>
-                        </ul>
-                    </div>  
+                            <a href="home.jsp">Home</a>
+                        </li>
 
-                    <div class="admin-container">
-                        <div class="add-ab">
-                            <a href="home.jsp">Home</a><span> &#10095; Your Party</span>
-                        </div>
-                        <h1>Your Party</h1>
-                        <%
-                            List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
-                            int totalUsers = 0; // Counter for total users
-                            if (result != null) {
-                                for (UserDTO dto : result) {
-                                    totalUsers++;
-                                }
+                        <li>
+                            <i class='bx bx-location-plus'></i>
+                            <a href="ViewLocation">Location</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-package'></i>
+                            <a href="ViewPackage">Packages</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-bell'></i>
+                            <a href="ViewServiceServlet">Service</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-party'></i>
+                            <a href="BookingPartyServlet">Booking Party</a>
+                        </li>
+                        <li>
+                            <i class='bx bx-info-circle'></i>
+                            <a href="about.jsp">About Us</a>
+                        </li>
+                    </ul>
+                    <ul class="logout">
+                        <li>
+                            <form action="LogoutServlet" method="POST">
+                                <i class='bx bx-log-out-circle'></i>
+                                <input type="submit" value="Logout" name="action" />
+                            </form>
+                        </li>
+                    </ul>
+                </div>  
+
+                <div class="admin-container">
+                    <div class="add-ab">
+                        <a href="home.jsp">Home</a><span> &#10095; Your Party</span>
+                    </div>
+                    <h1>Your Party</h1>
+                    <%
+                        List<UserDTO> result = (List<UserDTO>) request.getAttribute("LIST_USER");
+                        int totalUsers = 0; // Counter for total users
+                        if (result != null) {
+                            for (UserDTO dto : result) {
+                                totalUsers++;
                             }
-                        %>
+                        }
+                    %>
 
-                        <div>
-                            <ul class="insights">
+                    <div>
+                        <ul class="insights">
 
-                                <li>
-                                    <i class='bx bx-user'></i>
-                                    <a href="view_your_party_servlet?status=going" class="info">
-                                        <p>On Going</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class='bx bx-face'></i>
-                                    <a href="view_your_party_servlet?status=success" class="info">
-                                        <p>Completed</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <i class='bx bx-face'></i>
-                                    <a href="view_your_party_servlet?status=cancelled" class="info">
-                                        <p>Cancelled</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-
-
-
-                        <!-- Users Table -->
-                        <div class="bottom-data">
-                            <div class="orders">
-
-                                <%
-                                    List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
-                                    if (listOrder.size() != 0) {
-                                        int countOrder = 1;
-                                %>
-                                <div class="header">
-                                    <i class='bx bx-receipt'></i>
-                                    <h3>Party</h3>
-
-                                </div>
-                                <form action="update_order_after_checkout" method="POST">
-                                    <div class="table-wrapper">
-                                        <table>
-
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Your Package</th>
-                                                    <th>Location</th>    
-                                                    <th>Date Start</th>
-                                                    <th>Time Start</th>
-                                                    <th>Create At</th>                                                  
-                                                    <th>Total Price</th>      
-                                                    <th>Status</th>    
-                                                </tr>
-                                            </thead>
-                                            <%
-                                                for (OrderDetailDTO dto : listOrder) {
-                                            %>
-                                            <tbody class="scrollable">
-
-                                                <tr>    
-                                                    <td><%= countOrder++%></td>
-                                                    <td><%= dto.getPackageName()%></td>
-                                                    <td style="width: 330px;" ><%= dto.getLocaltionDetails()%></td>        
-                                                    <td>
-                                                        <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
-                                                        <% String status = request.getParameter("status");
-                                                            if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
-                                                        <input type="date" id="checkin-date" name="checkin-date" value="<%= dto.getDateStart()%>" style="width: 150px;" disabled />
-                                                        <% } else {%>
-                                                        <input type="date" id="checkin-date"  name="checkin-date" value="<%= dto.getDateStart()%>"  style="width: 150px;" />
-                                                        <% } %>
-                                                    </td>
-
-                                                    <td>
-                                                        <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
-                                                        <% if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
-                                                        <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" disabled />
-                                                        <% } else {%>
-                                                        <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" />
-                                                        <% }%>
-                                                    </td>
-                                                    <td><%= dto.getDateOrder()%></td>        
-                                                    <td><%= dto.getTotalPrice()%></td>        
-                                                    <td><%= dto.getStatus()%></td>   
-                                                    <td>
-                                                        <%
-
-                                                            if (status != null && status.equals("going")) {
-                                                        %>
-                                                        <button id="button-update-order"> Update </button>
-
-                                                        <%
-                                                            }
-                                                        %>
-                                                    </td>
-                                                    <td>
-
-                                                    </td>
-                                            <input type="hidden"  name="order-Id"> 
-                                            </tr>
-                                            <%
-                                                }
-                                            } else {
-
-                                            %>
-
-                                            <div style="text-align: center">
-                                                <i class='bx bx-notification-off'></i>
-                                                <p>There is no party</p>
-                                            </div>
+                            <li>
+                                <i class='bx bx-user'></i>
+                                <a href="view_your_party_servlet?status=going" class="info">
+                                    <p>On Going</p>
+                                </a>
+                            </li>
+                            <li>
+                                <i class='bx bx-face'></i>
+                                <a href="view_your_party_servlet?status=success" class="info">
+                                    <p>Completed</p>
+                                </a>
+                            </li>
+                            <li>
+                                <i class='bx bx-face'></i>
+                                <a href="view_your_party_servlet?status=cancelled" class="info">
+                                    <p>Cancelled</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
 
 
-                                            <%}
-                                                String updateMessage = (String) request.getAttribute("UPDATE_STATUS");
-                                                if (updateMessage == null)
-                                                    updateMessage = "";
-                                            %>
+                    <%
+                        String updateStatus = (String) request.getAttribute("UPDATE_STATUS");
+                        if (updateStatus == null) {
+                            updateStatus = "";
+                        }
+                    %>
+                    <%= updateStatus%>
+                    <%
+                        String deleteStatus = (String) request.getAttribute("DELETE_STATUS");
+                        if (deleteStatus == null)
+                            deleteStatus = "";
+                    %>
+                    <%= deleteStatus%>
 
-                                            <%= updateMessage%>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </form>
+
+                    <!-- Users Table -->
+                    <div class="bottom-data">
+
+                        <div class="orders">
+
+                            <%
+                                List<OrderDetailDTO> listOrder = (List<OrderDetailDTO>) request.getAttribute("ORDER_LIST");
+                                if (listOrder.size() != 0) {
+                                    int countOrder = 1;
+                            %>
+                            <div class="header">
+                                <i class='bx bx-receipt'></i>
+                                <h3>Party</h3>
+
                             </div>
+                            <form action="update_delete_action_paid_order" method="POST">
+                                <div class="table-wrapper">
+
+                                    <table>
+
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Your Package</th>
+                                                <th>Location</th>    
+                                                <th>Date Start</th>
+                                                <th>Time Start</th>
+                                                <th>Create At</th>                                                  
+                                                <th>Total Price</th>      
+                                                <th>Status</th>    
+                                            </tr>
+                                        </thead>
+
+
+                                        <%
+                                            for (OrderDetailDTO dto : listOrder) {
+                                        %>
+                                        <tbody class="scrollable">
+
+                                            <tr>    
+                                                <td class="order-counter"><%= countOrder++%></td>
+                                                <td><%= dto.getPackageName()%></td>
+                                                <td style="width: 330px;" ><%= dto.getLocaltionDetails()%></td>        
+                                                <td>
+                                                    <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
+                                                    <% String status = request.getParameter("status");
+                                                        if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
+                                                    <input type="date" id="checkin-date" name="checkin-date" value="<%= dto.getDateStart()%>" style="width: 150px;" disabled />
+                                                    <% } else {%>
+                                                    <input type="date" id="checkin-date"  name="checkin-date" value="<%= dto.getDateStart()%>"  style="width: 150px;" />
+                                                    <% } %>
+                                                </td>
+
+                                                <td>
+                                                    <%-- Check if 'status' parameter is 'cancelled' or 'success' --%>
+                                                    <% if (status != null && (status.equals("cancelled") || status.equals("success"))) {%>
+                                                    <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" disabled />
+                                                    <% } else {%>
+                                                    <input type="time" id="checkin-time" name="checkin-time" value="<%= dto.getTimeStart()%>" style="width: 110px;" />
+                                                    <% }%>
+                                                </td>
+                                                <td><%= dto.getDateOrder()%></td>        
+                                                <td><%= dto.getTotalPrice()%></td>        
+                                                <td><%= dto.getStatus()%></td>   
+                                                <td style="width: 245px"; >
+                                                    <%
+                                                        if (status != null && status.equals("going")) {
+                                                    %>
+                                                    <input type="submit" name="action" value="Update"  class="button-update-order" style="width: 90px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                  
+
+                                                    <input type="submit" nam="action" value="Delete" class="button-update-order" style="width: 90px; cursor: pointer; background-color: red; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                   
+                                                    <%
+                                                        }
+                                                    %>
+                                                </td>
+
+                                                <td>
+
+                                                </td>   
+                                        <input type="hidden"  name="orderDetail-Id" value="<%= dto.getOrderDetailId()%>"> 
+                                        <input type="hidden"  name="orderID" value="<%= dto.getOrderId()%>"> 
+
+                                        </tr>
+                                        <%
+                                            }
+                                        } else {
+
+                                        %>
+
+                                        <div style="text-align: center">
+                                            <i class='bx bx-notification-off'></i>
+                                            <p>There is no party</p>
+                                        </div>
+
+
+                                        <%                                            }
+
+                                        %>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <!-- Notification Container -->
-                <div id="notificationContainer" style="display:none; position:fixed; top:20px; right:20px; background-color:red; color: white; padding:15px; border-radius:5px; box-shadow:0 0 5px #666;">
-                    <span id="notificationMessage">This order starts in less than 2 days.</span>
-                    <span id="countdownTimer" style="margin-left: 10px; display: none"></span>
-                </div>
+            </div>
+            <!-- Notification Container -->
+            <div id="notificationContainer" style="display:none; position:fixed; top:20px; right:20px; background-color:red; color: white; padding:15px; border-radius:5px; box-shadow:0 0 5px #666;">
+                <span id="notificationMessage">This order starts in less than 2 days.</span>
+                <span id="countdownTimer" style="margin-left: 10px; display: none"></span>
+            </div>
         </div>
 
         <script>
@@ -868,6 +895,11 @@
                 document.getElementById("checkin-date").min = inputDate;
             }
             setMinDate();
+
+
+
+
+
 
         </script>
     </div>
