@@ -46,12 +46,12 @@ public class ViewServiceServlet extends HttpServlet {
         try {
             BonusServiceDAO dao = new BonusServiceDAO();
             List<BonusServiceDTO> bonusServiceList = dao.getBonusServiceList();
-    
+                request.setAttribute("SERVICE_LIST", bonusServiceList);
+
             url = SUCCESS;
                        if (Integer.parseInt(user.getRoleID())==3) {
                   url = SUCCESS1;
             }
-            request.setAttribute("SERVICE_LIST", bonusServiceList);
         } catch (SQLException e) {
             log("CreateAccountServlet _ SQL: " + e.getMessage());
         } finally {

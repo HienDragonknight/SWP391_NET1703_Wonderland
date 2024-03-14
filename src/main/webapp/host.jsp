@@ -17,6 +17,10 @@
         <title>Party Host</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
@@ -469,14 +473,10 @@
                         <a href="home.jsp"> <img src="image/LogoCN.png" alt="logo" ></a>
                     </div>
 
-                    <div class="search-bar">
-                        <form action="SearchServlet">
-                            <button>
-                                <i class='bx bx-search'></i>
-                            </button>
-                            <input type="text" placeholder="Type here to search">
-                        </form>
-                    </div>
+                  <div >
+  <input type="text" id="currentDateTime" readonly>
+</div>
+
 
                     <div class="user-logined">
                         <div class="logined">
@@ -618,10 +618,20 @@
                                                 <td><%= order.getTotalPrice()%></td>
                                                 <td><%= order.getStatus()%></td>
                                                 <td>
-                                                    <a href="ViewOrderDetailsServlet?orderID=<%= order.getOrderDetailID()%>" class="btn btn-primary btn-sm">View Details</a>
+                                                
+<a href="ViewOrderDetailsServlet?orderID=<%= order.getOrderID()%>&orderDetailID=<%= order.getOrderDetailID()%>" class="btn btn-primary btn-sm">View Details</a>
+
+                                              
                                                 </td>
                                                 <td>
+                                                        <%
+                                                    if (!order.getStatus().equalsIgnoreCase("Confirmed")) {
+ 
+                                                    %>
                                                     <a href="CustomerOrder?orderID=<%= order.getOrderID()%>" class="btn btn-primary btn-sm">Send Confirm</a>
+                                                   <%
+                                                        }
+                                                    %>
                                                 </td>
 
                                             </tr>
@@ -630,56 +640,29 @@
                                             %>
                                         </tbody>
                                     </table>
-                                </div>
-<!--=======
-                                            <tbody class="scrollable">
-                                                <%                                                    List<UserDTO> searchResult = (List<UserDTO>) request.getAttribute("SEARCH_RESULT");
-                                                    if (searchResult == null) {
-                                                        int countUser = 1;
-                                                        if (result != null) {
-                                                            for (UserDTO dto : result) {
-                                                                String urlReport = "AdminServlet?action=Update&email=" + dto.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= countUser++%></td>
-                                                    <td><%= dto.getFullName()%></td>
-                                                    <td><%= dto.getPhoneNumber()%></td>
-                                                    <td><%= dto.getEmail()%></td>
-                                                    <td><%= dto.getRoleID()%></td>
-                                                    <td style="display: <%= (dto.getReported() != null && !dto.getReported().isEmpty()) ? "block" : "none"%>;"><%= dto.getReported()%></td>
-                                                    <td><a href="<%= urlReport%>">Report</a></td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                } else {
-                                                    int coutUser = 1;
-                                                    for (UserDTO searchR : searchResult) {
-                                                        String urlReport = "AdminServlet?action=Update&email=" + searchR.getEmail();
-                                                %>
-                                                <tr>
-                                                    <td><%= coutUser++%></td>
-                                                    <td><%= searchR.getFullName()%></td>
-                                                    <td><%= searchR.getPhoneNumber()%></td>
-                                                    <td><%= searchR.getEmail()%></td>
-                                                    <td><%= searchR.getRoleID()%></td>
-                                                    <td><%= searchR.getReported()%></td>
-                                                    <td><a href="<%= urlReport%>">Report</a></td>
-                                                </tr>
-                                                <%
-                                                        }
-                                                    }
-                                                %>
-                                            </tbody>
-                                        </table>
+             
+                                     
                                     </div>
-                                </form>
->>>>>>> e48aff32085fa6f7ff61e372ac7707e60329f773-->
+                            
                             </div>
                         </div>
                     </div>
 
             </main>
         </div>
+                                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <script>
+        // Lấy ngày giờ hiện tại
+        var currentDate = new Date();
+
+        // Format ngày giờ hiện tại (vd: YYYY-MM-DD HH:mm:ss)
+        var formattedDateTime = currentDate.toISOString().slice(0, 19).replace("T", " ");
+
+        // Gán giá trị vào ô textbox
+        document.getElementById("currentDateTime").value = formattedDateTime;
+    </script>
+
     </body>
 </html>

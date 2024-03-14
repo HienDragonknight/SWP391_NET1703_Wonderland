@@ -212,7 +212,7 @@
                 border-radius: 10px;
                 overflow: hidden;
                 padding: 20px 20px 20px 20px;
-                min-height: 260px;
+                min-height: 500px;
                 max-height: 260px;
                 min-width: 400px;
                 max-width: 400px;
@@ -297,17 +297,29 @@
                 color: red;
                 cursor: pointer;
             }
-
-            .logined img {
-                width: 30px;
-                border-radius: 50%;
+            .packages-detail .img {
+                width: 100%;
+                max-width: 100%;
+                height: 0;
+                padding-top: 62.5%;
+                position: relative;
+                overflow: hidden;
             }
-
-            .logined a {
+            .packages-detail {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 5px;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: space-between;
+                text-align: left;
+            }
+            .packages-detail .img img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
             }
         </style>
     </head
@@ -399,6 +411,9 @@
                     <div class="green-container">
                         <div class="container-packages">
                             <div class="packages-detail">
+                                <div class="img">
+                                    <img src="image/packages/<%= packages.getImage()%>" alt="alt"/>
+                                </div></br>
                                 <h2><%= packages.getPackageName()%></h2></br>
                                 <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                                 <h3>Description: <%= packages.getDescription()%></h3></br>
@@ -419,32 +434,8 @@
     %>
     <div class="user-logined">
         <div class="logined">
-            
-            <%
-                if (session.getAttribute("USER_INFO") != null && dto.getRoleID().equals("2")) {
-            %>
-            <a href="ViewUserServlet">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-            } else if (dto.getRoleID().equals("1")) {
-            %>
-            <a href="customer.jsp">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-            } else {
-            %>
-            <a href="PartyHostServlet">
-                <img src="image/${sessionScope.USER_INFO.avatar}"/>
-                ${sessionScope.USER_INFO.fullName}
-            </a>
-            <%
-                }
-            %>
-
+            <i class='bx bx-user-circle'></i>
+            <a href="admin.jsp">${sessionScope.USER_INFO.fullName}</a>
         </div>
         <div class="cart-items">
             <i class='bx bx-cart' ></i>
@@ -509,7 +500,9 @@
             <div class="green-container">
                 <div class="container-packages">
                     <div class="packages-detail">
-                        <img></<img src="src" alt="alt"/>
+                        <div class="img">
+                            <img src="image/packages/<%= packages.getImage()%>" alt="alt"/>
+                        </div></br>
                         <h2><%= packages.getPackageName()%></h2></br>
                         <h3>Price: <%= packages.getUnitPrice()%>$</h3>
                         <h3>Description: <%= packages.getDescription()%></h3></br>

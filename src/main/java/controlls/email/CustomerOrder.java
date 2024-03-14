@@ -74,15 +74,16 @@ public class CustomerOrder extends HttpServlet {
         String email = request.getParameter("hienntss171243@fpt.edu.vn");
         String orderID = request.getParameter("orderID");
         try {
-            OrderDTO order= dao.getNewOrderUserNamebyID(orderID);
-            OrderDetailDTO orderDetail =  dal.getOrderDetailIDNew(order.getOrderDetailID());
-            UserDTO userDto = udao.searchByID(order.getUserID());
+            OrderDTO o= dao.getNewOrderUserNamebyID(orderID);
+            dao.updateOrderStatus(Integer.parseInt(o.getOrderDetailID()));
+            OrderDetailDTO orderDetail =  dal.getOrderDetailIDNew(o.getOrderDetailID());
+            UserDTO userDto = udao.searchByID(o.getUserID());
                     SendOrderEmail1 sm = new SendOrderEmail1();
         String code = sm.getRandom();
 
         UserMail user = new UserMail(email, code);
 
-        boolean test = sm.sendEmail(userDto, order, orderDetail);
+        boolean test = sm.sendEmail(userDto, o, orderDetail);
 
         if (test) {
             

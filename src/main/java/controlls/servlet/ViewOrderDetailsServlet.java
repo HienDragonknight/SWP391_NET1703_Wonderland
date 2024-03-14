@@ -65,7 +65,8 @@ public class ViewOrderDetailsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- String orderDetailId = request.getParameter("orderID");
+ String orderDetailId = request.getParameter("orderDetailID");
+ String orderID = request.getParameter("orderID");
         OrderDetailDAO o = new OrderDetailDAO(); // This would be a class representing the details of an order.
         try {
             // Assume you have a method 'getOrderDetails' that retrieves order details from the database.
@@ -73,6 +74,7 @@ public class ViewOrderDetailsServlet extends HttpServlet {
             List<OrderDetailDTO> listOrderDetail  = o.getOrderDetailID(orderDetailId);
                 if (listOrderDetail != null) {
             request.setAttribute("ORDER_DETAILS", listOrderDetail);
+            request.setAttribute("orderID", orderID);
              RequestDispatcher rd = request.getRequestDispatcher("orderDetail.jsp");
             rd.forward(request, response);
         }

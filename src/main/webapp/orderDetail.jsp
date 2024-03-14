@@ -677,9 +677,7 @@
                                 </tr>
                             </table>
 
-                            <a href="CancelBookingServlet?orderDetailID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Cancel</a>
-
-
+                            <a  onclick="confirmCancellation()" href="#" class="btn btn-primary btn-sm">Cancel</a>
                             <a href="UpdateBookingServlet?orderID=<%= orderDetail.getOrderDetailID()%>" class="btn btn-primary btn-sm">Update</a>
 
                             <% } else { %>
@@ -690,5 +688,19 @@
 
             </main>
         </div>
+                        <%
+                        String orderID = (String) request.getAttribute("orderID");
+                        %>
+                        <!-- Đặt mã JavaScript dưới phần khai báo CSS -->
+<script>
+    function confirmCancellation() {
+        var result = confirm("Are you sure that you want to cancel this order?");
+        if (result) {
+            // Nếu người dùng xác nhận hủy, chuyển hướng đến trang xác nhận hủy
+window.location.href = "CancelOrder?orderDetailID=<%= orderDetail.getOrderDetailID()%>&orderID=<%= orderID%>";
+        }
+    }
+</script>
+
     </body>
 </html>

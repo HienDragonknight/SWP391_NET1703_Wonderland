@@ -845,7 +845,6 @@
     </div>
 </footer>
 <script src="js/pagination.js"></script>
-=======
->>>>>>> f3a3bc94855050fc24072619f2bd94611b3324eb
+
 </body>
 </html>

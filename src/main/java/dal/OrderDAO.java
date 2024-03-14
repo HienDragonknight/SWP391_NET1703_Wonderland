@@ -284,4 +284,23 @@ public class OrderDAO implements Serializable {
             return affectedRows;
         }
     }
+    
+        public int updateOrderStatus(int orderDetailID) throws SQLException, ClassNotFoundException {
+        // Database URL, username and password should be configured as environmental variables or configuration files
+
+        String orderUpdateQuery = "UPDATE [Order]\n"
+                + "SET \n"
+                + "    status = 'Confirmed'\n"
+                + "WHERE orderDetailID = ?;";
+
+        try (Connection conn = DBUtils.createConnection(); PreparedStatement stmt = conn.prepareStatement(orderUpdateQuery)) {
+
+              
+            stmt.setInt(1, orderDetailID);
+
+            int affectedRows = stmt.executeUpdate();
+            System.out.println("Affected rows: " + affectedRows);
+            return affectedRows;
+        }
+    }
 }

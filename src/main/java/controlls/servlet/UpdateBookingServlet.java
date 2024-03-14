@@ -150,7 +150,7 @@ public class UpdateBookingServlet extends HttpServlet {
            if (fullname==null) {
             fullname="null";
         }
-        String payment = request.getParameter("payment");
+        String payment = "Payment";
         String notes = request.getParameter("notes");
         String amountOfPeople = request.getParameter("amountOfPeople");
         String dateStart = request.getParameter("dateStart");

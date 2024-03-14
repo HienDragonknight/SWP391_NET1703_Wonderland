@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,7 +41,7 @@ public class DeleteBonusServiceSevlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteBonusServiceSevlet</title>");            
+            out.println("<title>Servlet DeleteBonusServiceSevlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet DeleteBonusServiceSevlet at " + request.getContextPath() + "</h1>");
@@ -58,26 +59,34 @@ public class DeleteBonusServiceSevlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String serviceID = request.getParameter("serviceID");
-        
+
         try {
             BonusServiceDAO bonusServiceDAO = new BonusServiceDAO();
-            boolean success = bonusServiceDAO.deleteBonusService(serviceID);
-            
-            if (success) {
+            boolean success;
+            try {
+                
+                      if (success = bonusServiceDAO.deleteBonusService(serviceID)) {
                 response.sendRedirect("ViewServiceServlet"); // Chuyển hướng đến trang thành công sau khi xóa
             } else {
-              //  response.sendRedirect("error.jsp"); // Chuyển hướng đến trang lỗi nếu xóa không thành công
+
+      HttpSession session = request.getSession();
+                session.setAttribute("alert", "This service has already been chosen in an order");
+                response.sendRedirect("ViewServiceServlet");
             }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(DeleteBonusServiceSevlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+      
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp"); // Chuyển hướng đến trang lỗi nếu xảy ra lỗi SQL
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DeleteBonusServiceSevlet.class.getName()).log(Level.SEVERE, null, ex);
+
+     
+                //  response.sendRedirect("error.jsp"); // Chuyển hướng đến trang lỗi nếu xóa không thành công        } catch (ClassNotFoundException ex) {
         }
     }
 

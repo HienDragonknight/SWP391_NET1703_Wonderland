@@ -109,7 +109,7 @@ public class AddBonusServlet extends HttpServlet {
                     try {
                         boolean result= h.addBonusService(bonus);
                         if (result) {
-                            
+                            response.sendRedirect("ViewServiceServlet");
                         }
                     } catch (SQLException ex) {
                         Logger.getLogger(AddBonusServlet.class.getName()).log(Level.SEVERE, null, ex);

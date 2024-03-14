@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -67,22 +68,25 @@ public class CancelBookingServlet extends HttpServlet {
         OrderDAO dao = new OrderDAO();
         OrderDetailDAO dal = new OrderDetailDAO();
         UserDAO udao = new UserDAO();
-        String orderDetailID = request.getParameter("orderDetailID");
-               // response.sendRedirect(request.getContextPath() + "/PartyHostServlet");
-                  response.sendRedirect("PartyHostServlet");
-//        try {
-//            if (dao.deleteOrder(Integer.parseInt(orderDetailID))) {
-//                dal.deleteOrderDetail(Integer.parseInt(orderDetailID));
-//                 RequestDispatcher rd = request.getRequestDispatcher("PartyHostServlet");
-//            rd.forward(request, response);
-//            
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CancelBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(CancelBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
+ 
+                     HttpSession session = request.getSession();
+    String cancelledDetailOrderID = (String) session.getAttribute("cancelledorderDetailID");
+    String cancelledOrderID = (String) session.getAttribute("cancelledOrderID");
+        try {
+            if (dao.deleteOrder(Integer.parseInt(cancelledDetailOrderID))) {
+                dal.deleteOrderDetail(Integer.parseInt(cancelledDetailOrderID));
+                   // Đặt thông tin vào session
+  
+    // Chuyển hướng đến servlet SendCancelBookingMail
+    response.sendRedirect("PartyHostServlet");
+         
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CancelBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CancelBookingServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
     }
 

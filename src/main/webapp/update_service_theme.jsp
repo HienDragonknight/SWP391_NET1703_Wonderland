@@ -613,7 +613,7 @@
             }
 
             #h1 {
-                padding: 30px 2px 0px 113px;
+                padding: 30px 2px 0px 0px;
                 font-size: 34px;
             }
 
@@ -645,7 +645,6 @@
                 border-style: none;
                 width: 100%;
                 background-color: white;
-                margin-bottom: 120px
             }
 
             #hinhAnh {
@@ -668,6 +667,112 @@
                 display:
                     flex;
             }
+
+            /* CSS cho form container */
+            .form-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 1000px;
+
+            }
+
+            /* CSS cho form container khi nó ở chế độ selected */
+            .selected .form-container {
+                max-width: 100%;
+            }
+
+            /* CSS cho form */
+            .form-container form {
+                width: 100%;
+            }
+
+            .form-container label {
+                font-weight: 600;
+                color: #333;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-container input[type="text"],
+            .form-container input[type="number"],
+            .form-container textarea {
+                width: calc(100% - 16px);
+                padding: 8px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            .form-container input[readonly],
+            .form-container textarea[readonly] {
+                background-color: #e9ecef;
+                color: #495057;
+                cursor: not-allowed;
+            }
+
+            .form-container input[type="text"]:focus,
+            .form-container input[type="number"]:focus,
+            .form-container textarea:focus {
+                border-color: #80bdff;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+            }
+
+            .form-container .btn {
+                width: 100%;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .form-container .btn:hover {
+                background-color: #0056b3;
+            }
+
+            .form-container textarea {
+                height: 100px;
+            }
+
+            .form-container p {
+                text-align: center;
+            }
+
+            /* CSS cho phần chia layout thành 2 phần */
+            .row {
+                display: flex;
+            }
+
+            .column {
+                flex: 1;
+                padding: 0 10px;
+            }
+
+            @media screen and (max-width: 600px) {
+                .row {
+                    flex-direction: column;
+                }
+            }
+
+            .form-container{
+                max-height: 971px;
+                margin-top: 60px;
+                margin-bottom: 60px;
+            }
+
+            .col-md-6{
+                width: 762px;
+            }
+
 
         </style>
     </head>
@@ -770,14 +875,7 @@
                         <!-- Form Manage Bonus Service -->
                         <form action="UpdateBonusService" method="POST" enctype="multipart/form-data">
                             <h1 id="h1">Update service</h1>
-                    <!--        <p class="report" value="<%=report%>"></p>-->
-                            <!--        <div class=" alert hide ">
-                                        <span class="fas fa-exclamation-circle"></span>
-                                        <span class="msg">Warning: !</span>
-                                        <div class="close-btn">
-                                            <span class="fas fa-times"></span>
-                                        </div>
-                                    </div>-->
+              
                             <div class="container padding-top-60 mb-3">
                                 <div class="row">
                                     <div class="col-md-4">
@@ -785,48 +883,53 @@
                                         <div>
                                             <img class="imgFile" src="<%= b.getImage()%>" alt="" id="previewImage">                    </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <input type="text" class="inputA" id="serviceName" name="serviceName" value="<%=b.getServiceName()%>" required>
-
-                                        </div>
-                                        <div class="form-group">
-                                            <input value="<%=b.getServicePrice()%>"  type="number" class="inputA" id="servicePrice" name="servicePrice" placeholder="Service Price" step="0.01" min="0" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <textarea class="inputA" id="descriptions" name="descriptions" rows="3" placeholder="Description" required><%=b.getDescriptions()%></textarea>
-                                        </div>
-
-                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="serviceName">Service Name:</label>
+                                        <input value="<%=b.getServiceName()%>" type="text" class="inputA" id="serviceName" name="serviceName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="servicePrice">Service Price:</label>
+                                        <input value="<%=b.getServicePrice()%>" type="number" class="inputA" id="servicePrice" name="servicePrice" step="0.01" min="0" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descriptions">Descriptions:</label>
+                                        <textarea class="inputA" id="descriptions" name="descriptions" rows="3" required><%=b.getDescriptions()%></textarea>
+                                    </div>
+                                    <button type="submit" class="buttonA">Update Service</button>
+                                </div>
+
                             </div>
-                            <button type="submit" class="buttonA">Update Service</button>
-                        </form>
+
                     </div>
 
+                    </form>
                 </div>
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        var reportValue = document.querySelector('.report').getAttribute('value');
-
-                        // Nếu giá trị là 0, hiển thị form bonusService
-                        if (reportValue === '2') {
-                            document.getElementById('bonusServiceForm').classList.remove('hidden');
-                        }
-                    });
-                </script>
-                <%session.removeAttribute("report");%>
-                <!-- JavaScript để chỉ hiển thị một trong hai form -->
-
-
-                <!-- Bootstrap JS, Popper.js, and jQuery -->
-                <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-            </main>
         </div>
-    </body>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var reportValue = document.querySelector('.report').getAttribute('value');
+
+                // Nếu giá trị là 0, hiển thị form bonusService
+                if (reportValue === '2') {
+                    document.getElementById('bonusServiceForm').classList.remove('hidden');
+                }
+            });
+        </script>
+        <%session.removeAttribute("report");%>
+        <!-- JavaScript để chỉ hiển thị một trong hai form -->
+
+
+        <!-- Bootstrap JS, Popper.js, and jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    </main>
+</div>
+</body>
 </html>

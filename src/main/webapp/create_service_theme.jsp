@@ -613,7 +613,7 @@ body {
 }
 
 #h1 {
-    padding: 30px 2px 0px 113px;
+    padding: 30px 2px 0px 0px;
     font-size: 34px;
 }
 
@@ -645,7 +645,6 @@ body {
     border-style: none;
     width: 100%;
     background-color: white;
-    margin-bottom: 120px
 }
 
 #hinhAnh {
@@ -668,6 +667,112 @@ body {
     display: 
         flex;
 }
+
+/* CSS cho form container */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+
+}
+
+/* CSS cho form container khi nó ở chế độ selected */
+.selected .form-container {
+    max-width: 100%;
+}
+
+/* CSS cho form */
+.form-container form {
+    width: 100%;
+}
+
+.form-container label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea {
+    width: calc(100% - 16px);
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-container input[readonly],
+.form-container textarea[readonly] {
+    background-color: #e9ecef;
+    color: #495057;
+    cursor: not-allowed;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="number"]:focus,
+.form-container textarea:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.form-container .btn {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-container .btn:hover {
+    background-color: #0056b3;
+}
+
+.form-container textarea {
+    height: 100px;
+}
+
+.form-container p {
+    text-align: center;
+}
+
+/* CSS cho phần chia layout thành 2 phần */
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 1;
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 600px) {
+    .row {
+        flex-direction: column;
+    }
+}
+
+.form-container{
+    max-height: 971px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.col-md-6{
+ width: 762px;
+}
+
 
         </style>
     </head>
@@ -784,20 +889,26 @@ body {
                         <img class="imgFile" src="https://th.bing.com/th/id/OIP.RgZdMqNzMgkH3o8rsku6BAAAAA?rs=1&pid=ImgDetMain" alt="" id="previewImage">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <input type="text" class="inputA" id="serviceName" name="serviceName" placeholder="Service Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="number" class="inputA" id="servicePrice" name="servicePrice" placeholder="Service Price" step="0.01" min="0" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea class="inputA" id="descriptions" name="descriptions" rows="3" placeholder="Description" required></textarea>
-                    </div>
-                </div>
+              <div class="col-md-6">
+    <div class="form-group">
+        <label for="serviceName">Service Name:</label>
+        <input type="text" class="inputA" id="serviceName" name="serviceName" required>
+    </div>
+    <div class="form-group">
+        <label for="servicePrice">Service Price:</label>
+        <input type="number" class="inputA" id="servicePrice" name="servicePrice" step="0.01" min="0" required>
+    </div>
+    <div class="form-group">
+        <label for="descriptions">Descriptions:</label>
+        <textarea class="inputA" id="descriptions" name="descriptions" rows="3" required></textarea>
+    </div>
+                    <button type="submit" class="buttonA">Add Service</button>
+</div>
+
             </div>
+          
         </div>
-        <button type="submit" class="buttonA">Add Service</button>
+        
     </form>
 </div>
 

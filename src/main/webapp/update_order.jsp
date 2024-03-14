@@ -731,10 +731,7 @@
                                         <th class="max18">Notes</th>
                                         <td><textarea  required="" name="notes"><%= orderDetail.getNotes()%></textarea></td>
                                     </tr>
-                                    <tr>
-                                        <th class="max18">Payment</th>
-                                        <td><input  required="" type="text" name="payment" value="<%= orderDetail.getPayment()%>"></td>
-                                    </tr>
+                                 
                                   
                                 </table>
                                    <input type="submit" name="submit" value="Submit">

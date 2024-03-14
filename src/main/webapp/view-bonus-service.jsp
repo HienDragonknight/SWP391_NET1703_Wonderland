@@ -19,6 +19,7 @@
         <title>Party Host</title>
         <link rel="icon" href="image/LogoTron.png"/>
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
@@ -532,9 +533,165 @@
             .max18{
                 width : 18%
             }
+            /* Tạo kiểu cho các nút */
+            .btn {
+                padding: 10px 20px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+            .btn-warning {
+                background-color: #ffc107;
+                color: #212529;
+                border: none;
+            }
+
+            .btn-warning:hover {
+                background-color: #e0a800;
+                color: #212529;
+            }
+
+            .btn-outline-danger {
+                color: #dc3545;
+                border-color: #dc3545;
+            }
+
+            .btn-outline-danger:hover {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+
+            /* Tạo kiểu cho bảng */
+            .table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .table th,
+            .table td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #dee2e6;
+            }
+
+            .table th {
+                background-color: #f8f9fa;
+                color: #6c757d;
+            }
+
+            .table tr:hover {
+                background-color: rgba(0, 0, 0, 0.075);
+            }
+            /* CSS cho các nút */
+            /* CSS cho phần Action */
+            .action-container {
+                display: flex;
+                align-items: center; /* Canh chỉnh các phần tử vào giữa */
+            }
+
+
+
+            /* CSS cho nút khi hover */
+
+            /* CSS cho phần Action */
+            .action-container {
+                display: flex;
+                align-items: center; /* Canh chỉnh các phần tử vào giữa */
+            }
+
+
+            .action-container .btn-update {
+                padding: 10px 20px;
+                color: #ffc107;
+                border: 1px solid #ffc107;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+
+            .action-container .btn-delete {
+                padding: 10px 20px;
+                color: #dc3545;
+                border: 1px solid #dc3545;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+
+            .action-container .btn-create {
+                padding: 10px 20px;
+                color: #28a745;
+                border: 1px solid #28a745;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .action-container .btn-update:hover {
+                background-color: #ffc107;
+                box-shadow: 0px 0px 0px 3px rgba(255, 193, 7, 0.5);
+            }
+
+            .action-container .btn-delete:hover {
+                background-color: #dc3545;
+                box-shadow: 0px 0px 0px 3px rgba(220, 53, 69, 0.5);
+            }
+
+            .action-container .btn-create:hover {
+                background-color: #28a745;
+                box-shadow: 0px 0px 0px 3px rgba(40, 167, 69, 0.5);
+            }
+
+            .magin80{
+                margin-top: 80px;
+            }
+
+            .btnDeltete{
+                padding: 10px 23px;
+                font-size: 17px;
+                margin-left: 20px;
+            }
+
+            .pagination {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .pagination button {
+                padding: 10px 20px;
+                border: 2px solid #4CAF50; /* Màu viền */
+                background-color: #4CAF50; /* Màu nền */
+                color: white; /* Màu chữ */
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .pagination button:hover {
+                background-color: #45a049; /* Màu nền hover */
+                border-color: #45a049; /* Màu viền hover */
+            }
+
         </style>
     </head>
     <body>
+
+
+
         <div class="container">
             <header>
                 <aside class="side-bar">
@@ -618,6 +775,9 @@
                         </ul>
                     </div>
 
+                    <!-- Modal -->
+
+
                     <div class="container mt-3">
                         <!-- Create button -->
 
@@ -650,14 +810,14 @@
                                     <td>$<%= serviceDTO.getServicePrice()%></td>
                                     <td> <%= serviceDTO.getDescriptions()%></td>
                                     <td> <%= serviceDTO.getImage()%></td>
-                                    <td>
-                                        <a href="UpdateBonusService?serviceID=<%=  serviceDTO.getServiceID()%>" class="btn btn-warning btn-sm">Update</a>
+                                    <td class="action-container">
+                                        <a href="UpdateBonusService?serviceID=<%=  serviceDTO.getServiceID()%>" class="btn btn-warning btn-updatebtn-sm">Update</a>
                                         <form action="DeleteBonusServiceSevlet" onsubmit="return confirm('Are you sure you want to delete this Service?');">
                                             <input type="hidden" name="serviceID" value="<%=  serviceDTO.getServiceID()%>">  
-                                            <button type="submit" class="btn btn-outline-danger m-2">Delete</button>
+                                            <button type="submit" class="btn btn-outline-danger .btnDeltete m-2">Delete</button>
                                         </form>
-
                                     </td>
+
                                 </tr>
                                 <%
                                         }
@@ -666,17 +826,97 @@
                                 <!-- ... other service rows ... -->
                             </tbody>
                         </table>
+                        <div class="pagination"></div>
+
+                        <script>
+                            // Đặt biến global cho trang hiện tại và số lượng sản phẩm trên mỗi trang
+                            let thisPage = 1;
+                            let limit = 5; // Đổi số lượng sản phẩm trên mỗi trang tại đây
+
+                            // Hàm loadItem() sẽ hiển thị các dịch vụ tương ứng với trang hiện tại
+                            function loadItem() {
+                            // Tính chỉ số bắt đầu và kết thúc của dịch vụ trên trang này
+                            let beginGet = limit * (thisPage - 1);
+                            let endGet = limit * thisPage - 1;
+                            // Lấy tất cả các dịch vụ từ bảng
+                            let services = document.querySelectorAll('.table tbody tr');
+                            // Duyệt qua tất cả các dịch vụ và ẩn hoặc hiển thị chúng dựa trên trang hiện tại
+                            services.forEach((service, index) => {
+                            if (index >= beginGet && index <= endGet) {
+                            service.style.display = 'table-row';
+                            } else {
+                            service.style.display = 'none';
+                            }
+                            });
+                            // Gọi hàm listPage() để cập nhật thanh phân trang
+                            listPage();
+                            }
+
+                            // Gọi hàm loadItem() để hiển thị dịch vụ ban đầu
+                            loadItem();
+                            // Hàm listPage() sẽ tạo ra các nút phân trang
+                            function listPage() {
+                            // Lấy số lượng dịch vụ từ bảng
+                            let totalServices = document.querySelectorAll('.table tbody tr').length;
+                            // Tính tổng số trang dựa trên số lượng dịch vụ và giới hạn trên mỗi trang
+                            let totalPages = Math.ceil(totalServices / limit);
+                            // Lấy phần tử HTML để chứa thanh phân trang
+                            let pagination = document.querySelector('.pagination');
+                            pagination.innerHTML = ''; // Xóa nội dung cũ
+
+                            // Tạo nút "PREV" nếu trang hiện tại không phải là trang đầu tiên
+                            if (thisPage > 1) {
+                            let prevButton = document.createElement('button');
+                            prevButton.innerText = 'PREV';
+                            prevButton.addEventListener('click', () => {
+                            if (thisPage > 1) {
+                            thisPage--;
+                            loadItem();
+                            }
+                            });
+                            pagination.appendChild(prevButton);
+                            }
+
+                            // Tạo nút cho mỗi trang
+                            for (let i = 1; i <= totalPages; i++) {
+                            let pageButton = document.createElement('button');
+                            pageButton.innerText = i;
+                            pageButton.addEventListener('click', () => {
+                            thisPage = i;
+                            loadItem();
+                            });
+                            pagination.appendChild(pageButton);
+                            }
+
+                            // Tạo nút "NEXT" nếu trang hiện tại không phải là trang cuối cùng
+                            if (thisPage < totalPages) {
+                            let nextButton = document.createElement('button');
+                            nextButton.innerText = 'NEXT';
+                            nextButton.addEventListener('click', () => {
+                            if (thisPage < totalPages) {
+                            thisPage++;
+                            loadItem();
+                            }
+                            });
+                            pagination.appendChild(nextButton);
+                            }
+                            }
+                        </script>
+
                         <form action="./AddBonusServiceServlet">
-                        <button class="btn btn-primary mb-3">Create</button>
+                            <button class="btn btn-primary mb-3 btn-create">Create</button>
                         </form>
 
                     </div>
+ <%session.removeAttribute("alert");%>
 
                     <!-- Bootstrap JS, Popper.js, and jQuery -->
                     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
                     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
             </main>
         </div>
