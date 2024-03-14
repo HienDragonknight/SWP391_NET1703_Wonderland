@@ -501,7 +501,7 @@
     <div class="user-logined">
         <div class="logined">
             <i class='bx bx-user-circle'></i>
-            <a href="customer.jsp">${sessionScope.USER_INFO.fullName}</a>
+            <a href="ViewCustomerOrderServlet?email=${sessionScope.USER_INFO.email}">${sessionScope.USER_INFO.fullName}</a>
         </div>
         <div class="cart-items">
             <i class='bx bx-cart' ></i>
@@ -568,7 +568,7 @@
                 Full Name <input type="text" name="fullname" value="${sessionScope.USER_INFO.fullName}" required><br>
                 Phone Number <input type="text" name="phone" value="${sessionScope.USER_INFO.phoneNumber}" required><br>
                 Password <input type="password" name="password" id="password" value="${sessionScope.USER_INFO.password}" required>
-                <input type="checkbox" id="showPassword" onclick="togglePassword()"></br>                
+                <input type="checkbox" id="showPassword" onclick="togglePassword()"></br></br>                
                 <input type="submit" name="edit" value="Save"/>
                 <%
                     String msg = (String) request.getAttribute("MESSAGE");
@@ -583,7 +583,7 @@
             <div class="orders">
                 <div class="header">
                     <i class='bx bx-receipt'></i>
-                    <h3>Users</h3>
+                    <h3>Orders</h3>
                     <i class='bx bx-filter'></i>
                     <i class='bx bx-search'></i>
                 </div>
@@ -604,7 +604,7 @@
 
                             <tbody>
                                 <%
-                                    List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_ORDER");
+                                    List<OrderDetailDTO> result = (List<OrderDetailDTO>) request.getAttribute("LIST_CUSTOMER_ORDER");
                                     int countOrder = 1;
                                     if (result != null) {
                                         for (OrderDetailDTO order : result) {

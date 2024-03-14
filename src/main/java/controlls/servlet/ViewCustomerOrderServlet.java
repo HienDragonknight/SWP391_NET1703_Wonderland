@@ -40,12 +40,13 @@ public class ViewCustomerOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String email = request.getParameter("email");
         try {
             OrderDetailDAO dao = new OrderDetailDAO();
-            dao.getOrder();
+            dao.getCustomerOrder(email);
             List<OrderDetailDTO> order = dao.getListOrder();
             url = SUCCESS;
-            request.setAttribute("LIST_ORDER", order);
+            request.setAttribute("LIST_CUSTOMER_ORDER", order);
         } catch (SQLException e) {
             log("ViewCustomerOrderServlet _ SQL: " + e.getMessage());
         } catch (ClassNotFoundException e) {
@@ -55,6 +56,7 @@ public class ViewCustomerOrderServlet extends HttpServlet {
             rd.forward(request, response);
         }
     }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
