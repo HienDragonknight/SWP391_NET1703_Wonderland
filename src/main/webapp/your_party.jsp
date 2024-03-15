@@ -735,6 +735,7 @@
 
                                         <%
                                             for (OrderDetailDTO dto : listOrder) {
+                                                String updateYetVar = "updateYet_" + dto.getOrderDetailId();
                                         %>
                                         <tbody class="scrollable">
 
@@ -767,7 +768,7 @@
                                                     <%
                                                         if (status != null && status.equals("going")) {
                                                     %>
-                                                    <input type="submit" name="action" value="Update"  onclick="updateCheckinDateTime()"  class="button-update-order" style="width: 90px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                  
+                                                    <input type="submit" name="action" value="Update"  onclick="return updateCheckinDateTime()"  class="button-update-order" style="width: 90px; cursor: pointer; background-color: #4CAF50; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                  
 
                                                     <input type="submit" name="action" value="Delete" onclick="return deleteOrder()" class="button-update-order" style="width: 90px; cursor: pointer; background-color: red; color: white; border: none; border-radius: 5px; padding: 10px 20px; text-align: center; display: inline-block; font-size: 16px; margin: 4px 2px; transition: all 0.3s ease 0s; box-shadow: 0 0 5px rgba(0,0,0,0.2), 0 1px 10px rgba(0,0,0,0.19); margin: 5%;" />                                                   
                                                     <%
@@ -775,9 +776,37 @@
                                                     %>
                                                 </td>
 
-                                                <td>
+                                        <script>
+                                            // Use closures to create a separate scope for each iteration
+                                           
+                                                var updateYet_<%= dto.getOrderDetailId()%> = false;
 
-                                                </td>   
+                                                function updateCheckinDateTime_<%= dto.getOrderDetailId()%>() {
+                                                    if (!updateYet_<%= dto.getOrderDetailId()%>) {
+                                                        var confirmation = confirm("Are you sure you want to update this order?");
+                                                        if (confirmation) {
+                                                            document.getElementById("main-form").submit();
+                                                        }
+                                                    }
+                                                    updateYet_<%= dto.getOrderDetailId()%> = true;
+                                                    return updateYet_<%= dto.getOrderDetailId()%>;
+                                                }
+
+                                                function deleteOrder_<%= dto.getOrderDetailId()%>() {
+                                                    var hoursDifference = getDifferentDateTime();
+                                                    updateCheckinDateTime_<%= dto.getOrderDetailId()%>();
+                                                    if (hoursDifference >= 48 && !updateYet_<%= dto.getOrderDetailId()%>) {
+                                                        var confirmation = confirm("Are you sure you want to delete this order?");
+                                                        if (confirmation) {
+                                                            document.getElementById("main-form").submit();
+                                                        }
+                                                    } else {
+                                                        alert("Your party is coming up. You cannot cancel.");
+                                                        return false;
+                                                    }
+                                                }
+                                          
+                                        </script>
                                         <input type="hidden"  name="orderDetail-Id" value="<%= dto.getOrderDetailId()%>"> 
                                         <input type="hidden"  name="orderID" value="<%= dto.getOrderId()%>"> 
 
@@ -852,32 +881,32 @@
 
 
 
-            function isCheckinDateValid() {
-                var checkinDate = document.getElementById('checkin-date').value;
-                var year = checkinDate.split("-")[0];
-                var month = checkinDate.split("-")[1];
-                var date = checkinDate.split("-")[2];
-
-                // Ensure leading zero padding for month and date
-                month = month.padStart(2, '0');
-                date = date.padStart(2, '0');
-
-                var time = document.getElementById('checkin-time').value;
-                var hour = time.split(":")[0];
-                var minute = time.split(":")[1];
-
-                var dateTimeCheckin = new Date(year, month - 1, date, hour, minute);
-
-                var currentDateTime = new Date();
-                var threeHoursAhead = new Date(currentDateTime.getTime() + (3 * 60 * 60 * 1000));
-
-                if (dateTimeCheckin < threeHoursAhead) {
-                    alert("Sorry! We cannot set your party order due to early time condition, then try again.");
-                    return false; // Prevent form submission
-                }
-
-                return true;
-            }
+//            function isCheckinDateValid() {
+//                var checkinDate = document.getElementById('checkin-date').value;
+//                var year = checkinDate.split("-")[0];
+//                var month = checkinDate.split("-")[1];
+//                var date = checkinDate.split("-")[2];
+//
+//                // Ensure leading zero padding for month and date
+//                month = month.padStart(2, '0');
+//                date = date.padStart(2, '0');
+//
+//                var time = document.getElementById('checkin-time').value;
+//                var hour = time.split(":")[0];
+//                var minute = time.split(":")[1];
+//
+//                var dateTimeCheckin = new Date(year, month - 1, date, hour, minute);
+//
+//                var currentDateTime = new Date();
+//                var threeHoursAhead = new Date(currentDateTime.getTime() + (3 * 60 * 60 * 1000));
+//
+//                if (dateTimeCheckin < threeHoursAhead) {
+//                    alert("Sorry! We cannot set your party order due to early time condition, then try again.");
+//                    return false; // Prevent form submission
+//                }
+//
+//                return true;
+//            }
 
 
 
@@ -924,26 +953,43 @@
                 return hoursDifference;
             }
 
-            function deleteOrder()
-            {
-                var hoursDifference = getDifferentDateTime();
-                if (hoursDifference >= 48)
-                {
-                    var confirmation = confirm("Are your you want to delete this order ?");
-                    if (confirmation)
-                    {
-                        document.getElementById("main-form").submit();
-                    }
-                } else
-                {
-
-                    alert("Your party is coming up. You cannot cancel");
-                    return  false;
-
-                }
-
-
-            }
+//
+//            var updateYet = false;
+//
+//            function updateCheckinDateTime() {
+//                if (!updateYet) {
+//                    var confirmation = confirm("Are you sure you want to update this order?");
+//                    if (confirmation) {
+//                        document.getElementById("main-form").submit();
+//                    }
+//                }
+//                updateYet = true;
+//                return updateYet;
+//            }
+//
+//
+//
+//            function deleteOrder()
+//            {
+//                var hoursDifference = getDifferentDateTime();
+//                var updateYet = updateCheckinDateTime();
+//                if (hoursDifference >= 48 && !!updateYet)
+//                {
+//                    var confirmation = confirm("Are your you want to delete this order ?");
+//                    if (confirmation)
+//                    {
+//                        document.getElementById("main-form").submit();
+//                    }
+//                } else
+//                {
+//
+//                    alert("Your party is coming up. You cannot cancel");
+//                    return  false;
+//
+//                }
+//
+//
+//            }
 
 
 
